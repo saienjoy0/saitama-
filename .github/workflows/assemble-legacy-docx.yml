@@ -3,7 +3,7 @@ name: Assemble legacy application DOCX
 on:
   push:
     branches:
-      - add-final-legacy-application
+      - main
     paths:
       - '.tmp-upload/READY'
 
@@ -14,10 +14,10 @@ jobs:
   assemble:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out branch
+      - name: Check out main
         uses: actions/checkout@v4
         with:
-          ref: add-final-legacy-application
+          ref: main
           fetch-depth: 0
 
       - name: Reconstruct and validate DOCX
@@ -38,4 +38,4 @@ jobs:
           git add 'archive/original-documents/ｚ世代代表　武田怜雨_GitHub保存版.docx'
           git diff --cached --quiet && exit 0
           git commit -m 'Add Word copy of final Kitakyushu application'
-          git push origin HEAD:add-final-legacy-application
+          git push origin HEAD:main
