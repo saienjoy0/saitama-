@@ -1,7 +1,7 @@
 name: Assemble legacy application DOCX
 
 on:
-  push:
+  pull_request:
     branches:
       - main
     paths:
@@ -14,10 +14,10 @@ jobs:
   assemble:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out main
+      - name: Check out PR branch
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
       - name: Reconstruct and validate DOCX
@@ -29,7 +29,7 @@ jobs:
           test "$(stat -c%s 'archive/original-documents/ｚ世代代表　武田怜雨_GitHub保存版.docx')" -eq 34613
           unzip -t 'archive/original-documents/ｚ世代代表　武田怜雨_GitHub保存版.docx'
 
-      - name: Commit reconstructed DOCX
+      - name: Commit reconstructed DOCX to PR branch
         shell: bash
         run: |
           set -euo pipefail
@@ -38,4 +38,4 @@ jobs:
           git add 'archive/original-documents/ｚ世代代表　武田怜雨_GitHub保存版.docx'
           git diff --cached --quiet && exit 0
           git commit -m 'Add Word copy of final Kitakyushu application'
-          git push origin HEAD:main
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
