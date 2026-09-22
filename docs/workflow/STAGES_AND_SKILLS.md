@@ -1,24 +1,35 @@
-# Codex stage contract
+# 工程ごとの作業・スキル・完了条件
 
-## Stage map
+状態の唯一の機械可読入口は `current/PROJECT_STATE.json`。現状はDESIGN。スキルは作業方法、ハーネスは状態・入力・権限・評価を管理する仕組みであり、導入するだけで安全が保証されるものではない。
 
-| Stage | Codex may do | Required skills | Exit evidence |
+| 段階 | 最初に使うもの | 作業と成果物 | 次へ進む条件 |
 |---|---|---|---|
-| DESIGN | inspect, compare alternatives, write specs, synthetic fixtures | brainstorming; project AI/UI skills; official docs lookup | written spec + open decisions + acceptance tests |
-| PLAN | decompose approved spec into file-level tasks | writing-plans; dispatching parallel agents only when independent | reviewed implementation plan |
-| BUILD | implement one planned slice with tests | test-driven-development; relevant framework skill; supabase/security if applicable | tests and traceability pass |
-| VERIFY | adversarial review, accessibility, privacy, failure paths | verification-before-completion; systematic-debugging when needed | evidence report and human release decision |
-| PILOT | synthetic then consenting families, observe metrics | research/evaluation discipline; no production health inference | pilot report and next hypothesis |
+| DESIGN（現在） | yattemi-codex-workflow、brainstorming、画面ならyattemi-role-based-ui-design | 製品・役割画面・AI契約・データ権限・判断記録・合成評価例 | 対象仕様一式のレビューと明示的承認 |
+| PLAN | writing-plans | 採用技術と版、ファイル別タスク、要件→テスト対応、実行コマンド、切戻し | 計画と実行方法を確認。仕様承認を再要求しない |
+| BUILD | test-driven-development、選択した技術に該当するスキル | 一つの家族体験を端から端まで実装。テストが必要な権限・状態遷移を先に扱う | 受入条件を実行し証拠を保存 |
+| VERIFY | verification-before-completion、故障時systematic-debugging | 三役E2E、家庭間分離、共有撤回、AI障害、実機表示の結果 | 重大失敗0、未達の開示、試用範囲の承認 |
+| PILOT | yattemi-codex-workflow、実証設計書 | まず合成、次に同意した家庭。親の工数と本人の判断を計測 | 継続・停止・修正を実測で決める |
 
-## Current gate
+全工程でworkflowを読み、画面変更時はUIスキルを追加する。BUILDの技術スキル候補はReact→react-best-practices、Next.js採用時のみnextjs、Vercel AI SDK採用時のみai-sdk、Supabase採用時のみsupabase。現状の製品書はReact/TypeScript＋FastAPI系が候補であり、Next.js/Supabase/Vercelへの変更はまだ決定していない。
 
-The repository is in DESIGN. “Implement” is a future instruction, not current authorization to skip the gates. The next Codex session should read current/PROJECT_STATE.json first, then the three design documents.
+## 先に準備するもの
 
-## Skill loading policy
+- プロジェクト固有2スキルは `.agents/skills/` に完全な本文を同梱する。ChatGPT内の個人スキルにも保存するが、別Codex環境に同じプラグインがあるとは仮定しない。
+- 汎用・技術スキルは `current/SKILLS.json` に提供元・パッケージ・発火条件を登録。このセッションで利用可能なものと、別環境で確認が必要なものを区別する。
+- 新環境では一覧を確認し、対象工程の必要本文を読み込む。欠落している必須スキルは同じ公式提供元から導入できる場合に導入する。機能不明の自称スキルを代用品にしない。インストール権限・提供元がない場合は、その作業だけ不足として記録する。
+- FastAPI等に専用スキルがないことを、存在しないスキル名で隠さない。採用後は公式ドキュメントと実行テストで補う。固定バージョンを推測で書かない。
 
-Required project skill: yattemi-role-based-ui-design for any screen or navigation decision. Existing general skills are selected by stage, not loaded all at once. Do not add a skill merely to decorate the repository; every skill must have a trigger, output, and validation check.
+## 開発ハーネスの一巡
 
-## Definition of ready for implementation
+1. 状態、差分、未完了タスク、依存を確認。
+2. 当該スキルと対象仕様を読む。
+3. 作業範囲を短く記録し、許可された成果物を作る。
+4. 記載済みの検査を実行。失敗時は原因と影響を記録。
+5. 検査の種類（文書／合成／製品／実利用）を区別して報告。
+6. `TASKS.json` の成果物と証拠、`PROJECT_STATE.json` の次作業、HANDOFFを同じ変更で更新。
 
-The human has reviewed and approved the written product, AI harness, UI system, data/consent model, and acceptance tests; spec_status is approved; a writing-plans artifact exists and is reviewed; implementation_allowed is true. Until then Codex can improve documents and synthetic tests only.
+AGENTS/JSONはCodexへの制御契約であり、強制的なアクセス制御ではない。PLANでCIの変更範囲チェック、実行権限、ブランチ保護を具体化する。現在は文書チェッカーだけを用意している。
 
+## 承認の扱い
+
+承認対象は `active_specs` 一式。承認者・発言・対象版をapproval記録へ残す。現在は設計整備の依頼だけを受けているので、written_spec/implementation_planはfalseのまま。ユーザーから対象設計の承認があればPLANを進める。「実装開始」の依頼が来て前提が不足する場合は、既存資料を整えたうえで不足を具体的に示す。儀式的に同じ質問を繰り返さない。

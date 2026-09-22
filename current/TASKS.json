@@ -1,0 +1,104 @@
+{
+  "selection_rule": "Use state.next_task_id; dependencies must be done. Approval tasks finish only with explicit evidence. Never auto-unblock other stages.",
+  "tasks": [
+    {
+      "id": "D10",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [],
+      "title": "Codexの段階・スキル・次作業の入口を整える",
+      "artifacts": [
+        "AGENTS.md",
+        "docs/workflow/STAGES_AND_SKILLS.md",
+        "current/SKILLS.json"
+      ],
+      "evidence": "Repository skill bodies repaired; checker and remote readback recorded in verification report"
+    },
+    {
+      "id": "D20",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D10"
+      ],
+      "title": "AI契約・失敗時・運用・評価の設計を書く",
+      "artifacts": [
+        "docs/design/ai-harness-design-v0.2.md",
+        "contracts/ai-draft.schema.json",
+        "evals/ai-cases.jsonl"
+      ],
+      "evidence": "Written proposal and 24 synthetic specifications; runtime and model evaluation not performed"
+    },
+    {
+      "id": "D30",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D10"
+      ],
+      "title": "三役の共通仕様と初回一周を定義する",
+      "artifacts": [
+        "docs/design/ui-system-and-role-screens-v0.1.md",
+        "docs/design/DECISIONS.md"
+      ],
+      "evidence": "Written defaults and state/consent examples; usability not measured"
+    },
+    {
+      "id": "D90",
+      "stage": "DESIGN",
+      "status": "awaiting_user_review",
+      "depends_on": [
+        "D20",
+        "D30"
+      ],
+      "title": "設計一式をレビューし対象版の承認を記録する",
+      "artifacts": [
+        "docs/design/product-design-v0.1.md",
+        "docs/design/ai-harness-design-v0.2.md",
+        "docs/design/ui-system-and-role-screens-v0.1.md",
+        "docs/design/DECISIONS.md"
+      ],
+      "completion": "User explicitly approves reviewed specification bundle; record actual statement and hashes in state, then set PLAN"
+    },
+    {
+      "id": "P10",
+      "stage": "PLAN",
+      "status": "blocked",
+      "depends_on": [
+        "D90"
+      ],
+      "title": "技術選択・ファイル別実装計画・実行方法を確定する",
+      "completion": "writing-plans artifact, skill availability, commands and acceptance mapping reviewed"
+    },
+    {
+      "id": "B10",
+      "stage": "BUILD",
+      "status": "blocked",
+      "depends_on": [
+        "P10"
+      ],
+      "title": "承認済み計画の最初の固定教材の一周を実装する",
+      "completion": "Refer to future approved plan; no scaffold or product implementation exists in this change"
+    },
+    {
+      "id": "V10",
+      "stage": "VERIFY",
+      "status": "blocked",
+      "depends_on": [
+        "B10"
+      ],
+      "title": "役割・家庭間分離・撤回・障害を実行検証する",
+      "completion": "Actual test evidence and remaining gaps; document checks do not qualify"
+    },
+    {
+      "id": "R10",
+      "stage": "PILOT",
+      "status": "blocked",
+      "depends_on": [
+        "V10"
+      ],
+      "title": "同意・運用体制を確認して家庭試用を実施する",
+      "completion": "Observed outcomes and workload; provider gate additionally required for any live AI"
+    }
+  ]
+}

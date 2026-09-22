@@ -1,22 +1,27 @@
-# Codex project instructions
+# Codexへの作業指示
 
-## Source of truth
+## 開始時に読む順番
+1. `current/PROJECT_STATE.json` — 現在段階・有効仕様・次タスク。
+2. `docs/CODEX_HANDOFF.md` — 引き継ぎの要点。
+3. `current/TASKS.json` — 依存関係と完了証拠。
+4. `docs/workflow/STAGES_AND_SKILLS.md` と `current/SKILLS.json` — 当該工程のスキル。
+5. 状態ファイルに列挙した有効設計書、必要な `current/PROJECT_RULES_GAKUSTA.md`。
 
-Read in this order before acting: AGENTS.md, current/PROJECT_STATE.json, current/PROJECT_RULES_GAKUSTA.md, then the current design documents. Treat legacy/, research/, and source_materials/ as evidence or hypotheses, not automatic requirements.
+`python3 scripts/check_design_handoff.py` を実行する。これは文書整合の検査であり、製品の安全性やスキルの実行環境を保証しない。
+開始時に「段階・タスクID・成果物・完了条件」を短く示す。依存が満たされた最初の未完了タスクを進め、毎回ユーザーに次作業を選ばせない。終了時は状態・タスク・引き継ぎを合わせて更新する。
 
-## Stage gate
+## 現在はDESIGN
+設計、調査、合成データ、開発文書のチェックとスキル整備は可。製品UI/API/DB移行/ライブAI呼び出し/実家庭データの処理は未承認。文書を書いたことを製品実装済み・検証済みとしない。
+書面仕様の承認後にPLAN、実装計画と実行方法の確認後にBUILDへ進む。承認は対象の版とユーザー発言を記録し、既に得た承認を繰り返し求めない。上位指示・最新の明示的なユーザー指示を優先し、沈黙を承認にしない。
 
-The machine-readable stage is current/PROJECT_STATE.json. At DESIGN, Codex may inspect, research, revise design, create synthetic fixtures, and run documentation checks. It must not create product UI, APIs, database migrations, real-user integrations, payment, or health inference. A user saying “start implementation” changes intent but does not skip the written-spec approval and implementation-plan gate in docs/workflow/STAGES_AND_SKILLS.md.
+## スキル
+全工程で `.agents/skills/yattemi-codex-workflow/SKILL.md` を読む。画面・導線は `.agents/skills/yattemi-role-based-ui-design/SKILL.md`。工程別の外部スキルは `current/SKILLS.json` の登録に従って所在・本文を確認する。名前だけある状態や読込エラーのテキストを導入済みとしない。
+自動検出されない環境でも上記ファイルを直接読む。必要なスキルがなければ不足を記録し、独立した設計作業は継続する。第三者プラグインの本文を勝手に改変しない。サブエージェントはユーザーまたは適用される指示の許可がある場合のみ。
 
-## Product boundary
+## 製品の境界
+ogenkiは機能・体験の参考。写真・新聞・任意の返信・本人発信の元気ボタンを取り入れる。コード統合・旧DB移行・健康推定を暗黙に開始しない。
+子ども・親・祖父母は共通の意味・色・用語を持ち、目的と情報量は分ける。祖父母の未返信は正常な状態。
+AIは下書き専用。モデルに公開・通知・報酬・権限の変更手段を渡さない。親が承認した内容版と宛先を公開時に再検証する。子どもの意思、保護者の承認、AI処理同意を分ける。
 
-Yattemi Quest is a three-generation household learning and communication product. Ogenki is a reference implementation: adopt selected functions (photo/newspaper delivery, optional reactions/questions, user-entered “元気だよ” status), but do not merge its code or assume its authentication, tenancy, or health-status logic is production-safe.
-
-## Skills by stage
-
-Use the project skill yattemi-role-based-ui-design for role-specific screen work. Use the existing brainstorming and writing-plans skills for design-to-plan handoff, then implementation, testing, security, and verification skills only after the state gate permits them. If a required skill is unavailable, stop and record the gap instead of silently substituting implementation.
-
-## Safety
-
-AI drafts are suggestions. No AI output may publish to a family, change a reward, infer health, expose household finance, or send a notification without an explicit human action and an audit record. Never use inactivity as a health conclusion.
-
+## 資料の優先関係
+最新のユーザー方針 > 状態ファイルが指すレビュー用設計（承認済みとは限らない） > 旧資料の根拠・仮説。旧資料の「唯一の正本」「自動評価」は現在の承認や実装要件を意味しない。AIの詳細はv0.2を優先し、v0.1は履歴。矛盾は `docs/design/DECISIONS.md` に記録する。

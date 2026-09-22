@@ -1,10 +1,33 @@
-# Codex handoff
+# 次のCodexへの引き継ぎ
 
-Current stage: DESIGN.
+**現在：DESIGN。次：D90（既存設計一式のレビュー）。アプリ実装は未開始。**
 
-The next Codex must first read AGENTS.md, current/PROJECT_STATE.json, current/PROJECT_RULES_GAKUSTA.md, docs/workflow/STAGES_AND_SKILLS.md, and the three design documents under docs/design/. The next useful action is a design review and decision log update. Do not start app implementation yet.
+AGENTS→PROJECT_STATE→TASKS→工程表→当該スキル→active_specsの順に読む。`python3 scripts/check_design_handoff.py` を実行する。スキル名だけでなく本文まで存在するか確認する。
 
-When the human approves the written spec, update the state only with that approval, invoke writing-plans, and create a file-level implementation plan. Only after that plan is reviewed may the user say “implementation start” to enter BUILD.
+## 今回そろえたもの
 
-Product boundary: Yattemi Quest uses Ogenki capabilities as references/features, not code integration. Child, parent, and grandparent screens are intentionally different inside one shared UI system. AI is bounded drafting with explicit human gates; fixed curriculum must work without AI.
+- 段階・依存タスク・完了証拠のJSON、開始と終了の規則。
+- 完全なプロジェクトスキル2件。以前のUIスキルに保存されていた読込エラーを修復。
+- 三役の共通ルール、役割別画面、初回の一周、空・失敗・辞退・未返信の扱い。
+- AI v0.2：限定下書き、入力・権限、親確認、版と宛先、失敗・原価・ログ・停止・評価。
+- モデル出力のJSON schemaと例、24件の合成評価仕様。
 
+## 再開時に行うこと
+
+1. ユーザーの最新指示と、仕様に対して既に与えられた承認を確認。
+2. D90の対象仕様を読んで必要な修正を行う。既存仕様を一から作り直さない。水道一周／小4〜6／Web／固定版＋親確認AIがレビュー対象の提案。
+3. 仕様承認がまだなければ対象版を示す。承認があれば記録しPLANへ、writing-plansで技術選択とファイル別計画を作る。
+4. その計画の承認・実行方法がそろったらBUILDへ。最初にAIなしの体験・共有・返信を作り、AIは別フラグで後から評価する。
+
+「次は何をするか」をユーザーに一から聞かない。ただし、本書を読んだだけで未承認の設計・計画を承認済みに変えない。
+
+## 間違えやすい点
+
+- ogenkiは参考機能の採用。コード統合や旧DB移行の依頼ではない。
+- 家族新聞の楽しさと金融判断への効果は別の未検証仮説。
+- 祖父母の返信なしは正常。未操作から健康や気持ちを推測しない。
+- AIは候補・下書き。公開、報酬、同意、能力判定を確定しない。
+- ライブ児童データのAI処理は提供元条件が確認できるまでOFF。
+- 文書検査成功 ≠ 製品テスト成功 ≠ AI評価成功 ≠ 実証成功。
+
+検証記録：`docs/workflow/VERIFICATION.md`。実装計画はまだ作っていない。

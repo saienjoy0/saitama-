@@ -1,3 +1,5 @@
+> 履歴文書。現行のAI詳細は `ai-harness-design-v0.2.md` を参照。この文書の未決事項・直接提示案を現行仕様として実装しない。
+
 # AI harness design v0.1
 
 Status: DESIGN / proposal, not runtime code.
@@ -48,4 +50,5 @@ Set per-family daily token/request budgets, queue slow jobs, cache deterministic
 ## Open decisions
 
 Provider/region and retention terms; exact age-band policy; parent review UX; pilot red-team owner; deletion SLA; acceptable cost per family-week. These are design decisions, not reasons to implement early.
+
 

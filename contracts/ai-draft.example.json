@@ -1,0 +1,24 @@
+{
+  "schema_version": "0.2",
+  "job_type": "newspaper_draft",
+  "items": [
+    {
+      "kind": "headline",
+      "text": "水の量を比べてみた",
+      "source_refs": [
+        "s1"
+      ],
+      "template_id": null
+    },
+    {
+      "kind": "caption",
+      "text": "同じコップで水の量を比べ、予想と結果を記録しました。",
+      "source_refs": [
+        "s1"
+      ],
+      "template_id": null
+    }
+  ],
+  "reason": "記録した体験を短い記事にまとめるためです。",
+  "uncertainties": []
+}

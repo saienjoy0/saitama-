@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-09-22",
+  "note": "Package aliases are session-specific locators, not portable install commands. Resolve the named provider/plugin in another environment. Project skill files remain readable directly.",
+  "skills": [
+    {
+      "name": "yattemi-codex-workflow",
+      "source": "project-owned",
+      "repo_path": ".agents/skills/yattemi-codex-workflow/SKILL.md",
+      "sha256": "e1c179b86a43d65a75cd8e50e2f15529ca1cabc5e92c5dfe5870b6fbab8d8aa7",
+      "stages": [
+        "DESIGN",
+        "PLAN",
+        "BUILD",
+        "VERIFY",
+        "PILOT"
+      ],
+      "trigger": "Every session and AI harness work",
+      "availability": "complete_body_bundled",
+      "required": true
+    },
+    {
+      "name": "yattemi-role-based-ui-design",
+      "source": "project-owned",
+      "repo_path": ".agents/skills/yattemi-role-based-ui-design/SKILL.md",
+      "sha256": "fa51fd7c95540ba68d12ffb9683871cfebc910e6a24918fc29a4282b8655dfaa",
+      "stages": [
+        "DESIGN",
+        "PLAN",
+        "BUILD",
+        "VERIFY",
+        "PILOT"
+      ],
+      "trigger": "Role screens, navigation, UI review",
+      "availability": "complete_body_bundled",
+      "required": true
+    },
+    {
+      "name": "superpowers:brainstorming",
+      "source": "installed_plugin_catalog",
+      "package_this_session": "e16/skills/brainstorming",
+      "stages": [
+        "DESIGN"
+      ],
+      "trigger": "New or changed product design",
+      "availability": "available_in_current_session_catalog; recheck_in_target_codex",
+      "required_when_triggered": true
+    },
+    {
+      "name": "superpowers:writing-plans",
+      "source": "installed_plugin_catalog",
+      "package_this_session": "e16/skills/writing-plans",
+      "stages": [
+        "PLAN"
+      ],
+      "trigger": "Approved written specification",
+      "availability": "available_in_current_session_catalog; recheck_in_target_codex",
+      "required_when_triggered": true
+    },
+    {
+      "name": "superpowers:test-driven-development",
+      "source": "installed_plugin_catalog",
+      "package_this_session": "e16/skills/test-driven-development",
+      "stages": [
+        "BUILD"
+      ],
+      "trigger": "Product behavior and security-sensitive state transitions",
+      "availability": "available_in_current_session_catalog; recheck_in_target_codex",
+      "required_when_triggered": true
+    },
+    {
+      "name": "superpowers:systematic-debugging",
+      "source": "installed_plugin_catalog",
+      "package_this_session": "e16/skills/systematic-debugging",
+      "stages": [
+        "BUILD",
+        "VERIFY"
+      ],
+      "trigger": "Concrete failure",
+      "availability": "available_in_current_session_catalog; recheck_in_target_codex",
+      "required_when_triggered": true
+    },
+    {
+      "name": "superpowers:verification-before-completion",
+      "source": "installed_plugin_catalog",
+      "package_this_session": "e16/skills/verification-before-completion",
+      "stages": [
+        "BUILD",
+        "VERIFY"
+      ],
+      "trigger": "Before claiming implementation completion",
+      "availability": "available_in_current_session_catalog; recheck_in_target_codex",
+      "required_when_triggered": true
+    },
+    {
+      "name": "vercel:react-best-practices",
+      "source": "installed_plugin_catalog",
+      "package_this_session": "e18/skills/react-best-practices",
+      "stages": [
+        "BUILD",
+        "VERIFY"
+      ],
+      "trigger": "If React is chosen",
+      "availability": "available_in_current_session_catalog; recheck_in_target_codex",
+      "required_when_triggered": true
+    },
+    {
+      "name": "vercel:nextjs",
+      "source": "installed_plugin_catalog",
+      "package_this_session": "e18/skills/nextjs",
+      "stages": [
+        "PLAN",
+        "BUILD"
+      ],
+      "trigger": "Only if Next.js is selected",
+      "availability": "available_in_current_session_catalog; recheck_in_target_codex",
+      "required_when_triggered": true
+    },
+    {
+      "name": "vercel:ai-sdk",
+      "source": "installed_plugin_catalog",
+      "package_this_session": "e18/skills/ai-sdk",
+      "stages": [
+        "PLAN",
+        "BUILD"
+      ],
+      "trigger": "Only if Vercel AI SDK is selected",
+      "availability": "available_in_current_session_catalog; recheck_in_target_codex",
+      "required_when_triggered": true
+    },
+    {
+      "name": "supabase:supabase",
+      "source": "installed_plugin_catalog",
+      "package_this_session": "e15/skills/supabase",
+      "stages": [
+        "PLAN",
+        "BUILD",
+        "VERIFY"
+      ],
+      "trigger": "Only if Supabase is selected",
+      "availability": "available_in_current_session_catalog; recheck_in_target_codex",
+      "required_when_triggered": true
+    }
+  ]
+}

@@ -2,6 +2,12 @@
 
 GAKU∞STA 2026応募と、その後の事業化検証のための資料リポジトリです。
 
+## Codexの入口
+
+現在は **DESIGN**。最初に [AGENTS.md](AGENTS.md) と [引き継ぎ](docs/CODEX_HANDOFF.md) を読む。状態は [PROJECT_STATE.json](current/PROJECT_STATE.json)、次作業は [TASKS.json](current/TASKS.json)、段階ごとのスキルは [工程表](docs/workflow/STAGES_AND_SKILLS.md)。AI設計は [v0.2](docs/design/ai-harness-design-v0.2.md)。
+
+チェック：`python3 scripts/check_design_handoff.py`。製品やAIの動作試験ではなく、引き継ぎ文書の検査。
+
 ## 現在の方針
 北九州市向けに検討していた「キタキュークエスト」のうち、地域固有要素ではなく、家族向けサービスとしての核・原体験・競合仮説・実証設計を再利用し、GAKU∞STA向けに再構成します。
 

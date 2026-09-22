@@ -1,0 +1,4 @@
+interface:
+  display_name: "Yattemi Codex Workflow"
+  short_description: "Route Yattemi work by stage, evidence, and AI boundaries"
+  default_prompt: "Use $yattemi-codex-workflow to resume the next permitted task in this repository."

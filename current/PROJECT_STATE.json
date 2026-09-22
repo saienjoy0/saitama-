@@ -1,17 +1,60 @@
 {
   "project": "yattemi-quest",
   "stage": "DESIGN",
-  "stage_version": 1,
-  "updated_at": "2026-09-23",
-  "spec_status": "draft-needs-user-review",
+  "stage_version": 2,
+  "updated_at": "2026-09-22T20:47:20.129279+00:00",
+  "spec_status": "draft-ready-for-review",
   "implementation_plan_status": "not-started",
   "implementation_allowed": false,
-  "allowed_now": ["read_repo", "research", "revise_design", "create_synthetic_fixtures", "document_checks"],
-  "blocked_now": ["product_code", "ui_implementation", "api", "database", "payments", "real_family_data", "ogenki_production_integration", "health_inference"],
-  "next_codex_action": "Review docs/design/product-design-v0.1.md, docs/design/ai-harness-design-v0.1.md, docs/design/ui-system-and-role-screens-v0.1.md; resolve open decisions; ask for written approval; then invoke writing-plans.",
-  "approval": {"design_chat": true, "written_spec": false, "implementation_plan": false},
+  "allowed_now": [
+    "read_repo",
+    "research",
+    "revise_design",
+    "create_synthetic_fixtures",
+    "document_checks",
+    "prepare_development_skills"
+  ],
+  "blocked_now": [
+    "product_code",
+    "ui_implementation",
+    "api",
+    "database",
+    "payments",
+    "real_family_data",
+    "live_model_calls",
+    "health_inference"
+  ],
+  "active_specs": [
+    "docs/design/product-design-v0.1.md",
+    "docs/design/ai-harness-design-v0.2.md",
+    "docs/design/ui-system-and-role-screens-v0.1.md",
+    "docs/design/DECISIONS.md"
+  ],
+  "next_task_id": "D90",
+  "next_codex_action": "Read the handoff and present/revise the existing design package for review. On explicit written-spec approval, record the approval and enter PLAN using writing-plans; do not ask what to do next.",
+  "approval": {
+    "design_chat": true,
+    "written_spec": false,
+    "implementation_plan": false,
+    "evidence": []
+  },
   "decision_owner": "human",
-  "transition_rule": "Only the human may approve a transition. Do not infer approval from silence or from a request to implement.",
-  "required_evidence_before_implementation": ["product design reviewed", "AI harness and privacy boundaries reviewed", "role-based UI system reviewed", "MVP acceptance tests agreed", "writing-plans implementation plan reviewed"]
+  "transition_rule": "Record explicit approval of the presented artifact and scope. Preserve existing authorization; never infer approval from silence or document creation.",
+  "required_evidence_before_implementation": [
+    "approved active_specs with version evidence",
+    "file-level implementation plan",
+    "plan review and execution method recorded"
+  ],
+  "ai": {
+    "mode": "fixed_content_default",
+    "live_family_data_enabled": false,
+    "provider": "undecided",
+    "first_evaluation_job": "newspaper_draft"
+  },
+  "verification": {
+    "document_check": "passed; see docs/workflow/VERIFICATION.md",
+    "product_tests": "not_run",
+    "model_evals": "not_run",
+    "family_pilot": "not_started"
+  }
 }
-

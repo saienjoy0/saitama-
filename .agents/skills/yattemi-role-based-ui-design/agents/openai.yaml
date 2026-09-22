@@ -1,0 +1,14 @@
+interface:
+  display_name: Yattemi Role-Based UI Design
+  short_description: Design consistent multi-role family product screens
+  default_prompt: Use when designing Yattemi Quest screens for children, parents,
+    or grandparents.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
