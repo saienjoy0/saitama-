@@ -1,8 +1,8 @@
 {
-  "task_id": "DEMO01",
+  "task_id": "DEMO02",
   "scope": "independent_synthetic_presentation",
   "base_commit": "aa4a4686ca302ef1ef14e139722b1802481ffae7",
-  "implementation": "implemented",
+  "implementation": "v1 implemented; v2 planning only",
   "production_stage": "DESIGN/D90 unchanged",
   "verification": {
     "build_and_typecheck": "passed",
@@ -14,6 +14,9 @@
     "screenshots": "not captured",
     "presentation_duration": "100-second script prepared; not measured"
   },
-  "next_task": "Browser-enabled Codex: run prepared E2E, inspect screenshots, fix layout, rehearse, update verification",
-  "handoff": "CODEX_CONTINUE.md"
+  "next_task": "Review PREVIEW_V2_PLAN.md; do not resume implementation from the old browser-only handoff",
+  "handoff": "CODEX_CONTINUE.md",
+  "v2_plan": "PREVIEW_V2_PLAN.md",
+  "v2_plan_status": "proposed_for_review",
+  "v2_implementation_allowed": false
 }
