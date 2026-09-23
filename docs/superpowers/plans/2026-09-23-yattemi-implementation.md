@@ -1,14 +1,54 @@
-# Yattemi Quest Implementation Plan v0.3
+# Yattemi Quest Implementation Plan v0.4
+
+## v0.4 差分（該当するv0.3の手順より優先）
+
+必読：`docs/design/personas-cycle-review-v0.4.md` と `docs/design/ai-action-assistance-v0.4.md`。目的は子の判断・発見を面白くし、家族返信を次の体験へ戻すこと。初期AI評価は新聞よりnext_action_matchを優先。固定版が比較対象かつ通常の動作であり、AI候補の文章は監修済み文だけ。
+
+### B10へ追加：探索と比較の画面
+
+Create `apps/web/src/design/components/ChoiceGroup.tsx`, `ArtifactStatus.tsx`, `SourceLabel.tsx`, `SuggestionPanel.tsx`, `apps/web/src/features/experience/ExploreHome.tsx`, `CompareChoices.tsx`, `compare.ts`, `compare.test.ts`, `apps/web/src/design/components/role-variants.test.tsx`。
+
+- [ ] C01を水／店／家の仕事の探索と「これ、なんで？」の入口にする。C02は予想を先に残し、比較軸と候補を自分で変えられる。選択入力と主ボタンを分け、何も選ばない／今回は買わない／後でを残す。
+- [ ] `remainingYen(budget:number, price:number):number`と`yenPer100ml(price:number, ml:number):number`のテストを先に書く。300-180=120、300-260=40、180/200*100=90、260/400*100=65、ml<=0は拒否。例の価格は合成と表示する。計算関数は候補を勝手に選ばない。
+- [ ] `npm test -- compare.test.ts role-variants.test.tsx`を実行し未実装を確認。共通トークン→role variant→部品に分けて実装し再実行。ChoiceGroupはキーボードとタップで同じ選択が可能、ドラッグだけに依存しない。
+- [ ] UX41/UX45の表示と操作をPlaywrightで検査。ヒントは閉じた状態から任意に使え、減らしても呼び戻せる。発見の記録以外で保存成功演出を使わない。実利用者の楽しさはこのテストから断定しない。
+
+### B20/B30へ追加：本人の問いと家族循環
+
+Create `apps/web/src/features/experience/QuestionCapture.tsx`, `apps/web/src/features/family/ReplyToSeed.tsx`, `apps/web/src/features/experience/FixedNextActions.tsx`, `apps/api/app/modules/experience/questions.py`, `question_routes.py`, `apps/api/tests/test_question_cycle.py`。Extend QuestPort with `saveQuestion`, `createSeed`, `listEligibleActions`; HTTP endpoints `POST /questions`, `GET /questions/{id}/actions`。D0はmemory adapter、M1は同一契約のサーバー認可。
+
+Questionはid, family_id, child_id, revision, original_text, focus_id, source_reply_ref|null, status。Seedはsource_question_id, source_reply_revision|null, child_selected_action_id|null, resulting_experience_id|null。送信用projectionとparent_reviewed_projection_revisionを原文から分離する。子の焦点変更・元返信撤回で派生候補を失効させる。
+
+- [ ] 初回でexperienceなしの問いを作り、固定候補を選んで体験を開始するテストを先に書く。
+- [ ] 返信→本人の焦点→たね→次の体験記録を追跡するE2Eを追加。「読んだ」「候補を選んだ」だけでは家族循環成立イベントを発行しない。
+- [ ] 子が共有しなければ祖父母へ採用結果を表示しない。本人が新しいカードを共有した時だけ既存の親確認で届く。祖父母不参加／返信なしでも体験単体を完了できる。
+- [ ] 新聞は任意の表示・まとめ方とし、家族が毎回編集して発行することを一周の必要条件にしない。
+- [ ] `uv run pytest tests/test_question_cycle.py -q`とD0/M1家族循環E2Eを各工程で実行する。実装前は未実装による失敗、実装後に実経路での成功を記録する。
+
+### B60へ追加：限定された次の行動補助とAPI接続
+
+Create `apps/api/app/modules/ai/next_actions.py`, `next_action_routes.py`, `apps/api/app/ports/action_matcher.py`, `apps/api/app/adapters/fake_action_matcher.py`, `openai_action_matcher.py`, `apps/api/tests/test_next_actions.py`, `test_action_adapter.py`, `scripts/eval_next_actions.py`。Extend `apps/web/src/ports/QuestPort.ts`, memory/http adapters and SuggestionPanel。Read contracts/next-action-match.schema.json and next-action-match.prompt.md。
+
+Interfaces: `ActionMatcher.match(projected:MatchInput)->UntrustedMatch`、`eligible_actions(actor,question)->list[CuratedAction]`、`validate_match(raw,allowed_ids)->list[str]`。APIはAI v0.4の`/assist/next-actions`と`/{suggestion_id}/choose`。suggestionはquestion/projection/consent/教材の版と15分expiryを持ち、表示・選択直前に再認可する。
+
+- [ ] fake adapterで合成16ケースのapplication行を実service経由でテスト。model行はfake出力のPASSにしない。候補外、重複、no_match不整合、個人情報未確認、同意撤回、別家庭、期限切れ、廃止教材を拒否する。
+- [ ] 同じ返信でも本人のfocus_idが異なれば入力投影と候補が異なることを確認。候補ゼロ・固定だけで足りる場合はモデル呼出しゼロ。親の送信投影確認待ちでも固定候補は操作可能。
+- [ ] 先に`uv run pytest tests/test_next_actions.py tests/test_action_adapter.py -q`で失敗を確認。OpenAI adapterのHTTP mockでpayloadのmodel、strict schema、store=false、toolsなし、streamなし、秘密鍵が応答／ログにないことを検査。SDKの自動再試行を抑え、総2試行／10秒を超えない。
+- [ ] 環境設定は`AI_ENABLED=false`, `AI_PROVIDER=openai`, `AI_MODEL`, `OPENAI_API_KEY`, `AI_INPUT_PRICE_PER_M`, `AI_OUTPUT_PRICE_PER_M`, `AI_TOTAL_BUDGET_JPY`, `AI_LIVE_CHILD_DATA_ENABLED=false`。秘密値をコミットしない。価格／モデル／提供元条件がない時は固定版。キーや外部契約の未取得をD0の未完成理由にしない。
+- [ ] 適切な認証と料金条件が利用可能な時だけ、明示した合成データ用runnerを`uv run python ../../scripts/eval_next_actions.py --dataset ../../evals/next-action-cases.jsonl --repeats 3 --data-kind synthetic`で実行。既存24件も該当jobの評価を維持。実データは別gate。runnerはfixture全行のdata_kind確認後にのみ外部接続する。
+- [ ] 比較表に適切な候補／no_match、本人の主導権、親工数、p95待ち時間、費用を残す。AI41の改善を示せなければOFF維持。新聞の下書きは別機能として後から評価する。
+
+B70にUX41〜45／AI41の証拠欄を追加。利用者評価未実施と、DOM／E2E合格を区別する。本追補もユーザーの一括レビュー対象であり、この文書を追加したことは実装承認ではない。
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Native/sequential execution is the proposed default for this handoff. Use superpowers:subagent-driven-development only if the user selects delegation. Steps use checkbox syntax.
 
-**Goal:** 子の選択・体験・記録→親の確認→祖父母の新聞・任意返信がつながるWeb製品を、合成D0から安全なM1へ実装する。
+**Goal:** 子の問い・選択・体験・記録→任意共有と親確認→家族の任意返信→本人が選ぶ次の体験がつながるWeb製品を、合成D0から安全なM1へ実装する。新聞は任意のまとめ方。
 
 **Architecture:** React/TypeScriptの役割別画面は共通のdomain型とportに依存する。D0はメモリadapter、M1は認証済みFastAPI adapterに切り替える。教材、見た目、AI、保存先を分離し、認可と共有の意味は共通に保つ。
 
 **Tech Stack:** Node22.12以上の22系または24系、React19、Vite8、TypeScript5、Vitest、Testing Library、Playwright、Python3.12、FastAPI、SQLAlchemy2、Alembic、PostgreSQL16。CSSの動きを第一選択にする。
 
-**Spec:** `docs/design/FEATURE_REVIEW.md`, `role-experience-v0.3.md`, `extensibility-v0.3.md`, `ai-harness-design-v0.2.md`（すべてdocs/design内）。製品の基礎はproduct-design-v0.1.md。詳細が違う場合は上記v0.3の最新範囲を優先。
+**Spec:** `docs/design/FEATURE_REVIEW.md`, `role-experience-v0.3.md`, `extensibility-v0.3.md`, `ai-harness-design-v0.2.md`（すべてdocs/design内）。製品の基礎はproduct-design-v0.1.md。詳細が違う場合は本計画冒頭のv0.4追補とpersonas-cycle-review-v0.4／ai-action-assistance-v0.4を優先する。
 
 ## Global Constraints
 

@@ -62,6 +62,8 @@ def check(root=ROOT):
         require(f"name: {skill['name']}\n" in content, "Skill name mismatch")
         require("description: " in content and len(content) > 500, "Incomplete skill")
         require(hashlib.sha256(content.encode()).hexdigest() == skill["sha256"], "Skill hash differs from registry")
+        for path, expected_hash in skill.get("reference_files", {}).items():
+            require(hashlib.sha256(read(path).encode()).hexdigest() == expected_hash, f"Skill reference hash differs: {path}")
         require(not any(x in content for x in ("sed: can't read", "[TODO", "No such file or directory")), "Skill contains placeholder or read error")
     fixture_text = read("evals/ai-cases.jsonl")
     cases = [json.loads(line) for line in fixture_text.splitlines() if line.strip()]
@@ -78,6 +80,25 @@ def check(root=ROOT):
     require(not forbidden.intersection(schema["properties"]), "Trusted fields in model schema")
     require(set(example) == set(schema["required"]), "Example top-level keys differ")
     require(example["schema_version"] == "0.2", "Wrong example version")
+    match_schema = json.loads(read("contracts/next-action-match.schema.json"))
+    require(match_schema["additionalProperties"] is False, "Match schema must reject action fields")
+    require(set(match_schema["properties"]) == set(match_schema["required"]) == {"candidate_ids", "no_match"}, "Match output envelope differs")
+    require(match_schema["properties"]["candidate_ids"]["maxItems"] == 3, "Expected at most three candidates")
+    require(match_schema["properties"]["candidate_ids"]["items"]["type"] == "string", "Candidate IDs must be strings")
+    require(match_schema["properties"]["no_match"]["type"] == "boolean", "no_match must be boolean")
+    require(len(read("contracts/next-action-match.prompt.md")) > 200, "Missing next-action prompt specification")
+    next_cases = [json.loads(line) for line in read("evals/next-action-cases.jsonl").splitlines() if line.strip()]
+    require(len(next_cases) == 16 and len({c["case_id"] for c in next_cases}) == 16, "Expected 16 unique next-action cases")
+    require(sum(c["split"] == "development" for c in next_cases) == 12, "Expected 12 next-action development cases")
+    require(sum(c["split"] == "holdout" for c in next_cases) == 4, "Expected 4 next-action holdout cases")
+    for case in next_cases:
+        require(case["data_kind"] == "synthetic" and case["job_type"] == "next_action_match", "Wrong next-action data/job kind")
+        require(bool(case["input"]) and bool(case["expected"]), "Incomplete next-action specification")
+        require(case["layer"] in {"application", "model"}, "Unknown next-action evaluation layer")
+        if state["stage"] == "DESIGN":
+            require(case["execution_status"] == "not_run", "Design fixture must not claim evaluated")
+    for path in ("contracts/next-action-match.schema.json", "contracts/next-action-match.prompt.md", "evals/next-action-cases.jsonl"):
+        require(path in bundle["files"], f"New AI specification missing from review bundle: {path}")
     for path in ("AGENTS.md", "docs/CODEX_HANDOFF.md", "docs/workflow/STAGES_AND_SKILLS.md"):
         read(path)
     return errors
@@ -90,5 +111,5 @@ if __name__ == "__main__":
         raise SystemExit(f"FAIL: invalid handoff input: {exc}")
     if failures:
         raise SystemExit("FAIL:\n" + "\n".join(failures))
-    print("PASS: stage, task dependencies, review hashes, 21 features, 2 bundled skills, schema envelope, 24 synthetic specifications")
+    print("PASS: stage, task dependencies, review hashes, 21 features, 2 bundled skills and references, schema envelopes, 24 + 16 synthetic specifications")
     print("NOT RUN: product tests, model evaluations, family pilot; plugin availability must be checked in target Codex")

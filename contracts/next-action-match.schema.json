@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NextActionMatch v0.4",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "candidate_ids": {"type": "array", "items": {"type": "string"}, "maxItems": 3},
+    "no_match": {"type": "boolean"}
+  },
+  "required": ["candidate_ids", "no_match"]
+}

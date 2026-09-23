@@ -1,5 +1,7 @@
 # 工程ごとの作業・スキル・完了条件
 
+> v0.4：DESIGNでUIスキルの `references/evidence-led-family-design.md` を読む。B10は探索・比較と共通UI、B20/B30は本人の問いと家族循環、B60はnext_action_matchのAPI・固定版比較、B70はUX41〜45／AI41を検査する。各ファイルとコマンドは実装計画冒頭の追補に記載。Google／Amazonの公式資料をプロジェクト用に適用したもので、公式Codexスキルを導入したとの意味ではない。
+
 状態の唯一の機械可読入口は `current/PROJECT_STATE.json`。現状はDESIGN。スキルは作業方法、ハーネスは状態・入力・権限・評価を管理する仕組みであり、導入するだけで安全が保証されるものではない。
 
 > 2026-09-23更新（下記の標準工程より優先）：ユーザー指定でwriting-plansをDESIGN中に使い、設計と実装計画P10を事前作成済み。現在D90でREVIEW_BUNDLE一式のレビュー待ち。提示済み一式への「実装を始めて」で実発言・hash・native/sequential方式を記録しBUILD/B10へ進む。PLANの再作成は不要。BUILDではexecuting-plans＋TDD＋UIスキル＋React実装レビューを使用する。

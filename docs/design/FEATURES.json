@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "status": "review_proposal",
   "features": [
     {
@@ -30,7 +30,7 @@
       "role": "子",
       "delivery": "D0",
       "screens": "C01",
-      "behavior": "水・買い物・手伝いから選ぶ／別のテーマ／あとで",
+      "behavior": "探索カードと本人の「これ、なんで？」から体験を選ぶ",
       "boundary": "おすすめを選ぶ義務はない",
       "requirement": "FR03",
       "task": "B10"
@@ -41,7 +41,7 @@
       "role": "子",
       "delivery": "D0",
       "screens": "C02",
-      "behavior": "短い問いに答え、確かめて自分で選んだことを残す",
+      "behavior": "予想→比較軸と候補を操作→本人の選択→振り返り。計算は通常コード",
       "boundary": "中断再開、無回答、写真なしを許容",
       "requirement": "FR03",
       "task": "B10"
@@ -107,7 +107,7 @@
       "role": "親→家族",
       "delivery": "D0",
       "screens": "P04/G01",
-      "behavior": "許可済みカードを最大6件まとめ、親が発行",
+      "behavior": "許可済みカードを最大6件まとめ親が発行。カード共有だけでも成立",
       "boundary": "素材なしでは発行しない。AI1回は最大3記事",
       "requirement": "FR06",
       "task": "B20"
@@ -118,7 +118,7 @@
       "role": "家族",
       "delivery": "D0",
       "screens": "G03/C04",
-      "behavior": "短い反応や経験を返す。質問は任意",
+      "behavior": "経験・質問・応援の出所を付けて任意に返す",
       "boundary": "未返信でも体験は完了",
       "requirement": "FR07",
       "task": "B20"
@@ -129,8 +129,8 @@
       "role": "子／家族",
       "delivery": "D0",
       "screens": "C01/C04",
-      "behavior": "返信や本人の疑問を次に試す候補として保存",
-      "boundary": "自由提案は安全確認まで教材として実行しない",
+      "behavior": "本人が焦点を選び、返信→たね→次の体験記録をつなぐ",
+      "boundary": "採用結果を自動共有しない。元返信撤回で候補を失効",
       "requirement": "FR04",
       "task": "B20"
     },
@@ -191,12 +191,12 @@
     },
     {
       "id": "F18",
-      "name": "体験・振り返り・次の問いのAI案",
-      "role": "親→子",
+      "name": "次の行動のAI候補探し",
+      "role": "子（許可された送信投影）／親",
       "delivery": "AI追加",
-      "screens": "P04/C02",
-      "behavior": "承認教材内の候補と中立な問い",
-      "boundary": "採点・自動進級・自由チャットをしない",
+      "screens": "C01/C02/C04/P04",
+      "behavior": "本人の問いを監修済み候補へ対応付け。新しい文章は親向け下書き",
+      "boundary": "固定案と比較し有効な時だけON。候補外行動・自動開始なし",
       "requirement": "FR03",
       "task": "B60"
     },

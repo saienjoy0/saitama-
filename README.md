@@ -4,13 +4,16 @@ GAKU∞STA 2026応募と、その後の事業化検証のための資料リポ�
 
 ## Codexの入口
 
-現在は **DESIGN**。最初に [AGENTS.md](AGENTS.md) と [引き継ぎ](docs/CODEX_HANDOFF.md) を読む。状態は [PROJECT_STATE.json](current/PROJECT_STATE.json)、次作業は [TASKS.json](current/TASKS.json)、段階ごとのスキルは [工程表](docs/workflow/STAGES_AND_SKILLS.md)。AI設計は [v0.2](docs/design/ai-harness-design-v0.2.md)。
+現在は **DESIGN**。最初に [AGENTS.md](AGENTS.md) と [引き継ぎ](docs/CODEX_HANDOFF.md) を読む。状態は [PROJECT_STATE.json](current/PROJECT_STATE.json)、次作業は [TASKS.json](current/TASKS.json)、段階ごとのスキルは [工程表](docs/workflow/STAGES_AND_SKILLS.md)。AI設計は [v0.4](docs/design/ai-action-assistance-v0.4.md)。
 
 チェック：`python3 scripts/check_design_handoff.py`。製品やAIの動作試験ではなく、引き継ぎ文書の検査。
 
-## レビュー v0.3
+## レビュー v0.4
 
-- [画面と動きの見本](docs/review/index.html) — ブラウザーで開く合成レビューHTML。保存・通信なし。
+- [三者・家族循環・子どもの面白さのレビュー](docs/design/personas-cycle-review-v0.4.md)。
+- [AIの必要性・次の行動補助・API運用](docs/design/ai-action-assistance-v0.4.md)。
+
+- [画面と動きの見本](docs/review/index.html) — v0.3の部分見本を残した比較用HTML。機能一覧はv0.4。新しい探索画面は未作成。保存・通信なし。
 - [21機能一覧](docs/design/FEATURE_REVIEW.md) — F番号で残す・変更・後回しを指定。
 - [三役15画面・動き](docs/design/role-experience-v0.3.md)／[拡張境界](docs/design/extensibility-v0.3.md)。
 - [Codex用ファイル別実装計画](docs/superpowers/plans/2026-09-23-yattemi-implementation.md)。

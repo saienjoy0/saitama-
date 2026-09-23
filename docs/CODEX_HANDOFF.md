@@ -1,13 +1,13 @@
 # 次のCodexへの引き継ぎ
 
-現在はDESIGN / D90。設計と実装計画v0.3は準備済み、ユーザーレビュー待ち。本体実装未開始。
+現在はDESIGN / D90。設計と実装計画v0.4は準備済み、ユーザーレビュー待ち。本体実装未開始。
 
 ## 読む順番
 
 AGENTS → PROJECT_STATE → TASKS → 工程表と当該スキル → REVIEW_BUNDLEとactive_specs → 状態が指す実装計画。
 `python3 scripts/check_design_handoff.py` を実行する。
 
-レビュー入口は `docs/review/index.html`（保存・通信なしの見本）と `docs/design/FEATURE_REVIEW.md`（F01〜F21）。画面／動きはrole-experience-v0.3、変更境界はextensibility-v0.3、AI詳細はv0.2。
+レビュー入口は `docs/review/index.html`（保存・通信なしの見本）と `docs/design/FEATURE_REVIEW.md`（F01〜F21）。先にpersonas-cycle-review-v0.4とai-action-assistance-v0.4を読む。共通画面／動きはrole-experience-v0.3、変更境界はextensibility-v0.3。HTMLの操作例はv0.3の部分見本のまま、新しい探索・比較画面は未作成。
 
 ## 次の指示への対応
 
@@ -22,7 +22,7 @@ AGENTS → PROJECT_STATE → TASKS → 工程表と当該スキル → REVIEW_BU
 ## 守る境界
 
 - ogenkiは写真・新聞・任意返信・本人発信の近況を取り入れる参考。コード統合・旧DB移行ではない。
-- 子は発見と選択、親は確認と成長、祖父母は読む。未返信・中断・共有辞退は正常。
+- 子は問い・予想・比較と選択、親は少ない確認と成長の把握、祖父母は読んで任意に経験を返す。返信→本人の焦点→たね→新しい体験記録まで追跡する。採用結果を祖父母へ自動共有しない。未返信・中断・共有辞退は正常。
 - 教材・UIトークン・AI提供元・保存adapterは差し替え可。家庭分離・共有意思・版と宛先の承認検査は無効化不可。
-- AI初期OFF、限定下書き。未確認の公開・通知・報酬・健康判定なし。実児童データは提供元条件確認前に送らない。
+- AI初期OFF、固定版が通常動作。第一評価はnext_action_match（監修済みIDだけ）、新聞下書きは第二候補。子の自由文を外部へ送る投影は版ごとに親確認が必要。未確認の公開・通知・報酬・健康判定なし。実児童データは提供元条件確認前に送らない。
 - 文書／見本の検査、製品テスト、モデル評価、家庭の効果は別。証拠は `docs/workflow/VERIFICATION.md`。

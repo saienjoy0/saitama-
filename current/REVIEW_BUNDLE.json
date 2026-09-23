@@ -1,19 +1,26 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "status": "awaiting_user_review",
   "prepared_date": "2026-09-23",
   "scope": "Design plus sequential implementation plan; excludes live-family deployment and live-child AI",
   "proposed_execution": "native/sequential",
   "files": {
     "docs/design/product-design-v0.1.md": "7b89be9285d0ec50cd6d0903a1ed6b0a81718e8c486d20363ad14c08a8dbd68e",
-    "docs/design/FEATURE_REVIEW.md": "400a81d7f459244fd40714edaf3d3c80027b13a7668591b2f5ebf53ae987620c",
-    "docs/design/role-experience-v0.3.md": "93713b06cc184ff59b3db232ac4208917172e43c370f51141da5f9d90d585b39",
+    "docs/design/FEATURE_REVIEW.md": "cabb3b312fc7482f1999aba753969d5d2a3abb70037782043a6f86e49d6eeec7",
+    "docs/design/role-experience-v0.3.md": "da6517346e2af835d364f99047cd197484755e0eea476c1555a756d34aa900e6",
     "docs/design/extensibility-v0.3.md": "ea260b796ff0a32727c5a389838886a2d9efdbf1508f9cf72bc18ca7fbb4ce4e",
-    "docs/design/ai-harness-design-v0.2.md": "8d2dc67392aaa7d51fb64c1c5c122a51d14816053079dd3abe21f7388028a4e5",
-    "docs/design/DECISIONS.md": "80f6d03ab199328753890a3b3e6726310ee88f58a84f54c861df3454d9caa6a2",
-    "docs/superpowers/plans/2026-09-23-yattemi-implementation.md": "4a19eab1c215872f420eb7731bea5f76d89a4a8e4b0160aae62f26f4c41885ae",
-    "docs/design/FEATURES.json": "3e44bafb80954d9387a5e21587c7c4703cc2e8b9d9cf054c94b23da020cc9a10",
-    "docs/review/index.html": "c13ee0644bb48fd6ca434cd1c6fcffb2af4845b35c6821fbb756c5f1d0896957",
-    "contracts/ai-draft.schema.json": "4f7a1f394a1bef09321d362596445e643e881a84158c827bc264a294eb6c4003"
+    "docs/design/ai-harness-design-v0.2.md": "3c1f3c6dd6a40f33e05187f7844a410f77e45a36750b56c0362822c6b1c6f1d4",
+    "docs/design/DECISIONS.md": "94de70418f4ea3776cbe388210b6619060c52cee2367d9b8635c1e822dcf7f13",
+    "docs/superpowers/plans/2026-09-23-yattemi-implementation.md": "4ba43e98c56b531f9e6149f610e771a72e66a918547d802705d8eeaff27130d5",
+    "docs/design/FEATURES.json": "ed7aa1237c5516a8590eca9237e3e1e4b78c47befd12d5a1848703fa3ff63013",
+    "docs/review/index.html": "05a72393af338b3383469ce904b7e3a13f61bbf7b9b43fc99ddbecfb5d24331e",
+    "contracts/ai-draft.schema.json": "4f7a1f394a1bef09321d362596445e643e881a84158c827bc264a294eb6c4003",
+    "docs/design/personas-cycle-review-v0.4.md": "005333a3c5375712ec8e9e00292a76ca4695ed3e0b82d636535cfe1abbd650aa",
+    "docs/design/ai-action-assistance-v0.4.md": "e9e29e7c39c45924f10cd33e5a583250430dfbb0c99f1abb95be870fcbee530a",
+    "contracts/next-action-match.schema.json": "19789b54348098cbe893fe63e1d44c6170c264088343888793bfcb36b6d12b4d",
+    "contracts/next-action-match.prompt.md": "304fbb8c65ae8c1c4a1db860e77d68a75337eecbce1c235fac46042ad40e868a",
+    "evals/next-action-cases.jsonl": "f170cd07f0c6476937006ba0597be3c8b008a369ce8b8615ec74f8a430e10152",
+    ".agents/skills/yattemi-role-based-ui-design/SKILL.md": "437ea8a304bc1a9b16e27d16b963f60196738573be75450d0c76dbc3f5da0970",
+    ".agents/skills/yattemi-role-based-ui-design/references/evidence-led-family-design.md": "799288b6d00366d833f93cefe704f680e414100f2637e5c77d8fd92b9e4e65c4"
   }
 }

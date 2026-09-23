@@ -23,7 +23,7 @@
       "name": "yattemi-role-based-ui-design",
       "source": "project-owned",
       "repo_path": ".agents/skills/yattemi-role-based-ui-design/SKILL.md",
-      "sha256": "fa1536ca42f75d5d9721400a61b3ef8dbebd6259fe9038eca24d54b031007807",
+      "sha256": "437ea8a304bc1a9b16e27d16b963f60196738573be75450d0c76dbc3f5da0970",
       "stages": [
         "DESIGN",
         "PLAN",
@@ -31,9 +31,12 @@
         "VERIFY",
         "PILOT"
       ],
-      "trigger": "Role screens, navigation, UI review",
+      "trigger": "Role screens, child agency, family cycle, evidence-led design and AI value review",
       "availability": "complete_body_bundled",
-      "required": true
+      "required": true,
+      "reference_files": {
+        ".agents/skills/yattemi-role-based-ui-design/references/evidence-led-family-design.md": "799288b6d00366d833f93cefe704f680e414100f2637e5c77d8fd92b9e4e65c4"
+      }
     },
     {
       "name": "superpowers:brainstorming",
