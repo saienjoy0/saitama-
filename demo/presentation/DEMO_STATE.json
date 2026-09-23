@@ -18,5 +18,11 @@
   "handoff": "CODEX_CONTINUE.md",
   "v2_plan": "PREVIEW_V2_PLAN.md",
   "v2_plan_status": "proposed_for_review",
-  "v2_implementation_allowed": false
+  "v2_implementation_allowed": false,
+  "v2_plan_revision": "2.1",
+  "v2_plan_clarifications": [
+    "Photos optional throughout recording, points, newspaper and album",
+    "Grandparent pedometer uses synthetic demo data; production integration undecided",
+    "One-tap welfare check independent of photos and step data; parent sees press and step update timestamps separately"
+  ]
 }
