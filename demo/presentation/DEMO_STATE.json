@@ -2,27 +2,49 @@
   "task_id": "DEMO02",
   "scope": "independent_synthetic_presentation",
   "base_commit": "aa4a4686ca302ef1ef14e139722b1802481ffae7",
-  "implementation": "v1 implemented; v2 planning only",
+  "implementation": "v2.2 implemented; browser verification blocked",
   "production_stage": "DESIGN/D90 unchanged",
   "verification": {
     "build_and_typecheck": "passed",
-    "state_tests": "6 passed",
+    "state_and_calculation_tests": "14 passed (8 v2, 6 v1)",
     "document_check": "passed",
-    "preview_http": "200 for index and standalone HTML",
+    "standalone_assets": "passed: embedded module, CSS, two JPEG assets; release identical to build",
     "browser_scenarios": "14 discovered; not executed",
-    "browser_visual_check": "blocked by Cloud Browser localhost/file URL policy",
+    "browser_visual_check": "blocked: Cloud Browser localhost ERR_BLOCKED_BY_CLIENT; file URL also unavailable",
     "screenshots": "not captured",
-    "presentation_duration": "100-second script prepared; not measured"
+    "presentation_duration": "3-minute script prepared; not measured"
   },
-  "next_task": "Review PREVIEW_V2_PLAN.md; do not resume implementation from the old browser-only handoff",
+  "next_task": "D2-06: run browser scenarios, inspect desktop/mobile/200% views, rehearse presentation in an accessible browser",
   "handoff": "CODEX_CONTINUE.md",
   "v2_plan": "PREVIEW_V2_PLAN.md",
-  "v2_plan_status": "proposed_for_review",
-  "v2_implementation_allowed": false,
-  "v2_plan_revision": "2.1",
+  "v2_plan_status": "implemented_under_user_authorization",
+  "v2_implementation_allowed": true,
+  "v2_plan_revision": "2.2",
   "v2_plan_clarifications": [
     "Photos optional throughout recording, points, newspaper and album",
     "Grandparent pedometer uses synthetic demo data; production integration undecided",
     "One-tap welfare check independent of photos and step data; parent sees press and step update timestamps separately"
-  ]
+  ],
+  "approval": {
+    "statement": "実装していいよ",
+    "date": "2026-09-23",
+    "scope": "demo/presentation v2.1 only",
+    "plan_sha256": "d4b33789e359e53ca64268964edd16de8d74fe53453e2be2342177e7d50793ac",
+    "execution": "native/sequential"
+  },
+  "implemented_spec_sha256": "dc06000a14092b0908324fa6eb81323b125938cb62f3f4bc5fe1744a2cbfac3e",
+  "latest_steering": {
+    "statement": "小学5年生向けの具体的なAI手順提案、電気代の追加、子どもが考えるごほうび、アルバムから新聞が届く体験を実装して続ける",
+    "source": "user follow-up after explicit implementation approval",
+    "date": "2026-09-23"
+  },
+  "demo_tasks": {
+    "D2-01": "implemented",
+    "D2-02": "implemented",
+    "D2-03": "implemented",
+    "D2-04": "implemented",
+    "D2-05": "implemented",
+    "D2-06": "automated state/build checks passed; browser and rehearsal blocked"
+  },
+  "standalone_sha256": "85b2511723d1036de6402a98b1129aee257132d17d440f16d5da874e5ae27675"
 }

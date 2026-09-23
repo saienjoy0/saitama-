@@ -1,7 +1,7 @@
 import { StrictMode, Component, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
-import "./style.css";
+import App from "./PresentationApp";
+import "./presentation.css";
 class ErrorBoundary extends Component<
   { children: ReactNode },
   { failed: boolean }

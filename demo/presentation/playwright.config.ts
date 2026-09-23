@@ -1,6 +1,7 @@
 import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: "./tests/browser",
+  testMatch: "v2-flow.spec.ts",
   outputDir: "./screenshots/automated",
   fullyParallel: false,
   reporter: [
