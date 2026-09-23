@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_date": "2026-09-22",
+  "checked_date": "2026-09-23",
   "note": "Package aliases are session-specific locators, not portable install commands. Resolve the named provider/plugin in another environment. Project skill files remain readable directly.",
   "skills": [
     {
@@ -23,7 +23,7 @@
       "name": "yattemi-role-based-ui-design",
       "source": "project-owned",
       "repo_path": ".agents/skills/yattemi-role-based-ui-design/SKILL.md",
-      "sha256": "fa51fd7c95540ba68d12ffb9683871cfebc910e6a24918fc29a4282b8655dfaa",
+      "sha256": "fa1536ca42f75d5d9721400a61b3ef8dbebd6259fe9038eca24d54b031007807",
       "stages": [
         "DESIGN",
         "PLAN",
@@ -51,9 +51,10 @@
       "source": "installed_plugin_catalog",
       "package_this_session": "e16/skills/writing-plans",
       "stages": [
+        "DESIGN",
         "PLAN"
       ],
-      "trigger": "Approved written specification",
+      "trigger": "Approved specification OR explicit user request for joint design/plan preparation; preparation is not implementation approval",
       "availability": "available_in_current_session_catalog; recheck_in_target_codex",
       "required_when_triggered": true
     },
@@ -100,7 +101,7 @@
         "BUILD",
         "VERIFY"
       ],
-      "trigger": "If React is chosen",
+      "trigger": "Selected React stack: React implementation or review",
       "availability": "available_in_current_session_catalog; recheck_in_target_codex",
       "required_when_triggered": true
     },
@@ -138,6 +139,18 @@
         "VERIFY"
       ],
       "trigger": "Only if Supabase is selected",
+      "availability": "available_in_current_session_catalog; recheck_in_target_codex",
+      "required_when_triggered": true
+    },
+    {
+      "name": "superpowers:executing-plans",
+      "source": "installed_plugin_catalog",
+      "package_this_session": "e16/skills/executing-plans",
+      "stages": [
+        "BUILD",
+        "VERIFY"
+      ],
+      "trigger": "Execute the prepared native/sequential plan after authorization",
       "availability": "available_in_current_session_catalog; recheck_in_target_codex",
       "required_when_triggered": true
     }

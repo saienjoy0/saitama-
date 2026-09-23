@@ -1,5 +1,7 @@
 # UI system and role screens v0.1
 
+> Historical foundation. Exact screens, typography, motion and scope are superseded by role-experience-v0.3.md and FEATURE_REVIEW.md (2026-09-23). Not implemented.
+
 Status: DESIGN / proposal, not implemented.
 
 ## Principle

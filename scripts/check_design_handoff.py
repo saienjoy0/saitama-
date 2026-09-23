@@ -39,6 +39,16 @@ def check(root=ROOT):
         require(all(d in done for d in task["depends_on"]), "Next task dependencies incomplete")
     for path in state["active_specs"]:
         read(path)
+    read(state["implementation_plan"])
+    bundle = json.loads(read(state["review_bundle"]))
+    for path, expected_hash in bundle["files"].items():
+        actual = hashlib.sha256(read(path).encode()).hexdigest()
+        require(actual == expected_hash, f"Review bundle changed: {path}")
+    require(set(state["active_specs"]).issubset(bundle["files"]), "Active specs missing from review bundle")
+    features = json.loads(read("docs/design/FEATURES.json"))["features"]
+    require(len(features) == 21 and len({f['id'] for f in features}) == 21, "Expected 21 unique features")
+    for feature in features:
+        require(feature["task"] in ids, f"Unknown feature task: {feature['id']}")
     if state["stage"] in {"DESIGN", "PLAN"}:
         require(state["implementation_allowed"] is False, "Implementation permitted too early")
     if state["implementation_allowed"]:
@@ -80,5 +90,5 @@ if __name__ == "__main__":
         raise SystemExit(f"FAIL: invalid handoff input: {exc}")
     if failures:
         raise SystemExit("FAIL:\n" + "\n".join(failures))
-    print("PASS: stage, task dependencies, spec paths, 2 bundled skills, schema envelope, 24 synthetic specifications")
+    print("PASS: stage, task dependencies, review hashes, 21 features, 2 bundled skills, schema envelope, 24 synthetic specifications")
     print("NOT RUN: product tests, model evaluations, family pilot; plugin availability must be checked in target Codex")

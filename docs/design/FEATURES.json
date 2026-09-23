@@ -1,0 +1,237 @@
+{
+  "version": "0.3",
+  "status": "review_proposal",
+  "features": [
+    {
+      "id": "F01",
+      "name": "家族をつくる・招待",
+      "role": "親／祖父母",
+      "delivery": "M1",
+      "screens": "P05",
+      "behavior": "家族・子プロフィール・期限付き招待を管理",
+      "boundary": "招待なしでも親子で開始。期限切れを拒否",
+      "requirement": "FR01",
+      "task": "B30"
+    },
+    {
+      "id": "F02",
+      "name": "役割に合ったホーム",
+      "role": "全員",
+      "delivery": "D0",
+      "screens": "C01/P01/G01",
+      "behavior": "子は体験、親は確認、祖父母は便りを入口にする",
+      "boundary": "子モードから親権限へは再認証",
+      "requirement": "FR01",
+      "task": "B10"
+    },
+    {
+      "id": "F03",
+      "name": "体験を選ぶ",
+      "role": "子",
+      "delivery": "D0",
+      "screens": "C01",
+      "behavior": "水・買い物・手伝いから選ぶ／別のテーマ／あとで",
+      "boundary": "おすすめを選ぶ義務はない",
+      "requirement": "FR03",
+      "task": "B10"
+    },
+    {
+      "id": "F04",
+      "name": "予想・比較・実行・振り返り",
+      "role": "子",
+      "delivery": "D0",
+      "screens": "C02",
+      "behavior": "短い問いに答え、確かめて自分で選んだことを残す",
+      "boundary": "中断再開、無回答、写真なしを許容",
+      "requirement": "FR03",
+      "task": "B10"
+    },
+    {
+      "id": "F05",
+      "name": "必要な時だけヒント",
+      "role": "子",
+      "delivery": "D0",
+      "screens": "C02",
+      "behavior": "問い直し→比較軸→例の順で自分で開く",
+      "boundary": "能力点や人格評価にしない",
+      "requirement": "FR03",
+      "task": "B10"
+    },
+    {
+      "id": "F06",
+      "name": "日常の写真・一言",
+      "role": "子／成人",
+      "delivery": "D0",
+      "screens": "C03",
+      "behavior": "学習欄なしでも日常を残す",
+      "boundary": "写真拒否時も一言で保存",
+      "requirement": "FR02",
+      "task": "B20"
+    },
+    {
+      "id": "F07",
+      "name": "発見カード・アルバム",
+      "role": "全員（許可範囲）",
+      "delivery": "D0",
+      "screens": "C04/P03/G02",
+      "behavior": "本人の言葉、予想と結果、家族の言葉を振り返る",
+      "boundary": "未共有は管理する親と本人のみ",
+      "requirement": "FR05",
+      "task": "B20"
+    },
+    {
+      "id": "F08",
+      "name": "子の共有選択",
+      "role": "子",
+      "delivery": "D0",
+      "screens": "C03",
+      "behavior": "素材と相手を選び、見せない選択もできる",
+      "boundary": "親が拒否を上書きしない",
+      "requirement": "FR05",
+      "task": "B20"
+    },
+    {
+      "id": "F09",
+      "name": "親の確認トレイ",
+      "role": "親",
+      "delivery": "D0",
+      "screens": "P01/P02",
+      "behavior": "原文・素材・宛先を見て編集・送る・保留",
+      "boundary": "内容・相手変更で古い承認は失効",
+      "requirement": "FR05",
+      "task": "B20"
+    },
+    {
+      "id": "F10",
+      "name": "家族新聞",
+      "role": "親→家族",
+      "delivery": "D0",
+      "screens": "P04/G01",
+      "behavior": "許可済みカードを最大6件まとめ、親が発行",
+      "boundary": "素材なしでは発行しない。AI1回は最大3記事",
+      "requirement": "FR06",
+      "task": "B20"
+    },
+    {
+      "id": "F11",
+      "name": "読んだよ・経験・質問",
+      "role": "家族",
+      "delivery": "D0",
+      "screens": "G03/C04",
+      "behavior": "短い反応や経験を返す。質問は任意",
+      "boundary": "未返信でも体験は完了",
+      "requirement": "FR07",
+      "task": "B20"
+    },
+    {
+      "id": "F12",
+      "name": "次のたね",
+      "role": "子／家族",
+      "delivery": "D0",
+      "screens": "C01/C04",
+      "behavior": "返信や本人の疑問を次に試す候補として保存",
+      "boundary": "自由提案は安全確認まで教材として実行しない",
+      "requirement": "FR04",
+      "task": "B20"
+    },
+    {
+      "id": "F13",
+      "name": "元気だよ",
+      "role": "祖父母等成人",
+      "delivery": "D0",
+      "screens": "G04/P01",
+      "behavior": "本人発信の日時と選んだ宛先を共有",
+      "boundary": "未操作・既読から健康を推定しない",
+      "requirement": "FR08",
+      "task": "B20"
+    },
+    {
+      "id": "F14",
+      "name": "お小遣いの記録",
+      "role": "子／管理する親",
+      "delivery": "M1",
+      "screens": "C05/P03",
+      "behavior": "入った・使った・残ったと目標1件",
+      "boundary": "約束と受取を分離。実際の送金なし",
+      "requirement": "FR09",
+      "task": "B50"
+    },
+    {
+      "id": "F15",
+      "name": "共有の撤回・削除・書き出し",
+      "role": "本人／管理する親",
+      "delivery": "M1",
+      "screens": "P05/C04",
+      "behavior": "配信済み素材の権限停止、データ整理",
+      "boundary": "印刷物を回収できたとは表示しない",
+      "requirement": "FR10",
+      "task": "B40"
+    },
+    {
+      "id": "F16",
+      "name": "非公開写真の保存",
+      "role": "全員（許可範囲）",
+      "delivery": "M1",
+      "screens": "C03/P02",
+      "behavior": "位置情報除去・サイズ検査・認可付き画像配信",
+      "boundary": "別家庭のURL/書出しを拒否",
+      "requirement": "FR02",
+      "task": "B40"
+    },
+    {
+      "id": "F17",
+      "name": "新聞のAI下書き",
+      "role": "親",
+      "delivery": "AI追加",
+      "screens": "P04",
+      "behavior": "本人の文を保った短文化案、原文との差分と理由",
+      "boundary": "初期OFF。親確認前の外部公開なし",
+      "requirement": "FR06",
+      "task": "B60"
+    },
+    {
+      "id": "F18",
+      "name": "体験・振り返り・次の問いのAI案",
+      "role": "親→子",
+      "delivery": "AI追加",
+      "screens": "P04/C02",
+      "behavior": "承認教材内の候補と中立な問い",
+      "boundary": "採点・自動進級・自由チャットをしない",
+      "requirement": "FR03",
+      "task": "B60"
+    },
+    {
+      "id": "F19",
+      "name": "計測・運営記録",
+      "role": "運営",
+      "delivery": "M1",
+      "screens": "O01",
+      "behavior": "体験の流れ、編集時間、問い合わせ対応を把握",
+      "boundary": "運営に家族全文を常時公開しない",
+      "requirement": "FR11",
+      "task": "B50"
+    },
+    {
+      "id": "F20",
+      "name": "文字・動きの設定",
+      "role": "全員",
+      "delivery": "D0",
+      "screens": "C01/P05/G01",
+      "behavior": "文字拡大、OSの動き抑制と本人の停止設定",
+      "boundary": "設定で権限や安全条件は変わらない",
+      "requirement": "UX01",
+      "task": "B10"
+    },
+    {
+      "id": "F21",
+      "name": "印刷用の新聞",
+      "role": "家族（許可範囲）",
+      "delivery": "M1",
+      "screens": "G02/P04",
+      "behavior": "ブラウザーから読みやすい紙面を印刷",
+      "boundary": "自動郵送なし。印刷前にも閲覧権限確認",
+      "requirement": "FR06",
+      "task": "B40"
+    }
+  ]
+}

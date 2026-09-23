@@ -8,6 +8,15 @@ GAKU∞STA 2026応募と、その後の事業化検証のための資料リポ�
 
 チェック：`python3 scripts/check_design_handoff.py`。製品やAIの動作試験ではなく、引き継ぎ文書の検査。
 
+## レビュー v0.3
+
+- [画面と動きの見本](docs/review/index.html) — ブラウザーで開く合成レビューHTML。保存・通信なし。
+- [21機能一覧](docs/design/FEATURE_REVIEW.md) — F番号で残す・変更・後回しを指定。
+- [三役15画面・動き](docs/design/role-experience-v0.3.md)／[拡張境界](docs/design/extensibility-v0.3.md)。
+- [Codex用ファイル別実装計画](docs/superpowers/plans/2026-09-23-yattemi-implementation.md)。
+
+設計と計画は準備済み、まだ未承認。一式をレビュー後「実装を始めて」で計画を順番にB10から実装する方式です。本体実装・実家庭公開・ライブAIは未実施。
+
 ## 現在の方針
 北九州市向けに検討していた「キタキュークエスト」のうち、地域固有要素ではなく、家族向けサービスとしての核・原体験・競合仮説・実証設計を再利用し、GAKU∞STA向けに再構成します。
 

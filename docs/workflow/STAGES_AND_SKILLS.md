@@ -2,6 +2,8 @@
 
 状態の唯一の機械可読入口は `current/PROJECT_STATE.json`。現状はDESIGN。スキルは作業方法、ハーネスは状態・入力・権限・評価を管理する仕組みであり、導入するだけで安全が保証されるものではない。
 
+> 2026-09-23更新（下記の標準工程より優先）：ユーザー指定でwriting-plansをDESIGN中に使い、設計と実装計画P10を事前作成済み。現在D90でREVIEW_BUNDLE一式のレビュー待ち。提示済み一式への「実装を始めて」で実発言・hash・native/sequential方式を記録しBUILD/B10へ進む。PLANの再作成は不要。BUILDではexecuting-plans＋TDD＋UIスキル＋React実装レビューを使用する。
+
 | 段階 | 最初に使うもの | 作業と成果物 | 次へ進む条件 |
 |---|---|---|---|
 | DESIGN（現在） | yattemi-codex-workflow、brainstorming、画面ならyattemi-role-based-ui-design | 製品・役割画面・AI契約・データ権限・判断記録・合成評価例 | 対象仕様一式のレビューと明示的承認 |
@@ -10,7 +12,7 @@
 | VERIFY | verification-before-completion、故障時systematic-debugging | 三役E2E、家庭間分離、共有撤回、AI障害、実機表示の結果 | 重大失敗0、未達の開示、試用範囲の承認 |
 | PILOT | yattemi-codex-workflow、実証設計書 | まず合成、次に同意した家庭。親の工数と本人の判断を計測 | 継続・停止・修正を実測で決める |
 
-全工程でworkflowを読み、画面変更時はUIスキルを追加する。BUILDの技術スキル候補はReact→react-best-practices、Next.js採用時のみnextjs、Vercel AI SDK採用時のみai-sdk、Supabase採用時のみsupabase。現状の製品書はReact/TypeScript＋FastAPI系が候補であり、Next.js/Supabase/Vercelへの変更はまだ決定していない。
+全工程でworkflowを読み、画面変更時はUIスキルを追加する。採用案はReact/TypeScript＋Vite、FastAPI＋PostgreSQL。React作業にはreact-best-practices。Next.js／Vercel AI SDK／Supabaseは現計画では不採用。
 
 ## 先に準備するもの
 
@@ -32,4 +34,4 @@ AGENTS/JSONはCodexへの制御契約であり、強制的なアクセス制御�
 
 ## 承認の扱い
 
-承認対象は `active_specs` 一式。承認者・発言・対象版をapproval記録へ残す。現在は設計整備の依頼だけを受けているので、written_spec/implementation_planはfalseのまま。ユーザーから対象設計の承認があればPLANを進める。「実装開始」の依頼が来て前提が不足する場合は、既存資料を整えたうえで不足を具体的に示す。儀式的に同じ質問を繰り返さない。
+承認対象はREVIEW_BUNDLEの設計と計画一式。準備依頼なのでwritten_spec/implementation_planはfalse。提示一式をレビュー後の実装開始指示でBUILD/B10へ進む。修正・沈黙は承認ではない。今後の重大変更への包括承認や、実家庭公開の承認とは解釈しない。

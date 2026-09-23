@@ -1,5 +1,5 @@
 {
-  "selection_rule": "Use state.next_task_id; dependencies must be done. Approval tasks finish only with explicit evidence. Never auto-unblock other stages.",
+  "selection_rule": "Use state.next_task_id. D90 approval cannot be inferred from prepared P10. After B50 choose B70 by default; B60 is optional. Update stage to VERIFY at B70. Do not auto-enter PILOT.",
   "tasks": [
     {
       "id": "D10",
@@ -44,61 +44,141 @@
       "evidence": "Written defaults and state/consent examples; usability not measured"
     },
     {
+      "id": "D40",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D30"
+      ],
+      "title": "機能・三役15画面・動き・変更境界のレビュー資料",
+      "artifacts": [
+        "docs/design/FEATURES.json",
+        "docs/design/FEATURE_REVIEW.md",
+        "docs/design/role-experience-v0.3.md",
+        "docs/design/extensibility-v0.3.md",
+        "docs/review/index.html"
+      ],
+      "evidence": "Review specification and synthetic HTML only; see verification report"
+    },
+    {
+      "id": "P10",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D20",
+        "D40"
+      ],
+      "title": "ユーザー指定の一括レビューに向けファイル別計画を事前作成",
+      "artifacts": [
+        "docs/superpowers/plans/2026-09-23-yattemi-implementation.md"
+      ],
+      "evidence": "Plan prepared, not approved; joint preparation explicitly requested by user"
+    },
+    {
       "id": "D90",
       "stage": "DESIGN",
       "status": "awaiting_user_review",
       "depends_on": [
-        "D20",
-        "D30"
+        "P10"
       ],
-      "title": "設計一式をレビューし対象版の承認を記録する",
+      "title": "設計と実装計画v0.3をまとめてレビュー",
       "artifacts": [
-        "docs/design/product-design-v0.1.md",
-        "docs/design/ai-harness-design-v0.2.md",
-        "docs/design/ui-system-and-role-screens-v0.1.md",
-        "docs/design/DECISIONS.md"
+        "current/REVIEW_BUNDLE.json"
       ],
-      "completion": "User explicitly approves reviewed specification bundle; record actual statement and hashes in state, then set PLAN"
-    },
-    {
-      "id": "P10",
-      "stage": "PLAN",
-      "status": "blocked",
-      "depends_on": [
-        "D90"
-      ],
-      "title": "技術選択・ファイル別実装計画・実行方法を確定する",
-      "completion": "writing-plans artifact, skill availability, commands and acceptance mapping reviewed"
+      "completion": "Record actual explicit approval/start statement plus bundle hashes and native/sequential method. Only then set BUILD/B10."
     },
     {
       "id": "B10",
       "stage": "BUILD",
       "status": "blocked",
       "depends_on": [
-        "P10"
+        "D90"
       ],
-      "title": "承認済み計画の最初の固定教材の一周を実装する",
-      "completion": "Refer to future approved plan; no scaffold or product implementation exists in this change"
+      "title": "共通デザイン・三役の入口・固定体験",
+      "plan_section": "B10",
+      "optional": false,
+      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B10; retain actual evidence"
     },
     {
-      "id": "V10",
-      "stage": "VERIFY",
+      "id": "B20",
+      "stage": "BUILD",
       "status": "blocked",
       "depends_on": [
         "B10"
       ],
-      "title": "役割・家庭間分離・撤回・障害を実行検証する",
-      "completion": "Actual test evidence and remaining gaps; document checks do not qualify"
+      "title": "合成D0の記録・親確認・新聞・任意返信",
+      "plan_section": "B20",
+      "optional": false,
+      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B20; retain actual evidence"
+    },
+    {
+      "id": "B30",
+      "stage": "BUILD",
+      "status": "blocked",
+      "depends_on": [
+        "B20"
+      ],
+      "title": "認証・家庭分離・API・DB",
+      "plan_section": "B30",
+      "optional": false,
+      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B30; retain actual evidence"
+    },
+    {
+      "id": "B40",
+      "stage": "BUILD",
+      "status": "blocked",
+      "depends_on": [
+        "B30"
+      ],
+      "title": "非公開写真・撤回・削除・印刷",
+      "plan_section": "B40",
+      "optional": false,
+      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B40; retain actual evidence"
+    },
+    {
+      "id": "B50",
+      "stage": "BUILD",
+      "status": "blocked",
+      "depends_on": [
+        "B40"
+      ],
+      "title": "三テーマ・お小遣い・運営計測",
+      "plan_section": "B50",
+      "optional": false,
+      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B50; retain actual evidence"
+    },
+    {
+      "id": "B60",
+      "stage": "BUILD",
+      "status": "blocked",
+      "depends_on": [
+        "B50"
+      ],
+      "title": "任意のAI下書きと評価",
+      "plan_section": "B60",
+      "optional": true,
+      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B60; retain actual evidence"
+    },
+    {
+      "id": "B70",
+      "stage": "VERIFY",
+      "status": "blocked",
+      "depends_on": [
+        "B50"
+      ],
+      "title": "三役E2E・権限・撤回・動き・運用の統合検査",
+      "plan_section": "B70",
+      "completion": "Actual evidence required; B60 optional, if enabled include AI checks"
     },
     {
       "id": "R10",
       "stage": "PILOT",
       "status": "blocked",
       "depends_on": [
-        "V10"
+        "B70"
       ],
-      "title": "同意・運用体制を確認して家庭試用を実施する",
-      "completion": "Observed outcomes and workload; provider gate additionally required for any live AI"
+      "title": "別承認と運用条件を満たした家庭試用",
+      "completion": "Consent, host, responsible operator, backups/deletion verified. Live AI needs separate provider/data gate."
     }
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "version": "0.3",
+  "status": "awaiting_user_review",
+  "prepared_date": "2026-09-23",
+  "scope": "Design plus sequential implementation plan; excludes live-family deployment and live-child AI",
+  "proposed_execution": "native/sequential",
+  "files": {
+    "docs/design/product-design-v0.1.md": "7b89be9285d0ec50cd6d0903a1ed6b0a81718e8c486d20363ad14c08a8dbd68e",
+    "docs/design/FEATURE_REVIEW.md": "400a81d7f459244fd40714edaf3d3c80027b13a7668591b2f5ebf53ae987620c",
+    "docs/design/role-experience-v0.3.md": "93713b06cc184ff59b3db232ac4208917172e43c370f51141da5f9d90d585b39",
+    "docs/design/extensibility-v0.3.md": "ea260b796ff0a32727c5a389838886a2d9efdbf1508f9cf72bc18ca7fbb4ce4e",
+    "docs/design/ai-harness-design-v0.2.md": "8d2dc67392aaa7d51fb64c1c5c122a51d14816053079dd3abe21f7388028a4e5",
+    "docs/design/DECISIONS.md": "80f6d03ab199328753890a3b3e6726310ee88f58a84f54c861df3454d9caa6a2",
+    "docs/superpowers/plans/2026-09-23-yattemi-implementation.md": "4a19eab1c215872f420eb7731bea5f76d89a4a8e4b0160aae62f26f4c41885ae",
+    "docs/design/FEATURES.json": "3e44bafb80954d9387a5e21587c7c4703cc2e8b9d9cf054c94b23da020cc9a10",
+    "docs/review/index.html": "c13ee0644bb48fd6ca434cd1c6fcffb2af4845b35c6821fbb756c5f1d0896957",
+    "contracts/ai-draft.schema.json": "4f7a1f394a1bef09321d362596445e643e881a84158c827bc264a294eb6c4003"
+  }
+}
