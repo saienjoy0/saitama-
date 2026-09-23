@@ -92,13 +92,28 @@
       "evidence": "Primary-source-informed design and independent skill walkthrough. No user study or model calls."
     },
     {
+      "id": "D55",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D50"
+      ],
+      "title": "課題分解AIとCodexの導入・実行互換性の最小レビュー",
+      "artifacts": [
+        "docs/design/ai-engine-review-v0.4.1.md",
+        "docs/workflow/CODEX_PREFLIGHT.md",
+        "contracts/guided-plan.schema.json"
+      ],
+      "evidence": "Primary sources and installed skill bodies checked; task-brief incompatibility reproduced and corrected. No product/model execution."
+    },
+    {
       "id": "D90",
       "stage": "DESIGN",
       "status": "awaiting_user_review",
       "depends_on": [
-        "D50"
+        "D55"
       ],
-      "title": "設計と実装計画v0.4をまとめてレビュー",
+      "title": "設計と実装計画v0.4.1をまとめてレビュー",
       "artifacts": [
         "current/REVIEW_BUNDLE.json"
       ],
@@ -114,7 +129,8 @@
       "title": "共通デザイン・三役の入口・固定体験",
       "plan_section": "B10",
       "optional": false,
-      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B10; retain actual evidence"
+      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B10; retain actual evidence",
+      "execution_task_number": 1
     },
     {
       "id": "B20",
@@ -126,7 +142,8 @@
       "title": "合成D0の記録・親確認・新聞・任意返信",
       "plan_section": "B20",
       "optional": false,
-      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B20; retain actual evidence"
+      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B20; retain actual evidence",
+      "execution_task_number": 2
     },
     {
       "id": "B30",
@@ -138,7 +155,8 @@
       "title": "認証・家庭分離・API・DB",
       "plan_section": "B30",
       "optional": false,
-      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B30; retain actual evidence"
+      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B30; retain actual evidence",
+      "execution_task_number": 3
     },
     {
       "id": "B40",
@@ -150,7 +168,8 @@
       "title": "非公開写真・撤回・削除・印刷",
       "plan_section": "B40",
       "optional": false,
-      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B40; retain actual evidence"
+      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B40; retain actual evidence",
+      "execution_task_number": 4
     },
     {
       "id": "B50",
@@ -162,7 +181,8 @@
       "title": "三テーマ・お小遣い・運営計測",
       "plan_section": "B50",
       "optional": false,
-      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B50; retain actual evidence"
+      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B50; retain actual evidence",
+      "execution_task_number": 5
     },
     {
       "id": "B60",
@@ -174,7 +194,8 @@
       "title": "任意の次の行動AI・API接続・比較評価",
       "plan_section": "B60",
       "optional": true,
-      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B60; retain actual evidence"
+      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B60; retain actual evidence",
+      "execution_task_number": 6
     },
     {
       "id": "B70",
@@ -185,7 +206,8 @@
       ],
       "title": "三役E2E・権限・撤回・動き・運用の統合検査",
       "plan_section": "B70",
-      "completion": "Actual evidence required; B60 optional, if enabled include AI checks"
+      "completion": "Actual evidence required; B60 optional, if enabled include AI checks",
+      "execution_task_number": 7
     },
     {
       "id": "R10",

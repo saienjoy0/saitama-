@@ -2,6 +2,7 @@
 """Check documentation/fixtures only. No model calls, product tests, or approval changes."""
 import hashlib
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,7 +40,12 @@ def check(root=ROOT):
         require(all(d in done for d in task["depends_on"]), "Next task dependencies incomplete")
     for path in state["active_specs"]:
         read(path)
-    read(state["implementation_plan"])
+    plan = read(state["implementation_plan"])
+    headings = re.findall(r"^### Task ([1-7]): (B[1-7]0) —", plan, re.MULTILINE)
+    require(headings == [(str(i), f"B{i*10}") for i in range(1, 8)], "Plan headings must match executing-plans Task 1..7")
+    for task in tasks:
+        if task["id"].startswith("B"):
+            require(task.get("execution_task_number") == int(task["id"][1]), f"Execution number differs: {task['id']}")
     bundle = json.loads(read(state["review_bundle"]))
     for path, expected_hash in bundle["files"].items():
         actual = hashlib.sha256(read(path).encode()).hexdigest()
@@ -55,6 +61,7 @@ def check(root=ROOT):
         require(state["approval"]["written_spec"] and state["approval"]["implementation_plan"], "Missing approval flags")
         require(bool(state["approval"]["evidence"]), "Missing approval evidence")
     for skill in registry:
+        require(all(name in {s["name"] for s in registry} for name in skill.get("requires", [])), f"Unregistered skill dependency: {skill['name']}")
         if "repo_path" not in skill:
             continue
         content = read(skill["repo_path"])
@@ -99,6 +106,12 @@ def check(root=ROOT):
             require(case["execution_status"] == "not_run", "Design fixture must not claim evaluated")
     for path in ("contracts/next-action-match.schema.json", "contracts/next-action-match.prompt.md", "evals/next-action-cases.jsonl"):
         require(path in bundle["files"], f"New AI specification missing from review bundle: {path}")
+    guided = json.loads(read("contracts/guided-plan.schema.json"))
+    require(guided["additionalProperties"] is False, "Guided plan must reject extra model fields")
+    require(set(guided["properties"]) == set(guided["required"]) == {"step_ids", "clarify_id", "no_match"}, "Guided-plan output differs")
+    require(guided["properties"]["step_ids"]["maxItems"] == 5, "Guided plan must be bounded")
+    for path in ("contracts/guided-plan.schema.json", "docs/workflow/CODEX_PREFLIGHT.md"):
+        require(path in bundle["files"], f"Preflight/contract absent from review bundle: {path}")
     for path in ("AGENTS.md", "docs/CODEX_HANDOFF.md", "docs/workflow/STAGES_AND_SKILLS.md"):
         read(path)
     return errors

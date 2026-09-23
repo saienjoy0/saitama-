@@ -1,46 +1,12 @@
-# Yattemi Quest Implementation Plan v0.4
-
-## v0.4 差分（該当するv0.3の手順より優先）
-
-必読：`docs/design/personas-cycle-review-v0.4.md` と `docs/design/ai-action-assistance-v0.4.md`。目的は子の判断・発見を面白くし、家族返信を次の体験へ戻すこと。初期AI評価は新聞よりnext_action_matchを優先。固定版が比較対象かつ通常の動作であり、AI候補の文章は監修済み文だけ。
-
-### B10へ追加：探索と比較の画面
-
-Create `apps/web/src/design/components/ChoiceGroup.tsx`, `ArtifactStatus.tsx`, `SourceLabel.tsx`, `SuggestionPanel.tsx`, `apps/web/src/features/experience/ExploreHome.tsx`, `CompareChoices.tsx`, `compare.ts`, `compare.test.ts`, `apps/web/src/design/components/role-variants.test.tsx`。
-
-- [ ] C01を水／店／家の仕事の探索と「これ、なんで？」の入口にする。C02は予想を先に残し、比較軸と候補を自分で変えられる。選択入力と主ボタンを分け、何も選ばない／今回は買わない／後でを残す。
-- [ ] `remainingYen(budget:number, price:number):number`と`yenPer100ml(price:number, ml:number):number`のテストを先に書く。300-180=120、300-260=40、180/200*100=90、260/400*100=65、ml<=0は拒否。例の価格は合成と表示する。計算関数は候補を勝手に選ばない。
-- [ ] `npm test -- compare.test.ts role-variants.test.tsx`を実行し未実装を確認。共通トークン→role variant→部品に分けて実装し再実行。ChoiceGroupはキーボードとタップで同じ選択が可能、ドラッグだけに依存しない。
-- [ ] UX41/UX45の表示と操作をPlaywrightで検査。ヒントは閉じた状態から任意に使え、減らしても呼び戻せる。発見の記録以外で保存成功演出を使わない。実利用者の楽しさはこのテストから断定しない。
-
-### B20/B30へ追加：本人の問いと家族循環
-
-Create `apps/web/src/features/experience/QuestionCapture.tsx`, `apps/web/src/features/family/ReplyToSeed.tsx`, `apps/web/src/features/experience/FixedNextActions.tsx`, `apps/api/app/modules/experience/questions.py`, `question_routes.py`, `apps/api/tests/test_question_cycle.py`。Extend QuestPort with `saveQuestion`, `createSeed`, `listEligibleActions`; HTTP endpoints `POST /questions`, `GET /questions/{id}/actions`。D0はmemory adapter、M1は同一契約のサーバー認可。
-
-Questionはid, family_id, child_id, revision, original_text, focus_id, source_reply_ref|null, status。Seedはsource_question_id, source_reply_revision|null, child_selected_action_id|null, resulting_experience_id|null。送信用projectionとparent_reviewed_projection_revisionを原文から分離する。子の焦点変更・元返信撤回で派生候補を失効させる。
-
-- [ ] 初回でexperienceなしの問いを作り、固定候補を選んで体験を開始するテストを先に書く。
-- [ ] 返信→本人の焦点→たね→次の体験記録を追跡するE2Eを追加。「読んだ」「候補を選んだ」だけでは家族循環成立イベントを発行しない。
-- [ ] 子が共有しなければ祖父母へ採用結果を表示しない。本人が新しいカードを共有した時だけ既存の親確認で届く。祖父母不参加／返信なしでも体験単体を完了できる。
-- [ ] 新聞は任意の表示・まとめ方とし、家族が毎回編集して発行することを一周の必要条件にしない。
-- [ ] `uv run pytest tests/test_question_cycle.py -q`とD0/M1家族循環E2Eを各工程で実行する。実装前は未実装による失敗、実装後に実経路での成功を記録する。
-
-### B60へ追加：限定された次の行動補助とAPI接続
-
-Create `apps/api/app/modules/ai/next_actions.py`, `next_action_routes.py`, `apps/api/app/ports/action_matcher.py`, `apps/api/app/adapters/fake_action_matcher.py`, `openai_action_matcher.py`, `apps/api/tests/test_next_actions.py`, `test_action_adapter.py`, `scripts/eval_next_actions.py`。Extend `apps/web/src/ports/QuestPort.ts`, memory/http adapters and SuggestionPanel。Read contracts/next-action-match.schema.json and next-action-match.prompt.md。
-
-Interfaces: `ActionMatcher.match(projected:MatchInput)->UntrustedMatch`、`eligible_actions(actor,question)->list[CuratedAction]`、`validate_match(raw,allowed_ids)->list[str]`。APIはAI v0.4の`/assist/next-actions`と`/{suggestion_id}/choose`。suggestionはquestion/projection/consent/教材の版と15分expiryを持ち、表示・選択直前に再認可する。
-
-- [ ] fake adapterで合成16ケースのapplication行を実service経由でテスト。model行はfake出力のPASSにしない。候補外、重複、no_match不整合、個人情報未確認、同意撤回、別家庭、期限切れ、廃止教材を拒否する。
-- [ ] 同じ返信でも本人のfocus_idが異なれば入力投影と候補が異なることを確認。候補ゼロ・固定だけで足りる場合はモデル呼出しゼロ。親の送信投影確認待ちでも固定候補は操作可能。
-- [ ] 先に`uv run pytest tests/test_next_actions.py tests/test_action_adapter.py -q`で失敗を確認。OpenAI adapterのHTTP mockでpayloadのmodel、strict schema、store=false、toolsなし、streamなし、秘密鍵が応答／ログにないことを検査。SDKの自動再試行を抑え、総2試行／10秒を超えない。
-- [ ] 環境設定は`AI_ENABLED=false`, `AI_PROVIDER=openai`, `AI_MODEL`, `OPENAI_API_KEY`, `AI_INPUT_PRICE_PER_M`, `AI_OUTPUT_PRICE_PER_M`, `AI_TOTAL_BUDGET_JPY`, `AI_LIVE_CHILD_DATA_ENABLED=false`。秘密値をコミットしない。価格／モデル／提供元条件がない時は固定版。キーや外部契約の未取得をD0の未完成理由にしない。
-- [ ] 適切な認証と料金条件が利用可能な時だけ、明示した合成データ用runnerを`uv run python ../../scripts/eval_next_actions.py --dataset ../../evals/next-action-cases.jsonl --repeats 3 --data-kind synthetic`で実行。既存24件も該当jobの評価を維持。実データは別gate。runnerはfixture全行のdata_kind確認後にのみ外部接続する。
-- [ ] 比較表に適切な候補／no_match、本人の主導権、親工数、p95待ち時間、費用を残す。AI41の改善を示せなければOFF維持。新聞の下書きは別機能として後から評価する。
-
-B70にUX41〜45／AI41の証拠欄を追加。利用者評価未実施と、DOM／E2E合格を区別する。本追補もユーザーの一括レビュー対象であり、この文書を追加したことは実装承認ではない。
+# Yattemi Quest Implementation Plan v0.4.1
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Native/sequential execution is the proposed default for this handoff. Use superpowers:subagent-driven-development only if the user selects delegation. Steps use checkbox syntax.
+
+## 最小修正 v0.4.1
+
+必読：`docs/design/ai-engine-review-v0.4.1.md` と `docs/workflow/CODEX_PREFLIGHT.md`。既存のv0.4追補を各Taskに移した。該当箇所は古い手順より優先。共同レビュー・DESIGN段階を維持する。
+
+Task番号1〜7とB10〜B70は対応する。`task-start`には数値、状態ファイルにはB番号を使う。固定版の順番は1→2→3→4→5→7、AIを含める場合のみ5→6→7。setupでは共通制約とSpecも読む。必要スキルの導入・worktree・最終レビューと進捗保持はCODEX_PREFLIGHTに従う。
 
 **Goal:** 子の問い・選択・体験・記録→任意共有と親確認→家族の任意返信→本人が選ぶ次の体験がつながるWeb製品を、合成D0から安全なM1へ実装する。新聞は任意のまとめ方。
 
@@ -48,7 +14,7 @@ B70にUX41〜45／AI41の証拠欄を追加。利用者評価未実施と、DOM�
 
 **Tech Stack:** Node22.12以上の22系または24系、React19、Vite8、TypeScript5、Vitest、Testing Library、Playwright、Python3.12、FastAPI、SQLAlchemy2、Alembic、PostgreSQL16。CSSの動きを第一選択にする。
 
-**Spec:** `docs/design/FEATURE_REVIEW.md`, `role-experience-v0.3.md`, `extensibility-v0.3.md`, `ai-harness-design-v0.2.md`（すべてdocs/design内）。製品の基礎はproduct-design-v0.1.md。詳細が違う場合は本計画冒頭のv0.4追補とpersonas-cycle-review-v0.4／ai-action-assistance-v0.4を優先する。
+**Spec:** `docs/design/FEATURE_REVIEW.md`, `role-experience-v0.3.md`, `extensibility-v0.3.md`, `ai-harness-design-v0.2.md`（すべてdocs/design内）。製品の基礎はproduct-design-v0.1.md。詳細が違う場合は各Task内の追補とai-engine-review-v0.4.1／personas-cycle-review-v0.4／ai-action-assistance-v0.4を優先する。
 
 ## Global Constraints
 
@@ -107,7 +73,17 @@ export interface QuestPort {
 
 API側は同じフィールドをPydanticで定義する。error bodyは `{code, message, request_id}`。401未認証、404対象なし／非許可、409版競合、422入力不正、429上限。例外メッセージに他人のID・内容を含めない。
 
-### B10: 三役の入口・共通デザイン・交換できる体験
+### Task 1: B10 — 三役の入口・共通デザイン・交換できる体験
+
+#### v0.4追補（このTaskの必須範囲）
+
+Create `apps/web/src/design/components/ChoiceGroup.tsx`, `ArtifactStatus.tsx`, `SourceLabel.tsx`, `SuggestionPanel.tsx`, `apps/web/src/features/experience/ExploreHome.tsx`, `CompareChoices.tsx`, `compare.ts`, `compare.test.ts`, `apps/web/src/design/components/role-variants.test.tsx`。
+
+- [ ] C01を水／店／家の仕事の探索と「これ、なんで？」の入口にする。C02は予想を先に残し、比較軸と候補を自分で変えられる。選択入力と主ボタンを分け、何も選ばない／今回は買わない／後でを残す。
+- [ ] `remainingYen(budget:number, price:number):number`と`yenPer100ml(price:number, ml:number):number`のテストを先に書く。300-180=120、300-260=40、180/200*100=90、260/400*100=65、ml<=0は拒否。例の価格は合成と表示する。計算関数は候補を勝手に選ばない。
+- [ ] `npm test -- compare.test.ts role-variants.test.tsx`を実行し未実装を確認。共通トークン→role variant→部品に分けて実装し再実行。ChoiceGroupはキーボードとタップで同じ選択が可能、ドラッグだけに依存しない。
+- [ ] UX41/UX45の表示と操作をPlaywrightで検査。ヒントは閉じた状態から任意に使え、減らしても呼び戻せる。発見の記録以外で保存成功演出を使わない。実利用者の楽しさはこのテストから断定しない。
+
 
 **Files:** Create `apps/web/package.json`, `vite.config.ts`, `tsconfig.json`, `index.html`, `src/main.tsx`, `src/App.tsx`, `src/ports/QuestPort.ts`, `src/adapters/demo/MemoryQuestPort.ts`, `src/design/tokens.css`, `src/design/motion.ts`, `src/design/motion.css`, `src/features/experience/ExperienceFlow.tsx`, `src/features/experience/flow.ts`, `src/features/family/RoleHome.tsx`, `content/templates/water-v1.json`, `content/templates/shopping-v1.json`, `content/manifest.json`.
 
@@ -166,7 +142,20 @@ export function motionDuration(e:'step'|'save'|'complete',os:boolean,user:boolea
 - [ ] Playwright: 360px layout, OS reduced motion, keyboard focus after Next, 200% text, and “あとで” returns to home without penalty. Navigation buttons must all work or be explicitly absent from this slice.
 - [ ] Run test/typecheck/build. Record actual commands and errors. Commit only this slice's files with `feat: add role homes and versioned experience flow`.
 
-### B20: 合成データでカード→親確認→新聞→任意の返信を一周
+### Task 2: B20 — 合成データでカード→親確認→新聞→任意の返信を一周
+
+#### v0.4追補（このTaskの必須範囲）
+
+Create `apps/web/src/features/experience/QuestionCapture.tsx`, `apps/web/src/features/family/ReplyToSeed.tsx`, `apps/web/src/features/experience/FixedNextActions.tsx`, `apps/api/app/modules/experience/questions.py`, `question_routes.py`, `apps/api/tests/test_question_cycle.py`。Extend QuestPort with `saveQuestion`, `createSeed`, `listEligibleActions`; HTTP endpoints `POST /questions`, `GET /questions/{id}/actions`。D0はmemory adapter、M1は同一契約のサーバー認可。
+
+Questionはid, family_id, child_id, revision, original_text, focus_id, source_reply_ref|null, status。Seedはsource_question_id, source_reply_revision|null, child_selected_action_id|null, resulting_experience_id|null。送信用projectionとparent_reviewed_projection_revisionを原文から分離する。子の焦点変更・元返信撤回で派生候補を失効させる。
+
+- [ ] 初回でexperienceなしの問いを作り、固定候補を選んで体験を開始するテストを先に書く。
+- [ ] 返信→本人の焦点→たね→次の体験記録を追跡するE2Eを追加。「読んだ」「候補を選んだ」だけでは家族循環成立イベントを発行しない。
+- [ ] 子が共有しなければ祖父母へ採用結果を表示しない。本人が新しいカードを共有した時だけ既存の親確認で届く。祖父母不参加／返信なしでも体験単体を完了できる。
+- [ ] 新聞は任意の表示・まとめ方とし、家族が毎回編集して発行することを一周の必要条件にしない。
+- [ ] `uv run pytest tests/test_question_cycle.py -q`とD0/M1家族循環E2Eを各工程で実行する。実装前は未実装による失敗、実装後に実経路での成功を記録する。
+
 
 **Files:** Modify MemoryQuestPort. Create `src/features/sharing/approval.ts`, `CardEditor.tsx`, `ReviewInbox.tsx`, `Newspaper.tsx`, `ReplyForm.tsx`, `src/features/family/Checkin.tsx`, `src/adapters/demo/fixtures.ts`.
 
@@ -204,7 +193,20 @@ export function mayPublish(c:Card,v:number,recipients:string[]):boolean {
 - [ ] E2E one happy loop and three alternate paths: no grandparent, child declines sharing, failed checkin. All displayed saves must say simulation in the demo shell. Add simple in-memory photo illustration; real upload belongs to B40.
 - [ ] Run test/typecheck/build/test:e2e. Commit `feat: complete synthetic family sharing loop`. Report D0 as demo, with screenshots and limitations. Do not publicly deploy D0 as M1.
 
-### B30: 本人認証・家庭境界・保存を備えるM1土台
+### Task 3: B30 — 本人認証・家庭境界・保存を備えるM1土台
+
+#### v0.4追補（このTaskの必須範囲）
+
+Create `apps/web/src/features/experience/QuestionCapture.tsx`, `apps/web/src/features/family/ReplyToSeed.tsx`, `apps/web/src/features/experience/FixedNextActions.tsx`, `apps/api/app/modules/experience/questions.py`, `question_routes.py`, `apps/api/tests/test_question_cycle.py`。Extend QuestPort with `saveQuestion`, `createSeed`, `listEligibleActions`; HTTP endpoints `POST /questions`, `GET /questions/{id}/actions`。D0はmemory adapter、M1は同一契約のサーバー認可。
+
+Questionはid, family_id, child_id, revision, original_text, focus_id, source_reply_ref|null, status。Seedはsource_question_id, source_reply_revision|null, child_selected_action_id|null, resulting_experience_id|null。送信用projectionとparent_reviewed_projection_revisionを原文から分離する。子の焦点変更・元返信撤回で派生候補を失効させる。
+
+- [ ] 初回でexperienceなしの問いを作り、固定候補を選んで体験を開始するテストを先に書く。
+- [ ] 返信→本人の焦点→たね→次の体験記録を追跡するE2Eを追加。「読んだ」「候補を選んだ」だけでは家族循環成立イベントを発行しない。
+- [ ] 子が共有しなければ祖父母へ採用結果を表示しない。本人が新しいカードを共有した時だけ既存の親確認で届く。祖父母不参加／返信なしでも体験単体を完了できる。
+- [ ] 新聞は任意の表示・まとめ方とし、家族が毎回編集して発行することを一周の必要条件にしない。
+- [ ] `uv run pytest tests/test_question_cycle.py -q`とD0/M1家族循環E2Eを各工程で実行する。実装前は未実装による失敗、実装後に実経路での成功を記録する。
+
 
 **Files:** Create `apps/api/pyproject.toml`, `uv.lock`, `app/main.py`, `app/settings.py`, `app/db.py`, `app/modules/identity/models.py`, `schemas.py`, `session.py`, `oidc.py`, `routes.py`, `app/modules/experience/models.py`, `service.py`, `routes.py`, `app/modules/sharing/models.py`, `service.py`, `routes.py`, `app/modules/family/models.py`, `service.py`, `routes.py`, `app/errors.py`, `migrations/versions/0001_family.py`, `compose.yaml`, `apps/web/src/adapters/http/HttpQuestPort.ts`.
 
@@ -268,7 +270,7 @@ def guard_revision(record, expected_revision):
 HiddenResource maps to404 and VersionConflict to409 in app/errors.py; child-specific GuardianLink and recipient checks are additional mandatory service checks, not replaced by these two helpers.
 - [ ] Port contract tests run against MemoryQuestPort and HttpQuestPort with matching state semantics. Real persistence reload test, atomic double publish, family switching invalidates stale frontend query data. Run `uv run pytest -q`, Alembic upgrade on empty DB, web test/typecheck/build. Commit `feat: add authenticated family persistence`.
 
-### B40: 非公開画像・新聞・撤回・削除
+### Task 4: B40 — 非公開画像・新聞・撤回・削除
 
 **Files:** Create `app/modules/sharing/media.py`, `newspaper.py`, `lifecycle.py`, `app/modules/sharing/media_routes.py`, `newspaper_routes.py`, `app/ports/media_store.py`, `app/adapters/local_media_store.py`, `app/modules/operations/deletion.py`, `apps/web/src/features/sharing/PhotoInput.tsx`, `PrintNewspaper.tsx`, `apps/api/tests/test_media.py`, `test_newspaper.py`, `test_deletion.py`.
 
@@ -291,7 +293,7 @@ def test_revocation_blocks_derived_newspaper(world):
 - [ ] Deletion: immediate access tombstone, background physical deletion target30days, backups max90days as operating targets. Implement deletion ledger and replay before serving a restored backup. Test export only includes authorized child/own data; restored tombstone never reappears. A scheduler runs due deletion jobs, never AI-generated instructions.
 - [ ] Run API tests and Playwright photo-denied→text-only flow, camera EXIF fixture, image reload after logout, revoke while newspaper screen is open, close/reopen after revocation. Commit `feat: protect media and derived newspaper lifecycle`.
 
-### B50: 3教材・お小遣い・成長と運営
+### Task 5: B50 — 3教材・お小遣い・成長と運営
 
 **Files:** Create `content/templates/helping-v1.json`, basic/deep variants in each template, `content/schema.json`, `app/modules/allowance/models.py`, `service.py`, `routes.py`, `app/modules/operations/events.py`, `routes.py`, `apps/web/src/features/allowance/Ledger.tsx`, `apps/web/src/features/sharing/GrowthAlbum.tsx`, `apps/web/src/features/operations/OperationsView.tsx`, `apps/api/tests/test_allowance.py`, `test_events.py`, `apps/web/src/features/experience/templates.test.ts`.
 
@@ -319,7 +321,33 @@ def balance(entries):
 - [ ] Implement growth view showing observable choices and hints, not automatic S/Q ratings. Log allowlisted event fields only; tests assert raw text/photo/amount never serialized into analytics. O01 gets counts and intervention time only without separate content authorization.
 - [ ] Run all API tests, web tests and fixtures. Commit `feat: add curriculum variants allowance and pilot metrics`.
 
-### B60: 任意のAI下書きadapter（固定版から独立）
+### Task 6: B60 — 任意のAI下書きadapter（固定版から独立）
+
+#### v0.4.1追加：課題分解・支援制御（F18、任意AIの比較範囲）
+
+Create `apps/api/app/modules/experience/scaffolding.py`, `apps/api/app/modules/ai/guided_plans.py`, `apps/api/app/ports/guided_planner.py`, `apps/api/app/adapters/fake_guided_planner.py`, `openai_guided_planner.py`, `apps/api/tests/test_guided_plans.py`, `test_scaffolding.py`。Extend既存C02/QuestPortの`proposePlan`と`acceptPlan`、既存question/experience記録。StepCatalogは既存教材manifestを拡張し、最初は予算・買い物1題材に限定。
+
+- [ ] AI v0.4.1の入出力・状態を実装する。`GuidedPlanner.plan(projected,allowed_steps)->UntrustedPlan`と`validate_plan(raw,catalog,completed_ids)->ValidatedPlan`を分ける。モデル出力は`contracts/guided-plan.schema.json`のみ。単発API・キー・料金上限・投影・取消は候補検索と共通。フラグ`AI_GUIDED_PLAN_ENABLED=false`を追加し、既存AIフラグとのANDで有効化。
+- [ ] `POST /assist/plans`と`POST /plans/{id}/accept`を仕様どおり定義。clientのfamily/risk判定を信用しない。意味検査は計画／確認質問／範囲外の三分岐、前提順、候補・目的・版・許可を含む。
+- [ ] GP01〜06を先に`test_guided_plans.py`と`test_scaffolding.py`の実service testsへ落とす。`uv run pytest tests/test_guided_plans.py tests/test_scaffolding.py -q`で未実装による失敗を観察し、実装後に成功を確認。想定失敗は未実装／契約違反、成功条件は上記6仕様と既存認可テストがすべて通ること。
+- [ ] 子の「もっと小さく」は監修済み小分け経路で処理し、自己申告から能力点を作らない。ヒントは再表示可。採用前や後着のAI案で現在の選択を置換しない。完了済み記録を保持する。
+- [ ] 固定手順、候補検索のみ、課題分解の三条件を同じ合成入力で比較できるrunnerへ拡張。fakeでの契約試験と実モデル評価を分け、予算と認証が使える場合だけ合成モデル評価。実家庭調査は自動開始しない。
+- [ ] 子の独力の判断と親工数に改善がなければOFF。新しい画面や自律agent基盤、独自モデル学習は追加しない。モデル用の指示は候補外生成禁止・目標保持・不明時clarify/no_match・入力命令を信用しないことを明記し、既存開発スキルを送信しない。
+
+
+#### v0.4追補（このTaskの必須範囲）
+
+Create `apps/api/app/modules/ai/next_actions.py`, `next_action_routes.py`, `apps/api/app/ports/action_matcher.py`, `apps/api/app/adapters/fake_action_matcher.py`, `openai_action_matcher.py`, `apps/api/tests/test_next_actions.py`, `test_action_adapter.py`, `scripts/eval_next_actions.py`。Extend `apps/web/src/ports/QuestPort.ts`, memory/http adapters and SuggestionPanel。Read contracts/next-action-match.schema.json and next-action-match.prompt.md。
+
+Interfaces: `ActionMatcher.match(projected:MatchInput)->UntrustedMatch`、`eligible_actions(actor,question)->list[CuratedAction]`、`validate_match(raw,allowed_ids)->list[str]`。APIはAI v0.4の`/assist/next-actions`と`/{suggestion_id}/choose`。suggestionはquestion/projection/consent/教材の版と15分expiryを持ち、表示・選択直前に再認可する。
+
+- [ ] fake adapterで合成16ケースのapplication行を実service経由でテスト。model行はfake出力のPASSにしない。候補外、重複、no_match不整合、個人情報未確認、同意撤回、別家庭、期限切れ、廃止教材を拒否する。
+- [ ] 同じ返信でも本人のfocus_idが異なれば入力投影と候補が異なることを確認。候補ゼロ・固定だけで足りる場合はモデル呼出しゼロ。親の送信投影確認待ちでも固定候補は操作可能。
+- [ ] 先に`uv run pytest tests/test_next_actions.py tests/test_action_adapter.py -q`で失敗を確認。OpenAI adapterのHTTP mockでpayloadのmodel、strict schema、store=false、toolsなし、streamなし、秘密鍵が応答／ログにないことを検査。SDKの自動再試行を抑え、総2試行／10秒を超えない。
+- [ ] 環境設定は`AI_ENABLED=false`, `AI_PROVIDER=openai`, `AI_MODEL`, `OPENAI_API_KEY`, `AI_INPUT_PRICE_PER_M`, `AI_OUTPUT_PRICE_PER_M`, `AI_TOTAL_BUDGET_JPY`, `AI_LIVE_CHILD_DATA_ENABLED=false`。秘密値をコミットしない。価格／モデル／提供元条件がない時は固定版。キーや外部契約の未取得をD0の未完成理由にしない。
+- [ ] 適切な認証と料金条件が利用可能な時だけ、明示した合成データ用runnerを`uv run python ../../scripts/eval_next_actions.py --dataset ../../evals/next-action-cases.jsonl --repeats 3 --data-kind synthetic`で実行。既存24件も該当jobの評価を維持。実データは別gate。runnerはfixture全行のdata_kind確認後にのみ外部接続する。
+- [ ] 比較表に適切な候補／no_match、本人の主導権、親工数、p95待ち時間、費用を残す。AI41の改善を示せなければOFF維持。新聞の下書きは別機能として後から評価する。
+
 
 **Files:** Create `app/ports/draft_provider.py`, `app/modules/ai/projection.py`, `policy.py`, `service.py`, `routes.py`, `budget.py`, `app/adapters/fake_draft_provider.py`, `apps/api/tests/test_ai_policy.py`, `test_ai_cases.py`, `apps/web/src/features/sharing/AIDraftReview.tsx`.
 
@@ -341,7 +369,9 @@ ai_world constructs service with deterministic FakeDraftProvider, fake clock and
 - [ ] Add real provider only after current service terms and credentials are explicitly available for that use. Record provider/model/price configuration, child-data conditions and endpoint. Run synthetic model cases3times/config before considering actual-family opt-in. The user’s implementation-start instruction is not authority to send child data to a provider.
 - [ ] Commit `feat: add bounded draft pipeline with offline adapter`. Report separately fake-service test results and actual-model evaluation status.
 
-### B70: 全体の品質・切戻し・実家庭へのゲート
+### Task 7: B70 — 全体の品質・切戻し・実家庭へのゲート
+
+UX41〜45／AI41の証拠欄を設ける。利用者評価未実施とDOM／E2E合格を区別する。B60を含む時はGP01〜06も確認。
 
 **Files:** Create `tests/e2e/m1-family-loop.spec.ts`, `m1-accessibility.spec.ts`, `m1-revocation.spec.ts`, `.github/workflows/verify.yml`, `docs/operations/LOCAL_RUN.md`, `docs/operations/RELEASE_CHECKLIST.md`.
 
@@ -372,7 +402,7 @@ Production-build test must assert `/demo` is absent, not reuse this demo test as
 | FR01 家族認証 | B30 | OIDC/session/invitation/tenant tests |
 | FR02 日常投稿 | B20/B40 | text-only, metadata stripping, private media |
 | FR03 教材 | B10/B50 | interchangeable templates, pause/decline/version |
-| FR04 たね | B20 | reply→seed→choice; no forced execution |
+| FR04 たね | B20 | reply→seed→choice→new experience; no forced sharing |
 | FR05 共有 | B20/B30 | child choice, revision/audience checks |
 | FR06 新聞 | B20/B40 | 6 materials, print, derived revocation |
 | FR07 応答 | B20/B30 | optional response, idempotency |

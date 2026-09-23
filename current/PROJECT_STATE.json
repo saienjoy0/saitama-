@@ -34,10 +34,11 @@
     "docs/design/ai-harness-design-v0.2.md",
     "docs/design/DECISIONS.md",
     "docs/design/personas-cycle-review-v0.4.md",
-    "docs/design/ai-action-assistance-v0.4.md"
+    "docs/design/ai-action-assistance-v0.4.md",
+    "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "Review the prepared v0.4 bundle. After the user reviews the presented bundle and explicitly says 実装を始めて, record actual statement, bundle hashes and native/sequential execution; complete D90 and start BUILD/B10. Do not recreate the plan or ask what task comes next.",
+  "next_codex_action": "Review the prepared v0.4.1 bundle. After the user reviews the presented bundle and explicitly says 実装を始めて, record actual statement, bundle hashes and native/sequential execution; complete D90 and start BUILD/B10. Do not recreate the plan or ask what task comes next.",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -55,7 +56,8 @@
     "mode": "fixed_default_optional_curated_candidate_matching_and_parent_drafts",
     "live_family_data_enabled": false,
     "provider": "openai_responses_candidate_not_configured",
-    "first_evaluation_job": "next_action_match"
+    "first_evaluation_job": "next_action_match",
+    "additional_evaluation_job": "guided_plan"
   },
   "verification": {
     "document_check": "passed; see docs/workflow/VERIFICATION.md",
@@ -67,5 +69,6 @@
   },
   "implementation_plan": "docs/superpowers/plans/2026-09-23-yattemi-implementation.md",
   "review_bundle": "current/REVIEW_BUNDLE.json",
-  "proposed_execution": "native/sequential"
+  "proposed_execution": "native/sequential",
+  "design_revision": "0.4.1"
 }

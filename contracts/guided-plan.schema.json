@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GuidedPlan v0.4.1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "step_ids": {"type": "array", "items": {"type": "string"}, "maxItems": 5},
+    "clarify_id": {"type": ["string", "null"]},
+    "no_match": {"type": "boolean"}
+  },
+  "required": ["step_ids", "clarify_id", "no_match"]
+}

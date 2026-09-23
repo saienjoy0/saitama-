@@ -8,12 +8,14 @@ GAKU∞STA 2026応募と、その後の事業化検証のための資料リポ�
 
 チェック：`python3 scripts/check_design_handoff.py`。製品やAIの動作試験ではなく、引き継ぎ文書の検査。
 
-## レビュー v0.4
+## レビュー v0.4.1
+
+- [課題分解AIとスキルの最小レビュー](docs/design/ai-engine-review-v0.4.1.md)／[Codexの導入・着手手順](docs/workflow/CODEX_PREFLIGHT.md)。
 
 - [三者・家族循環・子どもの面白さのレビュー](docs/design/personas-cycle-review-v0.4.md)。
 - [AIの必要性・次の行動補助・API運用](docs/design/ai-action-assistance-v0.4.md)。
 
-- [画面と動きの見本](docs/review/index.html) — v0.3の部分見本を残した比較用HTML。機能一覧はv0.4。新しい探索画面は未作成。保存・通信なし。
+- [画面と動きの見本](docs/review/index.html) — v0.3の部分見本を残した比較用HTML。機能一覧はv0.4。新しい探索画面はこの見本に未反映。保存・通信なし。
 - [21機能一覧](docs/design/FEATURE_REVIEW.md) — F番号で残す・変更・後回しを指定。
 - [三役15画面・動き](docs/design/role-experience-v0.3.md)／[拡張境界](docs/design/extensibility-v0.3.md)。
 - [Codex用ファイル別実装計画](docs/superpowers/plans/2026-09-23-yattemi-implementation.md)。

@@ -16,6 +16,8 @@
 
 全工程でworkflowを読み、画面変更時はUIスキルを追加する。採用案はReact/TypeScript＋Vite、FastAPI＋PostgreSQL。React作業にはreact-best-practices。Next.js／Vercel AI SDK／Supabaseは現計画では不採用。
 
+v0.4.1の具体的な導入経路・実行スキルの依存・確認結果は `CODEX_PREFLIGHT.md`。現環境で導入済みでも、移行先では本文・補助ファイルと実行系を確認する。
+
 ## 先に準備するもの
 
 - プロジェクト固有2スキルは `.agents/skills/` に完全な本文を同梱する。ChatGPT内の個人スキルにも保存するが、別Codex環境に同じプラグインがあるとは仮定しない。

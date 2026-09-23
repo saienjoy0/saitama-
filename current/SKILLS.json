@@ -155,7 +155,61 @@
       ],
       "trigger": "Execute the prepared native/sequential plan after authorization",
       "availability": "available_in_current_session_catalog; recheck_in_target_codex",
+      "required_when_triggered": true,
+      "requires": [
+        "superpowers:test-driven-development",
+        "superpowers:using-git-worktrees",
+        "superpowers:verification-before-completion",
+        "superpowers:requesting-code-review",
+        "superpowers:finishing-a-development-branch"
+      ]
+    },
+    {
+      "name": "superpowers:using-git-worktrees",
+      "source": "installed_plugin_catalog",
+      "package_this_session": "e16/skills/using-git-worktrees",
+      "stages": [
+        "BUILD"
+      ],
+      "trigger": "Before executing-plans: verify existing isolation or create worktree",
+      "availability": "installed_and_body_present_this_session; recheck_in_target_codex",
+      "required_when_triggered": true
+    },
+    {
+      "name": "superpowers:requesting-code-review",
+      "source": "installed_plugin_catalog",
+      "package_this_session": "e16/skills/requesting-code-review",
+      "stages": [
+        "VERIFY"
+      ],
+      "trigger": "Final branch review required by executing-plans",
+      "availability": "installed_and_body_present_this_session; recheck_in_target_codex",
+      "required_when_triggered": true
+    },
+    {
+      "name": "superpowers:finishing-a-development-branch",
+      "source": "installed_plugin_catalog",
+      "package_this_session": "e16/skills/finishing-a-development-branch",
+      "stages": [
+        "VERIFY"
+      ],
+      "trigger": "Preserve reviewed branch; no unauthorized merge or publication",
+      "availability": "installed_and_body_present_this_session; recheck_in_target_codex",
       "required_when_triggered": true
     }
-  ]
+  ],
+  "bootstrap_doc": "docs/workflow/CODEX_PREFLIGHT.md",
+  "verified_installation_this_session": {
+    "checked_date": "2026-09-23",
+    "superpowers": {
+      "installed": true,
+      "body_version": "6.4.1"
+    },
+    "vercel": {
+      "installed": true,
+      "body_version": "0.21.4"
+    },
+    "evidence": "Plugin directory returned installed=true; required local SKILL.md bodies and executing-plans helper inspected",
+    "target_codex_installation_test": "not_run; no Codex CLI binary in this environment"
+  }
 }

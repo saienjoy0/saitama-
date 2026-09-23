@@ -1,13 +1,15 @@
 # 次のCodexへの引き継ぎ
 
-現在はDESIGN / D90。設計と実装計画v0.4は準備済み、ユーザーレビュー待ち。本体実装未開始。
+現在はDESIGN / D90。設計と実装計画v0.4.1は準備済み、ユーザーレビュー待ち。本体実装未開始。
 
 ## 読む順番
 
 AGENTS → PROJECT_STATE → TASKS → 工程表と当該スキル → REVIEW_BUNDLEとactive_specs → 状態が指す実装計画。
 `python3 scripts/check_design_handoff.py` を実行する。
 
-レビュー入口は `docs/review/index.html`（保存・通信なしの見本）と `docs/design/FEATURE_REVIEW.md`（F01〜F21）。先にpersonas-cycle-review-v0.4とai-action-assistance-v0.4を読む。共通画面／動きはrole-experience-v0.3、変更境界はextensibility-v0.3。HTMLの操作例はv0.3の部分見本のまま、新しい探索・比較画面は未作成。
+レビュー入口は `docs/review/index.html`（保存・通信なしの見本）と `docs/design/FEATURE_REVIEW.md`（F01〜F21）。先にpersonas-cycle-review-v0.4とai-action-assistance-v0.4を読む。共通画面／動きはrole-experience-v0.3、変更境界はextensibility-v0.3。HTMLの操作例はv0.3の部分見本のまま、新しい探索・比較画面はこの見本に未反映。
+
+着手前に `docs/workflow/CODEX_PREFLIGHT.md` を読む。課題分解AIの最小差分は `docs/design/ai-engine-review-v0.4.1.md`。Task 1〜7＝B10〜B70、v0.4の追補は各Task内へ移動済み。
 
 ## 次の指示への対応
 
