@@ -28,3 +28,9 @@ AGENTS → PROJECT_STATE → TASKS → 工程表と当該スキル → REVIEW_BU
 - 教材・UIトークン・AI提供元・保存adapterは差し替え可。家庭分離・共有意思・版と宛先の承認検査は無効化不可。
 - AI初期OFF、固定版が通常動作。第一評価はnext_action_match（監修済みIDだけ）、新聞下書きは第二候補。子の自由文を外部へ送る投影は版ごとに親確認が必要。未確認の公開・通知・報酬・健康判定なし。実児童データは提供元条件確認前に送らない。
 - 文書／見本の検査、製品テスト、モデル評価、家庭の効果は別。証拠は `docs/workflow/VERIFICATION.md`。
+
+## 独立した発表デモ（2026-09-23）
+
+ユーザーの明示依頼で `demo/presentation/` に新規React/TypeScript/Viteアプリを作成。本体はDESIGN/D90のまま、既存prototypeは未変更。
+実装・ビルド/型検査・状態テスト6件・HTTP起動確認まで完了。Cloud Browserのlocalhost/file制限でブラウザ検証は未完了。
+次の担当は `demo/presentation/CODEX_CONTINUE.md` と `DEMO_STATE.json` を読み、14個の用意済みブラウザケース、PC/スマホ画面の目視、約100秒の台本実測を行う。デモの制作や検査を本体BUILD/B10の承認にしない。

@@ -1,0 +1,19 @@
+{
+  "task_id": "DEMO01",
+  "scope": "independent_synthetic_presentation",
+  "base_commit": "aa4a4686ca302ef1ef14e139722b1802481ffae7",
+  "implementation": "implemented",
+  "production_stage": "DESIGN/D90 unchanged",
+  "verification": {
+    "build_and_typecheck": "passed",
+    "state_tests": "6 passed",
+    "document_check": "passed",
+    "preview_http": "200 for index and standalone HTML",
+    "browser_scenarios": "14 discovered; not executed",
+    "browser_visual_check": "blocked by Cloud Browser localhost/file URL policy",
+    "screenshots": "not captured",
+    "presentation_duration": "100-second script prepared; not measured"
+  },
+  "next_task": "Browser-enabled Codex: run prepared E2E, inspect screenshots, fix layout, rehearse, update verification",
+  "handoff": "CODEX_CONTINUE.md"
+}
