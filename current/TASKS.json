@@ -123,6 +123,19 @@
       "evidence": "Research design only. FoundX, Strategyzer and GOV.UK consulted; attached meeting context restored. Document checks tracked in state.research_review; no interviews, family pilot or payments performed."
     },
     {
+      "id": "D57",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D56"
+      ],
+      "title": "16日の発表目的に合わせて募集経路・謝礼・実行順序を具体化",
+      "artifacts": [
+        "research/GAKUSTA_顧客検証_実施計画と判定表_20260925.md"
+      ],
+      "evidence": "Official platform pricing and constraints reviewed; protocol v3 narrows required work to parent interviews and learning. Costs are proposals only; no sending, contracts or spending executed."
+    },
+    {
       "id": "D90",
       "stage": "DESIGN",
       "status": "awaiting_user_review",
