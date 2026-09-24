@@ -107,6 +107,22 @@
       "evidence": "Primary sources and installed skill bodies checked; task-brief incompatibility reproduced and corrected. No product/model execution."
     },
     {
+      "id": "D56",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D55"
+      ],
+      "title": "FoundX等に基づく顧客検証・教材運用の研究文書改訂",
+      "artifacts": [
+        "research/GAKUSTA_10家庭調査票_最終版_20260925.md",
+        "research/GAKUSTA_クエスト教材・ネタ元リファレンス_20260925.md",
+        "research/GAKUSTA_今日の探究_ネタ切れ対策設計_20260925.md",
+        "research/GAKUSTA_顧客検証_実施計画と判定表_20260925.md"
+      ],
+      "evidence": "Research design only. FoundX, Strategyzer and GOV.UK consulted; attached meeting context restored. Document checks tracked in state.research_review; no interviews, family pilot or payments performed."
+    },
+    {
       "id": "D90",
       "stage": "DESIGN",
       "status": "awaiting_user_review",
