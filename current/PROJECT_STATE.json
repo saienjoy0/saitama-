@@ -72,9 +72,9 @@
   "proposed_execution": "native/sequential",
   "design_revision": "0.4.1",
   "research_review": {
-    "revision": "20260925-v2",
+    "revision": "20260925-v3",
     "status": "research_documents_revised",
-    "task_id": "D56",
+    "task_id": "D57",
     "entry_point": "research/GAKUSTA_顧客検証_実施計画と判定表_20260925.md",
     "artifacts": [
       "research/GAKUSTA_10家庭調査票_最終版_20260925.md",
@@ -82,8 +82,8 @@
       "research/GAKUSTA_今日の探究_ネタ切れ対策設計_20260925.md",
       "research/GAKUSTA_顧客検証_実施計画と判定表_20260925.md"
     ],
-    "scope": "Interview protocol, recruitment, fixed-quest observation and evidence criteria; no product-spec approval or family-study results",
-    "next_research_action": "Founder recruits first five households, including remote-parent and satisfied-family cases; record actual responses privately and revise after the first wave",
+    "scope": "Presentation-oriented customer discovery and recruitment/budget proposal; no recruitment messages, platform contracts, spending or product changes executed",
+    "next_research_action": "Use protocol section 11: recruit via introductions and a short intake form; after 48 hours consider paid adult interviews for missing slots. Aim for five households in week one and ten by presentation preparation; child observation/diary/payment studies are optional follow-up.",
     "verification": {
       "document_check": "passed: scripts/check_design_handoff.py; research relative links checked",
       "interviews": "not_run",
