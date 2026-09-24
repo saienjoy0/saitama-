@@ -70,5 +70,25 @@
   "implementation_plan": "docs/superpowers/plans/2026-09-23-yattemi-implementation.md",
   "review_bundle": "current/REVIEW_BUNDLE.json",
   "proposed_execution": "native/sequential",
-  "design_revision": "0.4.1"
+  "design_revision": "0.4.1",
+  "research_review": {
+    "revision": "20260925-v2",
+    "status": "research_documents_revised",
+    "task_id": "D56",
+    "entry_point": "research/GAKUSTA_顧客検証_実施計画と判定表_20260925.md",
+    "artifacts": [
+      "research/GAKUSTA_10家庭調査票_最終版_20260925.md",
+      "research/GAKUSTA_クエスト教材・ネタ元リファレンス_20260925.md",
+      "research/GAKUSTA_今日の探究_ネタ切れ対策設計_20260925.md",
+      "research/GAKUSTA_顧客検証_実施計画と判定表_20260925.md"
+    ],
+    "scope": "Interview protocol, recruitment, fixed-quest observation and evidence criteria; no product-spec approval or family-study results",
+    "next_research_action": "Founder recruits first five households, including remote-parent and satisfied-family cases; record actual responses privately and revise after the first wave",
+    "verification": {
+      "document_check": "passed: scripts/check_design_handoff.py; research relative links checked",
+      "interviews": "not_run",
+      "family_observation": "not_run",
+      "payments": "not_run"
+    }
+  }
 }
