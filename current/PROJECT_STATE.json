@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-09-23",
+  "updated_at": "2026-09-25",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -80,15 +80,30 @@
       "research/GAKUSTA_10家庭調査票_最終版_20260925.md",
       "research/GAKUSTA_クエスト教材・ネタ元リファレンス_20260925.md",
       "research/GAKUSTA_今日の探究_ネタ切れ対策設計_20260925.md",
-      "research/GAKUSTA_顧客検証_実施計画と判定表_20260925.md"
+      "research/GAKUSTA_顧客検証_実施計画と判定表_20260925.md",
+      "research/GAKUSTA_募集導線_Googleフォーム・紹介・LP_設計_20260925.md",
+      "research/GAKUSTA_募集導線_制作計画_20260925.md"
     ],
     "scope": "Presentation-oriented customer discovery and recruitment/budget proposal; no recruitment messages, platform contracts, spending or product changes executed",
-    "next_research_action": "Use protocol section 11: recruit via introductions and a short intake form; after 48 hours consider paid adult interviews for missing slots. Aim for five households in week one and ten by presentation preparation; child observation/diary/payment studies are optional follow-up.",
+    "next_research_action": "Review the concrete recruitment design and production plan (D58); build the materials when instructed, then recruit and interview. Product D90 remains separate.",
     "verification": {
       "document_check": "passed: scripts/check_design_handoff.py; research relative links checked",
       "interviews": "not_run",
       "family_observation": "not_run",
       "payments": "not_run"
+    },
+    "recruitment_design": {
+      "revision": "20260925-v1",
+      "task_id": "D58",
+      "status": "design_and_plan_prepared",
+      "spec": "research/GAKUSTA_募集導線_Googleフォーム・紹介・LP_設計_20260925.md",
+      "plan": "research/GAKUSTA_募集導線_制作計画_20260925.md",
+      "proposed_execution": "native/sequential",
+      "next_action": "On a request to build the recruitment materials, execute Task 1 then Tasks 2–4 of the recruitment plan. Prepare copies, empty templates, form generation script and LP preview; account authorization and actual public contact/schedule/incentive inputs are needed before live operation.",
+      "forms_created": false,
+      "lp_implemented": false,
+      "lp_published": false,
+      "messages_sent": false
     }
   }
 }
