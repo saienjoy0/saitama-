@@ -72,9 +72,9 @@
   "proposed_execution": "native/sequential",
   "design_revision": "0.4.1",
   "research_review": {
-    "revision": "20260925-v3",
+    "revision": "20260925-v4",
     "status": "research_documents_revised",
-    "task_id": "D57",
+    "task_id": "D60",
     "entry_point": "research/GAKUSTA_顧客検証_実施計画と判定表_20260925.md",
     "artifacts": [
       "research/GAKUSTA_10家庭調査票_最終版_20260925.md",
@@ -82,7 +82,8 @@
       "research/GAKUSTA_今日の探究_ネタ切れ対策設計_20260925.md",
       "research/GAKUSTA_顧客検証_実施計画と判定表_20260925.md",
       "research/GAKUSTA_募集導線_Googleフォーム・紹介・LP_設計_20260925.md",
-      "research/GAKUSTA_募集導線_制作計画_20260925.md"
+      "research/GAKUSTA_募集導線_制作計画_20260925.md",
+      "research/GAKUSTA_金融教育・募集対象レビュー_20260925.md"
     ],
     "scope": "Presentation-oriented customer discovery and recruitment/budget proposal; no recruitment messages, platform contracts, spending or product changes executed",
     "next_research_action": "Recruitment source materials and a safe disabled LP draft are ready. Connect the owner Google account, set actual public contact and schedule, verify the form responder path and LP, then recruit. Product D90 remains a separate review.",
@@ -106,7 +107,7 @@
       "messages_sent": false
     },
     "recruitment_materials": {
-      "revision": "20260925-v1",
+      "revision": "20260925-v2",
       "task_id": "D59",
       "status": "draft_materials_prepared",
       "artifacts": [
@@ -124,7 +125,16 @@
       "site_published": false,
       "messages_sent": false,
       "interviews_conducted": false,
-      "next_action": "Set actual public contact email, available JST slots and honorarium; then run the generated script in the owners Google account, inspect permissions and responder paths, insert verified responder URL in LP and referral copy, and preview before public release."
+      "next_action": "Use revised Q4 financial education behavior and Q5 optional concrete example. Existing forms require version review; run owner account checks with real contact/schedule/incentive inputs before publishing."
+    },
+    "target_review": {
+      "task_id": "D60",
+      "artifact": "research/GAKUSTA_金融教育・募集対象レビュー_20260925.md",
+      "questionnaire_revision": "v3",
+      "protocol_revision": "v4",
+      "selection": "Financial education actions: tried 4 / researched only 4 / no action comparison 2; remote parent household tracked separately, approximately 5 overall if reachable.",
+      "income": "No minimum income; optional band at end of adult interview",
+      "incentive": "Time compensation; no inference of income or purchase demand from participation"
     }
   }
 }
