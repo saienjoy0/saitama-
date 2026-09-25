@@ -312,6 +312,21 @@
       ],
       "title": "別承認と運用条件を満たした家庭試用",
       "completion": "Consent, host, responsible operator, backups/deletion verified. Live AI needs separate provider/data gate."
+    },
+    {
+      "id": "D62-R",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D60"
+      ],
+      "title": "経験による募集と面談後判定の分離、募集資料同期",
+      "artifacts": [
+        "research/GAKUSTA_10家庭_募集対象_最終確定_20260925.md",
+        "research/recruitment/form-spec.md",
+        "tools/recruitment/create-intake-form.gs"
+      ],
+      "evidence": "User accepted review corrections. Master v2, form v3, copies, ledger, interview and state synchronized. No live form, outreach or interviews executed."
     }
   ]
 }

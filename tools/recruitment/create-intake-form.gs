@@ -27,10 +27,10 @@ function createIntakeForm() {
   const existingId = props.getProperty('GAKUSTA_INTAKE_FORM_ID');
   if (existingId) {
     const existing = FormApp.openById(existingId);
-    if (props.getProperty('GAKUSTA_INTAKE_VERSION') !== 'finance-recruit-v2') {
-      throw new Error('既存フォームは旧版または作成途中です。回答を保持したまま、Q4・Q5と設定を編集画面で確認してください: ' + existing.getEditUrl());
+    if (props.getProperty('GAKUSTA_INTAKE_VERSION') !== 'experience-recruit-v3') {
+      throw new Error('既存フォームは旧版または作成途中です。回答を保持したまま、Q4・Q5・Q10と設定を編集画面で確認してください: ' + existing.getEditUrl());
     }
-    if (existing.getItems().length !== 11) {
+    if (existing.getItems().length !== 12) {
       throw new Error('前回の作成が途中で止まりました。編集先: ' + existing.getEditUrl() + '。未完成フォームを確認してから手動で復旧してください。自動で重複作成はしません。');
     }
     console.log('既存フォームの編集先: ' + existing.getEditUrl());
@@ -78,10 +78,11 @@ function createIntakeForm() {
     .setChoiceValues(['父親', '母親', 'その他の保護者']).setRequired(true);
   form.addMultipleChoiceItem().setTitle('Q3 お子さんとの暮らし方に近いものを選んでください')
     .setChoiceValues(['自分が同居', '自分が仕事等で別居', 'その他', '回答しない']).setRequired(true);
-  form.addMultipleChoiceItem().setTitle('Q4 最近6か月に、お子さんがお金について学ぶために行ったことに最も近いものを選んでください')
-    .setChoiceValues(["何かを実際に試した（継続・中止、無料・有料を問わない）","調べたり比較・相談したが、まだ試していない","考えたが、まだ調べたり試したりしていない","今は取り組む予定はない","覚えていない"]).setRequired(true);
-  form.addTextItem().setTitle('Q5 直近に行ったことと時期を、一つ教えてください')
-    .setHelpText('まだ取り組んでいない場合は、その旨や理由を書ける範囲でお願いします。個人名や学校名は不要です。');
+  form.addMultipleChoiceItem().setTitle('Q4 過去12か月に、お子さんのお金の使い方やお小遣いについて、ルールを変えた・変更を考えた・親子で対応した出来事はありましたか')
+    .setChoiceValues(['あった', '特になかった', '覚えていない・回答しない']).setRequired(true);
+  form.addMultipleChoiceItem().setTitle('Q5 過去12か月に、お子さんの教育サービス・教材・体験に有料で申し込んだことはありますか')
+    .setHelpText('学校の必須納付金は除きます。')
+    .setChoiceValues(['ある', 'ない', '覚えていない・回答しない']).setRequired(true);
   form.addTextItem().setTitle('Q6 お話しできそうな日時を日本時間で2〜3つ教えてください')
     .setHelpText('まだ分からない場合は「まだ分からない」と記入できます').setRequired(true);
   form.addTextItem().setTitle('Q7 日程調整のメールアドレスを教えてください')
@@ -92,10 +93,13 @@ function createIntakeForm() {
   form.addMultipleChoiceItem().setTitle('Q9 この募集をどこで知りましたか')
     .setChoiceValues(['知人からの紹介', 'GAKU∞STAのつながり', 'X', 'その他', '回答しない']);
 
+  form.addTextItem().setTitle('Q10 Q4・Q5について、出来事や購入したものと時期を一つ、書ける範囲で教えてください')
+    .setHelpText('任意です。個人名や学校名は不要です。');
+
   const outOfScope = form.addPageBreakItem().setTitle('対象外のご案内')
     .setHelpText('今回は小学5〜6年生の保護者の方を対象としています。この条件では日程調整のご連絡は行いません。ご確認ありがとうございました。');
   // PageBreak の移動設定は、その区切りの直前のページに適用される。
-  // Q2〜Q9を終えた後、対象外案内のページへ進ませずそのまま送信する。
+  // Q2〜Q10を終えた後、対象外案内のページへ進ませずそのまま送信する。
   outOfScope.setGoToPage(FormApp.PageNavigationType.SUBMIT);
   q1.setChoices([
     q1.createChoice('小学5年生', main),
@@ -105,7 +109,7 @@ function createIntakeForm() {
   ]);
   form.setDestination(FormApp.DestinationType.SPREADSHEET, sheet.getId());
   form.setAcceptingResponses(false);
-  props.setProperty('GAKUSTA_INTAKE_VERSION', 'finance-recruit-v2');
+  props.setProperty('GAKUSTA_INTAKE_VERSION', 'experience-recruit-v3');
   console.log('編集先: ' + form.getEditUrl());
   console.log('回答者向けURL: ' + form.getPublishedUrl());
   console.log('回答シート: ' + sheet.getUrl());
