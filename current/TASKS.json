@@ -188,6 +188,19 @@
       "evidence": "MEXT, J-FLEC, survey sponsor release and NORC incentive evidence checked with scope limits. Questionnaire v3 and protocol v4 prioritize financial education behavior, keep optional income bands, and update intake Q4/Q5. No fieldwork or actual Google form execution."
     },
     {
+      "id": "D61",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D60"
+      ],
+      "title": "質問票と既存公開調査の一問ずつ照合、家庭面談項目の絞り込み",
+      "artifacts": [
+        "research/GAKUSTA_既存調査照合と面談質問の絞り込み_20260925.md"
+      ],
+      "evidence": "公式調査・研究の原典と標本方法を確認し、P01–P08、F/E/V/C、T1–T3の計25項目を照合。2015年の小5–6調査を特定し、既存データで分かる一般傾向と家庭固有・試作固有の未解明点を整理。面談・家庭試用・質問票改訂・製品変更は未実施。"
+    },
+    {
       "id": "D90",
       "stage": "DESIGN",
       "status": "awaiting_user_review",
