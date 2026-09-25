@@ -171,6 +171,23 @@
       "evidence": "Copy and templates, Apps Script source and disabled static LP drafted. Syntax/document checks pass; actual Google form, responder permissions, browser preview, public URL and participant recruitment await owner account and real contact/schedule/incentive inputs."
     },
     {
+      "id": "D60",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D58"
+      ],
+      "title": "金融教育の質問・年収条件・謝礼による対象選定をレビューして改訂",
+      "artifacts": [
+        "research/GAKUSTA_金融教育・募集対象レビュー_20260925.md",
+        "research/GAKUSTA_10家庭調査票_最終版_20260925.md",
+        "research/GAKUSTA_顧客検証_実施計画と判定表_20260925.md",
+        "research/recruitment/form-spec.md",
+        "tools/recruitment/create-intake-form.gs"
+      ],
+      "evidence": "MEXT, J-FLEC, survey sponsor release and NORC incentive evidence checked with scope limits. Questionnaire v3 and protocol v4 prioritize financial education behavior, keep optional income bands, and update intake Q4/Q5. No fieldwork or actual Google form execution."
+    },
+    {
       "id": "D90",
       "stage": "DESIGN",
       "status": "awaiting_user_review",
