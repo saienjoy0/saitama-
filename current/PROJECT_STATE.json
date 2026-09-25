@@ -130,7 +130,7 @@
     "target_review": {
       "task_id": "D62-R",
       "artifact": "research/GAKUSTA_10家庭_募集対象_最終確定_20260925.md",
-      "questionnaire_revision": "ProblemInterview 3+1, neutral opening",
+      "questionnaire_revision": "interview-v2-five-core-questions-conditional-supplements",
       "protocol_revision": "recruitment master v2",
       "selection": "R1 event/review yes + education purchase yes 4; R2 yes/no 2; R3 no/yes 2; R4 no/no 2. Unconfirmed separate. No demographic quotas.",
       "income": "No minimum income; optional band at end of adult interview",
@@ -151,6 +151,13 @@
         "募集導線の変更",
         "製品仕様・D90の変更"
       ]
+    },
+    "interview_revision": {
+      "task_id": "D63-R",
+      "artifact": "research/GAKUSTA_ProblemInterview_実施用_3問＋条件付1問_20260925.md",
+      "status": "revised_not_field_tested",
+      "source": "https://review.foundx.jp/entry/how-to-talk-to-users",
+      "next_action": "Use v2 for first interviews; check timing and question comprehension after first session; no product demand claim."
     }
   }
 }

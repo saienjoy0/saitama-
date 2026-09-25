@@ -327,6 +327,20 @@
         "tools/recruitment/create-intake-form.gs"
       ],
       "evidence": "User accepted review corrections. Master v2, form v3, copies, ledger, interview and state synchronized. No live form, outreach or interviews executed."
+    },
+    {
+      "id": "D63-R",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D62-R"
+      ],
+      "title": "FoundXに基づく面談票の分岐・購入経緯・任意属性の具体化",
+      "artifacts": [
+        "research/GAKUSTA_ProblemInterview_実施用_3問＋条件付1問_20260925.md",
+        "research/recruitment/interview-note-template.md"
+      ],
+      "evidence": "FoundX source read; five adapted core questions, no-event branch, purchase/shared-family/background supplements. Document check only; field interviews not run."
     }
   ]
 }
