@@ -27,6 +27,9 @@ function createIntakeForm() {
   const existingId = props.getProperty('GAKUSTA_INTAKE_FORM_ID');
   if (existingId) {
     const existing = FormApp.openById(existingId);
+    if (props.getProperty('GAKUSTA_INTAKE_VERSION') !== 'finance-recruit-v2') {
+      throw new Error('既存フォームは旧版または作成途中です。回答を保持したまま、Q4・Q5と設定を編集画面で確認してください: ' + existing.getEditUrl());
+    }
     if (existing.getItems().length !== 11) {
       throw new Error('前回の作成が途中で止まりました。編集先: ' + existing.getEditUrl() + '。未完成フォームを確認してから手動で復旧してください。自動で重複作成はしません。');
     }
@@ -75,10 +78,10 @@ function createIntakeForm() {
     .setChoiceValues(['父親', '母親', 'その他の保護者']).setRequired(true);
   form.addMultipleChoiceItem().setTitle('Q3 お子さんとの暮らし方に近いものを選んでください')
     .setChoiceValues(['自分が同居', '自分が仕事等で別居', 'その他', '回答しない']).setRequired(true);
-  form.addMultipleChoiceItem().setTitle('Q4 直近1か月にお子さんとお金や買い物について話したことはありますか')
-    .setChoiceValues(['ある', 'ない', '思い出せない']).setRequired(true);
-  form.addMultipleChoiceItem().setTitle('Q5 お子さんとお金や買い物について話すとき、今のやり方をどう感じていますか')
-    .setChoiceValues(['おおむね十分', '一部気になる', '困っている', '分からない']);
+  form.addMultipleChoiceItem().setTitle('Q4 最近6か月に、お子さんがお金について学ぶために行ったことに最も近いものを選んでください')
+    .setChoiceValues(["何かを実際に試した（継続・中止、無料・有料を問わない）","調べたり比較・相談したが、まだ試していない","考えたが、まだ調べたり試したりしていない","今は取り組む予定はない","覚えていない"]).setRequired(true);
+  form.addTextItem().setTitle('Q5 直近に行ったことと時期を、一つ教えてください')
+    .setHelpText('まだ取り組んでいない場合は、その旨や理由を書ける範囲でお願いします。個人名や学校名は不要です。');
   form.addTextItem().setTitle('Q6 お話しできそうな日時を日本時間で2〜3つ教えてください')
     .setHelpText('まだ分からない場合は「まだ分からない」と記入できます').setRequired(true);
   form.addTextItem().setTitle('Q7 日程調整のメールアドレスを教えてください')
@@ -102,6 +105,7 @@ function createIntakeForm() {
   ]);
   form.setDestination(FormApp.DestinationType.SPREADSHEET, sheet.getId());
   form.setAcceptingResponses(false);
+  props.setProperty('GAKUSTA_INTAKE_VERSION', 'finance-recruit-v2');
   console.log('編集先: ' + form.getEditUrl());
   console.log('回答者向けURL: ' + form.getPublishedUrl());
   console.log('回答シート: ' + sheet.getUrl());
