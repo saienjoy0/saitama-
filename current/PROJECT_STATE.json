@@ -85,7 +85,7 @@
       "research/GAKUSTA_募集導線_制作計画_20260925.md"
     ],
     "scope": "Presentation-oriented customer discovery and recruitment/budget proposal; no recruitment messages, platform contracts, spending or product changes executed",
-    "next_research_action": "Review the concrete recruitment design and production plan (D58); build the materials when instructed, then recruit and interview. Product D90 remains separate.",
+    "next_research_action": "Recruitment source materials and a safe disabled LP draft are ready. Connect the owner Google account, set actual public contact and schedule, verify the form responder path and LP, then recruit. Product D90 remains a separate review.",
     "verification": {
       "document_check": "passed: scripts/check_design_handoff.py; research relative links checked",
       "interviews": "not_run",
@@ -104,6 +104,27 @@
       "lp_implemented": false,
       "lp_published": false,
       "messages_sent": false
+    },
+    "recruitment_materials": {
+      "revision": "20260925-v1",
+      "task_id": "D59",
+      "status": "draft_materials_prepared",
+      "artifacts": [
+        "research/recruitment/form-spec.md",
+        "research/recruitment/recruitment-copy.md",
+        "research/recruitment/intake-ledger-template.csv",
+        "research/recruitment/interview-note-template.md",
+        "research/recruitment/release-checklist.md",
+        "research/recruitment/verification.md",
+        "tools/recruitment/create-intake-form.gs",
+        "recruitment-site/index.html",
+        "recruitment-site/styles.css"
+      ],
+      "form_created": false,
+      "site_published": false,
+      "messages_sent": false,
+      "interviews_conducted": false,
+      "next_action": "Set actual public contact email, available JST slots and honorarium; then run the generated script in the owners Google account, inspect permissions and responder paths, insert verified responder URL in LP and referral copy, and preview before public release."
     }
   }
 }
