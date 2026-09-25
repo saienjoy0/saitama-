@@ -150,6 +150,27 @@
       "evidence": "Design and production plan only: nine intake questions, LP/referral copy, owner/access constraints and acceptance conditions specified. No forms, site, messages, spending or interviews executed."
     },
     {
+      "id": "D59",
+      "stage": "DESIGN",
+      "status": "in_progress",
+      "depends_on": [
+        "D58"
+      ],
+      "title": "保護者募集用フォーム・紹介原稿・LPプレビューの制作",
+      "artifacts": [
+        "research/recruitment/form-spec.md",
+        "research/recruitment/recruitment-copy.md",
+        "research/recruitment/intake-ledger-template.csv",
+        "research/recruitment/interview-note-template.md",
+        "research/recruitment/release-checklist.md",
+        "research/recruitment/verification.md",
+        "tools/recruitment/create-intake-form.gs",
+        "recruitment-site/index.html",
+        "recruitment-site/styles.css"
+      ],
+      "evidence": "Copy and templates, Apps Script source and disabled static LP drafted. Syntax/document checks pass; actual Google form, responder permissions, browser preview, public URL and participant recruitment await owner account and real contact/schedule/incentive inputs."
+    },
+    {
       "id": "D90",
       "stage": "DESIGN",
       "status": "awaiting_user_review",
