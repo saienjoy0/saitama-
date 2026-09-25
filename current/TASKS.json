@@ -136,6 +136,20 @@
       "evidence": "Official platform pricing and constraints reviewed; protocol v3 narrows required work to parent interviews and learning. Costs are proposals only; no sending, contracts or spending executed."
     },
     {
+      "id": "D58",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D57"
+      ],
+      "title": "Googleフォーム・紹介・LPの募集導線と制作計画を具体化",
+      "artifacts": [
+        "research/GAKUSTA_募集導線_Googleフォーム・紹介・LP_設計_20260925.md",
+        "research/GAKUSTA_募集導線_制作計画_20260925.md"
+      ],
+      "evidence": "Design and production plan only: nine intake questions, LP/referral copy, owner/access constraints and acceptance conditions specified. No forms, site, messages, spending or interviews executed."
+    },
+    {
       "id": "D90",
       "stage": "DESIGN",
       "status": "awaiting_user_review",
