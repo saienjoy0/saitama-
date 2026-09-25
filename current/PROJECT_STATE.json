@@ -135,6 +135,22 @@
       "selection": "Financial education actions: tried 4 / researched only 4 / no action comparison 2; remote parent household tracked separately, approximately 5 overall if reachable.",
       "income": "No minimum income; optional band at end of adult interview",
       "incentive": "Time compensation; no inference of income or purchase demand from participation"
+    },
+    "source_audit": {
+      "revision": "20260925-v1",
+      "task_id": "D61",
+      "status": "completed",
+      "artifact": "research/GAKUSTA_既存調査照合と面談質問の絞り込み_20260925.md",
+      "finding": "2015年度の金融広報中央委員会調査が小5–6本人6,957人を含み、こづかい・使い方・不足時・家事手伝い・家庭内のお金の会話を直接調査していることを原典で確認。過去のresearchレビューではこの調査の照合が不足していた。",
+      "scope": "P01–P08、F01–F03、E01–E03、V01–V03、C01–C05、T1–T3の25項目を公開資料と照合。親調査の対象偏り、標本方法、分母と調査年を記録。",
+      "evidence": "10資料の調査設計・対象・人数・設問・結果・限界を記録。2025 Sony BankとYomeruba、2018小6研究、2023 J-FLEC 15歳調査、所得・謝礼資料を原典確認。",
+      "not_done": [
+        "家庭インタビュー",
+        "子どもの体験観察",
+        "質問票v3の変更",
+        "募集導線の変更",
+        "製品仕様・D90の変更"
+      ]
     }
   }
 }
