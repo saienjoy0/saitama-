@@ -354,6 +354,19 @@
         "docs/design/recruitment-lp-preview-20260930.md"
       ],
       "evidence": "User accepted visual direction and requested continued LP and illustration work. Private synthetic preview saved and hosted. Static build and npm run check passed; 37 DOM interaction checks passed. Browser rendering, parent comprehension and live response collection not completed. Core D90 approval unchanged."
+    },
+    {
+      "id": "D65-LP",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D64-LP"
+      ],
+      "title": "一つの家族の体験・場面の横の質問・六つの動きをLPへ反映し、合成の保護者役でレビュー",
+      "artifacts": [
+        "docs/design/recruitment-lp-review-20261001.md"
+      ],
+      "evidence": "User requested story LP, questionnaire walkthrough, specified motion references, preselected review items and continued work. Six screens, five independent inline ratings, six interaction motions and review route saved in private preview; Canva board imported and previewed. Build and Astro/ESLint/Prettier passed; 44 regression plus 57 story/motion API/reading-order checks passed. Browser rendering and parent comprehension not verified; no real response collection. Figma not synced because edit access failed. DESIGN/D90 unchanged."
     }
   ]
 }

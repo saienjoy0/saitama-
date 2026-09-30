@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-09-30",
+  "updated_at": "2026-10-01",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -160,26 +160,34 @@
       "next_action": "Use v2 for first interviews; check timing and question comprehension after first session; no product demand claim."
     },
     "recruitment_lp_preview": {
-      "task_id": "D64-LP",
-      "revision": "review-v1.3-leaf",
+      "task_id": "D65-LP",
+      "revision": "review-v1.4-story",
       "status": "private_nonproduction_review_ready",
-      "artifact": "docs/design/recruitment-lp-preview-20260930.md",
+      "artifact": "docs/design/recruitment-lp-review-20261001.md",
       "site_project_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2",
       "preview_url": "https://yattemi-family-lp.mituki195.chatgpt.site",
       "astrowind_commit": "14e1a691f80548dcc36370847b1a02c0d0b12821",
-      "source_commit": "901753d127f6ba1ffbd30237b816865f1a572d14",
+      "source_commit": "1eb5a6c5f4ed47494f3797799a362acc451b5b20",
       "generated_illustrations": 3,
       "questionnaire_version": "20260930-v1.2",
       "verification": {
         "build": "passed",
         "template_checks": "npm run check passed: Astro, ESLint, Prettier",
-        "dom_interactions": "37 checks passed, runtime errors 0, network calls 0",
-        "rendered_browser": "not_run; executable download failed",
-        "participant_understanding": "not_run"
+        "dom_interactions": "44 regression checks and 57 story/motion API/reading-order checks passed; runtime errors 0, fetch/XHR/beacon calls 0",
+        "rendered_browser": "not_run; no available rendered-browser verification environment",
+        "participant_understanding": "not_run",
+        "canva_board": "imported HTML; rich text and page thumbnail checked"
       },
       "live_response_collection": false,
       "family_release": false,
-      "next_action": "Render on mobile/desktop and verify comprehension with parents; finalize operating conditions and storage before live recruitment. Core DESIGN/D90 unchanged."
+      "next_action": "Render on mobile/desktop and verify comprehension with parents; finalize operating conditions and storage before live recruitment. Core DESIGN/D90 unchanged.",
+      "review_url": "https://yattemi-family-lp.mituki195.chatgpt.site/review/",
+      "canva_review_url": "https://www.canva.com/d/VGZG4TmT2cEWZop",
+      "new_generated_assets": [
+        "conversation-leaf-v2.png",
+        "guide-bird.png"
+      ],
+      "figma_sync": "not_synced; edit access error"
     }
   }
 }
