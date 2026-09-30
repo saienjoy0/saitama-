@@ -341,6 +341,19 @@
         "research/recruitment/interview-note-template.md"
       ],
       "evidence": "FoundX source read; five adapted core questions, no-event branch, purchase/shared-family/background supplements. Document check only; field interviews not run."
+    },
+    {
+      "id": "D64-LP",
+      "stage": "DESIGN",
+      "status": "done",
+      "depends_on": [
+        "D58"
+      ],
+      "title": "若葉色・3枚の挿絵とアンケートをAstroWindの未送信LPプレビューへ反映",
+      "artifacts": [
+        "docs/design/recruitment-lp-preview-20260930.md"
+      ],
+      "evidence": "User accepted visual direction and requested continued LP and illustration work. Private synthetic preview saved and hosted. Static build and npm run check passed; 37 DOM interaction checks passed. Browser rendering, parent comprehension and live response collection not completed. Core D90 approval unchanged."
     }
   ]
 }

@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-09-25",
+  "updated_at": "2026-09-30",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -158,6 +158,28 @@
       "status": "revised_not_field_tested",
       "source": "https://review.foundx.jp/entry/how-to-talk-to-users",
       "next_action": "Use v2 for first interviews; check timing and question comprehension after first session; no product demand claim."
+    },
+    "recruitment_lp_preview": {
+      "task_id": "D64-LP",
+      "revision": "review-v1.3-leaf",
+      "status": "private_nonproduction_review_ready",
+      "artifact": "docs/design/recruitment-lp-preview-20260930.md",
+      "site_project_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2",
+      "preview_url": "https://yattemi-family-lp.mituki195.chatgpt.site",
+      "astrowind_commit": "14e1a691f80548dcc36370847b1a02c0d0b12821",
+      "source_commit": "901753d127f6ba1ffbd30237b816865f1a572d14",
+      "generated_illustrations": 3,
+      "questionnaire_version": "20260930-v1.2",
+      "verification": {
+        "build": "passed",
+        "template_checks": "npm run check passed: Astro, ESLint, Prettier",
+        "dom_interactions": "37 checks passed, runtime errors 0, network calls 0",
+        "rendered_browser": "not_run; executable download failed",
+        "participant_understanding": "not_run"
+      },
+      "live_response_collection": false,
+      "family_release": false,
+      "next_action": "Render on mobile/desktop and verify comprehension with parents; finalize operating conditions and storage before live recruitment. Core DESIGN/D90 unchanged."
     }
   }
 }
