@@ -160,34 +160,38 @@
       "next_action": "Use v2 for first interviews; check timing and question comprehension after first session; no product demand claim."
     },
     "recruitment_lp_preview": {
-      "task_id": "D65-LP",
-      "revision": "review-v1.4-story",
-      "status": "private_nonproduction_review_ready",
-      "artifact": "docs/design/recruitment-lp-review-20261001.md",
+      "task_id": "D66-LP",
+      "revision": "review-v1.5-clarity",
+      "status": "private_review_updated_visual_check_blocked",
+      "artifact": "docs/design/recruitment-lp-quality-20261001.md",
       "site_project_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2",
       "preview_url": "https://yattemi-family-lp.mituki195.chatgpt.site",
       "astrowind_commit": "14e1a691f80548dcc36370847b1a02c0d0b12821",
-      "source_commit": "1eb5a6c5f4ed47494f3797799a362acc451b5b20",
-      "generated_illustrations": 3,
-      "questionnaire_version": "20260930-v1.2",
+      "source_commit": "c17f5dd32b67d6bbdce9b9f79f77fdd3169bfa5c",
+      "generated_illustrations": 4,
+      "questionnaire_version": "20261001-v1.3",
       "verification": {
         "build": "passed",
-        "template_checks": "npm run check passed: Astro, ESLint, Prettier",
-        "dom_interactions": "44 regression checks and 57 story/motion API/reading-order checks passed; runtime errors 0, fetch/XHR/beacon calls 0",
-        "rendered_browser": "not_run; no available rendered-browser verification environment",
+        "template_checks": "npm run check passed: Astro errors/warnings/hints 0; ESLint and Prettier passed",
+        "dom_interactions": "109 current synthetic required-answer/branch/confirmation/motion/reading-order checks passed; runtime errors 0; fetch/XHR/beacon calls 0",
+        "rendered_browser": "blocked; automatic approval review rejected ChatGPT authentication and alternate browser preparation; no bypass attempted afterward",
         "participant_understanding": "not_run",
-        "canva_board": "imported HTML; rich text and page thumbnail checked"
+        "canva_board": "v1.4 historical board unchanged; current canonical copy is Site LP and /review/",
+        "image_assets": "generated hero inspected; existing sharp WebP encoding, largest variants total 412580 bytes vs previous PNG total 9327644; not a browser speed measurement"
       },
       "live_response_collection": false,
       "family_release": false,
-      "next_action": "Render on mobile/desktop and verify comprehension with parents; finalize operating conditions and storage before live recruitment. Core DESIGN/D90 unchanged.",
+      "next_action": "Obtain explicit instruction for browser authentication or hosting/access change; then inspect rendered desktop/mobile, motion and parent comprehension and iterate. Core DESIGN/D90 unchanged.",
       "review_url": "https://yattemi-family-lp.mituki195.chatgpt.site/review/",
       "canva_review_url": "https://www.canva.com/d/VGZG4TmT2cEWZop",
       "new_generated_assets": [
-        "conversation-leaf-v2.png",
-        "guide-bird.png"
+        "hero-observe-v3.png"
       ],
-      "figma_sync": "not_synced; edit access error"
+      "figma_sync": "not_synced; edit access error",
+      "deployment_id": "appgdep_6abd5d6f7cb88191be2a04a2e55f4d11",
+      "saved_version_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_2e0426a3e38c8191a094ea95fb2e6859",
+      "award_quality_assessment": "pending rendered visual review and actual parent understanding; not self-certified",
+      "hosting_followup": "User asked whether Vercel would ease operation. Official authentication documentation checked; no Vercel account access, deployment or audience change performed."
     }
   }
 }

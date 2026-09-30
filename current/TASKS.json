@@ -367,6 +367,19 @@
         "docs/design/recruitment-lp-review-20261001.md"
       ],
       "evidence": "User requested story LP, questionnaire walkthrough, specified motion references, preselected review items and continued work. Six screens, five independent inline ratings, six interaction motions and review route saved in private preview; Canva board imported and previewed. Build and Astro/ESLint/Prettier passed; 44 regression plus 57 story/motion API/reading-order checks passed. Browser rendering and parent comprehension not verified; no real response collection. Figma not synced because edit access failed. DESIGN/D90 unchanged."
+    },
+    {
+      "id": "D66-LP",
+      "stage": "DESIGN",
+      "status": "in_progress",
+      "depends_on": [
+        "D65-LP"
+      ],
+      "title": "受賞水準を目標にLPの日本語・質問例・必須回答・視覚と性能を反復レビュー",
+      "artifacts": [
+        "docs/design/recruitment-lp-quality-20261001.md"
+      ],
+      "evidence": "Japanese copy and examples, all applicable required questions, summary editing, inline accessible error guidance and fresh-leaf safe-observation hero implemented in private synthetic LP v1.5. Native private deployment succeeded, source c17f5dd32b67d6bbdce9b9f79f77fdd3169bfa5c. Build and Astro/ESLint/Prettier passed; 109 synthetic checks passed with 0 runtime errors and 0 fetch/XHR/beacon calls. WebP visible variants total 412580 bytes maximum. Rendered browser review is blocked by automatic approval rejection of authentication and alternate browser preparation. Actual parent comprehension and award-level quality judgment remain pending. No Vercel deployment or audience change. DESIGN/D90 unchanged."
     }
   ]
 }
