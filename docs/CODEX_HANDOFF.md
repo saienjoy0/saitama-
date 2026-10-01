@@ -1,4 +1,4 @@
-> LP最新：D66-LP／review-v1.7-reading／質問票20261001-v1.4。6場面の役割・内容確認の読み順・無料登録と未確定費用を整理。長い確認画面が末尾から始まる不具合を修正し、回帰確認は失敗→成功。合成129件とビルド・静的検査成功。公開PCと390/320px表示・操作を確認。実保護者・実機・受賞水準は未判定。Vercelは一時公開で所有者の引き取りが必要。詳細はdocs/design/recruitment-lp-quality-20261001.md。
+> LP最新：D66-LP／review-v1.8-visual／質問票20261001-v1.4。3点の挿絵と短い会話へ変更し、主要説明を48.7％短縮。追加例は開いて読む。合成138件、ビルド・静的検査成功。公開版の回答→確認→戻る→未送信完了と390/320px表示を確認。実保護者・実機・受賞水準は未判定。Vercelは一時公開で所有者の引き取りが必要。詳細はdocs/design/recruitment-lp-quality-20261001.md。
 
 > 面談最新版：D63-R／実施用v2は主質問5つ＋条件付き補足。既存ファイル名の3問は旧名称。記録表もv2。FoundX原則を参照し、出来事なし・未行動・解決済みの分岐、購入/見送り、末尾の任意属性を追加。実面談は未実施。
 
@@ -122,3 +122,13 @@ D66-LPはin_progress。公開画面のレビューは実施済みだが、実保
 ソースf9db124ef604d07119d8a29b94179eaee677734d。所有者限定Siteデプロイappgdep_6abdf3970ea4819191a11548ba75ba24、保存版appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_37c9eddb85d08191ac0732fc0681fb41、succeeded。公開URL https://temporary-instant-sitar-cc3gohw.vercel.app/ と /review/ を開いて確認。Vercel dpl_CMzSRYeebs8x4EXsFLYKbqqrwYBZ、READY、失効予定2026-10-01T06:17:03.478Z（UTC+8で14:17、日本時間15:17）。公式連携の公開ツールは今回もTool not found。恒久化は所有者の引き取りが必要。引き取りURLと匿名認証情報はGitへ保存しない。前版の一時URLは期限切れ。
 
 正本 /workspace/sites/yattemi-family-lp の docs/REVIEW_V1.7.md、verification-v1.7.json、browser-review/confirmation-v1.7.jpg、mobile-roles-v1.7.jpg が今回の証拠。CanvaとFigmaは前記の状態を維持。D66-LPはin_progress。実保護者の説明・回答時間、実機・アクセシビリティ・受賞水準の確認が残る。本体DESIGN/D90とREVIEW_BUNDLE、正式受付の未確定条件を維持。
+
+## LPの文字量・具体例の挿絵（D66-LP／20261001、v1.8）
+
+ユーザーの「文字が多すぎる、見る気が失せる」という指摘を受け、NN/G、GOV.UK、W3Cの一次資料を確認。買い物・照明・貯め方を同じタッチの3枚の挿絵と短い会話で表示。主要な説明5種類は1650文字から846文字、48.7％減。質問やアプリ画面を含む全文の削減率ではない。質問の意味・選択肢・必須条件は維持し、短い例を残して追加例・計算過程はdetails。最初の質問票は閉じるが、未回答なら開いて戻す。
+
+最終公開版で架空の小5保護者として、出来事なし→方法なし→離れて暮らす家族なし→五つの評価は判断できない→案内は回答のみ→内容確認→戻る→完了見本を確認。確認は中央、見出しフォーカス、scrollTop0、回答保持。ヒント、計算過程、編集メモを操作。スマホの余分な余白、細切れの会話、親detailsの記号が子detailsに誤適用される問題を修正。390/320pxのiframeで3画像の読み込みと横はみ出しなし。合成138件と必須検査成功。実保護者・実機・読み上げ・読み込み・受賞水準の証明ではない。
+
+ソースc45eb7925d486e03584d3f2da158c8aa4d2d7051。所有者限定Site appgdep_6abe05d7f49c81918d0584393f38174f、保存版appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_0798ffc8f5e0819194393f1840135179、succeeded。開いて確認した公開URL https://temporary-swift-canyon-uxb99qp.vercel.app/ と https://temporary-swift-canyon-uxb99qp.vercel.app/review 。Vercel dpl_3gB9V76QLgjuTSWEHxW7K4ajDQZC、READY、失効予定2026-10-01T07:55:58.552Z（UTC+8で15:55、日本時間16:55）。継続には所有者の引き取りが必要。匿名認証情報・引き取りURLはGitへ保存しない。
+
+正本/workspace/sites/yattemi-family-lpにREVIEW_V1.8.md、text-density-v1.8.json、verification-v1.8.json、browser-review/empathy-v1.8.jpg、mobile-examples-v1.8.jpgを保存。3原本と380/760px WebPも保存。D66-LPはin_progress、実利用者の説明と回答時間の確認が残る。本体DESIGN/D90、REVIEW_BUNDLE、実受付の未確定条件は維持。
