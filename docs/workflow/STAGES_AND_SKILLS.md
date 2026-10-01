@@ -2,7 +2,7 @@
 
 > v0.4：DESIGNでUIスキルの `references/evidence-led-family-design.md` を読む。B10は探索・比較と共通UI、B20/B30は本人の問いと家族循環、B60はnext_action_matchのAPI・固定版比較、B70はUX41〜45／AI41を検査する。各ファイルとコマンドは実装計画冒頭の追補に記載。Google／Amazonの公式資料をプロジェクト用に適用したもので、公式Codexスキルを導入したとの意味ではない。
 
-状態の唯一の機械可読入口は `current/PROJECT_STATE.json`。現状はDESIGN。スキルは作業方法、ハーネスは状態・入力・権限・評価を管理する仕組みであり、導入するだけで安全が保証されるものではない。
+全体の入口は自動生成の `CURRENT.md`、系統は `current/WORKSTREAMS.json`。本体の状態・承認の機械可読入口は `current/PROJECT_STATE.json`。本体はDESIGN。募集／LP・顧客検証・発表の進行をこの一列だけで判定しない。スキルは作業方法、ハーネスは状態・入力・権限・評価を管理する仕組みであり、導入するだけで安全が保証されるものではない。
 
 > 2026-09-23更新（下記の標準工程より優先）：ユーザー指定でwriting-plansをDESIGN中に使い、設計と実装計画P10を事前作成済み。現在D90でREVIEW_BUNDLE一式のレビュー待ち。提示済み一式への「実装を始めて」で実発言・hash・native/sequential方式を記録しBUILD/B10へ進む。PLANの再作成は不要。BUILDではexecuting-plans＋TDD＋UIスキル＋React実装レビューを使用する。
 
@@ -32,7 +32,7 @@ v0.4.1の具体的な導入経路・実行スキルの依存・確認結果は `
 3. 作業範囲を短く記録し、許可された成果物を作る。
 4. 記載済みの検査を実行。失敗時は原因と影響を記録。
 5. 検査の種類（文書／合成／製品／実利用）を区別して報告。
-6. `TASKS.json` の成果物と証拠、`PROJECT_STATE.json` の次作業、HANDOFFを同じ変更で更新。
+6. 現在はnavigation方式。影響するTASKS／PROJECT_STATEの成果物・証拠だけを更新し、CURRENTを再生成する。Issueへ証拠をリンクし、HANDOFFへ毎回追記しない。管理の正本と次の移行はPROJECT_MANAGEMENT.mdを参照。
 
 AGENTS/JSONはCodexへの制御契約であり、強制的なアクセス制御ではない。PLANでCIの変更範囲チェック、実行権限、ブランチ保護を具体化する。現在は文書チェッカーだけを用意している。
 

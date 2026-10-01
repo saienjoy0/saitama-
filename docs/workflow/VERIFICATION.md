@@ -1,5 +1,15 @@
 # 引き継ぎ検証記録
 
+## 2026-10-02 / 管理入口の改修
+
+- ベースcommit：96e40d90d51400e315c73cfe479e624793656a5d。CURRENT自動生成、4系統の資料とIssue #3〜#7、短い引継ぎ、専用スキルの新旧入口対応を追加。
+- `python3 scripts/check_design_handoff.py`、`python3 scripts/render_current.py --check`、`python3 scripts/test_project_navigation.py`（5件）、`git diff --check`：PASS。
+- 一時コピーで、状態変更によるCURRENTの更新漏れ、未承認の本体許可、未検証のProjects正本切替、未知タスクと参照資料欠落を検出。生成処理が元の承認／タスクを書き換えないことを確認。
+- PROJECT_STATEとTASKSはベースとbyte一致。製品仕様・実装計画・契約・UIスキルのbundle hashは維持。変更はworkflowスキルのhashと、それを持つSKILLS registryのbundle hashのみ。承認フラグ・証拠は変更していない。
+- 旧CODEX_HANDOFFは履歴ファイルにbyte一致で保存。新入口のローカル相対リンクの存在を確認。個人workflowスキルのquick_validate：PASS。
+- Project作成、ネイティブIssue依存設定、状態の正本切替、自動同期は未実施。Issuesは作業の入口であり、移行完了とは記録しない。
+- 製品テスト・実AI・家庭面談・LP改修・発表デモ操作はこの管理改修で実施していない。公開設定の変更や原資料の個人情報監査も未実施。
+
 ## 2026-09-23 / v0.4.1 課題分解AI・スキルの最小監査
 
 保存時、mainが27d44a1へ進み、別作業のプロトタイプHTMLと参考スキル2ファイルが追加されていた。今回の変更との重複なしを確認し、その3ファイルを保持した最新tree上へ変更を適用。追加スキルはfrontmatter不在のため自動検出の確認済み件数に含めず、CODEX_PREFLIGHTへ扱いを記載した。

@@ -1,26 +1,30 @@
-# GAKU∞STA 2026 / Family Quest 事業化プロジェクト
+# やってみクエスト｜GAKU∞STA 2026
 
-GAKU∞STA 2026応募と、その後の事業化検証のための資料リポジトリです。
+家庭の身近な判断を題材に、子どもが考え・選び・試し、家族と相談する体験を検討するプロジェクトです。
+
+**[今の現在地を見る → CURRENT.md](CURRENT.md)**
+
+今は顧客検証・募集準備・LP見本改善・本体設計レビュー・発表準備を並行しています。
+2026-10-16の発表準備では、保護者の具体的な経験を聞き、仮説をどう変えたかを整理します。
+まず5家庭、可能なら10家庭。人数は活動目標であり、公式最低要件と確認されたものではありません。
+
+| 系統 | 作業入口 | 主な資料・正本 |
+|---|---|---|
+| 顧客検証 | [最初の5家庭 #6](https://github.com/saienjoy0/saitama-/issues/6) | CURRENTから募集正本・面談票へ |
+| 募集／LP | [受付条件 #4](https://github.com/saienjoy0/saitama-/issues/4) / [AI説明 #3](https://github.com/saienjoy0/saitama-/issues/3) | LP正本は別Site。recruitment-siteは初期下書き |
+| 本体製品 | [設計レビュー #5](https://github.com/saienjoy0/saitama-/issues/5) | [レビュー対象](current/REVIEW_BUNDLE.json) / [機能一覧](docs/design/FEATURE_REVIEW.md) |
+| 発表 | [デモ確認 #7](https://github.com/saienjoy0/saitama-/issues/7) | [Draft PR #2](https://github.com/saienjoy0/saitama-/pull/2) |
+
+本体はDESIGN/D90のレビュー待ち。LPの合成見本や資料の制作は本体BUILD開始と区別します。
+詳しい状態はCURRENT、更新方法と移行範囲は[管理方式](docs/workflow/PROJECT_MANAGEMENT.md)へ。
+GitHub Projectへの状態移行はまだ実施していません。
 
 ## Codexの入口
 
-現在は **DESIGN**。最初に [AGENTS.md](AGENTS.md) と [引き継ぎ](docs/CODEX_HANDOFF.md) を読む。状態は [PROJECT_STATE.json](current/PROJECT_STATE.json)、次作業は [TASKS.json](current/TASKS.json)、段階ごとのスキルは [工程表](docs/workflow/STAGES_AND_SKILLS.md)。AI設計は [v0.4](docs/design/ai-action-assistance-v0.4.md)。
-
-チェック：`python3 scripts/check_design_handoff.py`。製品やAIの動作試験ではなく、引き継ぎ文書の検査。
-
-## レビュー v0.4.1
-
-- [課題分解AIとスキルの最小レビュー](docs/design/ai-engine-review-v0.4.1.md)／[Codexの導入・着手手順](docs/workflow/CODEX_PREFLIGHT.md)。
-
-- [三者・家族循環・子どもの面白さのレビュー](docs/design/personas-cycle-review-v0.4.md)。
-- [AIの必要性・次の行動補助・API運用](docs/design/ai-action-assistance-v0.4.md)。
-
-- [画面と動きの見本](docs/review/index.html) — v0.3の部分見本を残した比較用HTML。機能一覧はv0.4。新しい探索画面はこの見本に未反映。保存・通信なし。
-- [21機能一覧](docs/design/FEATURE_REVIEW.md) — F番号で残す・変更・後回しを指定。
-- [三役15画面・動き](docs/design/role-experience-v0.3.md)／[拡張境界](docs/design/extensibility-v0.3.md)。
-- [Codex用ファイル別実装計画](docs/superpowers/plans/2026-09-23-yattemi-implementation.md)。
-
-設計と計画は準備済み、まだ未承認。一式をレビュー後「実装を始めて」で計画を順番にB10から実装する方式です。本体実装・実家庭公開・ライブAIは未実施。
+[AGENTS.md](AGENTS.md) → [CURRENT.md](CURRENT.md) → 対象Issueと関係資料。
+本体作業は[状態](current/PROJECT_STATE.json)と承認対象も確認します。
+[短い引継ぎ](docs/CODEX_HANDOFF.md) / [工程とスキル](docs/workflow/STAGES_AND_SKILLS.md)。
+更新：`python3 scripts/render_current.py`。検査：`python3 scripts/check_design_handoff.py`。
 
 ## 現在の方針
 北九州市向けに検討していた「キタキュークエスト」のうち、地域固有要素ではなく、家族向けサービスとしての核・原体験・競合仮説・実証設計を再利用し、GAKU∞STA向けに再構成します。
@@ -35,5 +39,7 @@ GAKU∞STA 2026応募と、その後の事業化検証のための資料リポ�
 ## 資料の使い分け
 GAKU∞STAの応募・事業化検討では `current/` を最優先します。`legacy/`、`research/`、`source_materials/`、`archive/` は、サービスの核、原体験、利用フロー、競合仮説、実証方法など再利用できる素材を取り出すための資料です。北九州市固有の政策・地域資源・統計は、そのまま埼玉向けの根拠として使用しません。
 
-## 注意
-このリポジトリはPrivateです。申請者情報を含む原資料を保存しているため、Publicへ変更する場合は、住所・電話番号・メールアドレス・生年月日などの個人情報を事前に除去してください。
+## 公開状態
+
+2026-10-02のGitHub metadataでは **Public** です。旧READMEのPrivate記載を訂正しました。
+原資料の個人情報監査は未実施。実回答・連絡先・児童記録は保存しません。
