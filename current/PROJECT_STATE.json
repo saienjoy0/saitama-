@@ -161,37 +161,52 @@
     },
     "recruitment_lp_preview": {
       "task_id": "D66-LP",
-      "revision": "review-v1.5-clarity",
-      "status": "private_review_updated_visual_check_blocked",
+      "revision": "review-v1.6-experience",
+      "status": "public_synthetic_review_verified_parent_understanding_pending",
       "artifact": "docs/design/recruitment-lp-quality-20261001.md",
       "site_project_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2",
       "preview_url": "https://yattemi-family-lp.mituki195.chatgpt.site",
       "astrowind_commit": "14e1a691f80548dcc36370847b1a02c0d0b12821",
-      "source_commit": "c17f5dd32b67d6bbdce9b9f79f77fdd3169bfa5c",
+      "source_commit": "6199b319a3f5f3fae9287d0a8616dfcd36e255f4",
       "generated_illustrations": 4,
-      "questionnaire_version": "20261001-v1.3",
+      "questionnaire_version": "20261001-v1.4",
       "verification": {
         "build": "passed",
         "template_checks": "npm run check passed: Astro errors/warnings/hints 0; ESLint and Prettier passed",
-        "dom_interactions": "109 current synthetic required-answer/branch/confirmation/motion/reading-order checks passed; runtime errors 0; fetch/XHR/beacon calls 0",
-        "rendered_browser": "blocked; automatic approval review rejected ChatGPT authentication and alternate browser preparation; no bypass attempted afterward",
+        "dom_interactions": "128 current synthetic required-answer/branch/result/confirmation/motion/focus checks passed; runtime errors 0; fetch/XHR/beacon 0",
+        "rendered_browser": "passed within scope: public desktop 1348px synthetic parent journey through confirmation/back/completion; six manual interactions and page motion reduction; 390/320px CSS iframe rendering with no horizontal overflow and 320px alternate past-behavior branch. Real phones, OS setting, screen reader and actual parent understanding not tested",
         "participant_understanding": "not_run",
         "canva_board": "v1.4 historical board unchanged; current canonical copy is Site LP and /review/",
         "image_assets": "generated hero inspected; existing sharp WebP encoding, largest variants total 412580 bytes vs previous PNG total 9327644; not a browser speed measurement"
       },
       "live_response_collection": false,
       "family_release": false,
-      "next_action": "Obtain explicit instruction for browser authentication or hosting/access change; then inspect rendered desktop/mobile, motion and parent comprehension and iterate. Core DESIGN/D90 unchanged.",
+      "next_action": "Provide public review and owner claim link for continuity, then observe actual parents and real devices before quality/recruitment claims. No new approval needed for already-authorized synthetic public preview. Core DESIGN/D90 unchanged.",
       "review_url": "https://yattemi-family-lp.mituki195.chatgpt.site/review/",
       "canva_review_url": "https://www.canva.com/d/VGZG4TmT2cEWZop",
-      "new_generated_assets": [
-        "hero-observe-v3.png"
-      ],
+      "new_generated_assets": [],
       "figma_sync": "not_synced; edit access error",
-      "deployment_id": "appgdep_6abd5d6f7cb88191be2a04a2e55f4d11",
-      "saved_version_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_2e0426a3e38c8191a094ea95fb2e6859",
-      "award_quality_assessment": "pending rendered visual review and actual parent understanding; not self-certified",
-      "hosting_followup": "User asked whether Vercel would ease operation. Official authentication documentation checked; no Vercel account access, deployment or audience change performed."
+      "deployment_id": "appgdep_6abdc92569ac8191b96546240ce1fd04",
+      "saved_version_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_1aa8f852446881918217a40f143c4fb1",
+      "award_quality_assessment": "pending actual parent comprehension, real-device reading/loading/accessibility; not self-certified",
+      "hosting_followup": "User explicitly approved Vercel publication with していいよ. Installed official deploy tool returned Tool not found; official CLI published a temporary synthetic copy. Private owner Site updated and preserved; no protection bypass or unrelated Vercel project changes.",
+      "public_preview": {
+        "provider": "Vercel official CLI 62 temporary deployment",
+        "url": "https://temporary-quick-delta-5ui8adg.vercel.app/",
+        "review_url": "https://temporary-quick-delta-5ui8adg.vercel.app/review/",
+        "deployment_id": "dpl_oKo8PtyB5UVx6pauaV9FXduViYH8",
+        "status": "READY",
+        "expires_at": "2026-10-01T03:33:22.329Z",
+        "permanent": false,
+        "account_claim": "owner action required; claim URL and anonymous credentials excluded from repository",
+        "audience": "public synthetic demonstration; no real response collection"
+      },
+      "questionnaire_sources": [
+        "research/GAKUSTA_ProblemInterview_実施用_3問＋条件付1問_20260925.md",
+        "research/GAKUSTA_10家庭調査票_最終版_20260925.md",
+        "research/recruitment/form-spec.md",
+        "research/GAKUSTA_既存調査照合と面談質問の絞り込み_20260925.md"
+      ]
     }
   }
 }
