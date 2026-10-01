@@ -42,7 +42,14 @@
 - [資料とブランチの使い分け](MATERIALS_AND_BRANCHES.md)で、現行資料・履歴・継続するデモ・別ブランチの固有資料を区別した。参照先は取得時SHAで保持。
 - タスク状態と本体の承認値・レビュー対象は維持。Projectへの正本切替は以下の実設定と検証後。
 
-## 次の移行（未実施）
+
+## 今後の運用
+
+2026-10-02、ユーザーが直前のREADME → CURRENT → 対象Issueの運用案に「そうして」と応答したため、現在のnavigation構成で日常作業を続ける。
+現在地はCURRENT、作業の文脈・完了条件・成果は対象Issue、資料の現行／履歴区分は資料一覧を使う。作業後は既存の正本を更新し、CURRENTを再生成・検査する。
+Projectsの設定や古いブランチの削除は日常作業の開始条件にしない。必要になった時の追加設定として扱い、未実施の状態は保持する。
+
+## 必要になった時の追加設定（未実施）
 
 1. saienjoy0所有のProjectを確認し、重複がなければ作成・リポジトリへ関連付ける。Projectの可視性とrepoの可視性は別に確認する。
 2. Status（Backlog / Ready / In progress / Blocked / Review / Done）、Workstream（Validation / Recruitment-LP / Product / Pitch）、Priority（P0/P1/P2）、Target dateを設定。
