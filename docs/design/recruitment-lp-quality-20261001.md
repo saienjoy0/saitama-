@@ -1,29 +1,32 @@
 # 募集LPの品質レビュー — 2026-10-01
 
-最新版 review-v1.9-buying / 質問票20261001-v1.4 / D66-LP in_progress。本体DESIGN/D90は変更なし。
+最新版review-v1.10-illustrated / 質問票20261001-v1.4 / D66-LP in_progress。本体DESIGN/D90は変更なし。
 
-電気代0.15円/時間では小さすぎて逆効果、使用量の単位も分かりにくいという指摘を受け、中心を「欲しいゲーム、どう買おう？」へ変更。新品6,000円・中古3,500円・差2,500円を同じゲームの説明用の仮価格として大きく並べた。実在の販売価格や実際の節約額ではない。値段から動作・付属品を確かめ、親と相談する。動作を確認できなかったので、今回は買わずに待つ、という判断も見せる。
+最新の依頼は「冒頭はそのまま、文字が多いので背景の挿絵などで見やすく」。最初に参照先を見て対応を記録してから改変した。探究学舎の「子どもが輝く魔法の授業」の大きな写真と白い説明面をブラウザーで確認。NN/Gの画風の統一・情報を伝える絵・文字とのバランス、W3Cの画像代替テキスト、GOV.UKの短い補助文を確認した。効果や実績を流用しない。改変前の対応表と追って見直した箇所はSiteソースdocs/REVIEW_V1.10.md。
 
-任天堂の公式商品ページで税込希望小売価格6,578円の例を確認したことは数千円という規模の参考であり、LPの仮価格の出典ではない。J-FLECの小学校高学年向け教材でお小遣いと買い物の扱いを確認。ゲームの例が保護者・子どもに通じるという設計仮説は、実家庭で未検証。公式参照先：
+- https://tanqgakusha.jp/
+- https://www.nngroup.com/articles/imagery-in-visual-design/
+- https://www.w3.org/WAI/tutorials/images/
+- https://www.gov.uk/service-manual/design/designing-good-questions
 
-- https://www.nintendo.com/jp/switch/acbaa/products/soft.html
-- https://www.j-flec.go.jp/materials/standard_primaryschool_3/
-- https://www.j-flec.go.jp/materials/okozukai/
+冒頭の文言・絵・配置・動きは保持。index.astroとheader.htmlのハッシュ、ビルド後のヒーローHTMLが改変前と一致。下の原因は「調べる・相談する・振り返る」の3場面カードにし、6場面の説明は短い見出しと挿絵・触れる画面を対にした。文字を絵に重ねない。相談のメモ・親子の振り返り・科学館へ行く案を相談する3点を内蔵image_genで生成。ノートの風景絵を確認メモへ修正し、続けて同じ絵が出る箇所を見直した。PNGと380/760px WebPをソースに保存。新しいWebPは21,530〜69,790B。配信時間の測定ではない。
 
-同じゲームの二つのケースを比べる子どもと、親が聞く場面を内蔵画像生成で作成。若葉色・生成り・水彩を維持。原本public/images/hero-game-compare-v1.pngと六つのWebPをSiteソースに保存。数値は画像に埋め込まず正確なHTMLで表示した。冒頭にも価格を並べ、後半を読まなくても題材が分かるようにした。
+同一の説明範囲で838→552文字、34.1％減。対象は.sectionhead / .cause / .storyheader / .story-role-guide / .storycopy / .story-recap / .story-footerの空白を除いたtextContent JS length。質問票・操作画面・申込案内を含むLP全体の削減率や読み時間ではない。家庭の経験の質問票ソースも変更前と一致。選択肢・必須条件・全5評価を維持。新しい自動アニメーションは追加していない。
 
-主要説明の五種類のブロックは前版846→800文字、5.4％減。6場面の説明は369→307文字。質問・画面を含むLP全体の削減率や読み時間ではない。質問の意味・選択肢・必須条件、五つの体験評価は変更していない。題材は変わったためLP版を識別し、旧版の評価と混ぜない。
+題材はv1.9から維持。同じ架空のゲームを新品6,000円・中古3,500円・差2,500円としてHTMLで並べ、動作・付属品を確かめて親と相談する。買わずに待つ判断も正常。実販売価格や節約額の出典ではない。画面提示が変わったため版を区別し、旧LP版の評価と混ぜない。
 
-最終ソースでbuildとnpm run check成功。Astro91ファイルにエラー・警告・ヒント0、ESLintとPrettier成功。合成DOM138件成功、実行時エラー0・fetch/XHR/beacon 0はmocked jsdom内の結果。
+最終ソースでbuildとnpm run check成功。Astro91ファイルにエラー・警告・ヒント0、ESLintとPrettier成功。合成DOM159件成功、エラー0・fetch/XHR/beacon0はmocked jsdom内の結果。確認や動き・寸法のAPIは模擬している。最終buildのHTML/CSS/JS6ファイルがVercel配信のステージングと一致。
 
-公開ブラウザーでは架空の小5保護者役で、未回答なら質問票を開いてQ02へフォーカス→出来事なし→独立した方法なし→離れた家族は当てはまらない→案を編集→五評価は判断できない→懸念不明と短い理由→回答のみ→中央・見出しフォーカス・scrollTop0の確認→戻って回答とフォーカス保持→明示的な未送信完了を確認。最終390/320pxのCSS iframeはhtmlのscrollWidth/clientWidthが375/375・305/305px。価格カードも117/117・82/82pxで内部にはみ出さない。両方の価格と320pxの追加確認事項を目視確認。実際のスマホによる検証ではない。
+公開ブラウザーで架空の小5保護者として、未回答ならQ02へ戻る→出来事なし→独立した方法なし→離れた家族なし→案を編集→5評価は判断できない→懸念不明と短い理由→回答のみ→中央の確認を見出しから読む→戻って5回答とフォーカス保持→明示的な未送信完了を確認。編集した案がメモ・アルバム・新聞へ引き継がれること、ご褒美の絵・100までの例・ご褒美なし・動き低減も確認。実回答を受付していない。
 
-公開入口：https://temporary-speedy-oboe-5ndzqq8.vercel.app/
+最終390/320px CSS iframeはhtmlのscrollWidth/clientWidthが375/375・305/305px、価格カードが117/117・82/82px。挿絵と短文、両価格と差額、開く確認事項を目視。実際のスマホでの確認ではない。
 
-画面・テーマ・案内役・動き・参加条件の確認一覧：https://temporary-speedy-oboe-5ndzqq8.vercel.app/review
+公開入口：https://temporary-quick-apogee-al7zdpr.vercel.app/
 
-Vercel公式CLI62、dpl_GLYTBKKZBs2A3BqVB8dBXX1g3huk READY、失効予定 2026-10-01T08:42:40.474Z。所有者の引き取りまで恒久公開ではない。引き取りURLと匿名認証情報はGitに保存しない。所有者限定Site https://yattemi-family-lp.mituki195.chatgpt.site の同じ保護を維持し、appgdep_6abe1204d5f4819197370fd16307fa34 succeeded、版 appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_622c0438d968819194ef9abf36921966。
+画面・テーマ・案内役・動き・参加条件の一覧：https://temporary-quick-apogee-al7zdpr.vercel.app/review/
 
-保存ソース 351be427ad9f471732480a80f3dee6c79dd85146。生成指定・詳細・確認結果は/workspace/sites/yattemi-family-lp/docs/REVIEW_V1.9.md、text-density-v1.9.json、verification-v1.9.json。画面証拠は同ソースdocs/browser-review/hero-v1.9.jpgとcomparison-mobile-v1.9.jpg。旧版の挿絵・質問照合・動きの検証はSiteソースのv1.6〜v1.8履歴に保持。Canvaはv1.4の履歴、Figmaは既存の編集権限エラーで未同期。最新の画面・文言はSiteのLPと確認一覧を正本とする。
+Vercel公式CLI62、dpl_J9NTpKgJMuYPmLbYTf743KznhGgk READY、失効予定2026-10-01T10:47:26.270Z（中国時間18:47、日本時間19:47）。一時公開で、恒久公開には所有者の引き取りが必要。引き取りURLと匿名認証情報はGitに保存しない。所有者限定Site https://yattemi-family-lp.mituki195.chatgpt.site の保護を維持。appgdep_6abe30b638908191b7fb507d68437143 succeeded、版appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_2d99d03b6aac81919a3224bbab0f3194。
 
-実保護者が対象・子どもと親の役割・次の行動を説明できるか、回答時間、実機・読み上げ・読み込み速度、受賞水準は未判定。D66-LPを完了・受賞水準到達と自己認定しない。実家庭データ・回答受付・API/DB・ライブAI・外部通知は追加していない。
+保存ソース8327814624eaa4afb3c9b020b0c3d432951f6847。詳しい改変前対応・確認は/workspace/sites/yattemi-family-lp/docs/REVIEW_V1.10.md、image-prompts-v1.10.json、text-density-v1.10.json、verification-v1.10.json。証拠は同ソースdocs/browser-review/illustrated-v1.10.jpg、story-v1.10.jpg、mobile-v1.10.jpg。過去の題材・質問照合・動きの検証はv1.6〜v1.9文書とGit履歴。Canvaはv1.4の履歴、Figmaは既存の編集権限エラーで未同期。最新の画面と文言はSiteのLPと一覧。
+
+実保護者の理解・回答時間、実機・読み上げ・実際の読み込み、受賞水準は未判定。D66-LPを完了・受賞水準到達と自己認定しない。実家庭データ・回答受付・API/DB・ライブAI・外部通知は追加していない。

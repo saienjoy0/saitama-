@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-01T08:36:52Z",
+  "updated_at": "2026-10-01T10:09:40.672Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -161,44 +161,47 @@
     },
     "recruitment_lp_preview": {
       "task_id": "D66-LP",
-      "revision": "review-v1.9-buying",
+      "revision": "review-v1.10-illustrated",
       "status": "public_synthetic_review_verified_parent_understanding_pending",
       "artifact": "docs/design/recruitment-lp-quality-20261001.md",
       "site_project_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2",
       "preview_url": "https://yattemi-family-lp.mituki195.chatgpt.site",
       "astrowind_commit": "14e1a691f80548dcc36370847b1a02c0d0b12821",
-      "source_commit": "f45f5072c78e32eff6dc1d4280558885523637de",
-      "generated_illustrations": 8,
+      "source_commit": "8327814624eaa4afb3c9b020b0c3d432951f6847",
+      "generated_illustrations": 11,
       "questionnaire_version": "20261001-v1.4",
       "verification": {
-        "build": "passed",
+        "build": "passed; final source helper build and archive succeeded",
         "template_checks": "Final source: npm run check passed; Astro 91 files, errors/warnings/hints 0, ESLint and Prettier passed",
-        "dom_interactions": "138 current synthetic required-answer/branch/result/confirmation/motion/focus/asset checks passed; errors 0; fetch/XHR/beacon 0 in mocked jsdom only. No real response collection.",
-        "rendered_browser": "Public fictional grade-5 parent: missing answer opens questionnaire and focuses Q02; no event -> independent method no -> distant family not applicable -> edit buying memo -> five unknown ratings -> unknown concern and short reason -> answer only -> centered confirmation, heading focus and scrollTop0 -> back preserves answers/focus -> explicitly unsent completion. Final 390/320px CSS iframes: html scrollWidth equals clientWidth 375/305px; price cards equal scroll/client 117/82px. Both prices and 320px expanded buying checks visually inspected. Root returned to fresh hero. Real parents, phones, screen reader and loading speed not tested.",
+        "dom_interactions": "159 current synthetic required-answer/branch/result/confirmation/motion/focus/asset checks passed; errors 0; fetch/XHR/beacon 0 in mocked jsdom only. No real response collection.",
+        "rendered_browser": "Public fictional grade-5 parent: missing answer opens Q02; no event -> independent method no -> distant family not applicable -> edit memo -> five unknown ratings -> unknown concern and short reason -> answer only -> centered confirmation with heading focus -> back preserves five answers/focus -> explicit unsent completion. Edited memo reaches album/newspaper. Final reward illustration seen; points settle at 100, reduced-motion preference and reward-none state checked. Final CSS 390/320px iframes: html scroll/client 375/375 and 305/305px, price cards 117/117 and 82/82px. Prices and expanded buying checks, cause illustrations and plan vignette visually inspected. Real parents, phones, screen readers and transfer speed not tested.",
         "participant_understanding": "not_run",
         "canva_board": "v1.4 historical board unchanged; current canonical copy is Site LP and /review/",
-        "image_assets": "One new generated family comparison scene, inspected; PNG retained in source, six WebP widths 380/480/640/760/960/1280px. Largest 164540B, smallest 25292B. File sizes are not transfer/speed measurements."
+        "image_assets": "Three selected new watercolor family scenes and six WebP widths 380/760px, 21530–69790B; originals retained in source. Plan notebook corrected before selection, repeated scene removed. Sizes do not measure loading speed.",
+        "source_to_public_alignment": "Final source build's six compiled HTML/CSS/JS hashes match Vercel staging; mismatches 0."
       },
       "live_response_collection": false,
       "family_release": false,
-      "next_action": "Provide the illustrated buying-comparison LP and screenshot. Further review actual parent understanding, real-device reading and loading/accessibility when authorized. No award-quality or recruitment-success claim; core DESIGN/D90 unchanged.",
+      "next_action": "Show the preserved hero and illustrated below-hero LP with screenshot. Review user feedback and actual parent understanding, real-device reading/loading/accessibility within authorization. No award-quality claim; core DESIGN/D90 unchanged.",
       "review_url": "https://yattemi-family-lp.mituki195.chatgpt.site/review/",
       "canva_review_url": "https://www.canva.com/d/VGZG4TmT2cEWZop",
       "new_generated_assets": [
-        "public/images/hero-game-compare-v1.png"
+        "public/images/family-plan-v2.png",
+        "public/images/family-reflection-v1.png",
+        "public/images/family-reward-v1.png"
       ],
       "figma_sync": "not_synced; edit access error",
-      "deployment_id": "appgdep_6abe1b4ece30819186234341a73b2919",
-      "saved_version_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_fec62a11bb508191b606b34f485d78c8",
+      "deployment_id": "appgdep_6abe30b638908191b7fb507d68437143",
+      "saved_version_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_2d99d03b6aac81919a3224bbab0f3194",
       "award_quality_assessment": "pending actual parent comprehension, real-device reading/loading/accessibility; not self-certified",
       "hosting_followup": "Authorized Vercel publication via official CLI62: final static synthetic preview READY. Existing owner-private Site updated with same project and audience; no bypass or unrelated project changes. Anonymous claim required for permanent public hosting.",
       "public_preview": {
         "provider": "Vercel official CLI 62 temporary deployment",
-        "url": "https://temporary-speedy-oboe-5ndzqq8.vercel.app/",
-        "review_url": "https://temporary-speedy-oboe-5ndzqq8.vercel.app/review",
-        "deployment_id": "dpl_GLYTBKKZBs2A3BqVB8dBXX1g3huk",
+        "url": "https://temporary-quick-apogee-al7zdpr.vercel.app/",
+        "review_url": "https://temporary-quick-apogee-al7zdpr.vercel.app/review/",
+        "deployment_id": "dpl_J9NTpKgJMuYPmLbYTf743KznhGgk",
         "status": "READY",
-        "expires_at": "2026-10-01T08:42:40.474Z",
+        "expires_at": "2026-10-01T10:47:26.270Z",
         "permanent": false,
         "account_claim": "owner action required; claim URL and anonymous credentials excluded from repository",
         "audience": "public synthetic demonstration; no real response collection"
@@ -210,17 +213,18 @@
         "research/GAKUSTA_既存調査照合と面談質問の絞り込み_20260925.md"
       ],
       "text_density": {
-        "before": 846,
-        "after": 800,
-        "reduction_percent": 5.4,
-        "scope": "Five explanatory block types in compiled static HTML; whitespace collapsed textContent JS length. Excludes questionnaire and app screens, not whole LP. Scene explanations 369 to 307.",
-        "evidence": "/workspace/sites/yattemi-family-lp/docs/text-density-v1.9.json"
+        "before": 838,
+        "after": 552,
+        "reduction_percent": 34.1,
+        "scope": "Whitespace removed textContent JS length of .sectionhead,.cause,.storyheader,.story-role-guide,.storycopy,.story-recap,.story-footer. Excludes app screens, questionnaire and registration; not whole LP or reading time.",
+        "evidence": "/workspace/sites/yattemi-family-lp/docs/text-density-v1.10.json"
       },
-      "review_trigger": "User feedback: electricity cost looked too small; utility bills and quantities were hard to understand; use a familiar direct amount and fewer words.",
+      "review_trigger": "User: current LP has too much text; use background illustrations or similar to improve readability, preserving the first section. All modifications must inspect references before editing.",
       "research_sources": [
-        "https://www.nintendo.com/jp/switch/acbaa/products/soft.html",
-        "https://www.j-flec.go.jp/materials/standard_primaryschool_3/",
-        "https://www.j-flec.go.jp/materials/okozukai/"
+        "https://tanqgakusha.jp/",
+        "https://www.nngroup.com/articles/imagery-in-visual-design/",
+        "https://www.w3.org/WAI/tutorials/images/",
+        "https://www.gov.uk/service-manual/design/designing-good-questions"
       ],
       "fictional_price_comparison": {
         "topic": "same fictional game, new vs used",
@@ -232,16 +236,27 @@
         "evidence_limit": "Not real current retail quotes, savings, or observed family understanding; do not pool with old stimulus ratings."
       },
       "browser_evidence": [
-        "/workspace/sites/yattemi-family-lp/docs/browser-review/hero-v1.9.jpg",
-        "/workspace/sites/yattemi-family-lp/docs/browser-review/comparison-mobile-v1.9.jpg"
+        "/workspace/sites/yattemi-family-lp/docs/browser-review/illustrated-v1.10.jpg",
+        "/workspace/sites/yattemi-family-lp/docs/browser-review/story-v1.10.jpg",
+        "/workspace/sites/yattemi-family-lp/docs/browser-review/mobile-v1.10.jpg"
       ],
-      "behavior_verification_source_commit": "351be427ad9f471732480a80f3dee6c79dd85146",
+      "behavior_verification_source_commit": "8327814624eaa4afb3c9b020b0c3d432951f6847",
       "reference_policy_update": {
         "artifact": "docs/REFERENCE_BEFORE_CHANGE.md",
         "scope": "AGENTS and handoff/reference policy documents only",
         "compiled_html_css_js": "All six compiled file hashes unchanged; npm run check and build passed",
         "ui_revision": "review-v1.9-buying unchanged",
-        "public_vercel": "Existing v1.9 public deployment unchanged"
+        "public_vercel": "Existing v1.9 public deployment unchanged",
+        "applies_to_previous_revision": "review-v1.9-buying; historical documentation-only policy update",
+        "current_mapping": "Site docs/REVIEW_V1.10.md: sources inspected and recorded before edits; subsequent visual correction mapped before new image."
+      },
+      "generated_illustrations_note": "Previous recorded 8 plus 3 selected new scenes. One planning draft was revised; unselected draft not consumed.",
+      "hero_preserved": {
+        "index_astro_sha256": "4946fcf65e26c8a47c2b4a02c577cb5225aa849a5057562f27ae311c45bea25f",
+        "header_sha256": "9376b7d2024cc454a176c20c786e8f15e630e7b5e42401d01214cdfc32ba194c",
+        "compiled_hero_markup_unchanged": true,
+        "household_questionnaire_source_unchanged": true,
+        "first_section_new_motion": false
       }
     }
   },
