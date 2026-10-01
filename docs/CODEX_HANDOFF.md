@@ -1,4 +1,4 @@
-> LP最新：D66-LP／review-v1.8-visual／質問票20261001-v1.4。3点の挿絵と短い会話へ変更し、主要説明を48.7％短縮。追加例は開いて読む。合成138件、ビルド・静的検査成功。公開版の回答→確認→戻る→未送信完了と390/320px表示を確認。実保護者・実機・受賞水準は未判定。Vercelは一時公開で所有者の引き取りが必要。詳細はdocs/design/recruitment-lp-quality-20261001.md。
+> LP最新：D66-LP／review-v1.9-buying／質問票20261001-v1.4。ゲームの新品6,000円・中古3,500円・差2,500円を大きく並べる（説明用の仮価格）。状態も確かめ、買わずに待つ判断へ。挿絵1点を生成。合成138件・最終ビルドと静的検査成功。架空保護者の回答、確認・戻る・未送信完了、390/320pxの価格表示を確認。実家庭・実機・受賞水準は未判定。Vercelは一時公開。詳細はdocs/design/recruitment-lp-quality-20261001.md。
 
 > 面談最新版：D63-R／実施用v2は主質問5つ＋条件付き補足。既存ファイル名の3問は旧名称。記録表もv2。FoundX原則を参照し、出来事なし・未行動・解決済みの分岐、購入/見送り、末尾の任意属性を追加。実面談は未実施。
 
@@ -132,3 +132,14 @@ D66-LPはin_progress。公開画面のレビューは実施済みだが、実保
 ソースc45eb7925d486e03584d3f2da158c8aa4d2d7051。所有者限定Site appgdep_6abe05d7f49c81918d0584393f38174f、保存版appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_0798ffc8f5e0819194393f1840135179、succeeded。開いて確認した公開URL https://temporary-swift-canyon-uxb99qp.vercel.app/ と https://temporary-swift-canyon-uxb99qp.vercel.app/review 。Vercel dpl_3gB9V76QLgjuTSWEHxW7K4ajDQZC、READY、失効予定2026-10-01T07:55:58.552Z（UTC+8で15:55、日本時間16:55）。継続には所有者の引き取りが必要。匿名認証情報・引き取りURLはGitへ保存しない。
 
 正本/workspace/sites/yattemi-family-lpにREVIEW_V1.8.md、text-density-v1.8.json、verification-v1.8.json、browser-review/empathy-v1.8.jpg、mobile-examples-v1.8.jpgを保存。3原本と380/760px WebPも保存。D66-LPはin_progress、実利用者の説明と回答時間の確認が残る。本体DESIGN/D90、REVIEW_BUNDLE、実受付の未確定条件は維持。
+
+
+## LP追補 v1.9（2026-10-01）
+
+電気代0.15円/時間では意味が伝わりにくいというユーザーの指摘へ対応。新品・中古の直接比較へ変更し、価格差から動作・付属品を調べ、親と相談する。安い方を正解にせず、今回は待つ判断も家族の記録に残す。価格は仮例、調査結果や実在相場ではない。LP版で題材変更を識別し、旧版の評価と混ぜない。
+
+主要説明は前版846→800文字、5.4％減。画面や質問を含む全体の削減率ではない。合成138件、最終ビルド・Astro/ESLint/Prettier成功。390/320pxの価格カード内部まで収まりを確認。公開版の回答→確認→戻る→未送信完了は架空保護者としての操作であり実家庭の観察ではない。
+
+保存ソース 351be427ad9f471732480a80f3dee6c79dd85146。所有者限定Site appgdep_6abe1204d5f4819197370fd16307fa34 succeeded。同じ保護を維持。Vercel公開 https://temporary-speedy-oboe-5ndzqq8.vercel.app/、確認一覧 https://temporary-speedy-oboe-5ndzqq8.vercel.app/review、dpl_GLYTBKKZBs2A3BqVB8dBXX1g3huk READY。失効予定 2026-10-01T08:42:40.474Z。引き取りURLと匿名認証情報はGitに保存しない。
+
+D66-LPはin_progress、次は実保護者の理解と実機表示など未実施の確認。本体DESIGN/D90・承認・REVIEW_BUNDLEは変更なし。実家庭の受付・API/DB・外部通知・ライブAIは追加していない。

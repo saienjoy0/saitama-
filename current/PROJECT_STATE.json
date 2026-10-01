@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-01T07:07:05Z",
+  "updated_at": "2026-10-01T07:57:52Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -161,46 +161,44 @@
     },
     "recruitment_lp_preview": {
       "task_id": "D66-LP",
-      "revision": "review-v1.8-visual",
+      "revision": "review-v1.9-buying",
       "status": "public_synthetic_review_verified_parent_understanding_pending",
       "artifact": "docs/design/recruitment-lp-quality-20261001.md",
       "site_project_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2",
       "preview_url": "https://yattemi-family-lp.mituki195.chatgpt.site",
       "astrowind_commit": "14e1a691f80548dcc36370847b1a02c0d0b12821",
-      "source_commit": "c45eb7925d486e03584d3f2da158c8aa4d2d7051",
-      "generated_illustrations": 7,
+      "source_commit": "351be427ad9f471732480a80f3dee6c79dd85146",
+      "generated_illustrations": 8,
       "questionnaire_version": "20261001-v1.4",
       "verification": {
         "build": "passed",
-        "template_checks": "npm run check passed: Astro errors/warnings/hints 0; ESLint and Prettier passed",
-        "dom_interactions": "138 current synthetic required-answer/branch/result/confirmation/motion/focus/asset checks passed; runtime errors 0; fetch/XHR/beacon 0 in mocked jsdom only. Nine additional checks verify new images and srcset, not nine new user journeys.",
-        "rendered_browser": "Final public desktop fictional grade-5 parent: missing answer opens collapsed questionnaire and focuses choice; short and expanded examples; no event -> no independent method -> no distant family -> five unknown ratings -> unknown concern -> short reason -> answer only -> heading-focused centered confirmation at scrollTop0 -> back preserving answers and focus -> explicitly unsent completion. Hint expansion, calculation details and edited memo exercised. 390/320px CSS iframes display all three images and compact conversations without horizontal overflow. Real parents, real phones, screen reader and loading speed not tested.",
+        "template_checks": "Final source: npm run check passed; Astro 91 files, errors/warnings/hints 0, ESLint and Prettier passed",
+        "dom_interactions": "138 current synthetic required-answer/branch/result/confirmation/motion/focus/asset checks passed; errors 0; fetch/XHR/beacon 0 in mocked jsdom only. No real response collection.",
+        "rendered_browser": "Public fictional grade-5 parent: missing answer opens questionnaire and focuses Q02; no event -> independent method no -> distant family not applicable -> edit buying memo -> five unknown ratings -> unknown concern and short reason -> answer only -> centered confirmation, heading focus and scrollTop0 -> back preserves answers/focus -> explicitly unsent completion. Final 390/320px CSS iframes: html scrollWidth equals clientWidth 375/305px; price cards equal scroll/client 117/82px. Both prices and 320px expanded buying checks visually inspected. Root returned to fresh hero. Real parents, phones, screen reader and loading speed not tested.",
         "participant_understanding": "not_run",
         "canva_board": "v1.4 historical board unchanged; current canonical copy is Site LP and /review/",
-        "image_assets": "Three additional generated scene images, inspected and encoded as 380/760px WebP. Sum of three 760px variants 203004 bytes; three 380px variants 69678 bytes. Not a browser transfer or speed measurement."
+        "image_assets": "One new generated family comparison scene, inspected; PNG retained in source, six WebP widths 380/480/640/760/960/1280px. Largest 164540B, smallest 25292B. File sizes are not transfer/speed measurements."
       },
       "live_response_collection": false,
       "family_release": false,
-      "next_action": "Provide the shorter illustrated LP, screenshot and owner claim link. Observe actual parents describing target, roles and next step, plus response time and real-device reading. No award-quality or recruitment-success claim; core DESIGN/D90 unchanged.",
+      "next_action": "Provide the illustrated buying-comparison LP and screenshot. Further review actual parent understanding, real-device reading and loading/accessibility when authorized. No award-quality or recruitment-success claim; core DESIGN/D90 unchanged.",
       "review_url": "https://yattemi-family-lp.mituki195.chatgpt.site/review/",
       "canva_review_url": "https://www.canva.com/d/VGZG4TmT2cEWZop",
       "new_generated_assets": [
-        "public/images/example-snacks-v1.png",
-        "public/images/example-lamp-v1.png",
-        "public/images/example-saving-v1.png"
+        "public/images/hero-game-compare-v1.png"
       ],
       "figma_sync": "not_synced; edit access error",
-      "deployment_id": "appgdep_6abe05d7f49c81918d0584393f38174f",
-      "saved_version_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_0798ffc8f5e0819194393f1840135179",
+      "deployment_id": "appgdep_6abe1204d5f4819197370fd16307fa34",
+      "saved_version_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_622c0438d968819194ef9abf36921966",
       "award_quality_assessment": "pending actual parent comprehension, real-device reading/loading/accessibility; not self-certified",
-      "hosting_followup": "Previously authorized Vercel publication continued through official CLI62; native deployment plugin was already unavailable. Final fresh temporary synthetic copy READY. Owner-private Site updated and preserved; no protection bypass or unrelated project changes.",
+      "hosting_followup": "Authorized Vercel publication via official CLI62: final static synthetic preview READY. Existing owner-private Site updated with same project and audience; no bypass or unrelated project changes. Anonymous claim required for permanent public hosting.",
       "public_preview": {
         "provider": "Vercel official CLI 62 temporary deployment",
-        "url": "https://temporary-swift-canyon-uxb99qp.vercel.app/",
-        "review_url": "https://temporary-swift-canyon-uxb99qp.vercel.app/review",
-        "deployment_id": "dpl_3gB9V76QLgjuTSWEHxW7K4ajDQZC",
+        "url": "https://temporary-speedy-oboe-5ndzqq8.vercel.app/",
+        "review_url": "https://temporary-speedy-oboe-5ndzqq8.vercel.app/review",
+        "deployment_id": "dpl_GLYTBKKZBs2A3BqVB8dBXX1g3huk",
         "status": "READY",
-        "expires_at": "2026-10-01T07:55:58.552Z",
+        "expires_at": "2026-10-01T08:42:40.474Z",
         "permanent": false,
         "account_claim": "owner action required; claim URL and anonymous credentials excluded from repository",
         "audience": "public synthetic demonstration; no real response collection"
@@ -212,17 +210,30 @@
         "research/GAKUSTA_既存調査照合と面談質問の絞り込み_20260925.md"
       ],
       "text_density": {
-        "before": 1650,
-        "after": 846,
-        "reduction_percent": 48.7,
-        "scope": "Five kinds of explanatory blocks in compiled static HTML; whitespace collapsed textContent JS length. Excludes questionnaire controls and app screens; not whole-LP visible text reduction.",
-        "evidence": "/workspace/sites/yattemi-family-lp/docs/text-density-v1.8.json"
+        "before": 846,
+        "after": 800,
+        "reduction_percent": 5.4,
+        "scope": "Five explanatory block types in compiled static HTML; whitespace collapsed textContent JS length. Excludes questionnaire and app screens, not whole LP. Scene explanations 369 to 307.",
+        "evidence": "/workspace/sites/yattemi-family-lp/docs/text-density-v1.9.json"
       },
-      "review_trigger": "User: 文字が多すぎるな。見る気が失せてしまう。 Illustrations and shorter examples requested.",
+      "review_trigger": "User feedback: electricity cost looked too small; utility bills and quantities were hard to understand; use a familiar direct amount and fewer words.",
       "research_sources": [
-        "https://www.nngroup.com/articles/imagery-in-visual-design/",
-        "https://www.gov.uk/service-manual/design/designing-good-questions",
-        "https://www.w3.org/WAI/tutorials/images/"
+        "https://www.nintendo.com/jp/switch/acbaa/products/soft.html",
+        "https://www.j-flec.go.jp/materials/standard_primaryschool_3/",
+        "https://www.j-flec.go.jp/materials/okozukai/"
+      ],
+      "fictional_price_comparison": {
+        "topic": "same fictional game, new vs used",
+        "new_yen": 6000,
+        "used_yen": 3500,
+        "difference_yen": 2500,
+        "label": "説明用の仮価格",
+        "choice": "check operation/accessories and consult parent; waiting without purchase remains valid",
+        "evidence_limit": "Not real current retail quotes, savings, or observed family understanding; do not pool with old stimulus ratings."
+      },
+      "browser_evidence": [
+        "/workspace/sites/yattemi-family-lp/docs/browser-review/hero-v1.9.jpg",
+        "/workspace/sites/yattemi-family-lp/docs/browser-review/comparison-mobile-v1.9.jpg"
       ]
     }
   }
