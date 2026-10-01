@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-01T10:09:40.672Z",
+  "updated_at": "2026-10-01T10:53:10Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -182,7 +182,7 @@
       },
       "live_response_collection": false,
       "family_release": false,
-      "next_action": "Show the preserved hero and illustrated below-hero LP with screenshot. Review user feedback and actual parent understanding, real-device reading/loading/accessibility within authorization. No award-quality claim; core DESIGN/D90 unchanged.",
+      "next_action": "Review AI-role expression plan and concrete scene/copy. When applying the next authorized synthetic LP revision, execute Task 1–3 native/sequential, keeping hero, questionnaire, clear fixed-demo labels and DESIGN/D90 unchanged. Parent comprehension remains pending; do not present expired temporary URLs as live.",
       "review_url": "https://yattemi-family-lp.mituki195.chatgpt.site/review/",
       "canva_review_url": "https://www.canva.com/d/VGZG4TmT2cEWZop",
       "new_generated_assets": [
@@ -257,6 +257,27 @@
         "compiled_hero_markup_unchanged": true,
         "household_questionnaire_source_unchanged": true,
         "first_section_new_motion": false
+      },
+      "ai_role_expression_plan": {
+        "revision": "20261001-v1",
+        "status": "prepared_not_executed",
+        "artifact": "docs/superpowers/plans/2026-10-01-lp-ai-role-expression.md",
+        "trigger": "User: AIが何をしているのか全く分からなかった。それを解決したい。どう表現すればいいだろう。そこを計画して。",
+        "message": "迷ったとき、AIが考える手順を提案。子どもが選び、親と相談します。",
+        "primary_scene": "LP-S01 / F18 / C02 / M07: selected concern -> illustrative curated step proposal -> child choice -> existing parent discussion",
+        "approach": "Replace the existing first story scene with two selectable fictional concerns and different fixed step examples; display proposed AI role, source and fixed-demo label in place. Preserve hero and questionnaire; no extra long AI section.",
+        "implementation": "not_started; current LP source/deployment remains review-v1.10-illustrated",
+        "actual_ai": "no_model_calls; optional guided_plan remains proposed in active v0.4.1 product design",
+        "understanding_check": "First review without leading: describe service, AI assistance and who decides purchase. Proposed five-parent/four-explanation improvement target; no interviews executed; not evidence of learning or award quality.",
+        "reference_sources": [
+          "https://pair.withgoogle.com/chapter/mental-models/",
+          "https://pair.withgoogle.com/chapter/explainability-trust/",
+          "https://qubena.com/service/subjects",
+          "https://www.khanmigo.ai/learners",
+          "https://www.gov.uk/service-manual/design/designing-good-questions",
+          "https://www.gov.uk/service-manual/user-research/using-moderated-usability-testing"
+        ],
+        "verification": "Existing AI specifications, uploaded source sections, LP source and saved screenshot inspected. Plan self-review and core document check; new UI and real parent understanding not tested."
       }
     }
   },
