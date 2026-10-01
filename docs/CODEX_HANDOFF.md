@@ -1,4 +1,4 @@
-> LP最新：D66-LP／review-v1.6-experience／質問票20261001-v1.4。既存面談票を照合し、出来事・迷い・調べた方法・結果を分け、例付き必須回答へ。合成128件とビルド・静的検査成功。明示許可でVercel一時公開、PCと390/320px表示・操作を確認して修正。実保護者の理解と受賞水準は未判定。恒久公開には所有者の引き取りが必要。詳細はdocs/design/recruitment-lp-quality-20261001.md。
+> LP最新：D66-LP／review-v1.7-reading／質問票20261001-v1.4。6場面の役割・内容確認の読み順・無料登録と未確定費用を整理。長い確認画面が末尾から始まる不具合を修正し、回帰確認は失敗→成功。合成129件とビルド・静的検査成功。公開PCと390/320px表示・操作を確認。実保護者・実機・受賞水準は未判定。Vercelは一時公開で所有者の引き取りが必要。詳細はdocs/design/recruitment-lp-quality-20261001.md。
 
 > 面談最新版：D63-R／実施用v2は主質問5つ＋条件付き補足。既存ファイル名の3問は旧名称。記録表もv2。FoundX原則を参照し、出来事なし・未行動・解決済みの分岐、購入/見送り、末尾の任意属性を追加。実面談は未実施。
 
@@ -111,3 +111,14 @@ Figmaは編集権限エラーで未同期。X2記事は全文を取得できず�
 正本：/workspace/sites/yattemi-family-lp。docs/REVIEW_V1.6.mdとdocs/browser-review/に照合・画面の証拠。Canvaはv1.4の履歴、既存Figmaは権限エラーで未同期。実受付・回答保存・メール通知・ライブAIなし。正式募集の期間、負担、費用・謝礼、管理者、窓口、保存先・保存期間・削除方法は未確定。
 
 D66-LPはin_progress。公開画面のレビューは実施済みだが、実保護者の理解・実機・受賞水準は未判定。次は具体的な公開物を渡し、保護者が対象・子どもと親の役割・案内希望後の流れを自分の言葉で説明できるかと回答時間を観察する。本体DESIGN/D90とREVIEW_BUNDLEは維持。
+
+
+## LPの読み順・役割・確認画面（D66-LP／20261001、v1.7）
+
+追加の進捗・説明資料を読み、6場面へ子ども・親子・親・希望する家族を表示。選択と短文を隣に置き、出来事→迷い→方法→結果→連絡の順に確認できるようにした。参加案内の登録が無料であることと、未確定のモニター費用・謝礼を区別。親のFAQを具体化し、削除済みの再試行経路を修正。質問の意味と必須条件はv1.4を維持。
+
+長い確認画面が左上・scrollTop1072・末尾の戻るボタンフォーカスで始まる不具合を公開ブラウザーで再現。中央配置と見出しフォーカスに修正。修正後は左374px・上70.2px・幅600px・scrollTop0。Tab、Escape、戻る、開き直し、回答の保持を確認。回帰確認は修正前失敗、修正後成功。合成129件、実行時エラー0、fetch/XHR/beacon 0はjsdom内の結果。公開版では架空の保護者役の長い回答、五つの評価、案内希望あり、形式の不正なメール、別同意なし、未送信完了を確認。390/320pxのiframeは2列の役割表示と短い見出し、横はみ出しなし。実家庭・実スマートフォン・読み上げ・速度の証明ではない。
+
+ソースf9db124ef604d07119d8a29b94179eaee677734d。所有者限定Siteデプロイappgdep_6abdf3970ea4819191a11548ba75ba24、保存版appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_37c9eddb85d08191ac0732fc0681fb41、succeeded。公開URL https://temporary-instant-sitar-cc3gohw.vercel.app/ と /review/ を開いて確認。Vercel dpl_CMzSRYeebs8x4EXsFLYKbqqrwYBZ、READY、失効予定2026-10-01T06:17:03.478Z（UTC+8で14:17、日本時間15:17）。公式連携の公開ツールは今回もTool not found。恒久化は所有者の引き取りが必要。引き取りURLと匿名認証情報はGitへ保存しない。前版の一時URLは期限切れ。
+
+正本 /workspace/sites/yattemi-family-lp の docs/REVIEW_V1.7.md、verification-v1.7.json、browser-review/confirmation-v1.7.jpg、mobile-roles-v1.7.jpg が今回の証拠。CanvaとFigmaは前記の状態を維持。D66-LPはin_progress。実保護者の説明・回答時間、実機・アクセシビリティ・受賞水準の確認が残る。本体DESIGN/D90とREVIEW_BUNDLE、正式受付の未確定条件を維持。
