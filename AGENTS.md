@@ -4,14 +4,16 @@
 ユーザー指示「すべての改変は参考する資料をまず見つけてから改変にしてください」を優先する。資料を探す・使う箇所を読む→出典と変更対象の対応を改変前に示す→改変→確認、の順に進める。文言、質問、題材・数値、画面、画像、動き、コード、設計資料を含む。資料にある事実・設計判断・仮例を区別する。手順と記録項目は `docs/workflow/REFERENCE_BEFORE_CHANGE.md`。
 
 ## 開始時に読む順番
-1. `current/PROJECT_STATE.json` — 現在段階・有効仕様・次タスク。
-2. `docs/CODEX_HANDOFF.md` — 引き継ぎの要点。
-3. `current/TASKS.json` — 依存関係と完了証拠。
-4. `docs/workflow/STAGES_AND_SKILLS.md` と `current/SKILLS.json` — 当該工程のスキル。
-5. 状態ファイルに列挙した有効設計書、必要な `current/PROJECT_RULES_GAKUSTA.md`。
+1. `CURRENT.md` — 目的・並行作業・作業入口（自動生成、手編集しない）。
+2. ユーザーが指定した系統のIssueと、その作業に必要な資料だけ。指定なしなら `current/WORKSTREAMS.json` のfocus_orderを確認する。
+3. 製品作業／段階変更では `current/PROJECT_STATE.json` と `current/REVIEW_BUNDLE.json`。next_task_idは本体用であり他系統を止めない。
+4. `current/TASKS.json` の当該タスク・依存・証拠、工程表と `current/SKILLS.json` の当該スキル。
+5. 引き継ぎが必要なら短い `docs/CODEX_HANDOFF.md`。管理変更なら `docs/workflow/PROJECT_MANAGEMENT.md`。
 
-`python3 scripts/check_design_handoff.py` を実行する。これは文書整合の検査であり、製品の安全性やスキルの実行環境を保証しない。
-開始時に「段階・タスクID・成果物・完了条件」を短く示す。依存が満たされた最初の未完了タスクを進め、毎回ユーザーに次作業を選ばせない。終了時は状態・タスク・引き継ぎを合わせて更新する。
+開始時に「系統・段階／タスクID・成果物・完了条件」を示す。明示された作業を優先し、毎回次作業を選ばせない。
+現在はnavigation移行。本体承認は状態／bundle、既存タスク状態はTASKSが正本。Issueは文脈・証拠の入口であり、Projectへの正本切替はまだ行っていない。
+終了時は影響する状態／タスクだけ更新して `python3 scripts/render_current.py`、`python3 scripts/check_design_handoff.py` を実行する。CURRENTへの手編集や毎回の引継ぎ追記で台帳を増やさない。文書検査は製品の検証ではない。
+募集・LP・本体・発表の権限を分ける。LP完成は面談募集の必須条件ではなく、実際の受付・同意・予約条件を確認する。LPの正本は別Site、発表デモはPR #2のブランチ。過去版や期限切れURLを有効な正本にしない。
 
 ## 現在はDESIGN
 設計、調査、合成データ、開発文書のチェックとスキル整備は可。製品UI/API/DB移行/ライブAI呼び出し/実家庭データの処理は未承認。文書を書いたことを製品実装済み・検証済みとしない。

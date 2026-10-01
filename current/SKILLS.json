@@ -7,7 +7,7 @@
       "name": "yattemi-codex-workflow",
       "source": "project-owned",
       "repo_path": ".agents/skills/yattemi-codex-workflow/SKILL.md",
-      "sha256": "e1c179b86a43d65a75cd8e50e2f15529ca1cabc5e92c5dfe5870b6fbab8d8aa7",
+      "sha256": "f384afcc0bad43260a485808be4b30741c60cef5bfe7d5d82d4ec58af9eeec19",
       "stages": [
         "DESIGN",
         "PLAN",
