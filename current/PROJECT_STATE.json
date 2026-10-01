@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-01T07:57:52Z",
+  "updated_at": "2026-10-01T08:36:52Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -167,7 +167,7 @@
       "site_project_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2",
       "preview_url": "https://yattemi-family-lp.mituki195.chatgpt.site",
       "astrowind_commit": "14e1a691f80548dcc36370847b1a02c0d0b12821",
-      "source_commit": "351be427ad9f471732480a80f3dee6c79dd85146",
+      "source_commit": "f45f5072c78e32eff6dc1d4280558885523637de",
       "generated_illustrations": 8,
       "questionnaire_version": "20261001-v1.4",
       "verification": {
@@ -188,8 +188,8 @@
         "public/images/hero-game-compare-v1.png"
       ],
       "figma_sync": "not_synced; edit access error",
-      "deployment_id": "appgdep_6abe1204d5f4819197370fd16307fa34",
-      "saved_version_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_622c0438d968819194ef9abf36921966",
+      "deployment_id": "appgdep_6abe1b4ece30819186234341a73b2919",
+      "saved_version_id": "appgprj_6abd00b774cc8191b48baaedfbb0baf2~appgver_fec62a11bb508191b606b34f485d78c8",
       "award_quality_assessment": "pending actual parent comprehension, real-device reading/loading/accessibility; not self-certified",
       "hosting_followup": "Authorized Vercel publication via official CLI62: final static synthetic preview READY. Existing owner-private Site updated with same project and audience; no bypass or unrelated project changes. Anonymous claim required for permanent public hosting.",
       "public_preview": {
@@ -234,7 +234,28 @@
       "browser_evidence": [
         "/workspace/sites/yattemi-family-lp/docs/browser-review/hero-v1.9.jpg",
         "/workspace/sites/yattemi-family-lp/docs/browser-review/comparison-mobile-v1.9.jpg"
-      ]
+      ],
+      "behavior_verification_source_commit": "351be427ad9f471732480a80f3dee6c79dd85146",
+      "reference_policy_update": {
+        "artifact": "docs/REFERENCE_BEFORE_CHANGE.md",
+        "scope": "AGENTS and handoff/reference policy documents only",
+        "compiled_html_css_js": "All six compiled file hashes unchanged; npm run check and build passed",
+        "ui_revision": "review-v1.9-buying unchanged",
+        "public_vercel": "Existing v1.9 public deployment unchanged"
+      }
     }
+  },
+  "change_reference_policy": {
+    "user_instruction": "すべての改変は参考する資料をまず見つけてから改変にしてください。",
+    "recorded_on": "2026-10-01",
+    "artifact": "docs/workflow/REFERENCE_BEFORE_CHANGE.md",
+    "scope": "All modifications, including copy/questions/topics/numbers/layout/images/motion/code/design documents",
+    "order": [
+      "find and inspect relevant reference",
+      "record source-to-change mapping before editing",
+      "modify",
+      "verify"
+    ],
+    "status": "recorded_in_core_and_lp_agent_instructions"
   }
 }
