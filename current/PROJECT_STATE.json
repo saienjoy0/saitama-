@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T17:23:10.063Z",
+  "updated_at": "2026-10-05T17:25:45.325Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：本人の『冷蔵庫かな』を暫定の初回候補として記録し、発見→親に確認→本人の工夫→家の予定の更新という5〜10分の体験案にした。次は完遂条件と、子どもに見せるミッション・手がかりを相談する。D90の実装判断は別。",
+  "next_codex_action": "D91：初回の冷蔵庫クエストと、使い道を決めて家の予定を一つ更新する完遂条件は本人がひとまず仮採用した。ここまでの対話を起点に、具体的な手がかり・記録と、面白さ・負担・時間を確認して見直す。D90の実装判断は別。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -324,7 +324,7 @@
         "料金と提供範囲"
       ]
     },
-    "next_question": "冷蔵庫クエストの完遂を、使い道を親子で決め、食事や買い物の予定を一つ更新するところまでとする案を見直す。",
+    "next_question": "初回の冷蔵庫クエストと予定更新までの完遂を仮採用。今後は子どもの面白さ、親の負担、実際の所要時間を見ながら見直す。",
     "entry_point_decision": {
       "recorded_on": "2026-10-06",
       "timezone": "Asia/Seoul",
@@ -536,7 +536,7 @@
       "timezone": "Asia/Seoul",
       "source": "direct_user_statement",
       "user_wording": "冷蔵庫かな",
-      "status": "tentative_preference",
+      "status": "provisionally_selected_by_founder",
       "title": "冷蔵庫に眠る宝を救え！",
       "proposed_mission": "使う予定がまだ決まっていない食材を見つけ、使い道を考え、家の予定を一つ変える",
       "proposed_steps": [
@@ -545,7 +545,7 @@
         "本人が工夫を提案する",
         "親子で食事・買い物の予定を更新する"
       ],
-      "completion_criterion_status": "proposal_not_confirmed",
+      "completion_criterion_status": "provisionally_agreed_by_founder",
       "completion_criterion_proposal": "一つの食材の使い道を決め、家の予定を一つ更新する",
       "later_outcomes_separate": [
         "実際に使ったか",
@@ -554,11 +554,13 @@
       "education_reviewed": false,
       "user_observed": false,
       "unresolved": [
-        "完遂条件への本人の確認",
         "子どもが興味を持つか",
         "5〜10分の実際の所要時間",
-        "教材部品と記録・支援の具体的なUI"
-      ]
+        "教材部品と記録・支援の具体的なUI",
+        "家の予定を更新する体験の親子の負担"
+      ],
+      "completion_criterion_agreed_on": "2026-10-06",
+      "latest_user_wording": "まあそれでいいぞとりあえず"
     }
   }
 }
