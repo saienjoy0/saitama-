@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-01T10:53:10Z",
+  "updated_at": "2026-10-05T16:15:34.881Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "Review the prepared v0.4.1 bundle. After the user reviews the presented bundle and explicitly says 実装を始めて, record actual statement, bundle hashes and native/sequential execution; complete D90 and start BUILD/B10. Do not recreate the plan or ask what task comes next.",
+  "next_codex_action": "Continue the user-requested D91 product-design dialogue from docs/workflow/PRODUCT_DESIGN_DIALOGUE.md. Ask one outcome question, reflect the answer, then revise agreed sections against the existing v0.4.1 baseline. D90 and implementation approval remain separate; consultation and skill intake do not authorize BUILD.",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -293,5 +293,16 @@
       "verify"
     ],
     "status": "recorded_in_core_and_lp_agent_instructions"
+  },
+  "product_design_dialogue": {
+    "task_id": "D91",
+    "started_on": "2026-10-05",
+    "status": "consultation_in_progress",
+    "entry_point": "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md",
+    "baseline_revision": "0.4.1",
+    "recommendation": "reuse_existing_design_and_reframe_core_value_first_experience_continuation_purchase",
+    "first_question": "このサービスを使った子どもや家族に、まずどんな変化が起きてほしいか",
+    "founder_outcome_confirmed": false,
+    "product_specs_changed": false
   }
 }

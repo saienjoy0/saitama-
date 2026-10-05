@@ -382,6 +382,24 @@
       ],
       "evidence": "LP review-v1.10-illustrated / questionnaire 20261001-v1.4. References inspected and mapped in REVIEW_V1.10 before changes. Hero source/header/compiled markup and household questionnaire source preserved. Below-hero cause is 3 scene cards; six story scenes pair short explanations and images with interactive screens. Three generated scenes selected (plan memo, reflection, optional museum discussion); notebook corrected and consecutive repeated image replaced after inspection. Main explanatory scope 838 to 552 characters (-34.1%, not whole LP). Final build/check passed, Astro91 errors/warnings/hints0; 159 mocked jsdom checks, errors0/network0. Public fictional parent flow through all required answers, confirmation/back/unsent completion and edited memo album/newspaper checked. Reward-none and reduced-motion checked. Final390/320px iframe prices/images reviewed, no html/card horizontal overflow. Source 8327814624eaa4afb3c9b020b0c3d432951f6847, owner-private Site appgdep_6abe30b638908191b7fb507d68437143 succeeded. Final Vercel dpl_J9NTpKgJMuYPmLbYTf743KznhGgk READY, expiry 2026-10-01T10:47:26.270Z, temporary, owner claim needed for persistence. Six final compiled hashes match public staging. Actual parents, phones, accessibility/loading and award quality remain unverified. No real responses, live AI, notifications or DESIGN/D90 transition. AI-role expression plan 20261001-v1 prepared from active v0.4.1/v0.4 specs, uploaded AI principles, current LP sources, Google PAIR, Qubena/Khanmigo and GOV.UK. Recommended: short role sentence and two concern inputs with distinct step examples in LP-S01, explicit fixed-demo labeling, child choice and parent discussion. No LP code/deployment changes, new AI calls or participant tests in this planning turn.",
       "reference_policy": "docs/workflow/REFERENCE_BEFORE_CHANGE.md"
+    },
+    {
+      "id": "D91",
+      "stage": "DESIGN",
+      "status": "in_progress",
+      "depends_on": [
+        "D55"
+      ],
+      "title": "本人の要望を聞きながら既存製品設計を見直す",
+      "artifacts": [
+        "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md",
+        "current/SKILLS.json",
+        ".agents/skills/define-problem-statement/SKILL.md",
+        ".agents/skills/develop-solution-brief/SKILL.md",
+        ".agents/skills/deliver-prd/SKILL.md"
+      ],
+      "evidence": "2026-10-05 user requested collaborative product design, skill intake and assessment of existing GitHub specs. Three upstream skill bodies and resources prepared; founder outcome clarification is next.",
+      "completion": "Reflect the founder's desired outcomes, compare directions, and revise only agreed parts of product design/features/plan. Founder statements are requirements, not customer validation; do not infer implementation approval."
     }
   ]
 }
