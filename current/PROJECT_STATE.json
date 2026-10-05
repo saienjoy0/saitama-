@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T18:04:01.091Z",
+  "updated_at": "2026-10-05T18:08:34.596Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：既存の家族新聞（F10/F11/F12/F17）を前提に、冷蔵庫クエスト→本人の共有選択→親確認→新聞→祖父母の経験・質問→本人が選ぶ次の探究の一周を整理する。週1号・最大6件は既存の初期案として扱い、親の編集負担と個別化の差分を次に検討する。 D90の実装判断は別。",
+  "next_codex_action": "D91：新聞の発行頻度は家庭ごとに設定する。既存の週1号は設定例として継承し、設定項目と変更・発行の具体的な動線は未確定。次は家庭・本人・家族の希望の記憶と、親の希望と子どもの関心が異なる時のクエスト提案を相談する。D90の実装判断は別。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -324,7 +324,7 @@
         "料金と提供範囲"
       ]
     },
-    "next_question": "既存の家族新聞（F10/F11/F12/F17）を前提に、冷蔵庫クエスト→本人の共有選択→親確認→新聞→祖父母の経験・質問→本人が選ぶ次の探究の一周を整理する。週1号・最大6件は既存の初期案として扱い、親の編集負担と個別化の差分を次に検討する。",
+    "next_question": "親の希望と子どもの関心が異なる時、どちらを入口にし、家庭と本人の希望をどう記憶してクエストへ反映するか。",
     "entry_point_decision": {
       "recorded_on": "2026-10-06",
       "timezone": "Asia/Seoul",
@@ -657,10 +657,27 @@
       "grandparent_response_required": false,
       "product_spec_revision_approved": false,
       "unresolved": [
-        "新聞の頻度・素材数の最終決定",
+        "頻度設定の具体的な選択肢・既定値と変更方法",
+        "素材数・下書き準備のタイミング",
         "親の編集負担と定型化",
         "家族の経験を個別化と教材へ結ぶ具体的な範囲"
-      ]
+      ],
+      "publication_cadence_decision": {
+        "recorded_on": "2026-10-06",
+        "timezone": "Asia/Seoul",
+        "source": "direct_user_statement",
+        "user_wording": "いいよていうか家庭ごとでいいと思う",
+        "household_configurable": true,
+        "status": "agreed_in_consultation",
+        "weekly_required_for_all_households": false,
+        "option_examples": [
+          "週1回",
+          "隔週",
+          "話題がたまった時"
+        ],
+        "option_examples_status": "proposal; exact options and default not finalized",
+        "automatic_publication_authorized": false
+      }
     }
   }
 }
