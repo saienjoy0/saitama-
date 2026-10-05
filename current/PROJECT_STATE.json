@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T17:09:07.868Z",
+  "updated_at": "2026-10-05T17:15:25.668Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：ここまでの方向を対話文書の冒頭に整理し、親の初回設定は約5分と記録した。初回に必要な設定と、その後クエストで深める情報を整理する。次は初回クエストの親子の関わり方を相談する。D90の実装判断は別。",
+  "next_codex_action": "D91：初回は親子で取り組むという本人の暫定的な希望を記録し、親の約5分の設定→子の選択→親子の5〜10分のクエスト→完遂→任意の反応という体験案をまとめた。次は具体的な候補と手がかり・完遂条件を見直す。D90の実装判断は別。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -324,7 +324,7 @@
         "料金と提供範囲"
       ]
     },
-    "next_question": "初回の5〜10分のクエストは、親子で一緒に取り組む形と、親は設定して子どもが自分で始める形のどちらを基本にしたいか。",
+    "next_question": "初回体験案を、面白そうな目的・親子の役割・5〜10分での完遂という観点で具体例にして見直す。",
     "entry_point_decision": {
       "recorded_on": "2026-10-06",
       "timezone": "Asia/Seoul",
@@ -497,9 +497,38 @@
       "proposed_input_format": "selection first, optional supplementary text",
       "unresolved": [
         "具体的な必須・任意と画面数",
-        "初回クエストの親子の関わり方",
-        "設定から提案への移行"
+        "設定から提案への移行",
+        "親子で始める仮案の所要時間・負担の確認"
       ]
+    },
+    "first_quest_parent_involvement": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "user_wording": "わからんけど親子でいいんじゃないかな",
+      "status": "tentative_preference",
+      "first_quest_mode": "parent_and_child_together",
+      "recurring_parent_attendance_required": false,
+      "parent_role_proposal": "一緒に調べる・家庭情報や経験を伝える・結果を確かめる",
+      "child_role_proposal": "予想・発見・工夫・選択・実践の主役",
+      "unresolved": [
+        "初回での親の負担と具体的な役割",
+        "慣れた後の関わり方"
+      ]
+    },
+    "first_experience_outline": {
+      "status": "design_proposal",
+      "source": "consultation_synthesis",
+      "steps": [
+        "約5分の親設定",
+        "親子で候補を見て子どもが選ぶ",
+        "5〜10分の親子での探究・実践",
+        "本人がその回の目的を完遂",
+        "任意の親の反応・次の問い"
+      ],
+      "durations_measured": false,
+      "candidate_count_finalized": false,
+      "artifact": "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md"
     }
   }
 }
