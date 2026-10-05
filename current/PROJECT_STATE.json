@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T16:40:23.517Z",
+  "updated_at": "2026-10-05T16:48:45.234Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：家庭・本人の記憶、親の希望・反応による題材調整、難しい部分の分解、成長に応じた再挑戦の基準を既存資料に結んだ。次は親のフィードバックの頻度と入力負担を相談する。D90の実装判断は別。",
+  "next_codex_action": "D91：親のフィードバックは任意の選択式＋自由記入。買い物に加えて光熱費等の調査と社会の仕組みを理解するクエストを重視し、AIが小さく分解する役割を記録した。次は1回の時間と数日に分ける体験を相談する。D90の実装判断は別。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -323,7 +323,7 @@
         "料金と提供範囲"
       ]
     },
-    "next_question": "親のフィードバックは、クエストの後に一言・選択式で伝える形と、時々まとめて希望を伝える形のどちらを中心にしたいか。",
+    "next_question": "普段の1回は、5〜10分で一つ発見する短いクエストと、数日に分けて調べるクエストのどちらを基本にしたいか。",
     "entry_point_decision": {
       "recorded_on": "2026-10-06",
       "timezone": "Asia/Seoul",
@@ -363,13 +363,54 @@
         "docs/design/ai-engine-review-v0.4.1.md"
       ],
       "unresolved": [
-        "親のフィードバックの頻度・入力負担",
+        "任意フィードバックの表示時点・選択肢",
         "記憶する情報の範囲・訂正・役割ごとの利用",
         "段階別の達成基準と見直す人・証拠",
         "初期版に含める個別化の範囲"
       ],
       "automatic_grading_or_promotion_authorized": false,
       "historical_achievement_preservation": "proposed"
+    },
+    "parent_feedback_decision": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "required": false,
+      "formats": [
+        "selection",
+        "free_text"
+      ],
+      "frequency_required": false,
+      "example_choices_status": "proposal",
+      "example_choices": [
+        "このくらいでよい",
+        "難しかった",
+        "簡単だった",
+        "別の題材を増やしたい"
+      ],
+      "unresolved": [
+        "表示するタイミング",
+        "正式な選択肢と複数選択の可否"
+      ]
+    },
+    "research_quest_direction": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "important_alongside_shopping": true,
+      "topic_examples": [
+        "電気代",
+        "水道代",
+        "水道光熱費"
+      ],
+      "desired_understanding": "日常を支える社会の仕組みと、そもそも何の費用なのか",
+      "ai_role": "難しい社会の仕組みを、本人と家庭に合った分かりやすい調査クエストへ分解する",
+      "example_quest_status": "unreviewed_design_proposal",
+      "unresolved": [
+        "1回の時間と数日に分ける扱い",
+        "出典・教材部品と対象年齢",
+        "調査の段階別達成基準"
+      ]
     }
   }
 }
