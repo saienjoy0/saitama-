@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T17:41:16.400Z",
+  "updated_at": "2026-10-05T18:04:01.091Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：報酬はクエストごとに親が完了を確認する案を本人が選んだ。任意のフィードバックと確認を区別して記録。本人の『あと』に続く補足を聞き、次の設計相談へ反映する。D90の実装判断は別。",
+  "next_codex_action": "D91：既存の家族新聞（F10/F11/F12/F17）を前提に、冷蔵庫クエスト→本人の共有選択→親確認→新聞→祖父母の経験・質問→本人が選ぶ次の探究の一周を整理する。週1号・最大6件は既存の初期案として扱い、親の編集負担と個別化の差分を次に検討する。 D90の実装判断は別。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -324,7 +324,7 @@
         "料金と提供範囲"
       ]
     },
-    "next_question": "本人の「あと」に続く補足を聞く。報酬はクエストごとに親が完了を確認する方向。",
+    "next_question": "既存の家族新聞（F10/F11/F12/F17）を前提に、冷蔵庫クエスト→本人の共有選択→親確認→新聞→祖父母の経験・質問→本人が選ぶ次の探究の一周を整理する。週1号・最大6件は既存の初期案として扱い、親の編集負担と個別化の差分を次に検討する。",
     "entry_point_decision": {
       "recorded_on": "2026-10-06",
       "timezone": "Asia/Seoul",
@@ -606,7 +606,61 @@
     "pending_user_addition": {
       "recorded_on": "2026-10-06",
       "user_wording": "あと",
-      "status": "content_not_yet_known"
+      "status": "resolved_user_requested_next_topic",
+      "resolution_source": "本人が「つぎは」と対話の継続を求めた。追加内容は記録しない。"
+    },
+    "family_newspaper_direction": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_reaffirmation_and_existing_repository_design",
+      "user_wording": "そうだねしんぶんにするってねもっとぎっとはぶのやつよみこんで",
+      "retain_existing_newspaper": true,
+      "reference_commit": "214c264d3043e81815827a8cacf4c33d5d2b80d0",
+      "reference_documents": [
+        "docs/design/product-design-v0.1.md",
+        "docs/design/role-experience-v0.3.md",
+        "docs/design/personas-cycle-review-v0.4.md",
+        "docs/design/FEATURE_REVIEW.md",
+        "docs/design/ai-harness-design-v0.2.md",
+        "docs/design/ai-action-assistance-v0.4.md",
+        "research/GAKUSTA_祖父母を含む家族循環_外部調査と面談接続_20260925.md",
+        "research/GAKUSTA_祖父母循環_DeepResearch_原文_20260925.md",
+        "research/GAKUSTA_既存サービス利用後不満と別居家族共有_補完調査_20260925.md"
+      ],
+      "reuse_features": [
+        "F06",
+        "F07",
+        "F08",
+        "F09",
+        "F10",
+        "F11",
+        "F12",
+        "F17",
+        "F18",
+        "F21"
+      ],
+      "existing_initial_proposal": {
+        "cadence": "weekly",
+        "max_cards": 6,
+        "values_reconfirmed_this_turn": false
+      },
+      "proposed_connection": [
+        "5〜10分で完遂",
+        "本人の発見カード",
+        "本人の共有選択",
+        "親の確認",
+        "家族新聞",
+        "任意の経験・質問",
+        "本人が選ぶ次の探究"
+      ],
+      "newspaper_editing_per_quest_required": false,
+      "grandparent_response_required": false,
+      "product_spec_revision_approved": false,
+      "unresolved": [
+        "新聞の頻度・素材数の最終決定",
+        "親の編集負担と定型化",
+        "家族の経験を個別化と教材へ結ぶ具体的な範囲"
+      ]
     }
   }
 }
