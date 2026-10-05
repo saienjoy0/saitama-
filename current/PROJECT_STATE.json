@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T17:25:45.325Z",
+  "updated_at": "2026-10-05T17:31:59.144Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：初回の冷蔵庫クエストと、使い道を決めて家の予定を一つ更新する完遂条件は本人がひとまず仮採用した。ここまでの対話を起点に、具体的な手がかり・記録と、面白さ・負担・時間を確認して見直す。D90の実装判断は別。",
+  "next_codex_action": "D91：ポイント・お小遣い等の家庭ごとの報酬設定へ本人が同意。既存の事前の約束・受取記録と結んだ。次は親がクエストごとに決めるか、家庭の上限・目安の範囲でアプリが提案するかを相談する。D90の実装判断は別。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -324,7 +324,7 @@
         "料金と提供範囲"
       ]
     },
-    "next_question": "初回の冷蔵庫クエストと予定更新までの完遂を仮採用。今後は子どもの面白さ、親の負担、実際の所要時間を見ながら見直す。",
+    "next_question": "報酬の金額・条件は親がクエストごとに決める形と、親が家庭の上限・目安を設定しアプリがその範囲で提案する形のどちらを基本にしたいか。",
     "entry_point_decision": {
       "recorded_on": "2026-10-06",
       "timezone": "Asia/Seoul",
@@ -561,6 +561,26 @@
       ],
       "completion_criterion_agreed_on": "2026-10-06",
       "latest_user_wording": "まあそれでいいぞとりあえず"
+    },
+    "household_rewards_direction": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "user_wording": "それはそうだね",
+      "household_configurable_rewards_requested": true,
+      "reward_examples": [
+        "ポイント",
+        "お小遣い"
+      ],
+      "implementation_scope_finalized": false,
+      "reuse_baseline": "docs/design/product-design-v0.1.md#8.4",
+      "unresolved": [
+        "金額・条件の決め方",
+        "どの活動に付けるか",
+        "ポイントとお小遣いの関係",
+        "付与・確認・受取・訂正と初期範囲"
+      ],
+      "automatic_payment_authorized": false
     }
   }
 }
