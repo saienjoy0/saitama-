@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T16:58:25.532Z",
+  "updated_at": "2026-10-05T17:02:53.116Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：発見と解決を一続きにし、困っている状態を本人が見つける力を学習目的に加えた。基本の5〜10分を維持し、観察から工夫・実践・変化の確認までを具体的なクエストへ整理する。次は題材ごとの完遂条件を相談する。D90の実装判断は別。",
+  "next_codex_action": "D91：AIの情報収集と、それ自体を発見につながるクエストにする役割を記録。調査結果を家庭・本人の記憶と次の提案へ戻す循環を整理した。次は初回に必要な情報と、5〜10分で完遂する具体的なクエストを相談する。D90の実装判断は別。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -324,7 +324,7 @@
         "料金と提供範囲"
       ]
     },
-    "next_question": "解決の工夫を試した後、本人や家族がどんな変化を確かめられれば、その回を完遂とするか。",
+    "next_question": "初回のクエストで何を知ると、本人の発見と、その家庭に合う次の提案の両方につながるか。",
     "entry_point_decision": {
       "recorded_on": "2026-10-06",
       "timezone": "Asia/Seoul",
@@ -451,6 +451,33 @@
         "題材ごとの5〜10分での完遂条件",
         "その場の変化と後日の成果の扱い",
         "入力負担と段階別基準"
+      ]
+    },
+    "information_gathering_direction": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "ai_information_gathering_required": true,
+      "information_gathering_can_be_quest": true,
+      "interpretation_status": "design_proposal_reflected_back",
+      "proposed_information_sources": [
+        "確認した外部教材・社会の仕組みの資料",
+        "家庭設定",
+        "本人の問い・活動・調査結果",
+        "任意の親・家族の反応"
+      ],
+      "proposed_loop": [
+        "既知・未確認の整理",
+        "学びに必要な情報の選択",
+        "面白い調査クエスト",
+        "本人の確認・実践",
+        "出所を区別した記憶",
+        "次の提案の調整"
+      ],
+      "unresolved": [
+        "初回の情報とクエスト",
+        "記憶する情報の範囲と訂正",
+        "外部情報収集の方法・更新・初期範囲"
       ]
     }
   }
