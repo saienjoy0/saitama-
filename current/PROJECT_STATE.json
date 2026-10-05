@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T17:38:32.646Z",
+  "updated_at": "2026-10-05T17:41:16.400Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：親が予算の上限・報酬の目安を設定し、アプリが範囲内でクエストと報酬を提案する案に本人が同意。次は完了と報酬確定の確認者・タイミングを相談する。D90の実装判断は別。",
+  "next_codex_action": "D91：報酬はクエストごとに親が完了を確認する案を本人が選んだ。任意のフィードバックと確認を区別して記録。本人の『あと』に続く補足を聞き、次の設計相談へ反映する。D90の実装判断は別。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -324,7 +324,7 @@
         "料金と提供範囲"
       ]
     },
-    "next_question": "報酬を付けるとき、親がクエストごとに完了を確認する必要がある形を基本にしたいか。",
+    "next_question": "本人の「あと」に続く補足を聞く。報酬はクエストごとに親が完了を確認する方向。",
     "entry_point_decision": {
       "recorded_on": "2026-10-06",
       "timezone": "Asia/Seoul",
@@ -575,8 +575,8 @@
       "implementation_scope_finalized": false,
       "reuse_baseline": "docs/design/product-design-v0.1.md#8.4",
       "unresolved": [
+        "親の確認操作・確定・受取の具体的な流れ",
         "予算の期間・具体的な金額・目安の単位",
-        "完了と報酬の確定を誰がいつ確認するか",
         "どの活動に付けるか",
         "ポイントとお小遣いの関係",
         "付与・確認・受取・訂正と初期範囲"
@@ -592,7 +592,21 @@
           "報酬の目安"
         ],
         "app_role": "家庭の設定した範囲でクエストと報酬を提案する"
+      },
+      "verification_decision": {
+        "recorded_on": "2026-10-06",
+        "source": "direct_user_statement",
+        "user_wording": "ごとがいいねあと",
+        "mode": "parent_checks_each_quest",
+        "status": "agreed_in_consultation",
+        "feedback_required_for_verification": false,
+        "verification_ui_finalized": false
       }
+    },
+    "pending_user_addition": {
+      "recorded_on": "2026-10-06",
+      "user_wording": "あと",
+      "status": "content_not_yet_known"
     }
   }
 }
