@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T16:48:45.234Z",
+  "updated_at": "2026-10-05T16:54:24.503Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：親のフィードバックは任意の選択式＋自由記入。買い物に加えて光熱費等の調査と社会の仕組みを理解するクエストを重視し、AIが小さく分解する役割を記録した。次は1回の時間と数日に分ける体験を相談する。D90の実装判断は別。",
+  "next_codex_action": "D91：基本は5〜10分で、一つの面白そうな目的に行動がつながり、その回で完遂できるクエスト。項目を順に調べる例を修正した。次は謎を解く／家族の役に立つ等の面白さと具体的な完遂条件を相談する。D90の実装判断は別。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -323,7 +323,7 @@
         "料金と提供範囲"
       ]
     },
-    "next_question": "普段の1回は、5〜10分で一つ発見する短いクエストと、数日に分けて調べるクエストのどちらを基本にしたいか。",
+    "next_question": "クエストの面白さは、謎を解いて発見することと、家族の困りごとを解決することのどちらを強めたいか。",
     "entry_point_decision": {
       "recorded_on": "2026-10-06",
       "timezone": "Asia/Seoul",
@@ -407,9 +407,28 @@
       "ai_role": "難しい社会の仕組みを、本人と家庭に合った分かりやすい調査クエストへ分解する",
       "example_quest_status": "unreviewed_design_proposal",
       "unresolved": [
-        "1回の時間と数日に分ける扱い",
+        "面白そうな目的と5〜10分での完遂条件",
         "出典・教材部品と対象年齢",
         "調査の段階別達成基準"
+      ]
+    },
+    "quest_experience_decision": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "default_duration_minutes": {
+        "min": 5,
+        "max": 10
+      },
+      "engaging_connected_quest_required": true,
+      "complete_one_quest_per_session": true,
+      "prior_example_feedback": "調べる項目を順に並べた例はつまらなそうと指摘された",
+      "proposed_experience": "一つの面白そうな問い・目的に予想と調査がつながり、その回で答えや達成に到達する",
+      "cross_quest_connections_status": "proposal; exact meaning of all-connected remains open",
+      "unresolved": [
+        "謎を解く面白さと家族の役に立つ面白さの重み",
+        "題材ごとの完遂条件",
+        "クエスト間のつながりと見せ方"
       ]
     }
   }
