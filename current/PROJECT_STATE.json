@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T16:32:55.254Z",
+  "updated_at": "2026-10-05T16:40:23.517Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：基本は外部教材を土台にしたAI提案とし、本人の疑問も入口にする。次はAIが本人の疑問・やりたいことをクエストへ組み直す範囲を相談する。D90の実装判断は別。",
+  "next_codex_action": "D91：家庭・本人の記憶、親の希望・反応による題材調整、難しい部分の分解、成長に応じた再挑戦の基準を既存資料に結んだ。次は親のフィードバックの頻度と入力負担を相談する。D90の実装判断は別。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -317,13 +317,13 @@
       ],
       "interpretation_status": "reflected_back_in_conversation",
       "unresolved": [
-        "本人の疑問をクエストにするAIの役割",
+        "親のフィードバック、家庭・本人の記憶と成長段階の具体設計",
         "具体的な題材と金融の比重",
         "継続の頻度とゲーム性",
         "料金と提供範囲"
       ]
     },
-    "next_question": "AIには、教材から課題を選ぶだけでなく、本人の疑問や「やりたいこと」を学べるクエストに組み直すところまでしてほしいか。",
+    "next_question": "親のフィードバックは、クエストの後に一言・選択式で伝える形と、時々まとめて希望を伝える形のどちらを中心にしたいか。",
     "entry_point_decision": {
       "recorded_on": "2026-10-06",
       "timezone": "Asia/Seoul",
@@ -337,9 +337,39 @@
       "material_reference": "research/GAKUSTA_クエスト教材・ネタ元リファレンス_20260925.md",
       "unresolved": [
         "不明瞭な発言末尾の意図と自発性の具体的な扱い",
-        "AIが課題を選ぶか、本人の興味に合わせて組み直すか",
         "個別教材の正式採用と利用条件"
       ]
+    },
+    "personalization_direction": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "interest_to_quest": true,
+      "household_and_person_memory_requested": true,
+      "feedback_driven_quest_changes": true,
+      "requested_topic_examples": [
+        "お金系をもっと",
+        "NISA系がよい"
+      ],
+      "decompose_difficult_tasks": true,
+      "growth_sensitive_repeated_quest_criteria": true,
+      "reuse_prior_chat_design_requested": true,
+      "reference_documents": [
+        "事業統合正本・完全統合版_20260821 D-2〜D-7/E-2〜E-7",
+        "AI意思決定教育_方法レビュー_20261004 §2〜4",
+        "AI支援の効果比較_20261004 §2〜5",
+        "継続と契約につながる体験設計_20261005 §2/6/9/10",
+        "docs/design/ai-action-assistance-v0.4.md",
+        "docs/design/ai-engine-review-v0.4.1.md"
+      ],
+      "unresolved": [
+        "親のフィードバックの頻度・入力負担",
+        "記憶する情報の範囲・訂正・役割ごとの利用",
+        "段階別の達成基準と見直す人・証拠",
+        "初期版に含める個別化の範囲"
+      ],
+      "automatic_grading_or_promotion_authorized": false,
+      "historical_achievement_preservation": "proposed"
     }
   }
 }

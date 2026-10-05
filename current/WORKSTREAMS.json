@@ -68,7 +68,7 @@
           "number": 5
         }
       ],
-      "next_action": "D91：基本は外部教材を土台にしたAI提案とし、本人の疑問も入口にする。次はAIが本人の疑問・やりたいことをクエストへ組み直す範囲を相談する。D90の実装判断は別。",
+      "next_action": "D91：家庭・本人の記憶、親の希望・反応による題材調整、難しい部分の分解、成長に応じた再挑戦の基準を既存資料に結んだ。次は親のフィードバックの頻度と入力負担を相談する。D90の実装判断は別。",
       "sources": [
         "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md",
         "current/REVIEW_BUNDLE.json",
