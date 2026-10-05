@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T16:54:24.503Z",
+  "updated_at": "2026-10-05T16:58:25.532Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：基本は5〜10分で、一つの面白そうな目的に行動がつながり、その回で完遂できるクエスト。項目を順に調べる例を修正した。次は謎を解く／家族の役に立つ等の面白さと具体的な完遂条件を相談する。D90の実装判断は別。",
+  "next_codex_action": "D91：発見と解決を一続きにし、困っている状態を本人が見つける力を学習目的に加えた。基本の5〜10分を維持し、観察から工夫・実践・変化の確認までを具体的なクエストへ整理する。次は題材ごとの完遂条件を相談する。D90の実装判断は別。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -313,7 +313,8 @@
         "身近な仕組みへの積極的な理解",
         "家庭での実践と積極的な参加",
         "金融の学び",
-        "父母・祖父母との活発な会話"
+        "父母・祖父母との活発な会話",
+        "日常の困っている状態を自分で発見し、解決を試す"
       ],
       "interpretation_status": "reflected_back_in_conversation",
       "unresolved": [
@@ -323,7 +324,7 @@
         "料金と提供範囲"
       ]
     },
-    "next_question": "クエストの面白さは、謎を解いて発見することと、家族の困りごとを解決することのどちらを強めたいか。",
+    "next_question": "解決の工夫を試した後、本人や家族がどんな変化を確かめられれば、その回を完遂とするか。",
     "entry_point_decision": {
       "recorded_on": "2026-10-06",
       "timezone": "Asia/Seoul",
@@ -423,12 +424,33 @@
       "engaging_connected_quest_required": true,
       "complete_one_quest_per_session": true,
       "prior_example_feedback": "調べる項目を順に並べた例はつまらなそうと指摘された",
-      "proposed_experience": "一つの面白そうな問い・目的に予想と調査がつながり、その回で答えや達成に到達する",
+      "proposed_experience": "一つの面白そうな目的のもとで、気になる状態を自分で発見し、理由・仕組みを調べ、解決の工夫を試して変化を確かめる。基本は5〜10分でその回の範囲を完遂する。",
       "cross_quest_connections_status": "proposal; exact meaning of all-connected remains open",
       "unresolved": [
-        "謎を解く面白さと家族の役に立つ面白さの重み",
         "題材ごとの完遂条件",
         "クエスト間のつながりと見せ方"
+      ]
+    },
+    "discovery_and_resolution_decision": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "discover_and_resolve": true,
+      "discover_problematic_situations": true,
+      "fun_dimensions": "発見と解決を一続きにする",
+      "proposed_loop": [
+        "観察",
+        "困っている状態の発見",
+        "理由・仕組みの調査",
+        "本人の工夫",
+        "実践",
+        "変化の確認"
+      ],
+      "ai_role_proposal": "家庭・本人に合う観察の入口と手がかりを用意し、難しい部分を分解する",
+      "unresolved": [
+        "題材ごとの5〜10分での完遂条件",
+        "その場の変化と後日の成果の扱い",
+        "入力負担と段階別基準"
       ]
     }
   }
