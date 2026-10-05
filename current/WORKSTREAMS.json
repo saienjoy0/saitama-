@@ -68,7 +68,7 @@
           "number": 5
         }
       ],
-      "next_action": "D91：本人の希望は、仕組みを知る・家庭で実践する・金融を学ぶ・父母や祖父母と話す。次は子どもが自分から始める入口を相談し、回答に沿って既存設計を更新する。D90の実装判断は別。",
+      "next_action": "D91：基本は外部教材を土台にしたAI提案とし、本人の疑問も入口にする。次はAIが本人の疑問・やりたいことをクエストへ組み直す範囲を相談する。D90の実装判断は別。",
       "sources": [
         "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md",
         "current/REVIEW_BUNDLE.json",

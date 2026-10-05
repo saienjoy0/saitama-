@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T16:25:46.669Z",
+  "updated_at": "2026-10-05T16:32:55.254Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "Continue D91 from the founder outcome recorded in docs/workflow/PRODUCT_DESIGN_DIALOGUE.md: active understanding of everyday mechanisms, practical participation at home, financial learning and communication with parents/grandparents. Next clarify how the child starts: own question, app-proposed quest or family invitation. Reflect one answer at a time before changing product specs.",
+  "next_codex_action": "D91：基本は外部教材を土台にしたAI提案とし、本人の疑問も入口にする。次はAIが本人の疑問・やりたいことをクエストへ組み直す範囲を相談する。D90の実装判断は別。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -317,12 +317,29 @@
       ],
       "interpretation_status": "reflected_back_in_conversation",
       "unresolved": [
-        "初回体験の入口",
+        "本人の疑問をクエストにするAIの役割",
         "具体的な題材と金融の比重",
         "継続の頻度とゲーム性",
         "料金と提供範囲"
       ]
     },
-    "next_question": "子どもが始める入口は、自分の疑問・アプリからのクエスト・家族からの誘いのどれを中心にしたいか。"
+    "next_question": "AIには、教材から課題を選ぶだけでなく、本人の疑問や「やりたいこと」を学べるクエストに組み直すところまでしてほしいか。",
+    "entry_point_decision": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "chosen_entries": [
+        "own_question",
+        "ai_suggested_quest"
+      ],
+      "default_entry": "AIが外部教材を土台にクエストを提示し、子どもが取り組む",
+      "own_question_interpretation": "本人の疑問ややりたいことも入口として扱うという理解を返した",
+      "material_reference": "research/GAKUSTA_クエスト教材・ネタ元リファレンス_20260925.md",
+      "unresolved": [
+        "不明瞭な発言末尾の意図と自発性の具体的な扱い",
+        "AIが課題を選ぶか、本人の興味に合わせて組み直すか",
+        "個別教材の正式採用と利用条件"
+      ]
+    }
   }
 }
