@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T16:15:34.881Z",
+  "updated_at": "2026-10-05T16:25:46.669Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "Continue the user-requested D91 product-design dialogue from docs/workflow/PRODUCT_DESIGN_DIALOGUE.md. Ask one outcome question, reflect the answer, then revise agreed sections against the existing v0.4.1 baseline. D90 and implementation approval remain separate; consultation and skill intake do not authorize BUILD.",
+  "next_codex_action": "Continue D91 from the founder outcome recorded in docs/workflow/PRODUCT_DESIGN_DIALOGUE.md: active understanding of everyday mechanisms, practical participation at home, financial learning and communication with parents/grandparents. Next clarify how the child starts: own question, app-proposed quest or family invitation. Reflect one answer at a time before changing product specs.",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -302,7 +302,27 @@
     "baseline_revision": "0.4.1",
     "recommendation": "reuse_existing_design_and_reframe_core_value_first_experience_continuation_purchase",
     "first_question": "このサービスを使った子どもや家族に、まずどんな変化が起きてほしいか",
-    "founder_outcome_confirmed": false,
-    "product_specs_changed": false
+    "founder_outcome_confirmed": true,
+    "product_specs_changed": false,
+    "founder_outcome": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "summary": "身近な仕組みを積極的に知り、家庭で実際に試し、金融についても学びながら、父母・祖父母と自分から話せるようになる。",
+      "source": "direct_user_statement",
+      "desired_changes": [
+        "身近な仕組みへの積極的な理解",
+        "家庭での実践と積極的な参加",
+        "金融の学び",
+        "父母・祖父母との活発な会話"
+      ],
+      "interpretation_status": "reflected_back_in_conversation",
+      "unresolved": [
+        "初回体験の入口",
+        "具体的な題材と金融の比重",
+        "継続の頻度とゲーム性",
+        "料金と提供範囲"
+      ]
+    },
+    "next_question": "子どもが始める入口は、自分の疑問・アプリからのクエスト・家族からの誘いのどれを中心にしたいか。"
   }
 }

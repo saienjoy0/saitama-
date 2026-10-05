@@ -26,11 +26,13 @@
     "contracts/guided-plan.schema.json": "eb14a707d6e335d53120245c820c2c7e4bb522573373b215e56c4dda9aba7962",
     "docs/workflow/CODEX_PREFLIGHT.md": "93abc77943d542527d648250c04b0528782396b292db64063766f8b7a5d5933f",
     "current/SKILLS.json": "fca305dcb902075cce087f8340a59168718e05b09fbb29183580d74427a307af",
-    "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md": "b6b22675ebdd38b1a194d0a1af807a86bdb859ac9306753dad2373fb29052ff0"
+    "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md": "d87022018b4a792c98cefa1b6c99f374148ad6c0c3848aaa5f97424abb5a8181"
   },
   "consultation_addendum": {
     "date": "2026-10-05",
     "scope": "Three unchanged upstream PM skills and founder consultation preparation; product baseline remains v0.4.1",
-    "product_specs_changed": false
+    "product_specs_changed": false,
+    "latest_dialogue_date": "2026-10-06",
+    "timezone": "Asia/Seoul"
   }
 }

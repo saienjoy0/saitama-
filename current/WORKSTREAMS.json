@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-10-05",
+  "updated_on": "2026-10-06",
   "authority_mode": "navigation",
   "project_url": null,
   "goal": "2026-10-16の発表準備に向け、保護者への聞き取りから仮説を見直す。LP・募集・本体設計・発表を並行して管理する。",
@@ -68,7 +68,7 @@
           "number": 5
         }
       ],
-      "next_action": "D91で本人の要望を一つずつ聞き、既存設計を基礎に中心価値・初回体験・継続と購入理由を見直す。合意後に仕様・機能表・計画を更新する。D90の実装判断は別。",
+      "next_action": "D91：本人の希望は、仕組みを知る・家庭で実践する・金融を学ぶ・父母や祖父母と話す。次は子どもが自分から始める入口を相談し、回答に沿って既存設計を更新する。D90の実装判断は別。",
       "sources": [
         "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md",
         "current/REVIEW_BUNDLE.json",
