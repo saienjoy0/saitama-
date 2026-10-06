@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-06T07:25:20.872Z",
+  "updated_at": "2026-10-06T07:33:42.251Z",
   "spec_status": "requirements_draft_scope_pending",
   "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：§0.15へAIの目標・前提の分解、一回のクエスト、活動記録から次回への接続を設計。KX01/KX02の架空連続例とQD01〜QD05は未評価の案。次は最小入力・出力契約、内容再利用と重要変更の境界、評価例を具体化し旧計画へ同期。親関与は未回答、学年適合・負担・実装承認は未確定。",
+  "next_codex_action": "D91：国内5・海外3サービスの課題・学習順序・支援を公式仕様と2026年更新で比較し、AI設計と§0.15へ接続。足場＋家庭のクエスト＋必要な記録による調整は推奨案。次は目標・前提の最小単位、入力／出力契約・確認条件・評価例を具体化。旧計画未同期、学年適合・負担・実装承認は未確定。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -693,7 +693,7 @@
     "product_specs_updated": true,
     "scope_approved": false,
     "implementation_plan_aligned": false,
-    "next_action": "D91：§0.15へAIの目標・前提の分解、一回のクエスト、活動記録から次回への接続を設計。KX01/KX02の架空連続例とQD01〜QD05は未評価の案。次は最小入力・出力契約、内容再利用と重要変更の境界、評価例を具体化し旧計画へ同期。親関与は未回答、学年適合・負担・実装承認は未確定。",
+    "next_action": "D91：国内5・海外3サービスの課題・学習順序・支援を公式仕様と2026年更新で比較し、AI設計と§0.15へ接続。足場＋家庭のクエスト＋必要な記録による調整は推奨案。次は目標・前提の最小単位、入力／出力契約・確認条件・評価例を具体化。旧計画未同期、学年適合・負担・実装承認は未確定。",
     "not_approved": [
       "difficulty-selection UI proposal",
       "automatic ability certification",
@@ -888,7 +888,30 @@
       "model_evaluation": "not_run",
       "family_observation": "not_run",
       "approval": "design concretization requested; detailed workflow/card adoption and implementation unapproved",
-      "next_action": "D91：§0.15へAIの目標・前提の分解、一回のクエスト、活動記録から次回への接続を設計。KX01/KX02の架空連続例とQD01〜QD05は未評価の案。次は最小入力・出力契約、内容再利用と重要変更の境界、評価例を具体化し旧計画へ同期。親関与は未回答、学年適合・負担・実装承認は未確定。"
+      "next_action": "D91：国内5・海外3サービスの課題・学習順序・支援を公式仕様と2026年更新で比較し、AI設計と§0.15へ接続。足場＋家庭のクエスト＋必要な記録による調整は推奨案。次は目標・前提の最小単位、入力／出力契約・確認条件・評価例を具体化。旧計画未同期、学年適合・負担・実装承認は未確定。",
+      "competitor_review": {
+        "date": "2026-10-06",
+        "timezone": "Asia/Seoul",
+        "status": "primary_source_comparison_and_recommendation_not_adopted",
+        "services": [
+          "atama+",
+          "Qubena",
+          "Surala",
+          "WonderBox",
+          "Otetsudai StepUP",
+          "Khanmigo",
+          "GoHenry",
+          "Greenlight"
+        ],
+        "source_ids": "C01-C15 in existing AI-engine review",
+        "fresh_updates": [
+          "Khanmigo May/August 2026",
+          "Qubena June 2026"
+        ],
+        "proposal": "reviewed learning goals/prerequisites + household quest adaptation + minimal activity signals for next support",
+        "limitations": "public descriptions; internal algorithms, actual use and household-learning efficacy unverified",
+        "implementation_authorized": false
+      }
     }
   }
 }
