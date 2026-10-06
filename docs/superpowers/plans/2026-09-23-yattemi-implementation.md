@@ -47,7 +47,9 @@ S20銀行、S21借入、S22銘柄・利回り、S25歩数、S26日記、S27印�
 
 ### Task 1: B10 — 共通基盤と体験
 
-**Files:** `apps/web/package.json`、`apps/web/src/main.tsx`、`apps/web/src/App.tsx`、`apps/web/src/design/tokens.css`、`apps/web/src/design/components/RoleHome.tsx`、`apps/web/src/ports/ExperiencePort.ts`、`apps/web/src/features/experience/ConditionsCard.tsx`、`apps/web/src/features/experience/CompareChoices.tsx`、`apps/web/src/features/experience/FixedHelp.tsx`、`apps/api/pyproject.toml`、`apps/api/app/main.py`、`apps/api/app/db.py`、`apps/api/app/modules/identity/models.py`、`apps/api/app/modules/identity/session.py`、`apps/api/app/modules/identity/oidc.py`、`apps/api/app/modules/identity/routes.py`、`apps/api/app/modules/family/models.py`、`apps/api/app/modules/experience/models.py`、`apps/api/app/modules/experience/routes.py`、`compose.yaml`、`content/templates/shopping-v1.json`
+S01の着手は `docs/superpowers/plans/2026-10-07-s01-family-foundation.md` に従う。UIの共通値と部品は `docs/design/ui-system.json` / `ui-consistency-20261007.md`。実行環境は `docs/workflow/IMPLEMENTATION_READY.md` を使う。
+
+**Files:** `apps/web/package.json`、`apps/web/src/main.tsx`、`apps/web/src/App.tsx`、`apps/web/src/design/tokens.css`、`apps/web/src/features/family/RoleEntry.tsx`、`apps/web/src/ports/ExperiencePort.ts`、`apps/web/src/features/experience/ConditionsCard.tsx`、`apps/web/src/features/experience/CompareChoices.tsx`、`apps/web/src/features/experience/FixedHelp.tsx`、`apps/api/pyproject.toml`、`apps/api/app/main.py`、`apps/api/app/db.py`、`apps/api/app/modules/identity/models.py`、`apps/api/app/modules/identity/session.py`、`apps/api/app/modules/identity/oidc.py`、`apps/api/app/modules/identity/routes.py`、`apps/api/app/modules/family/models.py`、`apps/api/app/modules/experience/models.py`、`apps/api/app/modules/experience/routes.py`、`compose.yaml`、`content/templates/shopping-v1.json`
 
 **Interfaces:** FamilyAccessはfamilyId・memberId・role・managedChildIdsをサーバー側で決める。Experienceは目的・条件・templateId/version・revision・statusを持つ。saveExperience／pauseExperience／resumeExperienceは保存結果を返す。UIがroleを送って権限を決めない。
 

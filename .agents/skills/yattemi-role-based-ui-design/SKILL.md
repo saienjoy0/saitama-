@@ -12,7 +12,7 @@ Design one product with three role-specific jobs. Keep shared trust, navigation 
 1. Read `current/PROJECT_STATE.json`; stop if the stage does not permit design work.
 2. Write each role's job, anxiety, device/context, and first successful action before drawing screens.
 3. Read `references/evidence-led-family-design.md`. Apply Material-style semantic tokens, PAIR's non-AI comparison, Working Backwards customer outcomes, and appropriate Cloudscape interaction patterns. These are project adaptations, not official Google/Amazon skills.
-4. Map role-specific information architecture and one primary action per screen.
+4. Read `references/ui-consistency.md` and the current project UI contract. Map role-specific information architecture and one primary action per screen; reuse shared tokens, components, labels and state meanings.
 5. Design first-run paths with realistic content, empty/error/offline states, and consent boundaries.
 6. Specify purposeful motion and reduced-motion behavior using `references/motion-and-change-review.md`. Attach feature, screen, motion, and acceptance IDs to every reviewed flow.
 7. Walk through each role's actual job and the handoff to the next role, including refusal, no response, and no grandparents. Test with users only when authorized; label persona walkthroughs as hypotheses, never observed results.

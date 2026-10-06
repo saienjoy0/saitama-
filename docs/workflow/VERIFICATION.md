@@ -79,3 +79,7 @@ Google／Amazon／UNICEFおよび提供元APIの一次資料を確認した設�
 code-mode上で保存予定の本文を検査し、28開発単位の一意性・依存順・完成条件、21既存機能の対応、B10〜B70とTask1〜7の対応、資料の相対リンク、タスク依存・状態保持、設計資料とスキル本文・MITライセンスのSHA-256照合を確認した。既存契約・合成評価fixtureは未変更。PM三スキルは取り込み時のquick_validate.pyで確認済み。
 
 ローカル実行サービスが応答しなくなったため、この改訂後のPythonハンドオフ検査・navigation unittestは実行できていない。次の実行環境で `python3 scripts/render_current.py`、`python3 scripts/check_design_handoff.py`、`python3 -m unittest discover -s scripts -p test_project_navigation.py` を実行する。CURRENTは既存render関数と同じ入力・出力規則から導出。製品テスト・モデル評価・実家庭試用は今回行っていない。
+
+## 2026-10-07：実装前の環境・UI整合準備
+
+ローカルshellが応答しないため、設定をブランチへ保存し、GitHub ActionsのDevelopment preparationで文書・UI契約・依存解決・Chromium・DB・frozen再インストールを確認する構成を追加。保存前のcode-mode検査では、既存CURRENTの生成規則を再現、レビューhashとスキル参照を照合、本文5組のコントラスト4.5以上、製品source未作成、承認状態不変を確認。CI実行結果はpendingとして保存し、実際の結果確認後に更新する。Dev Containerの起動、製品画面・API・migration・利用者理解は未検証。

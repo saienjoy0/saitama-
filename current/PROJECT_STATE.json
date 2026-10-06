@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-07T00:00:00Z",
+  "updated_at": "2026-10-06T17:30:00Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -14,7 +14,8 @@
     "document_checks",
     "prepare_development_skills",
     "prepare_implementation_plan",
-    "create_nonproduction_review_mockup"
+    "create_nonproduction_review_mockup",
+    "prepare_development_environment"
   ],
   "blocked_now": [
     "product_code",
@@ -38,10 +39,12 @@
     "docs/design/ai-engine-review-v0.4.1.md",
     "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md",
     "docs/design/やってみクエスト_主要導線と表示情報_20261006.md",
-    "docs/design/やってみクエスト_アルバムと家庭のお金・報酬設計_20261006.md"
+    "docs/design/やってみクエスト_アルバムと家庭のお金・報酬設計_20261006.md",
+    "docs/design/ui-consistency-20261007.md",
+    "docs/design/ui-system.json"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "Use the v5 feature organization and updated existing implementation plan. Start from S01→S02→S03 in B10 when implementation starts; deliver and review one S unit at a time. Do not recreate the overall organization or detour into LP/research. Record an implementation-start instruction for this concrete bundle when received.",
+  "next_codex_action": "Read IMPLEMENTATION_READY, the v5 feature organization, shared UI contract and concrete S01 plan. The latest user instruction is preparation only; product implementation is not authorized by this turn. At actual implementation start, use the verified environment and implement S01 then S02 one feature at a time.",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -73,7 +76,7 @@
   "implementation_plan": "docs/superpowers/plans/2026-09-23-yattemi-implementation.md",
   "review_bundle": "current/REVIEW_BUNDLE.json",
   "proposed_execution": "native/sequential",
-  "design_revision": "0.5.0",
+  "design_revision": "0.5.1",
   "research_review": {
     "revision": "20260925-v5",
     "status": "research_documents_revised",
@@ -344,5 +347,21 @@
     "source_statement": "かいはつだろつぎは実装なんだから実装するんだから、今日決めたものを整理していくんだよ",
     "product_implementation": "not_started",
     "backlog": "current/FEATURE_DELIVERY.json"
+  },
+  "environment_preparation": {
+    "revision": "20261007-v1",
+    "request": "実装ではなく環境整備",
+    "entry_point": "docs/workflow/IMPLEMENTATION_READY.md",
+    "ui_spec": "docs/design/ui-consistency-20261007.md",
+    "ui_contract": "docs/design/ui-system.json",
+    "first_feature_plan": "docs/superpowers/plans/2026-10-07-s01-family-foundation.md",
+    "tooling_dir": "tools/development",
+    "workflow": ".github/workflows/development-preparation.yml",
+    "status": "configured_waiting_runtime_verification",
+    "local_execution": "unavailable: shell tool did not respond",
+    "ci_execution": "pending",
+    "lock_files": "pending_resolution",
+    "devcontainer": "configuration_created_not_launched",
+    "product_implementation": "not_started"
   }
 }

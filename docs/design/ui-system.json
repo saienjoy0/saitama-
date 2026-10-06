@@ -1,0 +1,141 @@
+{
+  "version": "20261007-v1",
+  "source": "docs/design/role-experience-v0.3.md",
+  "scope": "implementation_design_contract_not_product_components",
+  "colors": {
+    "canvas": "#FFFDF7",
+    "surface": "#FFFFFF",
+    "text": "#172B2A",
+    "primary": "#176B5B",
+    "onPrimary": "#FFFFFF",
+    "subtle": "#EAF4F0",
+    "warning": "#754B00",
+    "danger": "#A12828"
+  },
+  "spacingPx": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32
+  ],
+  "radiusPx": 16,
+  "fontFamily": "system-ui, sans-serif",
+  "lineHeight": 1.6,
+  "roles": {
+    "child": {
+      "bodyMinPx": 16,
+      "touchMinPx": 48,
+      "primaryTouchMinPx": 48,
+      "tabs": [
+        "今回のやってみ",
+        "これまで",
+        "お金とごほうび"
+      ],
+      "firstAction": "この条件で始める"
+    },
+    "parent": {
+      "bodyMinPx": 16,
+      "touchMinPx": 48,
+      "primaryTouchMinPx": 48,
+      "tabs": [
+        "確認",
+        "家族の記録",
+        "設定"
+      ],
+      "firstAction": "この内容を送る"
+    },
+    "grandparent": {
+      "bodyMinPx": 20,
+      "touchMinPx": 48,
+      "primaryTouchMinPx": 56,
+      "tabs": [
+        "家族の新聞",
+        "今日を送る",
+        "これまで"
+      ],
+      "firstAction": "『元気だよ』を送る"
+    }
+  },
+  "states": {
+    "record": [
+      "draft",
+      "saving",
+      "saved",
+      "save_failed"
+    ],
+    "share": [
+      "not_requested",
+      "pending_review",
+      "published",
+      "revoked",
+      "send_failed"
+    ],
+    "redemption": [
+      "requested",
+      "approved",
+      "received",
+      "rejected",
+      "cancelled"
+    ]
+  },
+  "labels": {
+    "draft": "下書き",
+    "saving": "保存中",
+    "saved": "保存済み",
+    "save_failed": "未保存",
+    "not_requested": "共有なし",
+    "pending_review": "親の確認待ち",
+    "published": "共有済み",
+    "revoked": "取り消し済み",
+    "send_failed": "未送信",
+    "requested": "申請中",
+    "approved": "受取待ち",
+    "received": "受取済み",
+    "rejected": "今回は見送り",
+    "cancelled": "取消済み"
+  },
+  "units": {
+    "actual": "円",
+    "points": "P",
+    "practice": "練習円"
+  },
+  "motion": {
+    "easing": "cubic-bezier(.2,0,0,1)",
+    "maxMovePx": 8,
+    "maximumMs": 420,
+    "durationsMs": {
+      "selection": 100,
+      "transition": 180,
+      "save": 260,
+      "discovery": 420,
+      "newspaper": 120,
+      "send": 100,
+      "aiExpand": 180
+    },
+    "reduceWhen": "os_reduced_motion OR profile_reduced_motion",
+    "successRequires": "server_ack"
+  },
+  "viewportsPx": [
+    320,
+    360,
+    390,
+    768
+  ],
+  "textScalePercent": [
+    100,
+    200
+  ],
+  "primaryActionsPerView": 1,
+  "contrast": {
+    "normalTextMin": 4.5,
+    "largeTextMin": 3,
+    "controlsMin": 3
+  },
+  "focus": {
+    "outlinePx": 3,
+    "offsetPx": 3,
+    "color": "primary"
+  }
+}

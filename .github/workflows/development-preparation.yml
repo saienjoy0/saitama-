@@ -1,0 +1,74 @@
+name: Development preparation
+on:
+  pull_request:
+    paths:
+      - ".agents/**"
+      - ".devcontainer/**"
+      - ".github/workflows/development-preparation.yml"
+      - "current/**"
+      - "docs/**"
+      - "scripts/**"
+      - "tools/development/**"
+      - "CURRENT.md"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: development-preparation-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preparation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      YATTEMI_DEV_DATABASE_URL: postgresql://yattemi_dev:local_development_only@127.0.0.1:54329/yattemi_dev
+      DO_NOT_TRACK: "1"
+      STORYBOOK_DISABLE_TELEMETRY: "1"
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: yattemi_dev
+          POSTGRES_PASSWORD: local_development_only
+          POSTGRES_DB: yattemi_dev
+        ports:
+          - 54329:5432
+        options: >-
+          --health-cmd "pg_isready -U yattemi_dev -d yattemi_dev"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - name: Check documentation and UI contract
+        run: |
+          python3 scripts/render_current.py --check
+          python3 scripts/check_design_handoff.py
+          python3 -m unittest discover -s scripts -p test_project_navigation.py
+          python3 scripts/check_ui_contract.py
+          python3 -m compileall -q scripts/setup_dev_environment.py tools/development
+      - name: Install and check development tools
+        run: python3 scripts/setup_dev_environment.py --with-browser
+      - name: Verify dependency CLIs and local database
+        run: |
+          npm --prefix tools/development exec -- tsc --version
+          npm --prefix tools/development exec -- vite --version
+          npm --prefix tools/development exec -- vitest --version
+          npm --prefix tools/development exec -- storybook --version
+          uv run --project tools/development --frozen python tools/development/check-db.py
+      - name: Verify frozen setup
+        run: python3 scripts/setup_dev_environment.py --frozen --with-browser
+      - name: Export dependency locks
+        run: python3 scripts/export_dev_locks.py
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: development-locks
+          path: |
+            tools/development/package-lock.json
+            tools/development/uv.lock
+          retention-days: 14
