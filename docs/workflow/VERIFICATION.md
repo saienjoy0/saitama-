@@ -83,3 +83,11 @@ code-mode上で保存予定の本文を検査し、28開発単位の一意性・
 ## 2026-10-07：実装前の環境・UI整合準備
 
 ローカルshellが応答しないため、設定をブランチへ保存し、GitHub ActionsのDevelopment preparationで文書・UI契約・依存解決・Chromium・DB・frozen再インストールを確認する構成を追加。保存前のcode-mode検査では、既存CURRENTの生成規則を再現、レビューhashとスキル参照を照合、本文5組のコントラスト4.5以上、製品source未作成、承認状態不変を確認。CI実行結果はpendingとして保存し、実際の結果確認後に更新する。Dev Containerの起動、製品画面・API・migration・利用者理解は未検証。
+
+### 環境準備の実行結果：PASS
+
+[CI 37506161907](https://github.com/saienjoy0/saitama-/actions/runs/37506161907)、commit `63df99a983c0e598d6cc7c7c3825ff0db6d5e259`。文書ハンドオフ、CURRENT生成一致、navigation unittest5件、UI契約・本文色5組、Node/Python依存のimportとCLI、Chromium起動と日本語のrole query/click・keyboard・axe、PostgreSQL16接続、lockによる再インストールが通過。CIに出した二つのlockを取得してrepoへ保存し、成功した実行のexport値とSHA-256が一致することも確認した。
+
+準備中にStorybookのmain export確認、検査HTMLのcharset欠落、axeに必要な明示browser contextを修正。日本語文字列とUTF-8をassertし、axeの検査を省略せず最終PASSを確認した。開発道具だけの検査であり、製品UIのa11y・製品build・API・DB migration・実端末・利用者理解は検証していない。ローカルshellは応答せず、Dev Container自体の起動は未実施。
+
+依存例：Node24.21.0／Python3.12.14／uv0.12.23、React19.3.0、TypeScript5.9.3、Vite8.3.3、Vitest4.1.11、Storybook10.6.1、Playwright1.63.0。製品へは必要な依存だけを選び別lockで固定する。

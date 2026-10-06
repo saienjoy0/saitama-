@@ -67,10 +67,11 @@
           "number": 5
         }
       ],
-      "next_action": "今日決めた本体機能を整理したv5と既存の更新済み実装計画を使う。最初はS01の家族・役割・保存、その後S02の用事・条件。各機能を開発・確認・修正して次へ進む。",
+      "next_action": "実装前の環境・UI・S01計画を整備済み。実装の入口から検証済みlockで環境を起動し、S01の家族・役割・保存→S02の買い物条件を一機能ずつ作って確認する。",
       "sources": [
+        "docs/workflow/IMPLEMENTATION_READY.md",
         "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md",
-        "docs/superpowers/plans/2026-09-23-yattemi-implementation.md",
+        "docs/superpowers/plans/2026-10-07-s01-family-foundation.md",
         "current/REVIEW_BUNDLE.json"
       ],
       "source_location": "PROJECT_STATEの段階とnext_task_idは本体用。管理改修やIssueのcloseで承認を書き換えない。"

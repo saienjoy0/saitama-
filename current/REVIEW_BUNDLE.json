@@ -51,7 +51,7 @@
     "scripts/export_dev_locks.py": "c0a8cf185238dba6349e88e23f7bc9e69bc341d77190075cc6552a7062ec1346",
     ".github/workflows/development-preparation.yml": "343caf5be57187a626645c8d8f3cdb68d62363cb08e872b34c874d52bffc25e8",
     "docs/superpowers/plans/2026-10-07-s01-family-foundation.md": "f4b63db6996af6a39a3c0c0789471f1aedf3129e228cf655f4f5d92c26a2f6b8",
-    "docs/workflow/IMPLEMENTATION_READY.md": "3702ab77146520e86d425e0fbeebc7cffd69e0cda39b31984a36821571f01816",
+    "docs/workflow/IMPLEMENTATION_READY.md": "e8c66ba29a8f6e729ee8cc4f3db5fd8e0f88310beec94feb40774472dbeea80c",
     ".agents/skills/yattemi-role-based-ui-design/references/ui-consistency.md": "41cc7dbca2814ddef5dfaed88ce2c25705b0bd2b650e96459160fc443c262b2e",
     ".agents/skills/yattemi-role-based-ui-design/references/motion-and-change-review.md": "7ab57a3a56be41e9285e97cd785eff46b1e964b29e3c42425ee17996fca5cfb9",
     ".agents/skills/yattemi-role-based-ui-design/references/yattemi-screen-matrix.md": "619b864a50fcc9938cd67636c283d4cf41b1ffa73a699f36ad623c5df859f318",

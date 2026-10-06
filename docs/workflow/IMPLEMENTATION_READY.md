@@ -24,15 +24,12 @@
 ## 開発環境
 `tools/development/`は開発道具の環境。React19、TS5.9、Vite8、Vitest4、Testing Library、Storybook10とa11y、Playwright/axeを確認する。Python3.12側はFastAPI、SQLAlchemy2、Alembic、pytest、psycopg、httpx、ruff。製品ソースとは分離している。
 
-Node24/Python3.12/uvを使える環境で：
-```bash
-python3 scripts/setup_dev_environment.py --with-browser
-```
-
-保存済みlockがある後続環境では：
+このブランチには検証済みpackage-lock.json／uv.lockを同梱。Node24/Python3.12/uv0.12.23を使える環境で、初回も固定版を使う：
 ```bash
 python3 scripts/setup_dev_environment.py --frozen --with-browser
 ```
+
+依存を更新する作業でだけ --frozen を外して再解決し、互換性を確認して二つのlockをcommitする。
 
 VS Code/Codespacesは「Reopen in Container」で `.devcontainer/devcontainer.json`を利用できる。初回postCreateでuvと開発ツールを入れる。Docker自体はホスト側に必要。コンテナ環境の起動検証と、CI runnerの検証は別に記録する。
 
@@ -52,3 +49,8 @@ GitHubの `Development preparation` workflowは次を実行する：
 
 ## 最初の実装
 S01で役割・保存・入口と共通部品を作り、確認してからS02の買い物条件へ進む。部品のStorybook状態と実ブラウザー検査をその機能へ含める。製品の全画面を先に一括実装する手順にはしない。
+
+## 確認済みの結果
+[Development preparationの実行結果](https://github.com/saienjoy0/saitama-/actions/runs/37506161907)で文書検査、navigation5件、UI契約、toolの起動、日本語の検査用HTMLの操作とaxe、Postgres16接続、frozen再インストールを確認した。検証対象commitは `63df99a983c0e598d6cc7c7c3825ff0db6d5e259`。React19.3.0、TS5.9.3、Vite8.3.3、Vitest4.1.11、Storybook10.6.1、Playwright1.63.0をlockへ保存。Dev Containerのローカル起動と、製品部品・画面・APIの実装検査は未実施。
+
+生成した三者のUIイメージは外観の参考。画像内の追加文言は実装仕様として採用せず、実際のUIは原文と共通契約を使う。
