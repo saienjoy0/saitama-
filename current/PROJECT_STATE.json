@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-06T08:07:07.238Z",
+  "updated_at": "2026-10-06T09:34:31.240Z",
   "spec_status": "requirements_draft_scope_pending",
   "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：§0.15.1にKX01の目標・前提、AI入力と子の調査、提案・本人の理由と予定更新・次回を具体化。AI設計に出力項目・再利用／再確認・WK01〜WK08の未実行確認例。次は具体例をレビューし、入力負担・再利用条件・確認権限を既存契約へ同期。旧計画未同期、学年適合・親の継続関与・実装承認は未確定。",
+  "next_codex_action": "D91：子に任せる程度を親が設定する要件をR05/AB04・F01/F05/F18へ反映。§0.15.2で同じKX01の候補比較／調査観点／自力の三案を具体提示し、AI設計に親設定・版・PD01〜PD04。次は程度の分け方を本人と相談。段階・初期値・設定単位・必要時の支援は案、契約・旧計画未同期、実装未承認。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -61,7 +61,7 @@
     "evaluation_scope_alignment": "AB01-AB07 requirements defined; case sets and thresholds pending N02/N04; existing jobs are v0.4.1"
   },
   "verification": {
-    "document_check": "Current KX01 walkthrough revision: JavaScript checks of task/stage/approval consistency, review hashes, bundled skill hashes, existing synthetic specifications, relative links and generated CURRENT, followed by GitHub exact readback. Python commands not run because Windows exec process creation failed. WK01-WK08 are expected specifications, not executed model evaluations. No product tests or family observations.",
+    "document_check": "Current parent-delegation revision: JavaScript checks of JSON, stage/tasks/approval, feature-to-document alignment, review hashes, relative links and generated CURRENT, with GitHub exact readback. Windows process creation failed; Python commands not run. PD01-PD04 are expected specifications, not model evaluations. No product tests or family observations.",
     "review_static_check": "passed: JavaScript syntax and embedded feature parity only",
     "review_browser_check": "blocked: browser executable unavailable; not passed",
     "product_tests": "not_run",
@@ -693,7 +693,7 @@
     "product_specs_updated": true,
     "scope_approved": false,
     "implementation_plan_aligned": false,
-    "next_action": "D91：§0.15.1にKX01の目標・前提、AI入力と子の調査、提案・本人の理由と予定更新・次回を具体化。AI設計に出力項目・再利用／再確認・WK01〜WK08の未実行確認例。次は具体例をレビューし、入力負担・再利用条件・確認権限を既存契約へ同期。旧計画未同期、学年適合・親の継続関与・実装承認は未確定。",
+    "next_action": "D91：子に任せる程度を親が設定する要件をR05/AB04・F01/F05/F18へ反映。§0.15.2で同じKX01の候補比較／調査観点／自力の三案を具体提示し、AI設計に親設定・版・PD01〜PD04。次は程度の分け方を本人と相談。段階・初期値・設定単位・必要時の支援は案、契約・旧計画未同期、実装未承認。",
     "not_approved": [
       "difficulty-selection UI proposal",
       "automatic ability certification",
@@ -888,7 +888,7 @@
       "model_evaluation": "not_run",
       "family_observation": "not_run",
       "approval": "design concretization requested; detailed workflow/card adoption and implementation unapproved",
-      "next_action": "D91：§0.15.1にKX01の目標・前提、AI入力と子の調査、提案・本人の理由と予定更新・次回を具体化。AI設計に出力項目・再利用／再確認・WK01〜WK08の未実行確認例。次は具体例をレビューし、入力負担・再利用条件・確認権限を既存契約へ同期。旧計画未同期、学年適合・親の継続関与・実装承認は未確定。",
+      "next_action": "D91：子に任せる程度を親が設定する要件をR05/AB04・F01/F05/F18へ反映。§0.15.2で同じKX01の候補比較／調査観点／自力の三案を具体提示し、AI設計に親設定・版・PD01〜PD04。次は程度の分け方を本人と相談。段階・初期値・設定単位・必要時の支援は案、契約・旧計画未同期、実装未承認。",
       "competitor_review": {
         "date": "2026-10-06",
         "timezone": "Asia/Seoul",
@@ -941,6 +941,42 @@
         "implementation_plan_aligned": false,
         "model_evaluation": "not_run",
         "family_observation": "not_run",
+        "implementation_authorized": false
+      },
+      "parent_delegation_setting": {
+        "date": "2026-10-06",
+        "timezone": "Asia/Riyadh",
+        "status": "parent_configuration_requirement_agreed_detail_options_proposed",
+        "user_wording": "子に案をどこまで任せるかっていうのは親で設定しないといけないと仮定して程度があるよな、そこはしっかり親に設定させないとね",
+        "section": "0.15.2",
+        "requirement": "R05/AB04",
+        "features": [
+          "F01",
+          "F05",
+          "F18"
+        ],
+        "configuration_authority": "parent",
+        "levels_proposed": [
+          "compare_provided_candidates",
+          "receive_inquiry_views",
+          "formulate_inquiry_and_options"
+        ],
+        "levels_agreed": false,
+        "default": "middle proposed; not agreed",
+        "unit": "per-child base and per-quest override proposed; not agreed",
+        "setting_confirmation": "parent selects or explicitly confirms default; exact setup UI unresolved",
+        "application_owns_setting_and_version": true,
+        "model_changes_setting": false,
+        "changing_setting": "AI can suggest with evidence; parent decides",
+        "child_help_request": "reviewed hints, adult consultation and hold retained; helper use differs from changing stored setting",
+        "separate_from": [
+          "content_review_assignment",
+          "family_educational_influence",
+          "optional_parent_feedback",
+          "completion_reward_and_sharing"
+        ],
+        "evaluation_examples": "PD01-PD04 expected specifications; not_run",
+        "schema_changed": false,
         "implementation_authorized": false
       }
     }

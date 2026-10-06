@@ -5,14 +5,14 @@
   "scope": "Founder requirements and agreed repeated-use experience direction, with draft discovery hypotheses H01-H05 and four upstream research skills. Detailed release scope, AI contract/evaluation and old implementation-plan alignment remain pending. No product implementation approval.",
   "proposed_execution": "native/sequential",
   "files": {
-    "docs/design/product-design-v0.1.md": "4b4653452a7a9697d4dd0d00c30815860924fd9f713bf5e681bc5b9a2197ab0c",
-    "docs/design/FEATURE_REVIEW.md": "76e73de79c14f84adf08c64402739f3d11d6b2564e78128a560d542c019ed1fc",
+    "docs/design/product-design-v0.1.md": "2660ae676702c925049597553ce2f2ef8218f55809883fd2c5073219c06c7092",
+    "docs/design/FEATURE_REVIEW.md": "c4bb22aa2031a59e8d1c50816358e4eac68e969286cc20c953e40e4688d87be7",
     "docs/design/role-experience-v0.3.md": "6dce5aa77039892c298eb7febf2d151fa97683da10a3b987bdb69352b43c4fea",
     "docs/design/extensibility-v0.3.md": "ea260b796ff0a32727c5a389838886a2d9efdbf1508f9cf72bc18ca7fbb4ce4e",
     "docs/design/ai-harness-design-v0.2.md": "3c1f3c6dd6a40f33e05187f7844a410f77e45a36750b56c0362822c6b1c6f1d4",
-    "docs/design/DECISIONS.md": "69212250613669403006c36197a25e501d619e174cc8c06b44d90e9df35c7604",
+    "docs/design/DECISIONS.md": "e3c1c615a8df101d259b89320c1577cafc8a213f83dbfbf99c07571623d73a78",
     "docs/superpowers/plans/2026-09-23-yattemi-implementation.md": "186062848614ae030e565f01e2dced317408a6e2b329d4bc82c5fd9d53d82744",
-    "docs/design/FEATURES.json": "fd4497423d592746f83e5182ecc0d6111eb9f36cc81bf31d549accb9c10c0f1e",
+    "docs/design/FEATURES.json": "dc9d840278bb9c8e885f14a6cea5151a2a5fdca7019b6ddcbd8e59bb67263ecd",
     "docs/review/index.html": "05a72393af338b3383469ce904b7e3a13f61bbf7b9b43fc99ddbecfb5d24331e",
     "contracts/ai-draft.schema.json": "4f7a1f394a1bef09321d362596445e643e881a84158c827bc264a294eb6c4003",
     "docs/design/personas-cycle-review-v0.4.md": "005333a3c5375712ec8e9e00292a76ca4695ed3e0b82d636535cfe1abbd650aa",
@@ -22,11 +22,11 @@
     "evals/next-action-cases.jsonl": "f170cd07f0c6476937006ba0597be3c8b008a369ce8b8615ec74f8a430e10152",
     ".agents/skills/yattemi-role-based-ui-design/SKILL.md": "437ea8a304bc1a9b16e27d16b963f60196738573be75450d0c76dbc3f5da0970",
     ".agents/skills/yattemi-role-based-ui-design/references/evidence-led-family-design.md": "799288b6d00366d833f93cefe704f680e414100f2637e5c77d8fd92b9e4e65c4",
-    "docs/design/ai-engine-review-v0.4.1.md": "9ea0f5d14dacacdedf007e7507023c8f01a869c704c62aef24f4c8b58d3d6074",
+    "docs/design/ai-engine-review-v0.4.1.md": "8109359cde9243ce2b31620d18a31753252972be2b4b14aa99a0e54e10778585",
     "contracts/guided-plan.schema.json": "eb14a707d6e335d53120245c820c2c7e4bb522573373b215e56c4dda9aba7962",
     "docs/workflow/CODEX_PREFLIGHT.md": "93abc77943d542527d648250c04b0528782396b292db64063766f8b7a5d5933f",
     "current/SKILLS.json": "81075d3af4323518d8fb416712e828eed41ef6ffb99c930006bdbc67a087f211",
-    "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md": "20c77b6c2407cb9fc9868989cd47ed10f01dfa98f67d1ad958a2b088e802799c",
+    "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md": "f465bde741505ee0c40802f34889ad11ce4cc9b1b9847725959493f02eaa89ca",
     ".agents/skills/define-opportunity-tree/SKILL.md": "ebe0be2c0f8a5c93eee593e64b9d7092944bee49548ec7ce2ea342c8761b0735",
     ".agents/skills/define-opportunity-tree/references/TEMPLATE.md": "456193c927ac22f9d291e1e27aa821b086070767113138ea69d60a0458bce2bf",
     ".agents/skills/define-opportunity-tree/references/EXAMPLE.md": "ec4bfc3ce3ae9f238ecef7c63585813ffe472768218731773f7291f8e02c5924",
@@ -49,9 +49,9 @@
   },
   "consultation_addendum": {
     "date": "2026-10-06",
-    "scope": "KX01 walkthrough in product 0.15.1: learning goal/prerequisites, minimal reviewed input, child inquiry, proposal/hints, own comparison/reason and one plan update, observed-record next branches. AI review adds output/trusted-state split, reuse/re-review boundaries and WK01-WK08 expected synthetic scenarios. Proposals for review; schema and old plan unaligned; no implementation or model/family evaluation.",
+    "scope": "Parent must configure how much inquiry/option formulation to entrust to the child: agreed requirement in R05/AB04 and F01/F05/F18. Product 0.15.2 compares three KX01 presentation levels; labels/default/unit remain proposals. AI uses parent settings and version; change recommendations go to parent. PD01-PD04 expected specifications, not evaluated. Schema and old plan unaligned; implementation unapproved.",
     "product_specs_changed": true,
     "latest_dialogue_date": "2026-10-06",
-    "timezone": "Asia/Seoul"
+    "timezone": "Asia/Riyadh"
   }
 }
