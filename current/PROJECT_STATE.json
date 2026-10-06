@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-06T04:43:21.944Z",
+  "updated_at": "2026-10-06T07:25:20.872Z",
   "spec_status": "requirements_draft_scope_pending",
   "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：小5〜6への難度不足の指摘を反映。§0.14.1／教材リファレンスv4で単純例を導入へ、中心課題を不足情報の調査・複数条件比較・理由へ修正。次は中心のKX01を起点に前提知識・最小支援・次回の深まりをレビューする。学年適合・家庭負担は未検証。親関与は未回答、旧計画同期・実装承認は未確定。",
+  "next_codex_action": "D91：§0.15へAIの目標・前提の分解、一回のクエスト、活動記録から次回への接続を設計。KX01/KX02の架空連続例とQD01〜QD05は未評価の案。次は最小入力・出力契約、内容再利用と重要変更の境界、評価例を具体化し旧計画へ同期。親関与は未回答、学年適合・負担・実装承認は未確定。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -61,7 +61,7 @@
     "evaluation_scope_alignment": "AB01-AB07 requirements defined; case sets and thresholds pending N02/N04; existing jobs are v0.4.1"
   },
   "verification": {
-    "document_check": "passed: python3 scripts/render_current.py --check and python3 scripts/check_design_handoff.py on the pinned GitHub document snapshot in the new execution environment; prior JavaScript checks are historical. Product tests/model evaluations/family observation not run.",
+    "document_check": "Current revision: JavaScript document/hash/source-navigation checks and GitHub readback; Python commands not run because Windows exec process creation failed. Prior Python PASS is historical. No product tests, model evaluations or family observations.",
     "review_static_check": "passed: JavaScript syntax and embedded feature parity only",
     "review_browser_check": "blocked: browser executable unavailable; not passed",
     "product_tests": "not_run",
@@ -693,7 +693,7 @@
     "product_specs_updated": true,
     "scope_approved": false,
     "implementation_plan_aligned": false,
-    "next_action": "D91：小5〜6への難度不足の指摘を反映。§0.14.1／教材リファレンスv4で単純例を導入へ、中心課題を不足情報の調査・複数条件比較・理由へ修正。次は中心のKX01を起点に前提知識・最小支援・次回の深まりをレビューする。学年適合・家庭負担は未検証。親関与は未回答、旧計画同期・実装承認は未確定。",
+    "next_action": "D91：§0.15へAIの目標・前提の分解、一回のクエスト、活動記録から次回への接続を設計。KX01/KX02の架空連続例とQD01〜QD05は未評価の案。次は最小入力・出力契約、内容再利用と重要変更の境界、評価例を具体化し旧計画へ同期。親関与は未回答、学年適合・負担・実装承認は未確定。",
     "not_approved": [
       "difficulty-selection UI proposal",
       "automatic ability certification",
@@ -858,6 +858,37 @@
           "implementation authorization"
         ]
       }
+    },
+    "ai_quest_decomposition_design": {
+      "date": "2026-10-06",
+      "status": "synthetic_design_proposal_for_review",
+      "section": "0.15",
+      "founder_request": "AIがどうやって分解してクエストにするのか",
+      "inputs": [
+        "source_scoped_material",
+        "child_interest_and_permitted_parent_wish",
+        "minimal_current_household_conditions",
+        "consented_activity_and_support_record",
+        "permitted_family_suggestion"
+      ],
+      "decomposition": [
+        "learning_goals_and_prerequisites",
+        "one_coherent_quest",
+        "next_episode_from_observed_reason_and_support"
+      ],
+      "example": "KX01 plan update -> KX02 package comparison -> changed quantity and plan revision; optional candidates, not compulsory course",
+      "evaluation_specs": [
+        "QD01",
+        "QD02",
+        "QD03",
+        "QD04",
+        "QD05"
+      ],
+      "old_guided_plan_contract": "step IDs only; broader contract and implementation plan remain unaligned",
+      "model_evaluation": "not_run",
+      "family_observation": "not_run",
+      "approval": "design concretization requested; detailed workflow/card adoption and implementation unapproved",
+      "next_action": "D91：§0.15へAIの目標・前提の分解、一回のクエスト、活動記録から次回への接続を設計。KX01/KX02の架空連続例とQD01〜QD05は未評価の案。次は最小入力・出力契約、内容再利用と重要変更の境界、評価例を具体化し旧計画へ同期。親関与は未回答、学年適合・負担・実装承認は未確定。"
     }
   }
 }

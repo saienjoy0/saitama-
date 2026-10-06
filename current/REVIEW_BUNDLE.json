@@ -5,12 +5,12 @@
   "scope": "Founder requirements and agreed repeated-use experience direction, with draft discovery hypotheses H01-H05 and four upstream research skills. Detailed release scope, AI contract/evaluation and old implementation-plan alignment remain pending. No product implementation approval.",
   "proposed_execution": "native/sequential",
   "files": {
-    "docs/design/product-design-v0.1.md": "3cd390a8e38f5c95466407dc93471690d0ac5dafbfe10eaef22b47c660f92196",
+    "docs/design/product-design-v0.1.md": "898a516483c666c4190a12a46d863294b8a5d1c8ab1615da6142c9fe8672d3be",
     "docs/design/FEATURE_REVIEW.md": "76e73de79c14f84adf08c64402739f3d11d6b2564e78128a560d542c019ed1fc",
     "docs/design/role-experience-v0.3.md": "6dce5aa77039892c298eb7febf2d151fa97683da10a3b987bdb69352b43c4fea",
     "docs/design/extensibility-v0.3.md": "ea260b796ff0a32727c5a389838886a2d9efdbf1508f9cf72bc18ca7fbb4ce4e",
     "docs/design/ai-harness-design-v0.2.md": "3c1f3c6dd6a40f33e05187f7844a410f77e45a36750b56c0362822c6b1c6f1d4",
-    "docs/design/DECISIONS.md": "d97af3a4216feb3e1974cf8417342b4e24d22a784bf04b054cffc6f1a21ab5f0",
+    "docs/design/DECISIONS.md": "b9680fe12ec7d764aae98ec247495752eaac9987df5da46e0dc3b7b84450bc98",
     "docs/superpowers/plans/2026-09-23-yattemi-implementation.md": "186062848614ae030e565f01e2dced317408a6e2b329d4bc82c5fd9d53d82744",
     "docs/design/FEATURES.json": "fd4497423d592746f83e5182ecc0d6111eb9f36cc81bf31d549accb9c10c0f1e",
     "docs/review/index.html": "05a72393af338b3383469ce904b7e3a13f61bbf7b9b43fc99ddbecfb5d24331e",
@@ -22,11 +22,11 @@
     "evals/next-action-cases.jsonl": "f170cd07f0c6476937006ba0597be3c8b008a369ce8b8615ec74f8a430e10152",
     ".agents/skills/yattemi-role-based-ui-design/SKILL.md": "437ea8a304bc1a9b16e27d16b963f60196738573be75450d0c76dbc3f5da0970",
     ".agents/skills/yattemi-role-based-ui-design/references/evidence-led-family-design.md": "799288b6d00366d833f93cefe704f680e414100f2637e5c77d8fd92b9e4e65c4",
-    "docs/design/ai-engine-review-v0.4.1.md": "e8acf513283590c62f745a1e622dc8179db760d5ab42246ddb140319bb7577bc",
+    "docs/design/ai-engine-review-v0.4.1.md": "ac3f5b3eb17491cafb011df9d4c61f9ab5bb838654cb4295c6d966a414d8fd7a",
     "contracts/guided-plan.schema.json": "eb14a707d6e335d53120245c820c2c7e4bb522573373b215e56c4dda9aba7962",
     "docs/workflow/CODEX_PREFLIGHT.md": "93abc77943d542527d648250c04b0528782396b292db64063766f8b7a5d5933f",
     "current/SKILLS.json": "81075d3af4323518d8fb416712e828eed41ef6ffb99c930006bdbc67a087f211",
-    "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md": "4e3d8b32c3777e0f18d540d3fe29a9ec41301483e0662723af5f2799fdbb6536",
+    "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md": "0709177eac28fd4747db7b0c2fa05cf989eb72d1b23aaedc579ff4f89fc39476",
     ".agents/skills/define-opportunity-tree/SKILL.md": "ebe0be2c0f8a5c93eee593e64b9d7092944bee49548ec7ce2ea342c8761b0735",
     ".agents/skills/define-opportunity-tree/references/TEMPLATE.md": "456193c927ac22f9d291e1e27aa821b086070767113138ea69d60a0458bce2bf",
     ".agents/skills/define-opportunity-tree/references/EXAMPLE.md": "ec4bfc3ce3ae9f238ecef7c63585813ffe472768218731773f7291f8e02c5924",
@@ -49,9 +49,9 @@
   },
   "consultation_addendum": {
     "date": "2026-10-06",
-    "scope": "Grade 5-6 difficulty concern reflected in product 0.14.1 and material v4. Simple examples retained for entry/support; revised core requires own information gathering, multiple conditions and reasons, with later changes. Levels/card adoption and age-fit unverified; no implementation approval.",
+    "scope": "Product 0.15: AI decomposes learning goals/prerequisites, forms one coherent household quest and adapts the next from observed reasoning/support. KX01/KX02 synthetic sequence and QD01-QD05 are proposals; broader output contract/evaluations/old-plan alignment pending; no implementation approval.",
     "product_specs_changed": true,
     "latest_dialogue_date": "2026-10-06",
-    "timezone": "Asia/Seoul"
+    "timezone": "UTC"
   }
 }
