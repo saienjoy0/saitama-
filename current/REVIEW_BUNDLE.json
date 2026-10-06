@@ -57,13 +57,14 @@
     ".agents/skills/yattemi-role-based-ui-design/references/yattemi-screen-matrix.md": "619b864a50fcc9938cd67636c283d4cf41b1ffa73a699f36ad623c5df859f318",
     "tools/development/package-lock.json": "5d43f727b76ea00b12fba8cc103b06255c079b8c473dca94384dd168fdcd9ec6",
     "tools/development/uv.lock": "43dcd9aa45b3e6bcd2625b0e4b82481145742994ec44da5efab6cc01462e6818",
-    "docs/design/ui-review-20261007.md": "3c60e1eda4bc89d2904e60066efd53603c7999bf25e51d6c107d814e12aa7c54",
+    "docs/design/ui-review-20261007.md": "eb4fac513c621b989df55680e9ee198c15ef74ad709ec73e3d5b077d7c2fa150",
     "docs/design/ui-screens-20261007.json": "13072298a9ff98bff52c460f308cb91f1c4234fba2abea48e95d6a209475a7c4",
     "docs/review/ui-20261007/index.html": "ccac1737844a0e04b1bd70344a7d625748994a6367d5b935657fa2e02984664c",
     "docs/review/ui-20261007/sharing.svg": "b34bcf3bab1b03c1b63f8e50a38f9c8bd81606465804692a9c8bfcfe3ed6e977",
     "docs/review/ui-20261007/money.svg": "d4cfd8a9b9af52052d7516519b5f35bd64b77442e5f068ae182808c568f89bb8",
     "docs/review/ui-20261007/grandparent.svg": "e7b63276ec6ecdff21e974369a4a3c4c3e39b2db12e4e8a02f3d402a44ff17a4",
-    "docs/review/ui-20261007/README.md": "0420759ae732c5155c156be699e7b55f5d77773ea8c3947f534313226222f9cb",
-    "tools/development/check-ui-review.mjs": "f38d130592ef86ecbdc3b4e15cbf2b2f3908acfa1c32c6784def79670862b1f9"
+    "docs/review/ui-20261007/README.md": "be7c56e93a407fb00d8360172e1373cfc6134fd170583e6aa66d42dd603700f0",
+    "tools/development/check-ui-review.mjs": "f38d130592ef86ecbdc3b4e15cbf2b2f3908acfa1c32c6784def79670862b1f9",
+    "docs/review/ui-20261007/verification.json": "d2a4dabae6a0b566b6c768315867d73f40b870f7ca846613aa589b9ebe9ed8ca"
   }
 }
