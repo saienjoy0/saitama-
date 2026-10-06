@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：『しきいち』は相手の教育方針を提案へ取り入れる程度と確認。製品書§0.11で確認担当・教育への影響度・家族参加を分離し、相手別三段階を提案。次は具体段階・初期値・設定権限と競合時の提案例を比較。詳細仕様と旧計画同期は未確定。",
+  "next_codex_action": "D91：祖父母の初期値は経験のみ参考を合意。祖父母発の『やってみたら？』クエスト案をR15/F11/F12/F18へ追加。§0.11に利用設定・内容確認・子の選択へ接続する案。次は家族発の提案を含む繰返し使える初期範囲（N01）を比較。権限・候補のまとめ方・AI契約・旧計画同期は未確定。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -693,7 +693,7 @@
     "product_specs_updated": true,
     "scope_approved": false,
     "implementation_plan_aligned": false,
-    "next_action": "D91：『しきいち』は相手の教育方針を提案へ取り入れる程度と確認。製品書§0.11で確認担当・教育への影響度・家族参加を分離し、相手別三段階を提案。次は具体段階・初期値・設定権限と競合時の提案例を比較。詳細仕様と旧計画同期は未確定。",
+    "next_action": "D91：祖父母の初期値は経験のみ参考を合意。祖父母発の『やってみたら？』クエスト案をR15/F11/F12/F18へ追加。§0.11に利用設定・内容確認・子の選択へ接続する案。次は家族発の提案を含む繰返し使える初期範囲（N01）を比較。権限・候補のまとめ方・AI契約・旧計画同期は未確定。",
     "not_approved": [
       "difficulty-selection UI proposal",
       "automatic ability certification",
@@ -728,7 +728,7 @@
     },
     "personalization_proposal": {
       "section": "0.11",
-      "status": "educational_influence_clarified_policy_details_pending",
+      "status": "grandparent_experience_default_and_quest_proposal_direction_agreed",
       "household_information_examples": "synthetic",
       "ai_scope_alternatives": [
         "reviewed_material_adjustment",
@@ -746,7 +746,7 @@
       "reviewer_default_configurable": true,
       "reviewer_default_value": "parent proposed; not agreed",
       "review_threshold_meaning": "clarified as degree of family members' educational influence on proposals",
-      "latest_user_wording": "例えばだけど、親の教師としては祖父母の教育をあまり取り入れたくないとか。どのぐらいの影響力があったら、どのぐらいの影響力として、話です。",
+      "latest_user_wording": "いいよそれでそふぼがこれやってみたらどうっていうくえすともね",
       "educational_influence": {
         "meaning": "person-specific degree of incorporating educational wishes into AI quest proposals",
         "separate_from": [
@@ -760,12 +760,22 @@
           "experience_and_educational_wishes"
         ],
         "levels_agreed": false,
-        "default_and_configuration_authority": "pending",
+        "default_and_configuration_authority": "grandparent experience-only default agreed; detailed authority and other defaults pending",
         "numeric_weights": "not specified",
         "conflict_rule": "do not override parent settings with family wishes; proposal pending",
         "child_interest_and_choice": "retained",
         "example_status": "hypothetical; not facts about founder household",
-        "evaluation_status": "design examples prepared; not executed"
+        "evaluation_status": "design examples prepared; not executed",
+        "grandparent_default": "experience_only",
+        "grandparent_default_direction_agreed": true
+      },
+      "family_quest_proposals": {
+        "direction_agreed": true,
+        "source": "grandparents can suggest 'why not try this?'",
+        "child_selection": "optional candidate",
+        "new_material": "agreed B content review before child display",
+        "influence_setting": "applies to conversion; suggestion format does not bypass settings",
+        "input_and_queue_details": "proposed; not finalized"
       }
     }
   }
