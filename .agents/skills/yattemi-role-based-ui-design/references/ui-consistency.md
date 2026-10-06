@@ -9,3 +9,7 @@ When implementing the feature, add only its relevant Storybook states and test t
 Review a generated concept image as visual inspiration only. Do not use image typography, simulated status or decorative color as a source of truth. Implement text and buttons as accessible live elements. Do not create a second full UI system because a new feature looks different. Update the common contract deliberately when a shared meaning changes.
 
 This project reference consolidates existing role/motion rules and the current feature organization; it is not an official framework skill or proof of user-tested usability.
+
+## Exact review drawings
+
+Read `docs/design/ui-review-20261007.md` and `docs/design/ui-screens-20261007.json` before using the current SVG or synthetic review. Use source words unchanged across child selection, parent confirmation, and permitted newspaper. A newly chosen activity starts with an empty record; never insert the mock fixture as the child's answer. Keep UI review IDs separate from C/P/G and S delivery IDs. Reading screens may have zero prominent actions; confirmations have at most one. Static drawing dimensions are not a fixed-height product constraint. Treat 12 screen/96 reflow/axe checks as synthetic review evidence, not user understanding or product authorization.

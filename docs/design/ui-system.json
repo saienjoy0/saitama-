@@ -1,5 +1,5 @@
 {
-  "version": "20261007-v1",
+  "version": "20261007-v2",
   "source": "docs/design/role-experience-v0.3.md",
   "scope": "implementation_design_contract_not_product_components",
   "colors": {
@@ -33,7 +33,8 @@
         "これまで",
         "お金とごほうび"
       ],
-      "firstAction": "この条件で始める"
+      "firstAction": "この条件で始める",
+      "defaultView": "current_or_unfinished_experience"
     },
     "parent": {
       "bodyMinPx": 16,
@@ -44,7 +45,8 @@
         "家族の記録",
         "設定"
       ],
-      "firstAction": "この内容を送る"
+      "firstAction": "この内容を送る",
+      "defaultView": "review_or_empty_inbox"
     },
     "grandparent": {
       "bodyMinPx": 20,
@@ -55,7 +57,8 @@
         "今日を送る",
         "これまで"
       ],
-      "firstAction": "『元気だよ』を送る"
+      "firstAction": "『元気だよ』を送る",
+      "defaultView": "family_newspaper"
     }
   },
   "states": {
@@ -137,5 +140,7 @@
     "outlinePx": 3,
     "offsetPx": 3,
     "color": "primary"
-  }
+  },
+  "firstActionScope": "representative_task_action_not_forced_home_action",
+  "primaryActionPolicy": "at_most_one_prominent_confirm_action; reading_may_have_none"
 }

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>やってみクエスト｜UI設計レビュー</title><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'"><style>
+:root{color-scheme:light;font-family:system-ui,"Noto Sans JP",sans-serif;color:#172B2A;background:#EAF4F0}
+*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button,select{cursor:pointer}button{overflow-wrap:anywhere}button:disabled{cursor:default}
+.review{max-width:920px;margin:0 auto;padding:24px 16px}.review h1{font-size:24px;margin:0 0 8px}.review p{line-height:1.6}
+.controls{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}.control{display:flex;flex-direction:column;gap:6px;min-width:0;max-width:100%}
+.control select{min-height:48px;max-width:100%;padding:8px;border:1px solid #176B5B;border-radius:8px;background:white;color:inherit}
+#review-status{min-height:24px;margin:8px 0 20px}
+#product{--body:16px;font-size:calc(var(--body)*var(--scale,1));line-height:1.6;max-width:390px;margin:0 auto;background:#FFFDF7;border:1px solid #176B5B;border-radius:16px;box-shadow:0 12px 32px #172b2a0c;overflow:visible;min-width:0}
+#product[data-role="grandparent"]{--body:20px}
+.product-header{padding:16px;border-bottom:1px solid #176B5B;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center}
+.brand{font-size:1em;font-weight:700}.person{font-size:1em}.content{padding:24px 16px}
+#product h2{font-size:1.4em;line-height:1.5;margin:0 0 20px}#product h3{font-size:1.05em;line-height:1.6;margin:0 0 8px}
+#product p{margin:0 0 8px;overflow-wrap:anywhere}#product p:last-child{margin-bottom:0}
+.panel{margin:0 0 16px;padding:16px;border-radius:16px;background:#FFFFFF;border:1px solid #176B5B}
+.soft{background:#EAF4F0;border:0}.status{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:600;padding:8px 0}.pill{background:#EAF4F0;padding:4px 12px;border-radius:8px}
+#product blockquote{margin:0;white-space:normal;overflow-wrap:anywhere}
+#product button{font-size:1em;line-height:1.6;min-height:48px;width:100%;padding:12px 16px;border-radius:12px;border:1px solid #176B5B;background:#FFFFFF;color:#172B2A}
+#product .primary{color:#FFFFFF;background:#176B5B;border-color:#176B5B;font-weight:700;margin:8px 0}
+#product[data-role="grandparent"] .primary{min-height:56px}
+#product button.secondary{margin:8px 0}#product button.quiet{background:transparent;border-color:transparent;text-decoration:underline;margin:0}
+#product textarea,#product input[type="text"],#product input[type="number"]{display:block;width:100%;min-width:0;padding:12px;line-height:1.6;border:1px solid #176B5B;border-radius:12px;background:white;color:inherit}
+#product textarea{min-height:160px;resize:vertical}#product label{display:block;margin:8px 0 12px}
+#product label.check{display:flex;gap:12px;align-items:flex-start;min-height:48px;padding:8px 0}
+#product input[type="checkbox"],#product input[type="radio"]{width:24px;min-width:24px;height:24px;margin:4px 0 0;accent-color:#176B5B}
+#product fieldset{min-width:0;padding:0;margin:0;border:0}#product legend{padding:0;font-weight:700;margin:0 0 12px}
+#product .choices label{padding:12px;border:1px solid #176B5B;border-radius:12px}
+#product .choices label:has(input:checked){background:#EAF4F0}
+#product summary{cursor:pointer;min-height:48px;padding:12px 0}#product details{margin:8px 0}
+#product .amount{font-size:1.8em;font-weight:700;font-variant-numeric:tabular-nums}.unit{font-size:.65em}
+#product .error{color:#A12828;font-weight:600;padding:8px 0}
+.product-nav{padding:12px 8px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;border-top:1px solid #176B5B}
+#product .product-nav button{padding:8px 4px;border:0;border-radius:8px;background:transparent;font-weight:500}
+#product .product-nav button[aria-current="page"]{background:#EAF4F0;color:#176B5B;font-weight:700}
+#product.large-text .product-nav{grid-template-columns:1fr}
+#product:focus{outline:none}button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #176B5B;outline-offset:3px}
+#product .choices label{transition:background-color 100ms ease-out}
+#product.reduced *,#product.reduced *::before,#product.reduced *::after{transition:none!important;animation:none!important}
+@media(prefers-reduced-motion:reduce){#product *,#product *::before,#product *::after{transition:none!important;animation:none!important}}
+@media(max-width:420px){.review{padding:16px 8px}.controls{display:grid;grid-template-columns:1fr 1fr}.control.wide{grid-column:1/-1}}
+</style></head>
+<body><div class="review"><header><h1>UIを確かめる</h1><p>架空の家族・記録を使った設計見本です。実際の保存・送信・残高変更は行いません。</p></header>
+<div class="controls" aria-label="設計レビューの操作">
+<label class="control">役割<select id="role-select"><option value="child">子ども</option><option value="parent">親</option><option value="grandparent">祖父母</option></select></label>
+<label class="control wide">見る画面<select id="screen-select"></select></label>
+<label class="control">状態<select id="scenario-select"><option value="normal">通常</option><option value="save_fail">保存失敗</option><option value="send_fail">送信失敗</option><option value="empty">空・新着なし</option><option value="pending">親の確認待ち</option><option value="private">共有しない</option><option value="reduced">動きを減らす</option></select></label>
+<label class="control">文字<select id="scale-select"><option value="1">100%</option><option value="2">200%</option></select></label>
+</div><p id="review-status" role="status" aria-live="polite"></p><main id="product" aria-label="画面の見本" data-role="child"></main></div>
+<script id="screen-model" type="application/json">{"version":"20261007-v2","scope":"synthetic_design_review_only","date":"2026-10-07","approach":"one_event_card_role_specific_views","dataNotice":"架空の家族・記録を使った設計見本です。実際の保存・送信・残高変更は行いません。","sample":{"child":"みなと","parent":"ゆり","grandparent":"たえ","recordId":"example-record-01","revision":"example-v1","original":"肉は少ない方にした。今日は使う分だけでよかったから。全部で860円だった。","excerpt":"肉は少ない方にした。今日は使う分だけでよかったから。","budgetYen":1000,"expenseYen":860,"people":3,"grandparentSteps":5200,"stepSource":"手入力","money":{"receivedYen":1000,"spentYen":500,"balanceYen":500,"points":120,"practiceYen":10000},"interest":{"payer":"ゆり","period":"2026年11月","rateKind":"月率","percent":5,"targetYen":500,"capYen":50,"expectedYen":25,"status":"未受取"},"reward":{"name":"家族で映画に行く","points":100,"condition":"日程は家族で相談","status":"requested"}},"screens":[{"id":"UI01","role":"child","type":"conditions","title":"今日の夕飯の材料","refs":{"screens":["C01"],"flows":["WF01"],"features":["S01","S02"],"motion":["M01","M02"]},"primary":"この条件で始める","alternative":"今日はしない","navigation":["今回のやってみ","これまで","お金とごほうび"],"sections":[{"heading":"今回の条件","lines":["3人分・買い足す予算 1,000円","家にある材料も使えます。"]},{"heading":"自分で選べること","lines":["今買う・来週にする・別の商品やお店を見る"]}]},{"id":"UI02","role":"child","type":"choice","title":"いま、どうする？","refs":{"screens":["C02"],"flows":["WF02","WF03"],"features":["S03","S23"],"motion":["M01","M07"]},"primary":"選んだことを残す","alternative":"あとで続ける","navigation":["今回のやってみ","これまで","お金とごほうび"],"sections":[{"heading":"今回の用事","lines":["夕飯の材料・3人分・予算 1,000円"]},{"heading":"選択肢","lines":["今買う","来週にする","別の商品やお店を見る"]},{"heading":"困ったときだけ","lines":["計算・比べる点・言葉の助けを開く"]}]},{"id":"UI03","role":"child","type":"record","title":"今日の買い物","refs":{"screens":["C03","C04"],"flows":["WF04","WF05","WF06"],"features":["S04","S05","S07","S24"],"motion":["M03"]},"primary":"この内容で残す","alternative":"あとで","navigation":["今回のやってみ","これまで","お金とごほうび"],"sections":[{"heading":"話したこと","lines":["肉は少ない方にした。今日は使う分だけでよかったから。全部で860円だった。"]},{"heading":"この記録を見る人","lines":["自分と、管理する親"]},{"heading":"家族にも見せたい","lines":["最初は選ばれていません。","選ぶと、見せる文章と相手をここに表示します。"]}]},{"id":"UI04","role":"child","type":"money","title":"お金とごほうび","refs":{"screens":["C05"],"flows":[],"features":["S13","S14","S15","S19","S20","S21","S22"],"motion":[]},"primary":"お金の出入りを残す","alternative":"今は残さない","navigation":["今回のやってみ","これまで","お金とごほうび"],"sections":[{"heading":"いま持っているお金","lines":["500円","受取 1,000円 − 使った 500円"]},{"heading":"家族ポイント","lines":["120 P","お金とは別に、家族の特典と交換できます。"]},{"heading":"貯めると増える約束","lines":["11月の例：500円 × 月5% = 25円","親が支払う・上限50円・未受取"]},{"heading":"金融の練習","lines":["10,000 練習円","銀行・借りる・投資を練習用のお金で試す"]}]},{"id":"UI05","role":"child","type":"rewards","title":"家族のごほうび","refs":{"screens":["C05"],"flows":[],"features":["S16","S17"],"motion":[]},"primary":"このごほうびをお願いする","alternative":"別のごほうびを見る","navigation":["今回のやってみ","これまで","お金とごほうび"],"sections":[{"heading":"家族で映画に行く","lines":["100 P・日程は家族で相談","使えるポイント：120 P"]},{"heading":"ほかにも選べる","lines":["追加のお小遣い・プレゼント・お出かけ","この家族が決めた特典です。"]},{"heading":"受け取るまで","lines":["申請 → 親の確認 → 受取","承認されたことと、受け取ったことは別です。"]}]},{"id":"UI06","role":"parent","type":"review","title":"家族に送る内容の確認","refs":{"screens":["P01","P02"],"flows":["WF07"],"features":["S08"],"motion":["M02","M06"]},"primary":"この内容を送る","alternative":"今回は送らない","navigation":["確認","家族の記録","設定"],"sections":[{"heading":"みなとが選んだ文章","lines":["肉は少ない方にした。今日は使う分だけでよかったから。"]},{"heading":"送る相手","lines":["たえ（おばあちゃん）"]},{"heading":"含まれるもの","lines":["本人が選んだ文章のみ・写真なし","予算・詳しい金額欄・ヒント履歴は含みません。"]},{"heading":"現在の状態","lines":["記録：保存済み","共有：親の確認待ち"]}]},{"id":"UI07","role":"parent","type":"proposal","title":"次のお小遣いの提案","refs":{"screens":["P01"],"flows":[],"features":["S14","S18"],"motion":[]},"primary":"この条件を1か月試す","alternative":"今のままにする","navigation":["確認","家族の記録","設定"],"sections":[{"heading":"変えること","lines":["週払い 500円 → 月払い 2,000円","2026年11月1日〜30日だけ試す"]},{"heading":"見た記録・4週間の例","lines":["予算を超えた記録なし・価格比較3回","貯金目標を達成・本人が月払いを希望"]},{"heading":"まだ分からないこと","lines":["月全体にお金を配分する経験は未確認。","使う用途は今のまま。12月前に見直します。"]},{"heading":"受取の予定","lines":["11月1日に2,000円を渡す予定。","受け取ってから、残高に反映します。"]}]},{"id":"UI08","role":"grandparent","type":"newspaper","title":"家族の新聞","refs":{"screens":["G01","G02","G03"],"flows":["WF08","WF10"],"features":["S09","S11","S12"],"motion":["M05"]},"primary":null,"alternative":"あとで読む","navigation":["家族の新聞","今日を送る","これまで"],"sections":[{"heading":"10月7日・みなと","lines":["今日の買い物"]},{"heading":"みなとの言葉","lines":["肉は少ない方にした。今日は使う分だけでよかったから。"]},{"heading":"気が向いたら","lines":["読んだよ・自分の経験・質問を返す"]}]},{"id":"UI09","role":"grandparent","type":"quickpost","title":"今日を送る","refs":{"screens":["G04"],"flows":["WF11","WF12"],"features":["S10"],"motion":["M06"]},"primary":"『元気だよ』を送る","alternative":"自分の記録にだけ残す","navigation":["家族の新聞","今日を送る","これまで"],"sections":[{"heading":"10月7日・たえ","lines":["送る言葉：元気だよ"]},{"heading":"送る相手","lines":["ゆり（娘）"]},{"heading":"ほかに残したいこと","lines":["歩数・一言・写真は、付けたい時だけ。","送る内容と相手は、この場所で確かめられます。"]}]},{"id":"UI10","role":"grandparent","type":"post","title":"今日を送る","refs":{"screens":["G04"],"flows":["WF11","WF12"],"features":["S10","S25"],"motion":["M03","M06"]},"primary":"この内容を送る","alternative":"自分の記録にだけ残す","navigation":["家族の新聞","今日を送る","これまで"],"sections":[{"heading":"10月7日・たえ","lines":["公園まで歩いてきた。"]},{"heading":"今日の歩数","lines":["5,200歩・手入力"]},{"heading":"送る相手","lines":["ゆり（娘）"]},{"heading":"送ったあと","lines":["共有済みと表示します。","相手が読んだかどうかとは別です。"]}]},{"id":"UI11","role":"grandparent","type":"album","title":"これまで","refs":{"screens":["G02","P03","C04"],"flows":["WF13"],"features":["S06","S26","S27"],"motion":["M05"]},"primary":null,"alternative":"今日に戻る","navigation":["家族の新聞","今日を送る","これまで"],"sections":[{"heading":"2026年10月","lines":["10月7日　みなと・今日の買い物","10月5日　たえ・公園まで歩いてきた"]},{"heading":"何度でも読み返せる","lines":["新聞で読んだ同じ出来事です。","日付・本人の言葉・家族の言葉を分けて残します。"]}]},{"id":"UI12","role":"grandparent","type":"empty","title":"家族の新聞","refs":{"screens":["G01","G02"],"flows":["WF10"],"features":["S01","S09","S28"],"motion":["M05"]},"primary":null,"alternative":"これまでを読む","navigation":["家族の新聞","今日を送る","これまで"],"sections":[{"heading":"今日は新しい記事がありません","lines":["これまでの出来事は、いつでも読めます。"]},{"heading":"自分の今日も残せます","lines":["「今日を送る」は、いつも同じ場所にあります。","毎日送る必要はありません。"]}]}],"scenarios":["通常","保存失敗","送信失敗","親の確認待ち","新着なし","共有しない","動きを減らす"],"implementation":"not_started","validation":"pending"}</script>
+<script id="ui-tokens" type="application/json">{"version":"20261007-v2","source":"docs/design/role-experience-v0.3.md","scope":"implementation_design_contract_not_product_components","colors":{"canvas":"#FFFDF7","surface":"#FFFFFF","text":"#172B2A","primary":"#176B5B","onPrimary":"#FFFFFF","subtle":"#EAF4F0","warning":"#754B00","danger":"#A12828"},"spacingPx":[4,8,12,16,24,32],"radiusPx":16,"fontFamily":"system-ui, sans-serif","lineHeight":1.6,"roles":{"child":{"bodyMinPx":16,"touchMinPx":48,"primaryTouchMinPx":48,"tabs":["今回のやってみ","これまで","お金とごほうび"],"firstAction":"この条件で始める","defaultView":"current_or_unfinished_experience"},"parent":{"bodyMinPx":16,"touchMinPx":48,"primaryTouchMinPx":48,"tabs":["確認","家族の記録","設定"],"firstAction":"この内容を送る","defaultView":"review_or_empty_inbox"},"grandparent":{"bodyMinPx":20,"touchMinPx":48,"primaryTouchMinPx":56,"tabs":["家族の新聞","今日を送る","これまで"],"firstAction":"『元気だよ』を送る","defaultView":"family_newspaper"}},"states":{"record":["draft","saving","saved","save_failed"],"share":["not_requested","pending_review","published","revoked","send_failed"],"redemption":["requested","approved","received","rejected","cancelled"]},"labels":{"draft":"下書き","saving":"保存中","saved":"保存済み","save_failed":"未保存","not_requested":"共有なし","pending_review":"親の確認待ち","published":"共有済み","revoked":"取り消し済み","send_failed":"未送信","requested":"申請中","approved":"受取待ち","received":"受取済み","rejected":"今回は見送り","cancelled":"取消済み"},"units":{"actual":"円","points":"P","practice":"練習円"},"motion":{"easing":"cubic-bezier(.2,0,0,1)","maxMovePx":8,"maximumMs":420,"durationsMs":{"selection":100,"transition":180,"save":260,"discovery":420,"newspaper":120,"send":100,"aiExpand":180},"reduceWhen":"os_reduced_motion OR profile_reduced_motion","successRequires":"server_ack"},"viewportsPx":[320,360,390,768],"textScalePercent":[100,200],"primaryActionsPerView":1,"contrast":{"normalTextMin":4.5,"largeTextMin":3,"controlsMin":3},"focus":{"outlinePx":3,"offsetPx":3,"color":"primary"},"firstActionScope":"representative_task_action_not_forced_home_action","primaryActionPolicy":"at_most_one_prominent_confirm_action; reading_may_have_none"}</script>
+<script>
+const data=JSON.parse(document.getElementById('screen-model').textContent);
+const ui=JSON.parse(document.getElementById('ui-tokens').textContent);
+const product=document.getElementById('product');
+const roleSelect=document.getElementById('role-select');
+const screenSelect=document.getElementById('screen-select');
+const scenarioSelect=document.getElementById('scenario-select');
+const scaleSelect=document.getElementById('scale-select');
+const reviewStatus=document.getElementById('review-status');
+const session={role:'child',screen:'UI01',scenario:'normal',original:data.sample.original,share:false,whole:false,record:'draft',shareState:'not_requested',transaction:false,changed:false,inflight:false,adultRecord:'draft',adultShare:'not_requested',reward:'none',notice:'',choice:'buy',todayNote:'公園まで歩いてきた。',steps:'5200',reply:''};
+const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const button=(label,action,kind='secondary',disabled=false)=>'<button type="button" class="'+kind+'" data-action="'+action+'"'+(disabled?' disabled':'')+'>'+escape(label)+'</button>';
+const panel=(heading,body,extra='')=>'<section class="panel '+extra+'"><h3>'+escape(heading)+'</h3>'+body+'</section>';
+const paragraphs=lines=>lines.map(s=>'<p>'+escape(s)+'</p>').join('');
+const quote=text=>'<blockquote>'+escape(text)+'</blockquote>';
+const selectedText=()=>session.whole?session.original:(session.original.match(/^[\s\S]*?。[\s\S]*?。/)?.[0]||session.original);
+const knownArticle=()=>!session.transaction||session.shareState==='published';
+function defaultRoleScreen(role){return role==='child'?'UI01':role==='parent'?'UI06':'UI08';}
+function availableScreens(role){return data.screens.filter(s=>s.role===role||s.type==='album');}
+function chooseScreen(id,focus=false){session.screen=id;screenSelect.value=id;render();if(focus)document.getElementById('screen-title').focus();}
+function status(record,share){return '<div class="status" aria-label="記録と共有の状態"><span class="pill">記録：'+escape(ui.labels[record]||record)+'</span><span class="pill">共有：'+escape(ui.labels[share]||share)+'</span></div>';}
+function navigation(screen){
+ const tabs=ui.roles[session.role].tabs;
+ const target=session.role==='child'?['UI01','UI11','UI04']:session.role==='parent'?['UI06','UI11','settings']:['UI08','UI09','UI11'];
+ let active=screen.type==='album'?1:session.role==='child'&&['money','rewards'].includes(screen.type)?2:session.role==='grandparent'&&['quickpost','post'].includes(screen.type)?1:session.role==='grandparent'&&screen.type==='album'?2:0;
+ if(session.role==='grandparent'&&screen.type==='album')active=2;
+ return '<nav class="product-nav" aria-label="主な画面">'+tabs.map((t,i)=>'<button type="button" data-target="'+target[i]+'"'+(i===active?' aria-current="page"':'')+'>'+escape(t)+'</button>').join('')+'</nav>';
+}
+function render(){
+ const screen=data.screens.find(s=>s.id===session.screen);
+ const role=session.role;
+ product.dataset.role=role;
+ product.classList.toggle('large-text',scaleSelect.value==='2');
+ product.classList.toggle('reduced',session.scenario==='reduced');
+ product.style.setProperty('--scale',scaleSelect.value);
+ const person=role==='child'?data.sample.child:role==='parent'?data.sample.parent:data.sample.grandparent;
+ let content='',primary='',alternative='';
+ switch(screen.type){
+ case 'conditions':
+  content=panel('今回の条件',paragraphs(screen.sections[0].lines),'soft')+panel('自分で選べること',paragraphs(screen.sections[1].lines))+button('条件を変える','conditions-help','quiet');
+  primary=button(screen.primary,'start','primary');alternative=button(screen.alternative,'later','quiet');break;
+ case 'choice':
+  content=panel('今回の用事',paragraphs(screen.sections[0].lines),'soft')+
+   '<fieldset class="choices"><legend>選択肢</legend>'+[['buy','今買う'],['wait','来週にする'],['compare','別の商品やお店を見る']].map(([value,label])=>'<label class="check"><input type="radio" name="choice" value="'+value+'"'+(session.choice===value?' checked':'')+'><span>'+label+'</span></label>').join('')+'</fieldset>'+
+   '<details><summary>比べるときの助け</summary><p>量、使う日、家にあるものを見てみよう。迷ったら、親と相談できます。</p></details>';
+  primary=button(screen.primary,'record','primary');alternative=button(screen.alternative,'later','quiet');break;
+ case 'record':
+  content=panel('今回の用事',paragraphs(['夕飯の材料・3人分・予算1,000円']),'soft')+
+    '<label for="original">話したこと・直して残せます</label><textarea id="original" rows="5">'+escape(session.original)+'</textarea>'+
+    button('話して残す','voice-note','quiet')+
+    '<p>この記録を見る人：自分と、管理する親</p>'+
+    '<label class="check"><input id="share-choice" type="checkbox"'+(session.share?' checked':'')+'><span>家族にも見せたい</span></label>';
+  if(session.share){
+    content+='<fieldset class="choices"><legend>見せる文章を選ぶ</legend>'+
+      '<label class="check"><input type="radio" name="excerpt" value="excerpt"'+(!session.whole?' checked':'')+'><span>原文の前の2文</span></label>'+
+      '<label class="check"><input type="radio" name="excerpt" value="whole"'+(session.whole?' checked':'')+'><span>原文全部（金額も含みます）</span></label></fieldset>'+
+      panel('送る文章',quote(selectedText()))+panel('送る相手',paragraphs(['たえ（おばあちゃん）','今は相手には届きません。']));
+  }
+  content+=status(session.record,session.shareState);
+  if(session.record==='save_failed')content+='<p class="error" role="alert">保存できませんでした。入力はこのまま残っています。</p>';
+  const label=session.inflight?'保存中…':session.record==='save_failed'?'もう一度保存する':session.share?'保存して親に確認を頼む':'この内容で残す';
+  primary=session.record==='saved'?'':button(label,'save','primary',session.inflight);
+  if(session.record==='saved')content+='<p>ここで終われます。家族の返事を待つ必要はありません。</p>';
+  alternative=button('あとで','later','quiet');break;
+ case 'review':
+  if(session.scenario==='empty'||session.scenario==='private'||(session.transaction&&session.shareState==='not_requested')){
+    content=panel('確認はありません',paragraphs(['家族の記録はいつでも見られます。']));alternative=button('家族の記録を見る','album','secondary');break;
+  }
+  if(!session.transaction){session.shareState='pending_review';session.record='saved';}
+  content=panel('みなとが選んだ文章',quote(selectedText()))+
+    panel('送る相手',paragraphs([session.changed?'内容や相手を変更しました。':'たえ（おばあちゃん）']),'soft')+
+    '<p>共有するもの：本人が選んだ文章のみ・写真なし</p>'+
+    '<details><summary>本人の記録を見る</summary>'+quote(session.original)+'<p>予算1,000円・使用額860円。この欄は新聞に含みません。</p></details>'+
+    status(session.record,session.shareState);
+  if(session.changed)content+='<p class="error">子どもが見せる内容と相手を、もう一度選ぶ必要があります。</p>';
+  if(session.shareState==='send_failed')content+='<p class="error" role="alert">送れませんでした。内容を保って、もう一度送れます。</p>';
+  if(session.shareState==='published'){content+='<p>たえに共有済みです。読んだかどうかはまだ分かりません。</p>';alternative=button('共有を取り消す','revoke','secondary');}
+  else if(session.changed){primary=button('子どもに選び直してもらう','reselect','primary');alternative=button('後で確認する','later','quiet');}
+  else {primary=button(session.inflight?'送信中…':screen.primary,'publish','primary',session.inflight);alternative=button('内容や相手を変える','change','secondary')+button(screen.alternative,'decline','quiet')+button('後で確認する','later','quiet');}
+  break;
+ case 'proposal':
+  content=screen.sections.map(s=>panel(s.heading,paragraphs(s.lines),s.heading==='変えること'?'soft':'')).join('');
+  primary=button(screen.primary,'proposal','primary');alternative=button('条件を変えて相談する','proposal-change','secondary')+button(screen.alternative,'proposal-decline','quiet');break;
+ case 'newspaper':
+  if(session.scenario==='empty'||session.scenario==='pending'||session.scenario==='private'||!knownArticle()){
+   content=panel('今日は新しい記事がありません',paragraphs(['これまでの出来事は、いつでも読めます。']));
+  }else{
+   content='<article class="panel"><p>10月7日・みなと</p><h3>今日の買い物</h3>'+quote(selectedText())+'</article>'+
+     button('読んだよ','read','secondary')+
+     '<details><summary>経験や質問を返す</summary><label for="reply">伝えたいこと</label><textarea id="reply" rows="3">'+escape(session.reply)+'</textarea>'+button('返事を送る','reply','secondary')+'</details>';
+  }
+  alternative=button(screen.alternative,'later','quiet');break;
+ case 'quickpost':
+ case 'post':
+  content=panel('10月7日・たえ',screen.type==='quickpost'?paragraphs(['送る言葉：元気だよ']):'<label for="today-note">今日の一言</label><textarea id="today-note" rows="3">'+escape(session.todayNote)+'</textarea><label for="steps">今日の歩数（手入力）</label><input id="steps" type="number" min="0" step="1" value="'+escape(session.steps)+'">')+
+   panel('送る相手',paragraphs(['ゆり（娘）']),'soft');
+  if(screen.type==='quickpost')content+=button('歩数や一言を付ける','post-detail','secondary');
+  else content+='<p>歩数の取得元：手入力。残したいものだけ送れます。</p>';
+  content+=status(session.adultRecord,session.adultShare);
+  if(session.adultShare==='send_failed')content+='<p class="error" role="alert">送れませんでした。入力はこのまま残っています。</p>';
+  if(session.adultShare==='published')content+='<p>ゆりに共有済みです。読んだかどうかはまだ分かりません。</p>';
+  else primary=button(session.inflight?'送信中…':screen.primary,'adult-send','primary',session.inflight);
+  alternative=button(screen.alternative,'adult-save','quiet')+button('あとで','later','quiet');break;
+ case 'album':
+  content=panel('2026年10月',button('10月7日　みなと・今日の買い物','open-record','secondary')+button('10月5日　たえ・公園まで歩いてきた','open-adult','secondary'));
+  if(role==='grandparent'&&!knownArticle())content=panel('2026年10月',button('10月5日　たえ・公園まで歩いてきた','open-adult','secondary'));
+  content+='<p>新聞と同じ、見せてよい出来事を読み返せます。</p>';alternative=button('今日に戻る','today','quiet');break;
+ case 'money':
+  content=panel('いま持っているお金','<p class="amount">500<span class="unit"> 円</span></p><p>受取1,000円 − 使った500円</p>','soft')+
+   panel('家族ポイント','<p class="amount">'+(session.reward==='none'?'120':'20')+'<span class="unit"> P</span></p>'+paragraphs([session.reward==='none'?'お金とは別のポイントです。':'100 Pはごほうびの申請に予約中。'])+button('家族のごほうびを見る','rewards','secondary'))+
+   '<details><summary>11月の貯金ボーナスの約束</summary><p>500円を1か月残すと、月5%で25円。</p><p>ゆりが支払う・対象元本の上限1,000円・支払上限50円。まだ受け取っていません。</p></details>'+
+   '<details><summary>金融の練習</summary><p>10,000 練習円</p><p>銀行・借りる・銘柄の値動きを、練習用のお金で比べます。</p></details>';
+  primary=button(screen.primary,'money-drawing','primary');alternative=button('今は残さない','later','quiet');break;
+ case 'rewards':
+  content=panel('家族で映画に行く',paragraphs(['100 P・日程は家族で相談','使えるポイント：'+(session.reward==='none'?'120':'20')+' P']),'soft')+
+    panel('家庭で決めた特典',paragraphs(['追加のお小遣い・プレゼント・お出かけ等を、家族が用意します。']));
+  if(session.reward==='none')primary=button(screen.primary,'request-reward','primary');
+  else content+=panel('申請中',paragraphs(['100 Pを予約しました。親の確認待ちです。','承認されたことと、受け取ったことは別です。']));
+  alternative=button('お金とごほうびに戻る','money','quiet');break;
+ case 'empty':
+  content=screen.sections.map(s=>panel(s.heading,paragraphs(s.lines))).join('');alternative=button('これまでを読む','album','secondary');break;
+ }
+ product.innerHTML='<header class="product-header"><span class="brand">やってみクエスト</span><span class="person">'+escape(person)+'</span></header><div class="content"><h2 id="screen-title" tabindex="-1">'+escape(screen.title)+'</h2>'+content+'<div id="product-feedback" role="status" aria-live="polite">'+escape(session.notice)+'</div>'+primary+alternative+'</div>'+navigation(screen);
+ reviewStatus.textContent=screen.id+' · '+screen.refs.features.join(' / ')+' · '+({normal:'通常',save_fail:'保存失敗',send_fail:'送信失敗',empty:'空',pending:'親の確認待ち',private:'共有しない',reduced:'動きを減らす'}[session.scenario])+'の見本';
+}
+function setRole(role){session.role=role;roleSelect.value=role;screenSelect.innerHTML=availableScreens(role).map(s=>'<option value="'+s.id+'">'+s.id+' '+escape(s.title)+'</option>').join('');chooseScreen(defaultRoleScreen(role));}
+roleSelect.addEventListener('change',()=>setRole(roleSelect.value));
+screenSelect.addEventListener('change',()=>chooseScreen(screenSelect.value,true));
+scenarioSelect.addEventListener('change',()=>{session.scenario=scenarioSelect.value;session.notice='';render();});
+scaleSelect.addEventListener('change',render);
+product.addEventListener('input',event=>{
+ if(event.target.id==='today-note')session.todayNote=event.target.value;
+ if(event.target.id==='steps')session.steps=event.target.value;
+ if(event.target.id==='reply')session.reply=event.target.value;
+ if(event.target.id==='original'){session.original=event.target.value;session.record='draft';session.shareState='not_requested';session.share=false;session.whole=true;session.transaction=true;}
+});
+product.addEventListener('change',event=>{
+ if(event.target.id==='share-choice'){session.share=event.target.checked;session.record='draft';session.shareState='not_requested';render();}
+ if(event.target.name==='excerpt'){session.whole=event.target.value==='whole';session.record='draft';session.shareState='not_requested';render();}
+ if(event.target.name==='choice')session.choice=event.target.value;
+});
+product.addEventListener('click',async event=>{
+ const target=event.target.closest('button');if(!target||target.disabled)return;
+ if(target.dataset.target){if(target.dataset.target==='settings'){reviewStatus.textContent='設定の内容はS01計画のレビュー対象です。今回は配置のみの見本です。';return;}session.notice='';chooseScreen(target.dataset.target,true);return;}
+ const action=target.dataset.action;
+ if(action==='start')return chooseScreen('UI02',true);
+ if(action==='record'){session.original='';session.whole=true;session.share=false;session.record='draft';session.shareState='not_requested';return chooseScreen('UI03',true);}
+ if(action==='album')return chooseScreen('UI11',true);
+ if(action==='post-detail')return chooseScreen('UI10',true);
+ if(action==='today')return chooseScreen(defaultRoleScreen(session.role),true);
+ if(action==='rewards')return chooseScreen('UI05',true);
+ if(action==='money')return chooseScreen('UI04',true);
+ if(action==='open-record')return chooseScreen(session.role==='child'?'UI03':session.role==='parent'?'UI06':'UI08',true);
+ if(action==='open-adult'){session.notice='10月5日・たえの記録：公園まで歩いてきた。歩数5,200歩（手入力）。';return render();}
+ if(action==='change'){session.transaction=true;session.changed=true;session.shareState='pending_review';return render();}
+ if(action==='reselect'){session.share=false;session.changed=false;session.record='draft';session.shareState='not_requested';setRole('child');chooseScreen('UI03',true);return;}
+ if(action==='decline'||action==='revoke'){session.transaction=true;session.shareState=action==='revoke'?'revoked':'not_requested';session.notice=action==='revoke'?'共有を取り消しました。':'今回は送らないことにしました。';return render();}
+ if(action==='request-reward'){session.reward='requested';return render();}
+ if(action==='save'||action==='publish'||action==='adult-send'){
+  if(session.inflight)return;
+  const todayNote=document.getElementById('today-note')?.value;const stepValue=document.getElementById('steps')?.value;
+  session.inflight=true;session.notice='';if(action==='save'){session.transaction=true;session.record='saving';}
+  if(action==='publish')session.transaction=true;
+  render();
+  await new Promise(resolve=>setTimeout(resolve,120));
+  session.inflight=false;
+  if(action==='save'){session.record=session.scenario==='save_fail'?'save_failed':'saved';session.shareState=session.record==='saved'&&session.share?'pending_review':'not_requested';}
+  if(action==='publish')session.shareState=session.scenario==='send_fail'?'send_failed':'published';
+  if(action==='adult-send'){session.adultRecord='saved';session.adultShare=session.scenario==='send_fail'?'send_failed':'published';}
+  render();
+  if(todayNote!==undefined&&document.getElementById('today-note'))document.getElementById('today-note').value=todayNote;
+  if(stepValue!==undefined&&document.getElementById('steps'))document.getElementById('steps').value=stepValue;
+  return;
+ }
+ if(action==='adult-save'){session.adultRecord='saved';session.adultShare='not_requested';session.notice='自分の記録に残しました。家族には送っていません。';return render();}
+ if(action==='read'){session.notice='「読んだよ」を伝えました。';return render();}
+ if(action==='reply'){session.notice='返事を伝えました。';return render();}
+ if(action==='proposal'){session.notice='11月の条件を試す予定です。お金はまだ受け取っていません。';return render();}
+ if(action==='proposal-change'||action==='proposal-decline'){session.notice='今の条件を保ち、親子で相談できます。';return render();}
+ if(action==='later'){session.notice='ここで終われます。';return render();}
+ if(['voice-note','conditions-help','money-drawing'].includes(action)){reviewStatus.textContent='この操作の先は今回の画面図の範囲です。保存・送信・金額変更は実行しません。';return;}
+});
+setRole('child');
+</script></body></html>

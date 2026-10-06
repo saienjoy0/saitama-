@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-06T17:50:40.979Z",
+  "updated_at": "2026-10-06T18:27:06.753Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -41,10 +41,12 @@
     "docs/design/やってみクエスト_主要導線と表示情報_20261006.md",
     "docs/design/やってみクエスト_アルバムと家庭のお金・報酬設計_20261006.md",
     "docs/design/ui-consistency-20261007.md",
-    "docs/design/ui-system.json"
+    "docs/design/ui-system.json",
+    "docs/design/ui-review-20261007.md",
+    "docs/design/ui-screens-20261007.json"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "Read IMPLEMENTATION_READY, the v5 feature organization, shared UI contract and concrete S01 plan. The latest user instruction is preparation only; product implementation is not authorized by this turn. At actual implementation start, use the verified environment and implement S01 then S02 one feature at a time.",
+  "next_codex_action": "Read UI review v2, exact screen data and the existing feature/S01 plan. This request creates design drawings and a synthetic review, not product implementation. At implementation start, use shared meanings and complete S01 then S02 one feature at a time.",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -76,7 +78,7 @@
   "implementation_plan": "docs/superpowers/plans/2026-09-23-yattemi-implementation.md",
   "review_bundle": "current/REVIEW_BUNDLE.json",
   "proposed_execution": "native/sequential",
-  "design_revision": "0.5.1",
+  "design_revision": "0.5.2",
   "research_review": {
     "revision": "20260925-v5",
     "status": "research_documents_revised",
@@ -405,5 +407,22 @@
       "generated": true,
       "usage": "visual_reference_only; source text and shared UI contract govern implementation"
     }
+  },
+  "ui_review": {
+    "revision": "20261007-v2",
+    "request": "UIの妥当性と図の作り方を吟味して作成",
+    "entry_point": "docs/design/ui-review-20261007.md",
+    "screen_data": "docs/design/ui-screens-20261007.json",
+    "artifact": "docs/review/ui-20261007/index.html",
+    "screen_count": 12,
+    "drawings": [
+      "docs/review/ui-20261007/sharing.svg",
+      "docs/review/ui-20261007/money.svg",
+      "docs/review/ui-20261007/grandparent.svg"
+    ],
+    "status": "prepared_pending_ci",
+    "proposed_test_layouts": 96,
+    "product_implementation": "not_started",
+    "real_user_validation": "not_performed"
   }
 }

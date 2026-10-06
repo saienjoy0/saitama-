@@ -207,7 +207,7 @@
       "depends_on": [
         "D55"
       ],
-      "title": "今日の本体機能と機能別実装計画v0.5.0を確認",
+      "title": "今日の機能・UI画面図・実装計画v0.5.2を確認",
       "artifacts": [
         "current/REVIEW_BUNDLE.json"
       ],

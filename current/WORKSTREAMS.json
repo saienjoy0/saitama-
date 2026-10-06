@@ -67,10 +67,10 @@
           "number": 5
         }
       ],
-      "next_action": "実装前の環境・UI・S01計画を整備済み。実装の入口から検証済みlockで環境を起動し、S01の家族・役割・保存→S02の買い物条件を一機能ずつ作って確認する。",
+      "next_action": "UI見直しv2の導線と画面図を具体化。初回と通常の入口を分け、S01→S02を一機能ずつ実装・確認する準備がある。",
       "sources": [
+        "docs/design/ui-review-20261007.md",
         "docs/workflow/IMPLEMENTATION_READY.md",
-        "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md",
         "docs/superpowers/plans/2026-10-07-s01-family-foundation.md",
         "current/REVIEW_BUNDLE.json"
       ],

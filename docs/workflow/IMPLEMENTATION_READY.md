@@ -54,3 +54,7 @@ S01で役割・保存・入口と共通部品を作り、確認してからS02�
 [Development preparationの実行結果](https://github.com/saienjoy0/saitama-/actions/runs/37506161907)で文書検査、navigation5件、UI契約、toolの起動、日本語の検査用HTMLの操作とaxe、Postgres16接続、frozen再インストールを確認した。検証対象commitは `63df99a983c0e598d6cc7c7c3825ff0db6d5e259`。React19.3.0、TS5.9.3、Vite8.3.3、Vitest4.1.11、Storybook10.6.1、Playwright1.63.0をlockへ保存。Dev Containerのローカル起動と、製品部品・画面・APIの実装検査は未実施。
 
 生成した三者のUIイメージは外観の参考。画像内の追加文言は実装仕様として採用せず、実際のUIは原文と共通契約を使う。
+
+## UI図から着手する
+
+[UI見直しv2](../design/ui-review-20261007.md)と[レビュー見本](../review/ui-20261007/README.md)を確認する。UI01〜12はレビュー箇所、S01〜28は開発単位。図の固定幅や合成の状態変更を製品へコピーしない。子の新しい選択から記録を作る時、例の文章を自動入力しない。S01の初回設定と普段の入口を分け、各S機能の必要な状態をその機能と同時に実装・確認する。
