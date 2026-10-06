@@ -5,7 +5,7 @@
   "scope": "Founder requirements and agreed repeated-use experience direction, with draft discovery hypotheses H01-H05 and four upstream research skills. Detailed release scope, AI contract/evaluation and old implementation-plan alignment remain pending. No product implementation approval.",
   "proposed_execution": "native/sequential",
   "files": {
-    "docs/design/product-design-v0.1.md": "03a785f81e0eb8dab7fd3c22bccb4fecfd5230ce29065d4a8712024293c90626",
+    "docs/design/product-design-v0.1.md": "2ad204fab86a3a96f9167b7ac059c03f291b8c2a7b1637fb8ee3be11df183a6b",
     "docs/design/FEATURE_REVIEW.md": "6089014a6d0ffc19c19188dd83005b0079978f1ea435956f7e15f12cea4c94f5",
     "docs/design/role-experience-v0.3.md": "96983e57d4f06f9a85fd683ce2c1bc4660fd4cde12d64ef353df27bac76db67e",
     "docs/design/extensibility-v0.3.md": "ea260b796ff0a32727c5a389838886a2d9efdbf1508f9cf72bc18ca7fbb4ce4e",
@@ -26,7 +26,7 @@
     "contracts/guided-plan.schema.json": "eb14a707d6e335d53120245c820c2c7e4bb522573373b215e56c4dda9aba7962",
     "docs/workflow/CODEX_PREFLIGHT.md": "93abc77943d542527d648250c04b0528782396b292db64063766f8b7a5d5933f",
     "current/SKILLS.json": "81075d3af4323518d8fb416712e828eed41ef6ffb99c930006bdbc67a087f211",
-    "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md": "c8d08d8b72bbec3ee64e23b6afae4b377319d002d279a4475a265ed192a0f2c6",
+    "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md": "14f2f3fbcefc23d2c6b07ee492a66b47e52542d088ea78a0f35e64f384b933a3",
     ".agents/skills/define-opportunity-tree/SKILL.md": "ebe0be2c0f8a5c93eee593e64b9d7092944bee49548ec7ce2ea342c8761b0735",
     ".agents/skills/define-opportunity-tree/references/TEMPLATE.md": "456193c927ac22f9d291e1e27aa821b086070767113138ea69d60a0458bce2bf",
     ".agents/skills/define-opportunity-tree/references/EXAMPLE.md": "ec4bfc3ce3ae9f238ecef7c63585813ffe472768218731773f7291f8e02c5924",
@@ -48,7 +48,7 @@
   },
   "consultation_addendum": {
     "date": "2026-10-06",
-    "scope": "Initial repeated-use direction agreed; opportunity/hypothesis draft applied in existing product §0.10. Formal experiment design and actual interview synthesis remain unexecuted.",
+    "scope": "Initial repeated-use direction agreed; H01-H05 discovery draft and N02/N03 input/proposal mapping with AI scope alternatives A/B/C. Recommended B awaits founder response; no implementation approval.",
     "product_specs_changed": true,
     "latest_dialogue_date": "2026-10-06",
     "timezone": "Asia/Riyadh"
