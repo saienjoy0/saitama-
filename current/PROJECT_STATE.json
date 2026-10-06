@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-06T10:25:49.163Z",
+  "updated_at": "2026-10-06T10:34:02.022Z",
   "spec_status": "requirements_draft_scope_pending",
   "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：§0.18で献立・予算・在庫・移動・助けの相談を含む買い物の具体案を提示。次は献立の起点（子の提案を親と調整／親の指定）を一緒に決め、一例の入出力・本人の仕事・成果と観察を詰める。初回KX00を保持。詳細契約・初期範囲・旧計画同期・実装は未完了。",
+  "next_codex_action": "D91：§0.19・F04/F18へ音声認識とAI記録補助を反映。考えたこと・本人の理由・実際の結果を必要時だけ残す案。次は一つの発話から子へ見せる短い記録と訂正方法を一緒に詰める。提供元・保持・正式契約・初期範囲・旧計画同期・実装は未完了。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -61,7 +61,7 @@
     "evaluation_scope_alignment": "AB01-AB07 requirements defined; case sets and thresholds pending N02/N04; existing jobs are v0.4.1"
   },
   "verification": {
-    "document_check": "JavaScript handoff/document checks passed: 522 assertions, 41 review hashes, 55 relative links, generated CURRENT and protected approvals/tasks/other streams. Shopping consultation is a synthetic design proposal, not product/model/family validation. Native Python not run due to Windows process creation failure. Exact commit readback required before branch update.",
+    "document_check": "JavaScript handoff/document checks passed: 581 assertions, 41 review hashes, 57 relative links, generated CURRENT, protected approvals/tasks/other streams and 21-feature parity. Voice and record examples are synthetic design proposals, not speech/model/product/family validation. Native Python not run due to continuing Windows process creation failure. Exact commit readback required before branch update.",
     "review_static_check": "passed: JavaScript syntax and embedded feature parity only",
     "review_browser_check": "blocked: browser executable unavailable; not passed",
     "product_tests": "not_run",
@@ -892,7 +892,7 @@
       "model_evaluation": "not_run",
       "family_observation": "not_run",
       "approval": "design concretization requested; detailed workflow/card adoption and implementation unapproved",
-      "next_action": "D91：§0.18で献立・予算・在庫・移動・助けの相談を含む買い物の具体案を提示。次は献立の起点（子の提案を親と調整／親の指定）を一緒に決め、一例の入出力・本人の仕事・成果と観察を詰める。初回KX00を保持。詳細契約・初期範囲・旧計画同期・実装は未完了。",
+      "next_action": "D91：§0.19・F04/F18へ音声認識とAI記録補助を反映。考えたこと・本人の理由・実際の結果を必要時だけ残す案。次は一つの発話から子へ見せる短い記録と訂正方法を一緒に詰める。提供元・保持・正式契約・初期範囲・旧計画同期・実装は未完了。",
       "competitor_review": {
         "date": "2026-10-06",
         "timezone": "Asia/Seoul",
@@ -1098,6 +1098,35 @@
         "success_proposal": "Explain needs, hear another person's constraints, revise feasible plan; agreement or budget increase not mandatory",
         "next_decision": "child proposes menu then discusses with parent, or parent specifies menu",
         "first_quest": "KX00 unchanged",
+        "formal_schema_changed": false,
+        "implementation_plan_aligned": false,
+        "model_evaluation": "not_run",
+        "family_observation": "not_run",
+        "implementation_authorized": false,
+        "menu_origin_direction": "Founder acknowledged child proposes menu then discusses with parent; exact settings remain proposals"
+      },
+      "voice_recording_design": {
+        "date": "2026-10-06",
+        "timezone": "Asia/Seoul",
+        "section": "0.19",
+        "status": "voice_and_AI_record_assistance_requested_details_proposed",
+        "user_wording": "そうだねそれを簡単に記録できるようにAIがほじょする、何を記録するのかっていうやつとシンプルに音声認識でやるんです。",
+        "voice_first": true,
+        "record_groups_proposed": [
+          "own_plan_decision_and_confirmed_or_unresolved_consultation",
+          "own_reason_and_revision_or_needed_help",
+          "actual_action_result_and_next_question"
+        ],
+        "per_stage_not_all_required": true,
+        "proposal_flow": "short user-started speech -> recognition -> source-based classification/extraction draft -> owner confirms or corrects -> application saves",
+        "original_and_AI_projection_distinct": true,
+        "inference_boundary": "No invented reasons, prices, results, other-person consent or actual authority",
+        "review_boundary": "Self-record correction distinct from B review of new educational advice and parent completion/reward/share review",
+        "fallback_proposed": [
+          "short_text_or_selection",
+          "later_resume"
+        ],
+        "provider_and_retention": "unselected; audio/recognized text/version retention and child-data conditions to verify before live processing",
         "formal_schema_changed": false,
         "implementation_plan_aligned": false,
         "model_evaluation": "not_run",
