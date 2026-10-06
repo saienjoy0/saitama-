@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-06T03:37:21.003Z",
+  "updated_at": "2026-10-06T04:43:21.944Z",
   "spec_status": "requirements_draft_scope_pending",
   "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：B（新規題材調査・クエスト化→確認後に子へ出す）の方向を合意。確認役は親・祖父母の候補、負担を抑えることが条件。製品書§0.11で担当選択、確認済み内容の再利用・再確認条件、短い概要を具体化する。一人担当・権限・画面は未確定。旧計画同期は未完了。",
+  "next_codex_action": "D91：確認担当は家庭ごとに初期値を用意し親・祖父母等へ変更可能という方向を合意。製品書§0.11で具体化。次は『レビューのしきいち』が簡単な確認操作か、確認が必要になる条件の調整かを確認。初期値・人数・権限・閾値・旧計画同期は未確定。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -61,7 +61,7 @@
     "evaluation_scope_alignment": "AB01-AB07 requirements defined; case sets and thresholds pending N02/N04; existing jobs are v0.4.1"
   },
   "verification": {
-    "document_check": "v0.5 draft and research-skill preparation: scoped JavaScript hash/content/state/link checks and GitHub readback; Python repository checker/renderer blocked by exec process startup. No product or research execution.",
+    "document_check": "passed: python3 scripts/render_current.py --check and python3 scripts/check_design_handoff.py on the pinned GitHub document snapshot in the new execution environment; prior JavaScript checks are historical. Product tests/model evaluations/family observation not run.",
     "review_static_check": "passed: JavaScript syntax and embedded feature parity only",
     "review_browser_check": "blocked: browser executable unavailable; not passed",
     "product_tests": "not_run",
@@ -693,7 +693,7 @@
     "product_specs_updated": true,
     "scope_approved": false,
     "implementation_plan_aligned": false,
-    "next_action": "D91：B（新規題材調査・クエスト化→確認後に子へ出す）の方向を合意。確認役は親・祖父母の候補、負担を抑えることが条件。製品書§0.11で担当選択、確認済み内容の再利用・再確認条件、短い概要を具体化する。一人担当・権限・画面は未確定。旧計画同期は未完了。",
+    "next_action": "D91：確認担当は家庭ごとに初期値を用意し親・祖父母等へ変更可能という方向を合意。製品書§0.11で具体化。次は『レビューのしきいち』が簡単な確認操作か、確認が必要になる条件の調整かを確認。初期値・人数・権限・閾値・旧計画同期は未確定。",
     "not_approved": [
       "difficulty-selection UI proposal",
       "automatic ability certification",
@@ -728,7 +728,7 @@
     },
     "personalization_proposal": {
       "section": "0.11",
-      "status": "ai_scope_direction_agreed_reviewer_and_workload_details_pending",
+      "status": "ai_scope_and_configurable_reviewer_direction_agreed_threshold_meaning_pending",
       "household_information_examples": "synthetic",
       "ai_scope_alternatives": [
         "reviewed_material_adjustment",
@@ -736,13 +736,17 @@
         "immediate_new_material_display"
       ],
       "recommended": "new_material_research_and_human_review",
-      "reviewer": "parent_or_grandparent_candidate; assignment and authority pending",
+      "reviewer": "household configurable reviewer with initial default; parent/grandparent candidates",
       "input_fields_finalized": false,
       "ai_scope_direction_agreed": true,
       "user_wording": "いいよただ多すぎるとやるの面倒になるからそこもかんがえもんやな、確認担当は親祖父母じゃないかな",
       "review_workload_constraint": "avoid excessive input, proposals and repeated review",
       "review_load_proposals": "reuse reviewed content within valid conditions; review new/significantly changed content; concise summary and details; defer with reviewed fallback",
-      "single_reviewer_approved": false
+      "single_reviewer_approved": false,
+      "reviewer_default_configurable": true,
+      "reviewer_default_value": "parent proposed; not agreed",
+      "review_threshold_meaning": "pending clarification: interaction effort vs review trigger vs acceptance threshold",
+      "latest_user_wording": "そうだね、祖父母とかだれがやるかとかデフォはあっても変えられるように使用、誰のレビュのしきいちはづくなめとかもね"
     }
   }
 }
