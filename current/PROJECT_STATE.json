@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：確認担当は家庭ごとに初期値を用意し親・祖父母等へ変更可能という方向を合意。製品書§0.11で具体化。次は『レビューのしきいち』が簡単な確認操作か、確認が必要になる条件の調整かを確認。初期値・人数・権限・閾値・旧計画同期は未確定。",
+  "next_codex_action": "D91：『しきいち』は相手の教育方針を提案へ取り入れる程度と確認。製品書§0.11で確認担当・教育への影響度・家族参加を分離し、相手別三段階を提案。次は具体段階・初期値・設定権限と競合時の提案例を比較。詳細仕様と旧計画同期は未確定。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -693,7 +693,7 @@
     "product_specs_updated": true,
     "scope_approved": false,
     "implementation_plan_aligned": false,
-    "next_action": "D91：確認担当は家庭ごとに初期値を用意し親・祖父母等へ変更可能という方向を合意。製品書§0.11で具体化。次は『レビューのしきいち』が簡単な確認操作か、確認が必要になる条件の調整かを確認。初期値・人数・権限・閾値・旧計画同期は未確定。",
+    "next_action": "D91：『しきいち』は相手の教育方針を提案へ取り入れる程度と確認。製品書§0.11で確認担当・教育への影響度・家族参加を分離し、相手別三段階を提案。次は具体段階・初期値・設定権限と競合時の提案例を比較。詳細仕様と旧計画同期は未確定。",
     "not_approved": [
       "difficulty-selection UI proposal",
       "automatic ability certification",
@@ -728,7 +728,7 @@
     },
     "personalization_proposal": {
       "section": "0.11",
-      "status": "ai_scope_and_configurable_reviewer_direction_agreed_threshold_meaning_pending",
+      "status": "educational_influence_clarified_policy_details_pending",
       "household_information_examples": "synthetic",
       "ai_scope_alternatives": [
         "reviewed_material_adjustment",
@@ -745,8 +745,28 @@
       "single_reviewer_approved": false,
       "reviewer_default_configurable": true,
       "reviewer_default_value": "parent proposed; not agreed",
-      "review_threshold_meaning": "pending clarification: interaction effort vs review trigger vs acceptance threshold",
-      "latest_user_wording": "そうだね、祖父母とかだれがやるかとかデフォはあっても変えられるように使用、誰のレビュのしきいちはづくなめとかもね"
+      "review_threshold_meaning": "clarified as degree of family members' educational influence on proposals",
+      "latest_user_wording": "例えばだけど、親の教師としては祖父母の教育をあまり取り入れたくないとか。どのぐらいの影響力があったら、どのぐらいの影響力として、話です。",
+      "educational_influence": {
+        "meaning": "person-specific degree of incorporating educational wishes into AI quest proposals",
+        "separate_from": [
+          "content_reviewer_assignment",
+          "family_communication_and_sharing_permissions",
+          "completion_and_reward_confirmation"
+        ],
+        "levels_proposed": [
+          "do_not_use",
+          "experience_only",
+          "experience_and_educational_wishes"
+        ],
+        "levels_agreed": false,
+        "default_and_configuration_authority": "pending",
+        "numeric_weights": "not specified",
+        "conflict_rule": "do not override parent settings with family wishes; proposal pending",
+        "child_interest_and_choice": "retained",
+        "example_status": "hypothetical; not facts about founder household",
+        "evaluation_status": "design examples prepared; not executed"
+      }
     }
   }
 }
