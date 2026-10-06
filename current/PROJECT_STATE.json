@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-06T09:52:14.283Z",
+  "updated_at": "2026-10-06T10:01:10.752Z",
   "spec_status": "requirements_draft_scope_pending",
   "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：裁量権を実際に決めてよい範囲へ修正。親の初回設定→家族で話し合うKX00→親の確認→教材変換AIを§5.3/0.15.2/0.16へ反映。次は取り決めの項目、教材の切り出しと入出力・検証を具体例で一緒に決める。鉛筆例・QE01〜QE06は未実行の案。正式契約・旧計画未同期、実装未承認。",
+  "next_codex_action": "D91：類似6製品の設計をP01〜P12で比較。教材準備／親が確認した裁量権の適用／活動中の必要な支援という責務分担を推奨案として記録。次は教材一つの入出力・確認・本人判断を具体例で一緒に決める。方式採用・正式契約・旧計画同期・実装は未完了。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -61,7 +61,7 @@
     "evaluation_scope_alignment": "AB01-AB07 requirements defined; case sets and thresholds pending N02/N04; existing jobs are v0.4.1"
   },
   "verification": {
-    "document_check": "JavaScript equivalent of check_design_handoff and targeted current-revision checks passed: 517 assertions, 41 review hashes, 56 relative links, protected approvals/tasks/other streams, 21-feature parity and generated CURRENT. Exact GitHub commit readback is required before branch update. Native Python not run because Windows process creation is unavailable. QE01-QE06 are unexecuted expected specifications; no product/model/family testing.",
+    "document_check": "Current comparable-product research: JavaScript handoff/document checks and generated navigation; native Python unavailable due to Windows process creation failure. Public-source review is not product testing, model evaluation or family observation. Exact commit readback before branch update.",
     "review_static_check": "passed: JavaScript syntax and embedded feature parity only",
     "review_browser_check": "blocked: browser executable unavailable; not passed",
     "product_tests": "not_run",
@@ -693,7 +693,7 @@
     "product_specs_updated": true,
     "scope_approved": false,
     "implementation_plan_aligned": false,
-    "next_action": "D91：裁量権を実際に決めてよい範囲へ修正。親の初回設定→家族で話し合うKX00→親の確認→教材変換AIを§5.3/0.15.2/0.16へ反映。次は取り決めの項目、教材の切り出しと入出力・検証を具体例で一緒に決める。鉛筆例・QE01〜QE06は未実行の案。正式契約・旧計画未同期、実装未承認。",
+    "next_action": "D91：類似6製品の設計をP01〜P12で比較。教材準備／親が確認した裁量権の適用／活動中の必要な支援という責務分担を推奨案として記録。次は教材一つの入出力・確認・本人判断を具体例で一緒に決める。方式採用・正式契約・旧計画同期・実装は未完了。",
     "not_approved": [
       "difficulty-selection UI proposal",
       "automatic ability certification",
@@ -892,7 +892,7 @@
       "model_evaluation": "not_run",
       "family_observation": "not_run",
       "approval": "design concretization requested; detailed workflow/card adoption and implementation unapproved",
-      "next_action": "D91：裁量権を実際に決めてよい範囲へ修正。親の初回設定→家族で話し合うKX00→親の確認→教材変換AIを§5.3/0.15.2/0.16へ反映。次は取り決めの項目、教材の切り出しと入出力・検証を具体例で一緒に決める。鉛筆例・QE01〜QE06は未実行の案。正式契約・旧計画未同期、実装未承認。",
+      "next_action": "D91：類似6製品の設計をP01〜P12で比較。教材準備／親が確認した裁量権の適用／活動中の必要な支援という責務分担を推奨案として記録。次は教材一つの入出力・確認・本人判断を具体例で一緒に決める。方式採用・正式契約・旧計画同期・実装は未完了。",
       "competitor_review": {
         "date": "2026-10-06",
         "timezone": "Asia/Seoul",
@@ -1011,6 +1011,28 @@
         "schema_changed": false,
         "api_implemented": false,
         "implementation_plan_aligned": false,
+        "implementation_authorized": false
+      },
+      "comparable_product_design_review": {
+        "date": "2026-10-06",
+        "timezone": "Asia/Seoul",
+        "status": "primary_source_review_recommendation_not_adopted",
+        "services": [
+          "Greenlight",
+          "GoHenry",
+          "MagicSchool",
+          "Khanmigo",
+          "WonderBox",
+          "Otetsudai StepUP"
+        ],
+        "sources": "P01-P12 in existing AI-engine review",
+        "source_updates": "MagicSchool September10 2026 introduction; original university brief February2026; Khanmigo August27 and May2026",
+        "proposal": [
+          "material_to_reviewed_activity_preparation",
+          "application_applies_parent_confirmed_actual_authority",
+          "observed_need_to_learning_support"
+        ],
+        "limitations": "public specifications and development report; no full internal implementation, product use, market completeness or household-learning efficacy verified",
         "implementation_authorized": false
       }
     }

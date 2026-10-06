@@ -22,11 +22,11 @@
     "evals/next-action-cases.jsonl": "f170cd07f0c6476937006ba0597be3c8b008a369ce8b8615ec74f8a430e10152",
     ".agents/skills/yattemi-role-based-ui-design/SKILL.md": "437ea8a304bc1a9b16e27d16b963f60196738573be75450d0c76dbc3f5da0970",
     ".agents/skills/yattemi-role-based-ui-design/references/evidence-led-family-design.md": "799288b6d00366d833f93cefe704f680e414100f2637e5c77d8fd92b9e4e65c4",
-    "docs/design/ai-engine-review-v0.4.1.md": "80a9425389fb5116900d08065e3b22d11e937e84a33d4fc6276e1ab084e2ab62",
+    "docs/design/ai-engine-review-v0.4.1.md": "cb4a76bbfcc160227f78d459432bf86607bd598711617022c292651d0b69cd69",
     "contracts/guided-plan.schema.json": "eb14a707d6e335d53120245c820c2c7e4bb522573373b215e56c4dda9aba7962",
     "docs/workflow/CODEX_PREFLIGHT.md": "93abc77943d542527d648250c04b0528782396b292db64063766f8b7a5d5933f",
     "current/SKILLS.json": "81075d3af4323518d8fb416712e828eed41ef6ffb99c930006bdbc67a087f211",
-    "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md": "a8147a550df3d6cfd141ea9d0cd40d1414fc13920becdfa525e8b57d14de9e44",
+    "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md": "f6a92140bdd4f4a835568b46c61b04e62cb6928014eb38d2cad76474cb0c9d43",
     ".agents/skills/define-opportunity-tree/SKILL.md": "ebe0be2c0f8a5c93eee593e64b9d7092944bee49548ec7ce2ea342c8761b0735",
     ".agents/skills/define-opportunity-tree/references/TEMPLATE.md": "456193c927ac22f9d291e1e27aa821b086070767113138ea69d60a0458bce2bf",
     ".agents/skills/define-opportunity-tree/references/EXAMPLE.md": "ec4bfc3ce3ae9f238ecef7c63585813ffe472768218731773f7291f8e02c5924",
@@ -49,9 +49,9 @@
   },
   "consultation_addendum": {
     "date": "2026-10-06",
-    "scope": "Actual decision authority clarified: parent initial bounds, first family discussion KX00, parent confirms rule, then material-to-goal/prerequisite-to-household-quest engine. Product 5.3/0.15.2/0.16 and R05/R11/F01/F04/F05/F18 synchronized. Prior hint-level interpretation is history; refrigerator is a later example. Stationery rule, pencil transformation and QE01-QE06 are synthetic proposals, not model/family results. Formal schema/old plan unaligned, implementation unapproved.",
+    "scope": "Similar-product design research P01-P12 added to existing AI review: six products, public flows, generation/parent controls/support and source limitations. Material preparation/authority application/activity support is an unadopted recommendation. Actual authority and initial family quest requirements preserved; no formal contract/old-plan alignment or implementation approval.",
     "product_specs_changed": true,
     "latest_dialogue_date": "2026-10-06",
-    "timezone": "Asia/Riyadh"
+    "timezone": "Asia/Seoul"
   }
 }
