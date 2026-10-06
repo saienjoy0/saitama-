@@ -2,9 +2,9 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-05T18:08:34.596Z",
-  "spec_status": "review-ready",
-  "implementation_plan_status": "prepared-for-joint-review",
+  "updated_at": "2026-10-06T03:13:59.622Z",
+  "spec_status": "requirements_draft_scope_pending",
+  "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
   "allowed_now": [
     "read_repo",
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：新聞の発行頻度は家庭ごとに設定する。既存の週1号は設定例として継承し、設定項目と変更・発行の具体的な動線は未確定。次は家庭・本人・家族の希望の記憶と、親の希望と子どもの関心が異なる時のクエスト提案を相談する。D90の実装判断は別。",
+  "next_codex_action": "D91：最新希望を製品書§0の全体体験・R01〜R15・N01〜N06へ反映。次は要件の抜けを確認し、N01として初期範囲の比較案を相談する。旧v0.4.1の詳細・実装計画は未同期で、D90の実装判断はその同期後。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -53,14 +53,15 @@
     "plan review and execution method recorded"
   ],
   "ai": {
-    "mode": "fixed_default_optional_curated_candidate_matching_and_parent_drafts",
+    "mode": "requirements_default_quest_proposal_implementation_pending",
     "live_family_data_enabled": false,
     "provider": "openai_responses_candidate_not_configured",
     "first_evaluation_job": "next_action_match",
-    "additional_evaluation_job": "guided_plan"
+    "additional_evaluation_job": "guided_plan",
+    "evaluation_scope_alignment": "AB01-AB07 requirements defined; case sets and thresholds pending N02/N04; existing jobs are v0.4.1"
   },
   "verification": {
-    "document_check": "passed; see docs/workflow/VERIFICATION.md",
+    "document_check": "Latest v0.5 draft: scoped JavaScript content/hash/link/state checks; repository Python commands not executed in this environment. Prior checks are historical.",
     "review_static_check": "passed: JavaScript syntax and embedded feature parity only",
     "review_browser_check": "blocked: browser executable unavailable; not passed",
     "product_tests": "not_run",
@@ -70,7 +71,7 @@
   "implementation_plan": "docs/superpowers/plans/2026-09-23-yattemi-implementation.md",
   "review_bundle": "current/REVIEW_BUNDLE.json",
   "proposed_execution": "native/sequential",
-  "design_revision": "0.4.1",
+  "design_revision": "0.5-draft",
   "research_review": {
     "revision": "20260925-v5",
     "status": "research_documents_revised",
@@ -679,5 +680,26 @@
         "automatic_publication_authorized": false
       }
     }
+  },
+  "requirements_consolidation": {
+    "date": "2026-10-06",
+    "timezone": "Asia/Seoul",
+    "task_id": "D91",
+    "status": "founder_requirements_consolidated_for_review",
+    "entry_point": "docs/design/product-design-v0.1.md",
+    "requirements": "R01-R15",
+    "open_questions": "N01-N06",
+    "sources": "latest founder statements, consultation record, existing v0.4/v0.4.1 and material references",
+    "product_specs_updated": true,
+    "scope_approved": false,
+    "implementation_plan_aligned": false,
+    "next_action": "Review the consolidated experience/requirements, then compare initial scope options for N01.",
+    "not_approved": [
+      "difficulty-selection UI proposal",
+      "automatic ability certification",
+      "initial release scope",
+      "expanded AI generation/display contract"
+    ],
+    "verification": "document checks only; no product tests, model evaluations or family observations"
   }
 }

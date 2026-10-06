@@ -1,5 +1,8 @@
 # Yattemi Quest Implementation Plan v0.4.1
 
+> 2026-10-06：本計画はv0.4.1の旧範囲。最新の[製品要件](../../design/product-design-v0.1.md) R01〜R15（基本AI提案、情報収集、家庭記憶、報酬、冷蔵庫初回等）と未同期。次はN01で初期範囲を決め、関係Task・契約・テストを更新する。下の実装手順を最新要件の承認済み一式として実行しない。ここでは同期前の状態だけを記録し、未決の実装を追加しない。
+
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Native/sequential execution is the proposed default for this handoff. Use superpowers:subagent-driven-development only if the user selects delegation. Steps use checkbox syntax.
 
 ## 最小修正 v0.4.1

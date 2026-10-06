@@ -68,8 +68,9 @@
           "number": 5
         }
       ],
-      "next_action": "D91：新聞の発行頻度は家庭ごとに設定する。既存の週1号は設定例として継承し、設定項目と変更・発行の具体的な動線は未確定。次は家庭・本人・家族の希望の記憶と、親の希望と子どもの関心が異なる時のクエスト提案を相談する。D90の実装判断は別。",
+      "next_action": "D91：最新希望を製品書§0の全体体験・R01〜R15・N01〜N06へ反映。次は要件の抜けを確認し、N01として初期範囲の比較案を相談する。旧v0.4.1の詳細・実装計画は未同期で、D90の実装判断はその同期後。",
       "sources": [
+        "docs/design/product-design-v0.1.md",
         "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md",
         "current/REVIEW_BUNDLE.json",
         "docs/design/FEATURE_REVIEW.md",
