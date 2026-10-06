@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-06T09:34:31.240Z",
+  "updated_at": "2026-10-06T09:52:14.283Z",
   "spec_status": "requirements_draft_scope_pending",
   "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：子に任せる程度を親が設定する要件をR05/AB04・F01/F05/F18へ反映。§0.15.2で同じKX01の候補比較／調査観点／自力の三案を具体提示し、AI設計に親設定・版・PD01〜PD04。次は程度の分け方を本人と相談。段階・初期値・設定単位・必要時の支援は案、契約・旧計画未同期、実装未承認。",
+  "next_codex_action": "D91：裁量権を実際に決めてよい範囲へ修正。親の初回設定→家族で話し合うKX00→親の確認→教材変換AIを§5.3/0.15.2/0.16へ反映。次は取り決めの項目、教材の切り出しと入出力・検証を具体例で一緒に決める。鉛筆例・QE01〜QE06は未実行の案。正式契約・旧計画未同期、実装未承認。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -61,7 +61,7 @@
     "evaluation_scope_alignment": "AB01-AB07 requirements defined; case sets and thresholds pending N02/N04; existing jobs are v0.4.1"
   },
   "verification": {
-    "document_check": "Current parent-delegation revision: JavaScript checks of JSON, stage/tasks/approval, feature-to-document alignment, review hashes, relative links and generated CURRENT, with GitHub exact readback. Windows process creation failed; Python commands not run. PD01-PD04 are expected specifications, not model evaluations. No product tests or family observations.",
+    "document_check": "JavaScript equivalent of check_design_handoff and targeted current-revision checks passed: 517 assertions, 41 review hashes, 56 relative links, protected approvals/tasks/other streams, 21-feature parity and generated CURRENT. Exact GitHub commit readback is required before branch update. Native Python not run because Windows process creation is unavailable. QE01-QE06 are unexecuted expected specifications; no product/model/family testing.",
     "review_static_check": "passed: JavaScript syntax and embedded feature parity only",
     "review_browser_check": "blocked: browser executable unavailable; not passed",
     "product_tests": "not_run",
@@ -693,7 +693,7 @@
     "product_specs_updated": true,
     "scope_approved": false,
     "implementation_plan_aligned": false,
-    "next_action": "D91：子に任せる程度を親が設定する要件をR05/AB04・F01/F05/F18へ反映。§0.15.2で同じKX01の候補比較／調査観点／自力の三案を具体提示し、AI設計に親設定・版・PD01〜PD04。次は程度の分け方を本人と相談。段階・初期値・設定単位・必要時の支援は案、契約・旧計画未同期、実装未承認。",
+    "next_action": "D91：裁量権を実際に決めてよい範囲へ修正。親の初回設定→家族で話し合うKX00→親の確認→教材変換AIを§5.3/0.15.2/0.16へ反映。次は取り決めの項目、教材の切り出しと入出力・検証を具体例で一緒に決める。鉛筆例・QE01〜QE06は未実行の案。正式契約・旧計画未同期、実装未承認。",
     "not_approved": [
       "difficulty-selection UI proposal",
       "automatic ability certification",
@@ -706,7 +706,7 @@
       "recorded_on": "2026-10-06",
       "timezone": "Asia/Riyadh",
       "user_wording": "あってる",
-      "experience": "Repeated use with child choice, discovery/practice, adapted next proposals, family newspaper and optional family words feeding inquiry",
+      "experience": "Parent initial settings, first family quest to discuss actual decision authority, parent confirms rule, then repeated material quests with child inquiry/choice, family newspaper and optional words feeding inquiry",
       "detailed_release_scope_approved": false,
       "implementation_authorized": false
     },
@@ -799,17 +799,20 @@
         "new_material_B_with_review",
         "grandparent_experience_only_default",
         "grandparent_quest_suggestions",
-        "child_choice"
+        "child_choice",
+        "parent_initial_bounds",
+        "first_family_authority_quest",
+        "parent_confirmed_actual_decision_scope"
       ],
       "effort_estimate": "not calculated",
-      "next": "clarify parent involvement after first use; map minimal input and activity confirmations; detailed contracts and plan alignment",
+      "next": "concretize family rule fields and material-engine input/output/validation using synthetic examples; detailed contracts and plan alignment",
       "direction_agreed": true,
       "latest_user_wording": "はいそうだね"
     },
     "first_and_repeat_use_example": {
-      "section": "0.13",
-      "status": "synthetic_proposal",
-      "first": "joint refrigerator quest ending in one plan update",
+      "section": "5.3 (first) / 0.13 (later material)",
+      "status": "first_family_discussion_direction_agreed_details_synthetic",
+      "first": "parent initial bounds -> KX00 family discussion of actual child decision authority -> parent confirms rule -> later material quests",
       "repeat": "adapted choice using prior activity, child's question, parent wish and optional grandparent suggestion",
       "exception_paths": [
         "child_hold",
@@ -857,7 +860,8 @@
           "card adoption",
           "implementation authorization"
         ]
-      }
+      },
+      "first_use_position": "KX01-KX03 follow the initial KX00 family discussion; old first-fridge adoption superseded"
     },
     "ai_quest_decomposition_design": {
       "date": "2026-10-06",
@@ -888,7 +892,7 @@
       "model_evaluation": "not_run",
       "family_observation": "not_run",
       "approval": "design concretization requested; detailed workflow/card adoption and implementation unapproved",
-      "next_action": "D91：子に任せる程度を親が設定する要件をR05/AB04・F01/F05/F18へ反映。§0.15.2で同じKX01の候補比較／調査観点／自力の三案を具体提示し、AI設計に親設定・版・PD01〜PD04。次は程度の分け方を本人と相談。段階・初期値・設定単位・必要時の支援は案、契約・旧計画未同期、実装未承認。",
+      "next_action": "D91：裁量権を実際に決めてよい範囲へ修正。親の初回設定→家族で話し合うKX00→親の確認→教材変換AIを§5.3/0.15.2/0.16へ反映。次は取り決めの項目、教材の切り出しと入出力・検証を具体例で一緒に決める。鉛筆例・QE01〜QE06は未実行の案。正式契約・旧計画未同期、実装未承認。",
       "competitor_review": {
         "date": "2026-10-06",
         "timezone": "Asia/Seoul",
@@ -945,38 +949,68 @@
       },
       "parent_delegation_setting": {
         "date": "2026-10-06",
-        "timezone": "Asia/Riyadh",
-        "status": "parent_configuration_requirement_agreed_detail_options_proposed",
-        "user_wording": "子に案をどこまで任せるかっていうのは親で設定しないといけないと仮定して程度があるよな、そこはしっかり親に設定させないとね",
+        "status": "actual_decision_authority_clarified_details_proposed",
+        "user_wording": "最初に親の設定をしっかりする、最初にみんなで話し合うのがくえすとです、裁量権を任せるって意味でさ、そんで教材からのクエスト化するAiennjinnwotukuranaitone",
         "section": "0.15.2",
         "requirement": "R05/AB04",
         "features": [
           "F01",
-          "F05",
+          "F04",
+          "F07",
+          "F12",
           "F18"
         ],
         "configuration_authority": "parent",
-        "levels_proposed": [
-          "compare_provided_candidates",
-          "receive_inquiry_views",
-          "formulate_inquiry_and_options"
+        "setting_fields_proposed": [
+          "domain_and_allowed_decisions",
+          "cap_unit_period_and_available_remainder",
+          "permitted_methods",
+          "consultation_conditions",
+          "parent_confirmed_version_and_validity"
         ],
-        "levels_agreed": false,
-        "default": "middle proposed; not agreed",
-        "unit": "per-child base and per-quest override proposed; not agreed",
-        "setting_confirmation": "parent selects or explicitly confirms default; exact setup UI unresolved",
+        "initial_quest": "KX00 family discussion in 5.3; parent sets initial bounds and confirms resulting rule",
+        "synthetic_example": "stationery <=300 yen per purchase, within own remaining allowance and permitted methods; amount is not a default",
         "application_owns_setting_and_version": true,
         "model_changes_setting": false,
-        "changing_setting": "AI can suggest with evidence; parent decides",
-        "child_help_request": "reviewed hints, adult consultation and hold retained; helper use differs from changing stored setting",
+        "changing_setting": "AI recommendations go to parent; no automatic rights changes",
         "separate_from": [
-          "content_review_assignment",
-          "family_educational_influence",
-          "optional_parent_feedback",
-          "completion_reward_and_sharing"
+          "hint_quantity",
+          "content_review",
+          "educational_influence",
+          "completion_rewards",
+          "sharing"
         ],
-        "evaluation_examples": "PD01-PD04 expected specifications; not_run",
+        "previous_interpretation": "Prior three assistance levels and PD01-PD04 are history/presentation proposals, not an adopted actual-authority contract",
+        "default": "not_finalized",
         "schema_changed": false,
+        "implementation_authorized": false
+      },
+      "material_quest_engine_blueprint": {
+        "section": "0.16",
+        "status": "concrete_design_proposal_not_implemented",
+        "stages": [
+          "source_scope",
+          "learning_goal_and_prerequisites",
+          "household_context_and_confirmed_authority",
+          "one_quest_with_inquiry_comparison_and_own_reason",
+          "application_checks_and_B_review",
+          "child_selection_and_action",
+          "observed_record_to_next_candidate"
+        ],
+        "example": "synthetic same-kind pencils: A 2/160 yen vs B 3/210 yen; need2, hypothetical cap300 and sufficient remaining funds; compare unit cost,total,leftover use; own decision or parent proposal according to authority",
+        "evaluation_examples": [
+          "QE01",
+          "QE02",
+          "QE03",
+          "QE04",
+          "QE05",
+          "QE06"
+        ],
+        "model_evaluation": "not_run",
+        "family_observation": "not_run",
+        "schema_changed": false,
+        "api_implemented": false,
+        "implementation_plan_aligned": false,
         "implementation_authorized": false
       }
     }
