@@ -16,7 +16,7 @@
       ]
     }
   },
-  "postCreateCommand": "python3 -m pip install uv && python3 scripts/setup_dev_environment.py",
+  "postCreateCommand": "python3 -m pip install uv==0.12.23 && python3 scripts/setup_dev_environment.py --frozen",
   "forwardPorts": [
     5173,
     6006

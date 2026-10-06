@@ -41,19 +41,21 @@
     "tools/development/package.json": "bec059e8743bcd94b677df5137ea45323c8ad0ee8c544ad03f66de2970075410",
     "tools/development/pyproject.toml": "3640e89b2332ded21648c3e14947ad75318a8a633e930b3df755a13c77d385c0",
     "tools/development/check-runtime.mjs": "9c0135e0a0296f14b05b652936cf1dfdc39d835a1d0e797a985e37908b8fee1f",
-    "tools/development/check-browser.mjs": "f571eb5468094ff3dc93fd7396a0bc9934a5bb6afbf5024868c1547762d3d4aa",
+    "tools/development/check-browser.mjs": "a394d8557f554e98520e234ffd3fdbfd9ad82cc542803649353c07f5aa72f243",
     "tools/development/check-runtime.py": "e870aaa5ae3d687ba63578790d72179ca20445692d1d478278ae2e07aeb3324d",
     "tools/development/check-db.py": "b0a5cbd1d1967411c240d986915fd9daa6af9167d3c0f5dd170ceb9c9906e4c8",
     "tools/development/compose.yaml": "b262e0f71e07009f6f7540865bb8b614120432281421fb88fb305a4590f8da49",
     "scripts/setup_dev_environment.py": "e43084a914d5ed21a088d17445084dbb502a8d4015cfb1da86a3e00ec7f37985",
-    ".devcontainer/devcontainer.json": "c61b5d3b41c237435c59fa9be070620f426589fc3ee34d5c4b7a4b10f08b53bb",
+    ".devcontainer/devcontainer.json": "143bfc0683837db5e8787b08110fa830925946de04f00b8764ece0f9851de014",
     "scripts/check_ui_contract.py": "f3b21a0bfd7212860844788f2df541c2a76fd2757a22cfde78289a2025410262",
     "scripts/export_dev_locks.py": "c0a8cf185238dba6349e88e23f7bc9e69bc341d77190075cc6552a7062ec1346",
-    ".github/workflows/development-preparation.yml": "b0b45aaf61ec372d36234e672af4669c9d1a5c1984057283bd1b2764ef1be075",
+    ".github/workflows/development-preparation.yml": "343caf5be57187a626645c8d8f3cdb68d62363cb08e872b34c874d52bffc25e8",
     "docs/superpowers/plans/2026-10-07-s01-family-foundation.md": "f4b63db6996af6a39a3c0c0789471f1aedf3129e228cf655f4f5d92c26a2f6b8",
     "docs/workflow/IMPLEMENTATION_READY.md": "3702ab77146520e86d425e0fbeebc7cffd69e0cda39b31984a36821571f01816",
     ".agents/skills/yattemi-role-based-ui-design/references/ui-consistency.md": "41cc7dbca2814ddef5dfaed88ce2c25705b0bd2b650e96459160fc443c262b2e",
     ".agents/skills/yattemi-role-based-ui-design/references/motion-and-change-review.md": "7ab57a3a56be41e9285e97cd785eff46b1e964b29e3c42425ee17996fca5cfb9",
-    ".agents/skills/yattemi-role-based-ui-design/references/yattemi-screen-matrix.md": "619b864a50fcc9938cd67636c283d4cf41b1ffa73a699f36ad623c5df859f318"
+    ".agents/skills/yattemi-role-based-ui-design/references/yattemi-screen-matrix.md": "619b864a50fcc9938cd67636c283d4cf41b1ffa73a699f36ad623c5df859f318",
+    "tools/development/package-lock.json": "5d43f727b76ea00b12fba8cc103b06255c079b8c473dca94384dd168fdcd9ec6",
+    "tools/development/uv.lock": "43dcd9aa45b3e6bcd2625b0e4b82481145742994ec44da5efab6cc01462e6818"
   }
 }

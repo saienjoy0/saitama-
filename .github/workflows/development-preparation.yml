@@ -45,6 +45,8 @@ jobs:
         with:
           python-version: "3.12"
       - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: "0.12.23"
       - name: Check documentation and UI contract
         run: |
           python3 scripts/render_current.py --check
@@ -52,14 +54,16 @@ jobs:
           python3 -m unittest discover -s scripts -p test_project_navigation.py
           python3 scripts/check_ui_contract.py
           python3 -m compileall -q scripts/setup_dev_environment.py tools/development
+          docker compose -f tools/development/compose.yaml config --quiet
       - name: Install and check development tools
-        run: python3 scripts/setup_dev_environment.py --with-browser
+        run: python3 scripts/setup_dev_environment.py --frozen --with-browser
       - name: Verify dependency CLIs and local database
         run: |
           npm --prefix tools/development exec -- tsc --version
           npm --prefix tools/development exec -- vite --version
           npm --prefix tools/development exec -- vitest --version
           npm --prefix tools/development exec -- storybook --version
+          uv run --project tools/development --frozen ruff --version
           uv run --project tools/development --frozen python tools/development/check-db.py
       - name: Verify frozen setup
         run: python3 scripts/setup_dev_environment.py --frozen --with-browser
