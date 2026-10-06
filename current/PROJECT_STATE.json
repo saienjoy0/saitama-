@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-06T10:34:02.022Z",
+  "updated_at": "2026-10-06T10:43:21.944Z",
   "spec_status": "requirements_draft_scope_pending",
   "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：§0.19・F04/F18へ音声認識とAI記録補助を反映。考えたこと・本人の理由・実際の結果を必要時だけ残す案。次は一つの発話から子へ見せる短い記録と訂正方法を一緒に詰める。提供元・保持・正式契約・初期範囲・旧計画同期・実装は未完了。",
+  "next_codex_action": "D91：§0.20で祖父母の本人発信・歩数等の活動記録・新聞と過去の出来事の再訪をレビュー。次は今日を知らせる／過去を見返す具体例で入力負担と宛先を一緒に決める。日記は後回し。歩数連携・通知・保持・正式契約・初期範囲・旧計画・実装は未完了。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -61,7 +61,7 @@
     "evaluation_scope_alignment": "AB01-AB07 requirements defined; case sets and thresholds pending N02/N04; existing jobs are v0.4.1"
   },
   "verification": {
-    "document_check": "JavaScript handoff/document checks passed: 581 assertions, 41 review hashes, 57 relative links, generated CURRENT, protected approvals/tasks/other streams and 21-feature parity. Voice and record examples are synthetic design proposals, not speech/model/product/family validation. Native Python not run due to continuing Windows process creation failure. Exact commit readback required before branch update.",
+    "document_check": "JavaScript handoff/document checks passed: 622 assertions, 41 review hashes, 61 relative links, generated CURRENT, protected approvals/tasks/other streams and 21-feature parity. Ogenki nine-file code review is not a device/live test; grandparent record/archive examples are design proposals. Native Python not run due to continuing Windows process creation failure. No product/model/family evaluation. Exact commit readback required before branch update.",
     "review_static_check": "passed: JavaScript syntax and embedded feature parity only",
     "review_browser_check": "blocked: browser executable unavailable; not passed",
     "product_tests": "not_run",
@@ -892,7 +892,7 @@
       "model_evaluation": "not_run",
       "family_observation": "not_run",
       "approval": "design concretization requested; detailed workflow/card adoption and implementation unapproved",
-      "next_action": "D91：§0.19・F04/F18へ音声認識とAI記録補助を反映。考えたこと・本人の理由・実際の結果を必要時だけ残す案。次は一つの発話から子へ見せる短い記録と訂正方法を一緒に詰める。提供元・保持・正式契約・初期範囲・旧計画同期・実装は未完了。",
+      "next_action": "D91：§0.20で祖父母の本人発信・歩数等の活動記録・新聞と過去の出来事の再訪をレビュー。次は今日を知らせる／過去を見返す具体例で入力負担と宛先を一緒に決める。日記は後回し。歩数連携・通知・保持・正式契約・初期範囲・旧計画・実装は未完了。",
       "competitor_review": {
         "date": "2026-10-06",
         "timezone": "Asia/Seoul",
@@ -1133,6 +1133,53 @@
         "family_observation": "not_run",
         "implementation_authorized": false
       }
+    },
+    "grandparent_record_and_archive_design": {
+      "date": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "section": "0.20",
+      "status": "founder_direction_reflected_concrete_details_proposed",
+      "user_wording": "其れで次なんだけど、祖父母なんだけど、しっかりれびゅーするってのが必要だね、そんで祖父母は万歩計のように自分の記録を新聞に記すって感じ毎日新聞ともちろん日記もしてもいいよね、まあそれは後でいいか、万歩計のように記録ogenkiのように毎日何歩ある他の記録、とかを自分の子供に知らせる安全の確認じゃなくって生きてますよってことをするってことだね齟齬が大切、あとアルバムのような新聞というかそのできごとをいつでも見てねのように見れることが大切ですね、",
+      "direction": [
+        "self_record_steps_and_other_daily_activities",
+        "self_initiated_update_to_own_adult_children",
+        "family_newspaper_and_event_album_available_for_revisit"
+      ],
+      "purpose": "Life-sharing through own updates, not safety or health detection",
+      "diary": "deferred_by_founder",
+      "ogenki_review": {
+        "repository": "saienjoy0/ogenki-",
+        "commit": "a263b2851447e33bf757b90e749d3222f33f6544",
+        "files_reviewed": 9,
+        "scope": "button/photo/voice/history and steps/background/API code; no device/live behavior/full audit",
+        "steps": "previous-hour sample in background prototype; daily persistent record/newspaper integration not verified"
+      },
+      "proposal": [
+        "optional_self_reported_steps_or_activity_card",
+        "separate_daily_record_self_update_and_household_newsletter_publication",
+        "past_event_and_issue_navigation_under_current_permissions",
+        "adult_owns_private_record_and_recipients",
+        "separate_short_checkin_history_and_memory_album"
+      ],
+      "preserved": [
+        "KX00_family_authority_quest",
+        "B_content_review",
+        "configured_family_reviewers_and_educational_influence",
+        "parent_each_quest_completion_reward",
+        "child_choice_parent_publication"
+      ],
+      "unresolved": [
+        "step_acquisition_and_period",
+        "notification_scope",
+        "retention_and_withdrawal",
+        "concrete_screen_and_input",
+        "initial_release_scope",
+        "formal_contract_and_old_plan"
+      ],
+      "model_evaluation": "not_run",
+      "family_observation": "not_run",
+      "device_test": "not_run",
+      "implementation_authorized": false
     }
   }
 }
