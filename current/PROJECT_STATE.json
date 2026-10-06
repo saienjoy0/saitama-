@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：§0.12に初期範囲S1循環先行／S2個別化深化／S3題材拡張を比較、S1推奨。本人レビュー後、初回と別日の正常・保留・確認待ち・未返信の具体例へ進む。新規題材Bと祖父母発提案は残す。範囲採用・詳細AI契約・報酬細部・旧計画同期は未確定、実装未承認。",
+  "next_codex_action": "D91：S1の五能力で何度か使える体験方向に合意。§0.13で初回・別日の二回目、記録から提案の変化、保留・確認待ち・未返信を具体化。次は二回目以降の親の付き合い方を相談し、最小入力・活動中の確認へ対応付ける。細部・AI契約・報酬換算・旧計画同期と実装承認は未確定。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -693,7 +693,7 @@
     "product_specs_updated": true,
     "scope_approved": false,
     "implementation_plan_aligned": false,
-    "next_action": "D91：§0.12に初期範囲S1循環先行／S2個別化深化／S3題材拡張を比較、S1推奨。本人レビュー後、初回と別日の正常・保留・確認待ち・未返信の具体例へ進む。新規題材Bと祖父母発提案は残す。範囲採用・詳細AI契約・報酬細部・旧計画同期は未確定、実装未承認。",
+    "next_action": "D91：S1の五能力で何度か使える体験方向に合意。§0.13で初回・別日の二回目、記録から提案の変化、保留・確認待ち・未返信を具体化。次は二回目以降の親の付き合い方を相談し、最小入力・活動中の確認へ対応付ける。細部・AI契約・報酬換算・旧計画同期と実装承認は未確定。",
     "not_approved": [
       "difficulty-selection UI proposal",
       "automatic ability certification",
@@ -780,7 +780,7 @@
     },
     "initial_scope_comparison": {
       "section": "0.12",
-      "status": "draft_for_founder_review",
+      "status": "S1_experience_direction_agreed_details_pending",
       "alternatives": [
         "S1_family_loop_first",
         "S2_deeper_personalization",
@@ -802,7 +802,26 @@
         "child_choice"
       ],
       "effort_estimate": "not calculated",
-      "next": "review scope; concrete first/next-use exception paths; detailed contracts then plan alignment"
+      "next": "clarify parent involvement after first use; map minimal input and activity confirmations; detailed contracts and plan alignment",
+      "direction_agreed": true,
+      "latest_user_wording": "はいそうだね"
+    },
+    "first_and_repeat_use_example": {
+      "section": "0.13",
+      "status": "synthetic_proposal",
+      "first": "joint refrigerator quest ending in one plan update",
+      "repeat": "adapted choice using prior activity, child's question, parent wish and optional grandparent suggestion",
+      "exception_paths": [
+        "child_hold",
+        "completion_review_wait",
+        "new_material_review_wait",
+        "no_share_or_reply",
+        "influence_setting_change",
+        "current_conditions_changed"
+      ],
+      "parent_involvement_after_first": "pending consultation",
+      "model_evaluation": "not performed",
+      "family_observation": "not performed"
     }
   }
 }
