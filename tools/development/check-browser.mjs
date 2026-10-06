@@ -3,7 +3,8 @@ import { chromium } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 const browser = await chromium.launch();
 try {
-  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const page = await context.newPage();
   await page.route('**/*', route => route.fulfill({contentType:'text/html; charset=utf-8', body:'<!doctype html><html lang="ja"><head><title>環境確認</title></head><body><main><h1>環境確認</h1><button type="button">確認</button></main></body></html>'}));
   await page.goto('http://environment-check.invalid');
   const pageState = { url: page.url(), encoding: await page.evaluate(() => document.characterSet), text: await page.locator('body').innerText() };
