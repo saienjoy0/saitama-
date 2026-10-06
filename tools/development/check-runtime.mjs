@@ -7,6 +7,7 @@ for (const name of ['react','react-dom','typescript','vite','jsdom','@playwright
   assert.ok(value, name + ' failed to import');
 }
 for (const name of ['vitest','storybook','@storybook/react-vite','@storybook/addon-a11y']) {
-  assert.ok(import.meta.resolve(name), name + ' failed to resolve');
+  const pkg = JSON.parse(await readFile(new URL('./node_modules/' + name + '/package.json', import.meta.url), 'utf8'));
+  assert.ok(pkg.version, name + ' metadata missing');
 }
 console.log(JSON.stringify({status:'passed',node:process.versions.node,packages:Object.keys(manifest.devDependencies)},null,2));

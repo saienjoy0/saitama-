@@ -40,7 +40,7 @@
     "docs/design/ui-system.json": "384d902d4a59a7ea86c72181f2bdf1707c21207c1f1125e4a2fb78c47ae92217",
     "tools/development/package.json": "bec059e8743bcd94b677df5137ea45323c8ad0ee8c544ad03f66de2970075410",
     "tools/development/pyproject.toml": "3640e89b2332ded21648c3e14947ad75318a8a633e930b3df755a13c77d385c0",
-    "tools/development/check-runtime.mjs": "5b6b403ecd4c3a1d85caa522db3ecbc105dbaa71e3f50f6d8dfb752bd4c74c49",
+    "tools/development/check-runtime.mjs": "9c0135e0a0296f14b05b652936cf1dfdc39d835a1d0e797a985e37908b8fee1f",
     "tools/development/check-browser.mjs": "03dbe3539025bc6ae72295f338c85ccf9c872d62d47af1e9e55254308360ff67",
     "tools/development/check-runtime.py": "e870aaa5ae3d687ba63578790d72179ca20445692d1d478278ae2e07aeb3324d",
     "tools/development/check-db.py": "b0a5cbd1d1967411c240d986915fd9daa6af9167d3c0f5dd170ceb9c9906e4c8",
