@@ -5,12 +5,12 @@
   "scope": "Founder requirements and agreed repeated-use experience direction, with draft discovery hypotheses H01-H05 and four upstream research skills. Detailed release scope, AI contract/evaluation and old implementation-plan alignment remain pending. No product implementation approval.",
   "proposed_execution": "native/sequential",
   "files": {
-    "docs/design/product-design-v0.1.md": "5db9d89a3ce24b98e0fc5c63c54c5d856f6aa81878a34ca0f4c4eb870f11c244",
+    "docs/design/product-design-v0.1.md": "3d560b3ec363eab73886e1437841a59cfff22b884ce706e9780613598f0823de",
     "docs/design/FEATURE_REVIEW.md": "76e73de79c14f84adf08c64402739f3d11d6b2564e78128a560d542c019ed1fc",
     "docs/design/role-experience-v0.3.md": "6dce5aa77039892c298eb7febf2d151fa97683da10a3b987bdb69352b43c4fea",
     "docs/design/extensibility-v0.3.md": "ea260b796ff0a32727c5a389838886a2d9efdbf1508f9cf72bc18ca7fbb4ce4e",
     "docs/design/ai-harness-design-v0.2.md": "3c1f3c6dd6a40f33e05187f7844a410f77e45a36750b56c0362822c6b1c6f1d4",
-    "docs/design/DECISIONS.md": "509aa4b96703d4e63163656237fca9a6234b202d5289d587981a7e6734b598a0",
+    "docs/design/DECISIONS.md": "537dac995a3c5a31fd97aa23622e65fc8d8b54a6d60fc957c9f1f5d0996800d9",
     "docs/superpowers/plans/2026-09-23-yattemi-implementation.md": "186062848614ae030e565f01e2dced317408a6e2b329d4bc82c5fd9d53d82744",
     "docs/design/FEATURES.json": "fd4497423d592746f83e5182ecc0d6111eb9f36cc81bf31d549accb9c10c0f1e",
     "docs/review/index.html": "05a72393af338b3383469ce904b7e3a13f61bbf7b9b43fc99ddbecfb5d24331e",
@@ -26,7 +26,7 @@
     "contracts/guided-plan.schema.json": "eb14a707d6e335d53120245c820c2c7e4bb522573373b215e56c4dda9aba7962",
     "docs/workflow/CODEX_PREFLIGHT.md": "93abc77943d542527d648250c04b0528782396b292db64063766f8b7a5d5933f",
     "current/SKILLS.json": "81075d3af4323518d8fb416712e828eed41ef6ffb99c930006bdbc67a087f211",
-    "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md": "95b4bf4ae7f6bd6b6888db52f90767bc80e75f9bd98ded26981a8a8781fce40a",
+    "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md": "813bcb39af6758c708a770134c779e0d47ff7d797d7f59a132b808cde7bcb66e",
     ".agents/skills/define-opportunity-tree/SKILL.md": "ebe0be2c0f8a5c93eee593e64b9d7092944bee49548ec7ce2ea342c8761b0735",
     ".agents/skills/define-opportunity-tree/references/TEMPLATE.md": "456193c927ac22f9d291e1e27aa821b086070767113138ea69d60a0458bce2bf",
     ".agents/skills/define-opportunity-tree/references/EXAMPLE.md": "ec4bfc3ce3ae9f238ecef7c63585813ffe472768218731773f7291f8e02c5924",
@@ -43,12 +43,13 @@
     ".agents/skills/discover-interview-synthesis/references/TEMPLATE.md": "5d0607a54efc03eca894eb9261bfe8ae426b29375a977f7f740876d455ebc623",
     ".agents/skills/discover-interview-synthesis/references/EXAMPLE.md": "f7349deff22e51d01657f1a295da78d7aad2af303bc8d4c00dee8041695bb60c",
     ".agents/skills/discover-interview-synthesis/LICENSE": "e5fe46f4634972731b752114e9992023e95e89e37c11713fdbee92dbc5141e85",
-    "AGENTS.md": "94b9144dfe3af8aca64791f09ef95c661198c7ceb5e6ff44793c76503664baf7",
-    "docs/workflow/STAGES_AND_SKILLS.md": "655619678000cbdc64409abd3498bc539ef29cfe4e574566227b12d3aaf467f1"
+    "AGENTS.md": "babddecea5a0ed6cd3000134c79fa20067d7d5b584af42697344b3541db96563",
+    "docs/workflow/STAGES_AND_SKILLS.md": "655619678000cbdc64409abd3498bc539ef29cfe4e574566227b12d3aaf467f1",
+    "research/GAKUSTA_クエスト教材・ネタ元リファレンス_20260925.md": "59f9392936b5c3e8280e6c7641d0e5e8b1c04eb468c6837d6dd05ccf644cb6bb"
   },
   "consultation_addendum": {
     "date": "2026-10-06",
-    "scope": "S1 five-capability experience direction agreed. Synthetic first and repeat use, memory adaptation and exception paths drafted in section 0.13. Repeat-use parent involvement and detailed setup/contracts remain pending; no implementation approval.",
+    "scope": "Latest request prioritizes textbook/material-grounded quest content and household circumstances. Section 0.14 and existing material reference v3 detail KX01/KX02/KX03 as independent proposals with synthetic examples; card adoption, repeated-use parent involvement, detailed contracts and implementation remain pending.",
     "product_specs_changed": true,
     "latest_dialogue_date": "2026-10-06",
     "timezone": "Asia/Seoul"

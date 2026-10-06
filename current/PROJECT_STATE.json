@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：S1の五能力で何度か使える体験方向に合意。§0.13で初回・別日の二回目、記録から提案の変化、保留・確認待ち・未返信を具体化。次は二回目以降の親の付き合い方を相談し、最小入力・活動中の確認へ対応付ける。細部・AI契約・報酬換算・旧計画同期と実装承認は未確定。",
+  "next_codex_action": "D91：最新要望を受け、教材・家庭条件・子の実際の行動を先に詳しくする。§0.14と教材リファレンスv3でKX01冷蔵庫／KX02量と価格／KX03水の供給を具体案にした。次はKX01の学習内容・必要な家庭情報・支援・次回への変化をレビューし、内容確認Bと詳細契約へつなぐ。親の付き合い方は未回答、旧計画同期・実装承認は未確定。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -693,7 +693,7 @@
     "product_specs_updated": true,
     "scope_approved": false,
     "implementation_plan_aligned": false,
-    "next_action": "D91：S1の五能力で何度か使える体験方向に合意。§0.13で初回・別日の二回目、記録から提案の変化、保留・確認待ち・未返信を具体化。次は二回目以降の親の付き合い方を相談し、最小入力・活動中の確認へ対応付ける。細部・AI契約・報酬換算・旧計画同期と実装承認は未確定。",
+    "next_action": "D91：最新要望を受け、教材・家庭条件・子の実際の行動を先に詳しくする。§0.14と教材リファレンスv3でKX01冷蔵庫／KX02量と価格／KX03水の供給を具体案にした。次はKX01の学習内容・必要な家庭情報・支援・次回への変化をレビューし、内容確認Bと詳細契約へつなぐ。親の付き合い方は未回答、旧計画同期・実装承認は未確定。",
     "not_approved": [
       "difficulty-selection UI proposal",
       "automatic ability certification",
@@ -822,6 +822,25 @@
       "parent_involvement_after_first": "pending consultation",
       "model_evaluation": "not performed",
       "family_observation": "not performed"
+    },
+    "quest_content_design": {
+      "date": "2026-10-06",
+      "timezone": "UTC",
+      "status": "source_backed_quest_proposals_for_review",
+      "founder_request": "教科書・参考資料、家庭の事情と過程から、具体的に何をクエストにするか詳しくする",
+      "entry_point": "docs/design/product-design-v0.1.md",
+      "material_reference": "research/GAKUSTA_クエスト教材・ネタ元リファレンス_20260925.md",
+      "proposal_ids": [
+        "KX01",
+        "KX02",
+        "KX03"
+      ],
+      "source_coverage": "MEXT consumer-education excerpts, Tokyo Shoseki 2024 public annual plan/FAQ, CAA household food-loss guidance, Tokyo Waterworks primary explanations and school practice report; full textbook and J-FLEC PDF not read",
+      "synthetic_examples": true,
+      "repeat_parent_involvement": "unanswered; content design prioritized",
+      "approval": "No card adoption, whole-spec approval or implementation authorization",
+      "verification": "document checks only; educational efficacy, model evaluation and family observation not performed",
+      "section": "0.14"
     }
   }
 }
