@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-06T03:13:59.622Z",
+  "updated_at": "2026-10-06T03:29:06.200Z",
   "spec_status": "requirements_draft_scope_pending",
   "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：最新希望を製品書§0の全体体験・R01〜R15・N01〜N06へ反映。次は要件の抜けを確認し、N01として初期範囲の比較案を相談する。旧v0.4.1の詳細・実装計画は未同期で、D90の実装判断はその同期後。",
+  "next_codex_action": "D91：何度か使える一周の方向を合意。製品書§0.10のH01〜H05を確認計画として用い、次はN02/N03で家庭のどの情報が次の提案をどう変えるかの比較例を準備。初期範囲の細部・AI評価・旧実装計画の同期は未完了。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -61,7 +61,7 @@
     "evaluation_scope_alignment": "AB01-AB07 requirements defined; case sets and thresholds pending N02/N04; existing jobs are v0.4.1"
   },
   "verification": {
-    "document_check": "Latest v0.5 draft: scoped JavaScript content/hash/link/state checks; repository Python commands not executed in this environment. Prior checks are historical.",
+    "document_check": "v0.5 draft and research-skill preparation: scoped JavaScript hash/content/state/link checks and GitHub readback; Python repository checker/renderer blocked by exec process startup. No product or research execution.",
     "review_static_check": "passed: JavaScript syntax and embedded feature parity only",
     "review_browser_check": "blocked: browser executable unavailable; not passed",
     "product_tests": "not_run",
@@ -693,13 +693,38 @@
     "product_specs_updated": true,
     "scope_approved": false,
     "implementation_plan_aligned": false,
-    "next_action": "Review the consolidated experience/requirements, then compare initial scope options for N01.",
+    "next_action": "D91：何度か使える一周の方向を合意。製品書§0.10のH01〜H05を確認計画として用い、次はN02/N03で家庭のどの情報が次の提案をどう変えるかの比較例を準備。初期範囲の細部・AI評価・旧実装計画の同期は未完了。",
     "not_approved": [
       "difficulty-selection UI proposal",
       "automatic ability certification",
-      "initial release scope",
+      "detailed initial release scope",
       "expanded AI generation/display contract"
     ],
-    "verification": "document checks only; no product tests, model evaluations or family observations"
+    "verification": "document checks only; no product tests, model evaluations or family observations",
+    "initial_experience_direction": {
+      "status": "agreed_in_consultation",
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Riyadh",
+      "user_wording": "あってる",
+      "experience": "Repeated use with child choice, discovery/practice, adapted next proposals, family newspaper and optional family words feeding inquiry",
+      "detailed_release_scope_approved": false,
+      "implementation_authorized": false
+    },
+    "discovery_skill_preparation": {
+      "status": "bundled_and_draft_applied",
+      "recorded_on": "2026-10-06",
+      "skills": [
+        "define-opportunity-tree",
+        "define-hypothesis",
+        "measure-experiment-design",
+        "discover-interview-synthesis"
+      ],
+      "entry_point": "docs/design/product-design-v0.1.md",
+      "section": "0.10",
+      "hypotheses": "H01-H05",
+      "sample_sizes_and_criteria": "proposals; not approved or executed",
+      "formal_experiment_design": "not_prepared; baseline and conditions pending",
+      "interview_synthesis": "not_run; no real interview records"
+    }
   }
 }
