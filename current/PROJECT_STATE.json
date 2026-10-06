@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-06T10:10:48.088Z",
+  "updated_at": "2026-10-06T10:25:49.163Z",
   "spec_status": "requirements_draft_scope_pending",
   "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：教材の学びを家庭で子が考え・工夫し・実行する経験へ変えるエンジンを§0.17で言語化。六責務と学び／裁量権／支援の分離、架空三家庭・多教材、必要な支援と実際の記録から次の学びを提案。次は一つの例で入出力・本人の仕事・成果と観察を一緒に決める。詳細契約・初期範囲・旧計画同期・実装は未完了。",
+  "next_codex_action": "D91：§0.18で献立・予算・在庫・移動・助けの相談を含む買い物の具体案を提示。次は献立の起点（子の提案を親と調整／親の指定）を一緒に決め、一例の入出力・本人の仕事・成果と観察を詰める。初回KX00を保持。詳細契約・初期範囲・旧計画同期・実装は未完了。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -61,7 +61,7 @@
     "evaluation_scope_alignment": "AB01-AB07 requirements defined; case sets and thresholds pending N02/N04; existing jobs are v0.4.1"
   },
   "verification": {
-    "document_check": "JavaScript handoff/document checks passed: 460 assertions, 41 review hashes, 55 relative links, generated CURRENT, protected approvals/tasks/other streams and 21-feature parity. Exact commit readback required before branch update. Native Python not run due to Windows process creation failure. Six-role and observation tables are design proposals, not product/model/family tests.",
+    "document_check": "JavaScript handoff/document checks passed: 522 assertions, 41 review hashes, 55 relative links, generated CURRENT and protected approvals/tasks/other streams. Shopping consultation is a synthetic design proposal, not product/model/family validation. Native Python not run due to Windows process creation failure. Exact commit readback required before branch update.",
     "review_static_check": "passed: JavaScript syntax and embedded feature parity only",
     "review_browser_check": "blocked: browser executable unavailable; not passed",
     "product_tests": "not_run",
@@ -892,7 +892,7 @@
       "model_evaluation": "not_run",
       "family_observation": "not_run",
       "approval": "design concretization requested; detailed workflow/card adoption and implementation unapproved",
-      "next_action": "D91：教材の学びを家庭で子が考え・工夫し・実行する経験へ変えるエンジンを§0.17で言語化。六責務と学び／裁量権／支援の分離、架空三家庭・多教材、必要な支援と実際の記録から次の学びを提案。次は一つの例で入出力・本人の仕事・成果と観察を一緒に決める。詳細契約・初期範囲・旧計画同期・実装は未完了。",
+      "next_action": "D91：§0.18で献立・予算・在庫・移動・助けの相談を含む買い物の具体案を提示。次は献立の起点（子の提案を親と調整／親の指定）を一緒に決め、一例の入出力・本人の仕事・成果と観察を詰める。初回KX00を保持。詳細契約・初期範囲・旧計画同期・実装は未完了。",
       "competitor_review": {
         "date": "2026-10-06",
         "timezone": "Asia/Seoul",
@@ -1063,6 +1063,45 @@
         "family_observation": "not_run",
         "formal_schema_changed": false,
         "implementation_plan_aligned": false,
+        "implementation_authorized": false
+      },
+      "shopping_consultation_example": {
+        "date": "2026-10-06",
+        "timezone": "Asia/Seoul",
+        "section": "0.18",
+        "status": "shopping_direction_selected_details_proposed",
+        "user_wording": "買い物のほうがわかりやすいかな、お金渡すだけでなく親と相談とかお金予算何を料理するから買うのか献立、移動手段が必要だからその交渉、思いから手伝ってほしいなど",
+        "confirmed_direction": [
+          "shopping",
+          "parent_consultation",
+          "meal_purpose",
+          "budget",
+          "transport_negotiation",
+          "request_help"
+        ],
+        "synthetic_example": "Purpose to prepare family dinner -> menu and household conditions -> stock and quantities -> budget/options -> travel/carrying -> specific help request -> actual practice/reflection",
+        "uncertain_wording": "思いから; heavy groceries only a Codex example",
+        "child_owns": [
+          "purpose",
+          "inquiry",
+          "options_and_reasons",
+          "request",
+          "revision"
+        ],
+        "separate_authority_domains": [
+          "purchase",
+          "menu_change",
+          "travel",
+          "cooking"
+        ],
+        "funds_boundary": "household shopping funds distinct from own allowance and quest reward",
+        "success_proposal": "Explain needs, hear another person's constraints, revise feasible plan; agreement or budget increase not mandatory",
+        "next_decision": "child proposes menu then discusses with parent, or parent specifies menu",
+        "first_quest": "KX00 unchanged",
+        "formal_schema_changed": false,
+        "implementation_plan_aligned": false,
+        "model_evaluation": "not_run",
+        "family_observation": "not_run",
         "implementation_authorized": false
       }
     }
