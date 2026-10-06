@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-06T10:01:10.752Z",
+  "updated_at": "2026-10-06T10:10:48.088Z",
   "spec_status": "requirements_draft_scope_pending",
   "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：類似6製品の設計をP01〜P12で比較。教材準備／親が確認した裁量権の適用／活動中の必要な支援という責務分担を推奨案として記録。次は教材一つの入出力・確認・本人判断を具体例で一緒に決める。方式採用・正式契約・旧計画同期・実装は未完了。",
+  "next_codex_action": "D91：教材の学びを家庭で子が考え・工夫し・実行する経験へ変えるエンジンを§0.17で言語化。六責務と学び／裁量権／支援の分離、架空三家庭・多教材、必要な支援と実際の記録から次の学びを提案。次は一つの例で入出力・本人の仕事・成果と観察を一緒に決める。詳細契約・初期範囲・旧計画同期・実装は未完了。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -61,7 +61,7 @@
     "evaluation_scope_alignment": "AB01-AB07 requirements defined; case sets and thresholds pending N02/N04; existing jobs are v0.4.1"
   },
   "verification": {
-    "document_check": "Current comparable-product research: JavaScript handoff/document checks and generated navigation; native Python unavailable due to Windows process creation failure. Public-source review is not product testing, model evaluation or family observation. Exact commit readback before branch update.",
+    "document_check": "JavaScript handoff/document checks passed: 460 assertions, 41 review hashes, 55 relative links, generated CURRENT, protected approvals/tasks/other streams and 21-feature parity. Exact commit readback required before branch update. Native Python not run due to Windows process creation failure. Six-role and observation tables are design proposals, not product/model/family tests.",
     "review_static_check": "passed: JavaScript syntax and embedded feature parity only",
     "review_browser_check": "blocked: browser executable unavailable; not passed",
     "product_tests": "not_run",
@@ -693,7 +693,7 @@
     "product_specs_updated": true,
     "scope_approved": false,
     "implementation_plan_aligned": false,
-    "next_action": "D91：類似6製品の設計をP01〜P12で比較。教材準備／親が確認した裁量権の適用／活動中の必要な支援という責務分担を推奨案として記録。次は教材一つの入出力・確認・本人判断を具体例で一緒に決める。方式採用・正式契約・旧計画同期・実装は未完了。",
+    "next_action": "D91：教材の学びを家庭で子が考え・工夫し・実行する経験へ変えるエンジンを§0.17で言語化。六責務と学び／裁量権／支援の分離、架空三家庭・多教材、必要な支援と実際の記録から次の学びを提案。次は一つの例で入出力・本人の仕事・成果と観察を一緒に決める。詳細契約・初期範囲・旧計画同期・実装は未完了。",
     "not_approved": [
       "difficulty-selection UI proposal",
       "automatic ability certification",
@@ -892,7 +892,7 @@
       "model_evaluation": "not_run",
       "family_observation": "not_run",
       "approval": "design concretization requested; detailed workflow/card adoption and implementation unapproved",
-      "next_action": "D91：類似6製品の設計をP01〜P12で比較。教材準備／親が確認した裁量権の適用／活動中の必要な支援という責務分担を推奨案として記録。次は教材一つの入出力・確認・本人判断を具体例で一緒に決める。方式採用・正式契約・旧計画同期・実装は未完了。",
+      "next_action": "D91：教材の学びを家庭で子が考え・工夫し・実行する経験へ変えるエンジンを§0.17で言語化。六責務と学び／裁量権／支援の分離、架空三家庭・多教材、必要な支援と実際の記録から次の学びを提案。次は一つの例で入出力・本人の仕事・成果と観察を一緒に決める。詳細契約・初期範囲・旧計画同期・実装は未完了。",
       "competitor_review": {
         "date": "2026-10-06",
         "timezone": "Asia/Seoul",
@@ -1033,6 +1033,36 @@
           "observed_need_to_learning_support"
         ],
         "limitations": "public specifications and development report; no full internal implementation, product use, market completeness or household-learning efficacy verified",
+        "implementation_authorized": false
+      },
+      "engine_role_definition": {
+        "date": "2026-10-06",
+        "timezone": "Asia/Seoul",
+        "status": "direction_acknowledged_role_details_proposed",
+        "section": "0.17",
+        "definition": "Turn learning from sourced materials into household experiences where the child gains knowledge, investigates, creates options, judges, acts or consults within parent-confirmed authority, reflects on actual results and connects to further learning.",
+        "user_direction": "Entrusting real decision authority, creativity and actual shopping; combine different quest materials and individual family circumstances.",
+        "responsibilities_proposed": [
+          "material_learning_structure",
+          "household_context_and_actual_authority",
+          "quest_with_child_inquiry_and_creativity",
+          "needed_activity_support",
+          "content_and_authority_validation",
+          "observed_experience_to_next_learning"
+        ],
+        "separate_axes": [
+          "learning_goal",
+          "actual_decision_authority",
+          "learning_support"
+        ],
+        "preparation_and_activity_support": "Two jobs; activity records return to next candidate. Not a six-model or six-service implementation decision.",
+        "synthetic_examples": "Same planned-use learning: delegated stationery purchase, parent-consultation proposal, use existing pencils; also KX01 resource/plans, KX03 systems and optional family proposals.",
+        "real_purchase": "May be part of a chosen quest within parent-confirmed conditions; app does not buy. Plan/completion/purchase/later result recorded distinctly. Initial release inclusion unresolved.",
+        "evaluation": "Six responsibility-level design checks linked to existing QE; no new evaluated case set, thresholds for quality/burden before execution pending.",
+        "model_evaluation": "not_run",
+        "family_observation": "not_run",
+        "formal_schema_changed": false,
+        "implementation_plan_aligned": false,
         "implementation_authorized": false
       }
     }
