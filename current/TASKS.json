@@ -207,7 +207,7 @@
       "depends_on": [
         "D55"
       ],
-      "title": "設計と実装計画v0.4.1をまとめてレビュー",
+      "title": "今日の本体機能と機能別実装計画v0.5.0を確認",
       "artifacts": [
         "current/REVIEW_BUNDLE.json"
       ],
@@ -220,11 +220,20 @@
       "depends_on": [
         "D90"
       ],
-      "title": "共通デザイン・三役の入口・固定体験",
+      "title": "共通基盤と体験",
       "plan_section": "B10",
       "optional": false,
-      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B10; retain actual evidence",
-      "execution_task_number": 1
+      "completion": "各S単位の完成条件を満たし、保存・失敗時・権限を確認し、実際の証拠を残す。区分内の一機能ずつ開発・レビュー・修正して進める。",
+      "execution_task_number": 1,
+      "delivery_slices": [
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "artifacts": [
+        "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md",
+        "docs/superpowers/plans/2026-09-23-yattemi-implementation.md"
+      ]
     },
     {
       "id": "B20",
@@ -233,11 +242,22 @@
       "depends_on": [
         "B10"
       ],
-      "title": "合成D0の記録・親確認・新聞・任意返信",
+      "title": "記録・アルバム・共有確認",
       "plan_section": "B20",
       "optional": false,
-      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B20; retain actual evidence",
-      "execution_task_number": 2
+      "completion": "各S単位の完成条件を満たし、保存・失敗時・権限を確認し、実際の証拠を残す。区分内の一機能ずつ開発・レビュー・修正して進める。",
+      "execution_task_number": 2,
+      "delivery_slices": [
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08"
+      ],
+      "artifacts": [
+        "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md",
+        "docs/superpowers/plans/2026-09-23-yattemi-implementation.md"
+      ]
     },
     {
       "id": "B30",
@@ -246,11 +266,21 @@
       "depends_on": [
         "B20"
       ],
-      "title": "認証・家庭分離・API・DB",
+      "title": "家族新聞・本人の近況・返信",
       "plan_section": "B30",
       "optional": false,
-      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B30; retain actual evidence",
-      "execution_task_number": 3
+      "completion": "各S単位の完成条件を満たし、保存・失敗時・権限を確認し、実際の証拠を残す。区分内の一機能ずつ開発・レビュー・修正して進める。",
+      "execution_task_number": 3,
+      "delivery_slices": [
+        "S09",
+        "S10",
+        "S11",
+        "S12"
+      ],
+      "artifacts": [
+        "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md",
+        "docs/superpowers/plans/2026-09-23-yattemi-implementation.md"
+      ]
     },
     {
       "id": "B40",
@@ -259,11 +289,22 @@
       "depends_on": [
         "B30"
       ],
-      "title": "非公開写真・撤回・削除・印刷",
+      "title": "円の財布・家庭ルール・ポイント・交換",
       "plan_section": "B40",
       "optional": false,
-      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B40; retain actual evidence",
-      "execution_task_number": 4
+      "completion": "各S単位の完成条件を満たし、保存・失敗時・権限を確認し、実際の証拠を残す。区分内の一機能ずつ開発・レビュー・修正して進める。",
+      "execution_task_number": 4,
+      "delivery_slices": [
+        "S13",
+        "S14",
+        "S15",
+        "S16",
+        "S17"
+      ],
+      "artifacts": [
+        "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md",
+        "docs/superpowers/plans/2026-09-23-yattemi-implementation.md"
+      ]
     },
     {
       "id": "B50",
@@ -272,11 +313,19 @@
       "depends_on": [
         "B40"
       ],
-      "title": "三テーマ・お小遣い・運営計測",
+      "title": "任せ方の提案・家庭内金利",
       "plan_section": "B50",
       "optional": false,
-      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B50; retain actual evidence",
-      "execution_task_number": 5
+      "completion": "各S単位の完成条件を満たし、保存・失敗時・権限を確認し、実際の証拠を残す。区分内の一機能ずつ開発・レビュー・修正して進める。",
+      "execution_task_number": 5,
+      "delivery_slices": [
+        "S18",
+        "S19"
+      ],
+      "artifacts": [
+        "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md",
+        "docs/superpowers/plans/2026-09-23-yattemi-implementation.md"
+      ]
     },
     {
       "id": "B60",
@@ -285,11 +334,19 @@
       "depends_on": [
         "B50"
       ],
-      "title": "任意の次の行動AI・API接続・比較評価",
+      "title": "必要なAI補助",
       "plan_section": "B60",
       "optional": true,
-      "completion": "Run acceptance tests in docs/superpowers/plans/2026-09-23-yattemi-implementation.md section B60; retain actual evidence",
-      "execution_task_number": 6
+      "completion": "各S単位の完成条件を満たし、保存・失敗時・権限を確認し、実際の証拠を残す。区分内の一機能ずつ開発・レビュー・修正して進める。",
+      "execution_task_number": 6,
+      "delivery_slices": [
+        "S23",
+        "S24"
+      ],
+      "artifacts": [
+        "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md",
+        "docs/superpowers/plans/2026-09-23-yattemi-implementation.md"
+      ]
     },
     {
       "id": "B70",
@@ -298,10 +355,17 @@
       "depends_on": [
         "B50"
       ],
-      "title": "三役E2E・権限・撤回・動き・運用の統合検査",
+      "title": "接続確認・運営とアクセシビリティ",
       "plan_section": "B70",
-      "completion": "Actual evidence required; B60 optional, if enabled include AI checks",
-      "execution_task_number": 7
+      "completion": "各S単位の完成条件を満たし、保存・失敗時・権限を確認し、実際の証拠を残す。区分内の一機能ずつ開発・レビュー・修正して進める。",
+      "execution_task_number": 7,
+      "delivery_slices": [
+        "S28"
+      ],
+      "artifacts": [
+        "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md",
+        "docs/superpowers/plans/2026-09-23-yattemi-implementation.md"
+      ]
     },
     {
       "id": "R10",

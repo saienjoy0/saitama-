@@ -73,3 +73,9 @@ Google／Amazon／UNICEFおよび提供元APIの一次資料を確認した設�
 ## 再開時
 
 文書チェッカーを再実行し、必要プラグインの利用可否をその環境で確認する。スキル2件の本文はリポジトリに同梱。公開前にGitHubの対象ファイルを読み戻して保存内容を確認する。
+
+## 2026-10-07：今日の機能整理と実装計画
+
+code-mode上で保存予定の本文を検査し、28開発単位の一意性・依存順・完成条件、21既存機能の対応、B10〜B70とTask1〜7の対応、資料の相対リンク、タスク依存・状態保持、設計資料とスキル本文・MITライセンスのSHA-256照合を確認した。既存契約・合成評価fixtureは未変更。PM三スキルは取り込み時のquick_validate.pyで確認済み。
+
+ローカル実行サービスが応答しなくなったため、この改訂後のPythonハンドオフ検査・navigation unittestは実行できていない。次の実行環境で `python3 scripts/render_current.py`、`python3 scripts/check_design_handoff.py`、`python3 -m unittest discover -s scripts -p test_project_navigation.py` を実行する。CURRENTは既存render関数と同じ入力・出力規則から導出。製品テスト・モデル評価・実家庭試用は今回行っていない。

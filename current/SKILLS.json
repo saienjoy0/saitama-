@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_date": "2026-09-23",
+  "checked_date": "2026-10-07",
   "note": "Package aliases are session-specific locators, not portable install commands. Resolve the named provider/plugin in another environment. Project skill files remain readable directly.",
   "skills": [
     {
@@ -196,6 +196,69 @@
       "trigger": "Preserve reviewed branch; no unauthorized merge or publication",
       "availability": "installed_and_body_present_this_session; recheck_in_target_codex",
       "required_when_triggered": true
+    },
+    {
+      "name": "user-stories",
+      "source": "public-vendored",
+      "repo_path": ".agents/skills/user-stories/SKILL.md",
+      "sha256": "8ce89cd81de5a3df7d504380d18c54cec6c59ccdb7fd18cbcb62b6b6183d0a55",
+      "stages": [
+        "DESIGN",
+        "PLAN",
+        "BUILD"
+      ],
+      "trigger": "Feature organization and implementation backlog",
+      "availability": "complete_body_bundled",
+      "required_when_triggered": true,
+      "upstream": "https://github.com/phuryn/pm-skills",
+      "upstream_commit": "8607e3b077817f89bf4a9b623246219734ac3be0",
+      "license": "MIT",
+      "license_path": ".agents/skills/user-stories/LICENSE",
+      "reference_files": {
+        ".agents/skills/user-stories/LICENSE": "a2c922f9b81b4f40347ddfa79c38eda0f1278b5a6d108bd4099b4da254c774ee"
+      }
+    },
+    {
+      "name": "sprint-plan",
+      "source": "public-vendored",
+      "repo_path": ".agents/skills/sprint-plan/SKILL.md",
+      "sha256": "54ac27165fd7d57fe3f598f1ef66087d03fbf56d9f583adf7608ccaca9ce3382",
+      "stages": [
+        "DESIGN",
+        "PLAN",
+        "BUILD"
+      ],
+      "trigger": "Feature organization and implementation backlog",
+      "availability": "complete_body_bundled",
+      "required_when_triggered": true,
+      "upstream": "https://github.com/phuryn/pm-skills",
+      "upstream_commit": "8607e3b077817f89bf4a9b623246219734ac3be0",
+      "license": "MIT",
+      "license_path": ".agents/skills/sprint-plan/LICENSE",
+      "reference_files": {
+        ".agents/skills/sprint-plan/LICENSE": "a2c922f9b81b4f40347ddfa79c38eda0f1278b5a6d108bd4099b4da254c774ee"
+      }
+    },
+    {
+      "name": "outcome-roadmap",
+      "source": "public-vendored",
+      "repo_path": ".agents/skills/outcome-roadmap/SKILL.md",
+      "sha256": "3d2da8f82f4cbe4c8d06593765e2fbb94913676e9a65663b7da9e53c9a0082c8",
+      "stages": [
+        "DESIGN",
+        "PLAN",
+        "BUILD"
+      ],
+      "trigger": "Feature organization and implementation backlog",
+      "availability": "complete_body_bundled",
+      "required_when_triggered": true,
+      "upstream": "https://github.com/phuryn/pm-skills",
+      "upstream_commit": "8607e3b077817f89bf4a9b623246219734ac3be0",
+      "license": "MIT",
+      "license_path": ".agents/skills/outcome-roadmap/LICENSE",
+      "reference_files": {
+        ".agents/skills/outcome-roadmap/LICENSE": "a2c922f9b81b4f40347ddfa79c38eda0f1278b5a6d108bd4099b4da254c774ee"
+      }
     }
   ],
   "bootstrap_doc": "docs/workflow/CODEX_PREFLIGHT.md",

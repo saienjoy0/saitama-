@@ -1,5 +1,5 @@
 {
-  "version": "0.4",
+  "version": "0.5.0",
   "status": "review_proposal",
   "features": [
     {
@@ -11,7 +11,10 @@
       "behavior": "家族・子プロフィール・期限付き招待を管理",
       "boundary": "招待なしでも親子で開始。期限切れを拒否",
       "requirement": "FR01",
-      "task": "B30"
+      "task": "B10",
+      "delivery_slices": [
+        "S01"
+      ]
     },
     {
       "id": "F02",
@@ -22,7 +25,10 @@
       "behavior": "子は体験、親は確認、祖父母は便りを入口にする",
       "boundary": "子モードから親権限へは再認証",
       "requirement": "FR01",
-      "task": "B10"
+      "task": "B10",
+      "delivery_slices": [
+        "S01"
+      ]
     },
     {
       "id": "F03",
@@ -33,7 +39,11 @@
       "behavior": "探索カードと本人の「これ、なんで？」から体験を選ぶ",
       "boundary": "おすすめを選ぶ義務はない",
       "requirement": "FR03",
-      "task": "B10"
+      "task": "B10",
+      "delivery_slices": [
+        "S02",
+        "S18"
+      ]
     },
     {
       "id": "F04",
@@ -44,7 +54,12 @@
       "behavior": "予想→比較軸と候補を操作→本人の選択→振り返り。計算は通常コード",
       "boundary": "中断再開、無回答、写真なしを許容",
       "requirement": "FR03",
-      "task": "B10"
+      "task": "B10",
+      "delivery_slices": [
+        "S02",
+        "S03",
+        "S18"
+      ]
     },
     {
       "id": "F05",
@@ -55,7 +70,10 @@
       "behavior": "問い直し→比較軸→例の順で自分で開く",
       "boundary": "能力点や人格評価にしない",
       "requirement": "FR03",
-      "task": "B10"
+      "task": "B10",
+      "delivery_slices": [
+        "S03"
+      ]
     },
     {
       "id": "F06",
@@ -66,7 +84,13 @@
       "behavior": "学習欄なしでも日常を残す",
       "boundary": "写真拒否時も一言で保存",
       "requirement": "FR02",
-      "task": "B20"
+      "task": "B20",
+      "delivery_slices": [
+        "S04",
+        "S05",
+        "S10",
+        "S26"
+      ]
     },
     {
       "id": "F07",
@@ -77,7 +101,11 @@
       "behavior": "本人の言葉、予想と結果、家族の言葉を振り返る",
       "boundary": "未共有は管理する親と本人のみ",
       "requirement": "FR05",
-      "task": "B20"
+      "task": "B20",
+      "delivery_slices": [
+        "S06",
+        "S26"
+      ]
     },
     {
       "id": "F08",
@@ -88,7 +116,10 @@
       "behavior": "素材と相手を選び、見せない選択もできる",
       "boundary": "親が拒否を上書きしない",
       "requirement": "FR05",
-      "task": "B20"
+      "task": "B20",
+      "delivery_slices": [
+        "S07"
+      ]
     },
     {
       "id": "F09",
@@ -99,7 +130,10 @@
       "behavior": "原文・素材・宛先を見て編集・送る・保留",
       "boundary": "内容・相手変更で古い承認は失効",
       "requirement": "FR05",
-      "task": "B20"
+      "task": "B20",
+      "delivery_slices": [
+        "S08"
+      ]
     },
     {
       "id": "F10",
@@ -110,7 +144,10 @@
       "behavior": "許可済みカードを最大6件まとめ親が発行。カード共有だけでも成立",
       "boundary": "素材なしでは発行しない。AI1回は最大3記事",
       "requirement": "FR06",
-      "task": "B20"
+      "task": "B30",
+      "delivery_slices": [
+        "S09"
+      ]
     },
     {
       "id": "F11",
@@ -121,7 +158,10 @@
       "behavior": "経験・質問・応援の出所を付けて任意に返す",
       "boundary": "未返信でも体験は完了",
       "requirement": "FR07",
-      "task": "B20"
+      "task": "B30",
+      "delivery_slices": [
+        "S11"
+      ]
     },
     {
       "id": "F12",
@@ -132,7 +172,10 @@
       "behavior": "本人が焦点を選び、返信→たね→次の体験記録をつなぐ",
       "boundary": "採用結果を自動共有しない。元返信撤回で候補を失効",
       "requirement": "FR04",
-      "task": "B20"
+      "task": "B30",
+      "delivery_slices": [
+        "S12"
+      ]
     },
     {
       "id": "F13",
@@ -143,7 +186,11 @@
       "behavior": "本人発信の日時と選んだ宛先を共有",
       "boundary": "未操作・既読から健康を推定しない",
       "requirement": "FR08",
-      "task": "B20"
+      "task": "B30",
+      "delivery_slices": [
+        "S10",
+        "S25"
+      ]
     },
     {
       "id": "F14",
@@ -154,7 +201,13 @@
       "behavior": "入った・使った・残ったと目標1件",
       "boundary": "約束と受取を分離。実際の送金なし",
       "requirement": "FR09",
-      "task": "B50"
+      "task": "B40",
+      "delivery_slices": [
+        "S13",
+        "S14",
+        "S18",
+        "S19"
+      ]
     },
     {
       "id": "F15",
@@ -165,7 +218,11 @@
       "behavior": "配信済み素材の権限停止、データ整理",
       "boundary": "印刷物を回収できたとは表示しない",
       "requirement": "FR10",
-      "task": "B40"
+      "task": "B20",
+      "delivery_slices": [
+        "S01",
+        "S07"
+      ]
     },
     {
       "id": "F16",
@@ -176,7 +233,11 @@
       "behavior": "位置情報除去・サイズ検査・認可付き画像配信",
       "boundary": "別家庭のURL/書出しを拒否",
       "requirement": "FR02",
-      "task": "B40"
+      "task": "B20",
+      "delivery_slices": [
+        "S01",
+        "S05"
+      ]
     },
     {
       "id": "F17",
@@ -187,7 +248,10 @@
       "behavior": "本人の文を保った短文化案、原文との差分と理由",
       "boundary": "初期OFF。親確認前の外部公開なし",
       "requirement": "FR06",
-      "task": "B60"
+      "task": "B60",
+      "delivery_slices": [
+        "S24"
+      ]
     },
     {
       "id": "F18",
@@ -198,7 +262,11 @@
       "behavior": "本人の問いを監修済み候補へ対応付け。新しい文章は親向け下書き",
       "boundary": "固定案と比較し有効な時だけON。候補外行動・自動開始なし",
       "requirement": "FR03",
-      "task": "B60"
+      "task": "B60",
+      "delivery_slices": [
+        "S03",
+        "S23"
+      ]
     },
     {
       "id": "F19",
@@ -209,7 +277,11 @@
       "behavior": "体験の流れ、編集時間、問い合わせ対応を把握",
       "boundary": "運営に家族全文を常時公開しない",
       "requirement": "FR11",
-      "task": "B50"
+      "task": "B70",
+      "delivery_slices": [
+        "S01",
+        "S28"
+      ]
     },
     {
       "id": "F20",
@@ -220,7 +292,11 @@
       "behavior": "文字拡大、OSの動き抑制と本人の停止設定",
       "boundary": "設定で権限や安全条件は変わらない",
       "requirement": "UX01",
-      "task": "B10"
+      "task": "B10",
+      "delivery_slices": [
+        "S01",
+        "S28"
+      ]
     },
     {
       "id": "F21",
@@ -231,7 +307,11 @@
       "behavior": "ブラウザーから読みやすい紙面を印刷",
       "boundary": "自動郵送なし。印刷前にも閲覧権限確認",
       "requirement": "FR06",
-      "task": "B40"
+      "task": "B70",
+      "delivery_slices": [
+        "S27"
+      ]
     }
-  ]
+  ],
+  "organization_spec": "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md"
 }

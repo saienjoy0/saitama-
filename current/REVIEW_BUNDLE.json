@@ -1,18 +1,18 @@
 {
-  "version": "0.4.1",
+  "version": "0.5.0",
   "status": "awaiting_user_review",
-  "prepared_date": "2026-09-23",
-  "scope": "Design plus sequential implementation plan; excludes live-family deployment and live-child AI",
+  "prepared_date": "2026-10-07",
+  "scope": "今日の本体機能、28開発単位と既存実装計画の更新。機能別に実装・確認・修正する。",
   "proposed_execution": "native/sequential",
   "files": {
     "docs/design/product-design-v0.1.md": "7b89be9285d0ec50cd6d0903a1ed6b0a81718e8c486d20363ad14c08a8dbd68e",
-    "docs/design/FEATURE_REVIEW.md": "6b15f8d9404d357a35758c6c3c6871bdc2c67c5588bfc23c96a6bdf3a50e3eda",
+    "docs/design/FEATURE_REVIEW.md": "e2ab9a3bde66315098627ed7c9590048f591b12d97fc62248f1cb5519ec1e54a",
     "docs/design/role-experience-v0.3.md": "da6517346e2af835d364f99047cd197484755e0eea476c1555a756d34aa900e6",
     "docs/design/extensibility-v0.3.md": "ea260b796ff0a32727c5a389838886a2d9efdbf1508f9cf72bc18ca7fbb4ce4e",
     "docs/design/ai-harness-design-v0.2.md": "3c1f3c6dd6a40f33e05187f7844a410f77e45a36750b56c0362822c6b1c6f1d4",
-    "docs/design/DECISIONS.md": "b2651d6685e37b9ca61ae67e5dca70331f86b0342bd3fd390d18f76747d843fd",
-    "docs/superpowers/plans/2026-09-23-yattemi-implementation.md": "c2c71b3e84e4d80e991436f1c7db4139c1d1be158f379c8ae663e9854887bf17",
-    "docs/design/FEATURES.json": "ed7aa1237c5516a8590eca9237e3e1e4b78c47befd12d5a1848703fa3ff63013",
+    "docs/design/DECISIONS.md": "db994ad7f8cf9962ef0c64548901726655bd87b75ad0cc0274dd10ee80208bd6",
+    "docs/superpowers/plans/2026-09-23-yattemi-implementation.md": "fa556650524e3f20f6a6d07d29a58280fe1812dc49b28103a607a411613f7b06",
+    "docs/design/FEATURES.json": "fe8c432fa2cf5e379097797207a486bbdb13825482d8cef76868e9fe17c35878",
     "docs/review/index.html": "05a72393af338b3383469ce904b7e3a13f61bbf7b9b43fc99ddbecfb5d24331e",
     "contracts/ai-draft.schema.json": "4f7a1f394a1bef09321d362596445e643e881a84158c827bc264a294eb6c4003",
     "docs/design/personas-cycle-review-v0.4.md": "005333a3c5375712ec8e9e00292a76ca4695ed3e0b82d636535cfe1abbd650aa",
@@ -25,6 +25,16 @@
     "docs/design/ai-engine-review-v0.4.1.md": "f6d6161b0ab1b913f514c546dfdf737257a2924f06e456d8e84eb9281e6cce81",
     "contracts/guided-plan.schema.json": "eb14a707d6e335d53120245c820c2c7e4bb522573373b215e56c4dda9aba7962",
     "docs/workflow/CODEX_PREFLIGHT.md": "93abc77943d542527d648250c04b0528782396b292db64063766f8b7a5d5933f",
-    "current/SKILLS.json": "17c77fea4f27fa9bda5b69d458353e59a1444bc4f2bc2571d32639166f402a34"
+    "current/SKILLS.json": "576dd4264ed9524a62223fd9070d41d780e22e328f90d5a57fe80787a8e60d5f",
+    "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md": "0d1a2f8a513a4ee055792aeba74249d3ce7941b3bc1d61cce1695a78050ae7fb",
+    "docs/design/やってみクエスト_主要導線と表示情報_20261006.md": "a4f09cb8fd969b4eee3af73ec2ea2c076d33bd28f431c12d18d7d1ac3512a210",
+    "docs/design/やってみクエスト_アルバムと家庭のお金・報酬設計_20261006.md": "d29f5eeccbdfb7d0f39b10f27f28bef337fca699f09c645f0cc5cc7acce0d79b",
+    "current/FEATURE_DELIVERY.json": "19a51801c1fd45518bc579b4a9ac01b094a9a78210911cbdc49c66b1b19fef1d",
+    ".agents/skills/user-stories/SKILL.md": "8ce89cd81de5a3df7d504380d18c54cec6c59ccdb7fd18cbcb62b6b6183d0a55",
+    ".agents/skills/user-stories/LICENSE": "a2c922f9b81b4f40347ddfa79c38eda0f1278b5a6d108bd4099b4da254c774ee",
+    ".agents/skills/sprint-plan/SKILL.md": "54ac27165fd7d57fe3f598f1ef66087d03fbf56d9f583adf7608ccaca9ce3382",
+    ".agents/skills/sprint-plan/LICENSE": "a2c922f9b81b4f40347ddfa79c38eda0f1278b5a6d108bd4099b4da254c774ee",
+    ".agents/skills/outcome-roadmap/SKILL.md": "3d2da8f82f4cbe4c8d06593765e2fbb94913676e9a65663b7da9e53c9a0082c8",
+    ".agents/skills/outcome-roadmap/LICENSE": "a2c922f9b81b4f40347ddfa79c38eda0f1278b5a6d108bd4099b4da254c774ee"
   }
 }

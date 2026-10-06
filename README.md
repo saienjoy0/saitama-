@@ -46,3 +46,7 @@ GAKU∞STAの応募・事業化検討では、CURRENTと資料一覧が指す現
 
 2026-10-02のGitHub metadataでは **Public** です。旧READMEのPrivate記載を訂正しました。
 原資料の個人情報監査は未実施。実回答・連絡先・児童記録は保存しません。
+
+## 今日の本体機能と次の実装
+
+[機能全体と実装順 v5](docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md)から、機能の区分・依存・一件ずつの完成条件を確認できます。[既存の実装計画](docs/superpowers/plans/2026-09-23-yattemi-implementation.md)を更新済みです。S01〜S28は開発単位、B10〜B70は既存計画の区分。PMのuser-stories・sprint-plan・outcome-roadmapをプロジェクト内に収録しました。

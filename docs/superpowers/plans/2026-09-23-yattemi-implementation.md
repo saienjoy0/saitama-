@@ -1,418 +1,292 @@
-# Yattemi Quest Implementation Plan v0.4.1
+# Yattemi Quest Feature Implementation Plan 2026-10-07
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Native/sequential execution is the proposed default for this handoff. Use superpowers:subagent-driven-development only if the user selects delegation. Steps use checkbox syntax.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task, native/sequential. Each S-number is one development-and-review unit. Do not complete an entire B-group before reviewing its individual features.
 
-## 最小修正 v0.4.1
+**Goal:** 今日整理した本体機能を一機能ずつ実装し、本人の選択、簡単な記録、家族の新聞、お金と報酬、次に任せる範囲へつなぐ。
 
-必読：`docs/design/ai-engine-review-v0.4.1.md` と `docs/workflow/CODEX_PREFLIGHT.md`。既存のv0.4追補を各Taskに移した。該当箇所は古い手順より優先。共同レビュー・DESIGN段階を維持する。
+**Architecture:** React/TypeScriptの機能別UIはdomain型と用途別Portへ依存し、FastAPI・PostgreSQLで家族と権限、保存と履歴を扱う。教材・表示・入力・AI・保存先を分離する。合成fixtureは検査の入力として使い、機能ごとの実装を保存まで確認する。
 
-Task番号1〜7とB10〜B70は対応する。`task-start`には数値、状態ファイルにはB番号を使う。固定版の順番は1→2→3→4→5→7、AIを含める場合のみ5→6→7。setupでは共通制約とSpecも読む。必要スキルの導入・worktree・最終レビューと進捗保持はCODEX_PREFLIGHTに従う。
+**Tech Stack:** 既存設計のReact19／TypeScript5／Vite8、Node22.12以上の22系または24系、Vitest／Testing Library／Playwright、Python3.12／FastAPI／SQLAlchemy2／Alembic／PostgreSQL16を引き継ぐ。実装時に対応する具体版を解決しlockへ固定する。
 
-**Goal:** 子の問い・選択・体験・記録→任意共有と親確認→家族の任意返信→本人が選ぶ次の体験がつながるWeb製品を、合成D0から安全なM1へ実装する。新聞は任意のまとめ方。
+**Spec:** `docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md` v5を今回の範囲と実装順の入口にする。詳細は同フォルダの主要導線v2・アルバムと家庭のお金／報酬v1、既存の役割・権限・AI契約を参照する。
 
-**Architecture:** React/TypeScriptの役割別画面は共通のdomain型とportに依存する。D0はメモリadapter、M1は認証済みFastAPI adapterに切り替える。教材、見た目、AI、保存先を分離し、認可と共有の意味は共通に保つ。
+## 既存計画から変えたこと
 
-**Tech Stack:** Node22.12以上の22系または24系、React19、Vite8、TypeScript5、Vitest、Testing Library、Playwright、Python3.12、FastAPI、SQLAlchemy2、Alembic、PostgreSQL16。CSSの動きを第一選択にする。
+旧B10〜B70のIDとTask番号1〜7は引継ぎのために残す。各Bは管理上の区分で、その中のS番号一つを実装・確認・修正してから次のS番号へ進む。今日の整理を優先し、最初から全導線のデモを完成させることを開発単位にしない。
 
-**Spec:** `docs/design/FEATURE_REVIEW.md`, `role-experience-v0.3.md`, `extensibility-v0.3.md`, `ai-harness-design-v0.2.md`（すべてdocs/design内）。製品の基礎はproduct-design-v0.1.md。詳細が違う場合は各Task内の追補とai-engine-review-v0.4.1／personas-cycle-review-v0.4／ai-action-assistance-v0.4を優先する。
+今回の作業は設計・実装計画の整理。製品コードや実行結果を作成した扱いにはしない。現在の状態と実際の実装着手はPROJECT_STATEで管理する。
 
 ## Global Constraints
 
-- 現在は設計・計画のレビュー待ち。下のコードは実装時に書く仕様例で、実行済みコードではない。
-- D0は合成データのみ、再読込でリセットされるデモであることを常に表示する。M1の保存・認可と同一視しない。
-- ogenkiは機能参照。既存コード・DB・稼働環境は変更しない。
-- 子ども・親本文16px以上、祖父母20px以上、タッチ48px以上、祖父母主操作56px以上。
-- 動きはM01〜M07。OSまたは本人の動き抑制設定で装飾を止め、成功演出は保存ACK後だけ。
-- 実家庭への公開、外部AIへの児童情報送信、決済、外部通知、既存DB移行はこの開始指示に含めない。
-- AIは初期OFF。AI評価・提供元契約とデータ条件を満たす前にONにしない。
-- exact dependency versionsはB10初回に上記範囲内で解決しlockへ保存。以降npm ci／uv sync --frozen。依存のインストール自体が拒否されたら抜け道を探さず不足を報告する。
+- 各変更にoperationIdとexpectedRevisionを持たせ、保存・公開・ポイント・受取を二重に確定しない。
+- 公開対象は本文・素材・相手・版に結び付け、変更や撤回の後に古い承認で公開しない。
+- 円、ポイントP、練習円と、見込み・約束・予約・消費・受取を区別する。
+- 本人の原文と認識・整理・生成文を区別し、本人が話していない理解や理由を補わない。
+- 祖父母の参加・毎日操作・返信を子の体験の必須条件にしない。
+- 子ども・親の本文16px以上、祖父母20px以上、タッチ48px以上、祖父母主操作56px以上を既存設計から引き継ぐ。
+- 実家庭データ、公開、決済、外部通知、ライブAIの条件は既存の実運用の境界に従う。ローカル検査には合成入力を使う。
+- 日数とstory pointは未推定。機能の完成条件と依存から順番を決め、実作業の結果で範囲を調整する。
 
 ## Review Focus
 
-1. 通信後に遅れて届く結果：取消済み・撤回済みの状態を成功へ戻さない（B20/B40）。
-2. 共有端末の親子切替：親の内容や承認権限を子セッションへ持ち越さない（B30）。
-3. 教材の版変更：途中の回答と過去カードを別の問題へ紐付け直さない（B10/B50）。
-4. 祖父母が複数家庭にいる：新聞・既読・近況を家庭間で混ぜない（B30/B40）。
-5. 動き抑制・200%文字・二重タップ：情報や操作が欠けず、保存／送信回数が増えない（B10/B20/B70）。
-
-## 開始条件と実行順
-
-レビュー入口は `docs/review/index.html` とFEATURE_REVIEW。ユーザーが一式をレビューし「実装を始めて」と指示した場合、提示済みの一式への承認と、この計画のnative/sequential実行の選択として記録する（今回のユーザー指定による一括レビュー方式）。指示が修正やレビュー継続だけなら承認済みにしない。
-
-開始時に `current/REVIEW_BUNDLE.json` のファイルhashを照合し、承認対象が別の版に変わっていないか確認。実際のユーザー発言・対象hash・実行方式をstateへ記録し、BUILD/B10へ進む。新たに同じ計画を書く工程は不要。
-
-B10→B20でD0完成。D0の表示確認を報告してからB30→B40→B50でM1のローカル検証版、B70で統合検査。B60のAI追加は任意分岐で、固定版M1の完成を妨げない。実家庭PILOTは別承認。
-
-## 共通インターフェース
-
-`apps/web/src/ports/QuestPort.ts` で下記の契約を定義する。IDはopaque string、revisionは正整数、日時はUTC ISO文字列、金額は整数円。HTTP adapterの権限はsession由来で、UIからactorを送って権限を決めない。
-
-```ts
-export type Role = 'child' | 'parent' | 'grandparent';
-export type Step = {id:string; kind:'predict'|'compare'|'choose'|'reflect'; prompt:string; hints:string[]};
-export type Template = {id:string; version:number; title:string; band:string; steps:Step[]};
-export type Experience = {id:string; templateId:string; templateVersion:number; revision:number; status:'active'|'paused'|'declined'|'completed'; answers:Record<string,string>};
-export type Card = {id:string; revision:number; text:string; childChoice:'yes'|'no'; recipients:string[]; status:'draft'|'review'|'published'|'revoked'};
-export type Operation = {operationId:string; expectedRevision:number};
-export interface QuestPort {
-  templates(): Promise<Template[]>;
-  start(templateId:string, version:number): Promise<Experience>;
-  saveExperience(value:Experience, op:Operation): Promise<Experience>;
-  saveCard(value:Card, op:Operation): Promise<Card>;
-  publishCard(id:string, recipients:string[], op:Operation): Promise<Card>;
-  revokeCard(id:string, op:Operation): Promise<Card>;
-  listCards(): Promise<Card[]>;
-  getCard(id:string): Promise<Card>;
-  createSeed(cardId:string, text:string, operationId:string): Promise<{id:string;status:'candidate'}>;
-  draftNewspaper(materials:{cardId:string;revision:number}[], recipients:string[], operationId:string): Promise<{id:string;revision:number;status:'draft'}>;
-  publishNewspaper(id:string, op:Operation): Promise<{id:string;revision:number;status:'published'}>;
-  reply(cardId:string, text:string, operationId:string): Promise<{id:string}>;
-  checkin(recipients:string[], operationId:string): Promise<{id:string;receivedAt:string}>;
-}
-```
-
-API側は同じフィールドをPydanticで定義する。error bodyは `{code, message, request_id}`。401未認証、404対象なし／非許可、409版競合、422入力不正、429上限。例外メッセージに他人のID・内容を含めない。
-
-### Task 1: B10 — 三役の入口・共通デザイン・交換できる体験
-
-#### v0.4追補（このTaskの必須範囲）
-
-Create `apps/web/src/design/components/ChoiceGroup.tsx`, `ArtifactStatus.tsx`, `SourceLabel.tsx`, `SuggestionPanel.tsx`, `apps/web/src/features/experience/ExploreHome.tsx`, `CompareChoices.tsx`, `compare.ts`, `compare.test.ts`, `apps/web/src/design/components/role-variants.test.tsx`。
-
-- [ ] C01を水／店／家の仕事の探索と「これ、なんで？」の入口にする。C02は予想を先に残し、比較軸と候補を自分で変えられる。選択入力と主ボタンを分け、何も選ばない／今回は買わない／後でを残す。
-- [ ] `remainingYen(budget:number, price:number):number`と`yenPer100ml(price:number, ml:number):number`のテストを先に書く。300-180=120、300-260=40、180/200*100=90、260/400*100=65、ml<=0は拒否。例の価格は合成と表示する。計算関数は候補を勝手に選ばない。
-- [ ] `npm test -- compare.test.ts role-variants.test.tsx`を実行し未実装を確認。共通トークン→role variant→部品に分けて実装し再実行。ChoiceGroupはキーボードとタップで同じ選択が可能、ドラッグだけに依存しない。
-- [ ] UX41/UX45の表示と操作をPlaywrightで検査。ヒントは閉じた状態から任意に使え、減らしても呼び戻せる。発見の記録以外で保存成功演出を使わない。実利用者の楽しさはこのテストから断定しない。
-
-
-**Files:** Create `apps/web/package.json`, `vite.config.ts`, `tsconfig.json`, `index.html`, `src/main.tsx`, `src/App.tsx`, `src/ports/QuestPort.ts`, `src/adapters/demo/MemoryQuestPort.ts`, `src/design/tokens.css`, `src/design/motion.ts`, `src/design/motion.css`, `src/features/experience/ExperienceFlow.tsx`, `src/features/experience/flow.ts`, `src/features/family/RoleHome.tsx`, `content/templates/water-v1.json`, `content/templates/shopping-v1.json`, `content/manifest.json`.
-
-**Test:** `apps/web/src/features/experience/flow.test.ts`, `ExperienceFlow.test.tsx`, `src/design/motion.test.ts`, `tests/e2e/d0-entry.spec.ts`.
-
-**Interfaces:** Consumes Step/Template/Experience/QuestPort above. Produces `nextStep(template:Template, currentId:string):Step|null`, `motionDuration(event:'step'|'save'|'complete', osReduce:boolean, userReduce:boolean):number`, `MemoryQuestPort` implementing QuestPort; sharing methods become functional in B20, and before that explicitly reject with `not_available_in_this_slice`.
-
-- [ ] Prepare the workspace and dependency lock as part of this slice; do not scaffold into the repository root or overwrite docs.
-
-```sh
-node --version
-npm create vite@8 apps/web -- --template react-ts --no-interactive
-cd apps/web
-npm install
-npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom @playwright/test
-```
-
-Pin the resolved dependencies in package-lock.json. Set scripts `test: vitest run`, `typecheck: tsc -b`, `build: tsc -b && vite build`, `test:e2e: playwright test`. Add the JSX test environment setup importing jest-dom/vitest. Keep the generated ESLint config and run lint in B70.
-
-- [ ] Write the failing test with a concrete second template. `water` and `shopping` fixtures must each define the four Step kinds above.
-
-```ts
-import {expect, it} from 'vitest';
-import {motionDuration} from '../../design/motion';
-import {nextStep} from './flow';
-const t = {id:'shopping',version:1,title:'予算で選ぶ',band:'grade4-6',steps:[
- {id:'p',kind:'predict' as const,prompt:'何を選ぶ？',hints:[]},
- {id:'c',kind:'compare' as const,prompt:'比べる軸は？',hints:[]}
-]};
-it('uses template steps, not water-specific routes', () => {
- expect(nextStep(t,'p')?.id).toBe('c');
- expect(nextStep(t,'c')).toBeNull();
-});
-it('respects either reduced-motion preference', () => {
- expect(motionDuration('save',true,false)).toBe(0);
- expect(motionDuration('save',false,true)).toBe(0);
- expect(motionDuration('save',false,false)).toBe(260);
-});
-```
-
-- [ ] Run `npm test -- flow.test.ts motion.test.ts`; expect missing-module failures before implementation, not dependency or syntax failures.
-- [ ] Implement the pure rules and compose screens C01/C02/P01/G01 against the demo port. Supply a visible demo banner, no network calls, and theme choices from manifest rather than route branching.
-
-```ts
-export function nextStep(t:Template, id:string):Step|null {
- const index=t.steps.findIndex(s=>s.id===id);
- if(index<0) throw new Error('unknown_step');
- return t.steps[index+1] ?? null;
-}
-export function motionDuration(e:'step'|'save'|'complete',os:boolean,user:boolean):number {
- return os||user ? 0 : {step:180,save:260,complete:420}[e];
-}
-```
+1. S01/S07/S08：共有端末の親子切替、別家庭、変更後の承認で範囲が漏れないこと。
+2. S04/S05/S06：音声誤認識・通信失敗・再開で原文と入力を失わず、未保存を成功扱いしないこと。
+3. S09/S10/S11：新着なし・返信なし・祖父母不参加でも、それぞれの用事が成立すること。
+4. S15/S17/S19：同時操作・取消・提供不可・ルール変更で二重付与、二重消費、未受取の先行計上をしないこと。
+5. S18/S23/S24：記録不足・AI失敗・原文変更で能力認定や本人への未確認文章の表示へ進まないこと。
 
-- [ ] React test: choose shopping, enter a prediction, pause, reopen the same Experience in the same demo session and see the original text. Choose another template and confirm the first Experience retains its templateVersion. Test unknown template version as visible non-destructive error.
-- [ ] Playwright: 360px layout, OS reduced motion, keyboard focus after Next, 200% text, and “あとで” returns to home without penalty. Navigation buttons must all work or be explicitly absent from this slice.
-- [ ] Run test/typecheck/build. Record actual commands and errors. Commit only this slice's files with `feat: add role homes and versioned experience flow`.
+## 全機能に共通の進め方
 
-### Task 2: B20 — 合成データでカード→親確認→新聞→任意の返信を一周
+各S番号で、仕様の完成条件に対応する状態・計算・権限・接続を確認する。重要な動作には失敗するテスト→最小実装→テスト・型・build→対象機能の操作確認→commitの順を使う。見た目だけの低影響な変更には実装を写すだけのテストを増やさない。
 
-#### v0.4追補（このTaskの必須範囲）
+通常の確認：Webは`npm test -- <対象テスト>`、`npm run typecheck`、`npm run build`。APIは`uv run pytest <対象テスト> -q`。関連機能の接続時に`npm run test:e2e -- <対象spec>`を実行し、実際に行った結果を記録する。scriptとlockはB10で用意する。
 
-Create `apps/web/src/features/experience/QuestionCapture.tsx`, `apps/web/src/features/family/ReplyToSeed.tsx`, `apps/web/src/features/experience/FixedNextActions.tsx`, `apps/api/app/modules/experience/questions.py`, `question_routes.py`, `apps/api/tests/test_question_cycle.py`。Extend QuestPort with `saveQuestion`, `createSeed`, `listEligibleActions`; HTTP endpoints `POST /questions`, `GET /questions/{id}/actions`。D0はmemory adapter、M1は同一契約のサーバー認可。
+## 対象外にせず、後の機能として残すもの
 
-Questionはid, family_id, child_id, revision, original_text, focus_id, source_reply_ref|null, status。Seedはsource_question_id, source_reply_revision|null, child_selected_action_id|null, resulting_experience_id|null。送信用projectionとparent_reviewed_projection_revisionを原文から分離する。子の焦点変更・元返信撤回で派生候補を失効させる。
+S20銀行、S21借入、S22銘柄・利回り、S25歩数、S26日記、S27印刷は全体の枠と依存に残す。着手する時に当該機能だけの入力・保存・例と検査を具体化し、現在の機能へ一括で詰め込まない。実装の開始条件に、これら全ての細部を確定することを加えない。
 
-- [ ] 初回でexperienceなしの問いを作り、固定候補を選んで体験を開始するテストを先に書く。
-- [ ] 返信→本人の焦点→たね→次の体験記録を追跡するE2Eを追加。「読んだ」「候補を選んだ」だけでは家族循環成立イベントを発行しない。
-- [ ] 子が共有しなければ祖父母へ採用結果を表示しない。本人が新しいカードを共有した時だけ既存の親確認で届く。祖父母不参加／返信なしでも体験単体を完了できる。
-- [ ] 新聞は任意の表示・まとめ方とし、家族が毎回編集して発行することを一周の必要条件にしない。
-- [ ] `uv run pytest tests/test_question_cycle.py -q`とD0/M1家族循環E2Eを各工程で実行する。実装前は未実装による失敗、実装後に実経路での成功を記録する。
+### Task 1: B10 — 共通基盤と体験
 
+**Files:** `apps/web/package.json`、`apps/web/src/main.tsx`、`apps/web/src/App.tsx`、`apps/web/src/design/tokens.css`、`apps/web/src/design/components/RoleHome.tsx`、`apps/web/src/ports/ExperiencePort.ts`、`apps/web/src/features/experience/ConditionsCard.tsx`、`apps/web/src/features/experience/CompareChoices.tsx`、`apps/web/src/features/experience/FixedHelp.tsx`、`apps/api/pyproject.toml`、`apps/api/app/main.py`、`apps/api/app/db.py`、`apps/api/app/modules/identity/models.py`、`apps/api/app/modules/identity/session.py`、`apps/api/app/modules/identity/oidc.py`、`apps/api/app/modules/identity/routes.py`、`apps/api/app/modules/family/models.py`、`apps/api/app/modules/experience/models.py`、`apps/api/app/modules/experience/routes.py`、`compose.yaml`、`content/templates/shopping-v1.json`
 
-**Files:** Modify MemoryQuestPort. Create `src/features/sharing/approval.ts`, `CardEditor.tsx`, `ReviewInbox.tsx`, `Newspaper.tsx`, `ReplyForm.tsx`, `src/features/family/Checkin.tsx`, `src/adapters/demo/fixtures.ts`.
+**Interfaces:** FamilyAccessはfamilyId・memberId・role・managedChildIdsをサーバー側で決める。Experienceは目的・条件・templateId/version・revision・statusを持つ。saveExperience／pauseExperience／resumeExperienceは保存結果を返す。UIがroleを送って権限を決めない。
 
-**Test:** `src/features/sharing/approval.test.ts`, `src/adapters/demo/MemoryQuestPort.test.ts`, `tests/e2e/d0-family-loop.spec.ts`.
+**Test:** family-access.test.ts／conditions.test.ts／test_tenant.py。対象Sの完成条件を対応付ける。
 
-**Interfaces:** Consumes Card/Operation/QuestPort. Produces `mayPublish(card:Card, reviewedRevision:number, reviewedRecipients:string[]):boolean`. Demo save/publish return Promise<Card> and can be configured to reject once with `network_unavailable`; this is not a real security implementation.
+#### S01 家族・役割・保存・共通の入口
 
-- [ ] Write failing tests before completing publishing.
+- [ ] 対象仕様と前提：なしを確認し、家族と役割、本人と親の閲覧範囲、再開、文字拡大、通常・空・失敗の表示をそろえる。
+- [ ] 次の完成条件を対象機能で確認する：家族と役割を切り替えても別家庭・親の情報を子へ返さない。／保存が失敗した時は未保存と表示し、再開しても入力を失わない。／文字拡大・音声以外の入力・戻る操作から同じ用事を続けられる。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-```ts
-import {it,expect} from 'vitest';
-import {mayPublish} from './approval';
-const card={id:'c1',revision:2,text:'予想と違った',childChoice:'yes' as const,recipients:['g1'],status:'review' as const};
-it('invalidates stale approval and child refusal',()=>{
- expect(mayPublish(card,1,['g1'])).toBe(false);
- expect(mayPublish({...card,childChoice:'no'},2,['g1'])).toBe(false);
- expect(mayPublish(card,2,['g2'])).toBe(false);
- expect(mayPublish(card,2,['g1'])).toBe(true);
-});
-```
+#### S02 今回の用事・目的・条件
 
-- [ ] Run `npm test -- approval.test.ts`; expect missing export first.
-- [ ] Implement the invariant and route each screen through port results. Every substantive edit increments revision and returns to review. Choice=no is saved privately and cannot enter the parent publish list.
+- [ ] 対象仕様と前提：S01を確認し、夕飯の買い物を代表場面に、料理・人数・予算等を親子で決め、条件を保存する。
+- [ ] 次の完成条件を対象機能で確認する：親子が決めた条件を表示し、変更・中断・再開できる。／買わない、待つ、別の用事にする選択を残す。／条件を決めることと、実際に使った額を記録することを分ける。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-```ts
-export function mayPublish(c:Card,v:number,recipients:string[]):boolean {
- const normalized=(xs:string[])=>JSON.stringify([...new Set(xs)].sort());
- return c.childChoice==='yes' && c.status==='review' && c.revision===v
-   && normalized(c.recipients)===normalized(recipients) && recipients.length>0;
-}
-```
+#### S03 比較・相談・必要時の支援
 
-- [ ] Test double submit with same operationId returns the same result; different payload with reused key returns conflict. Test save rejection keeps typed text and does not play M03/M04. Cancelled component ignores late resolution. Demo role switch retains demo objects but never claims real identity.
-- [ ] Implement the flow C03→P02→P04→G02→G03→C04; parent can combine up to6 approved cards, empty issue cannot publish. “元気だよ” records only a synthetic sender/time after simulated ACK. Shared absence does not block Experience completion.
-- [ ] E2E one happy loop and three alternate paths: no grandparent, child declines sharing, failed checkin. All displayed saves must say simulation in the demo shell. Add simple in-memory photo illustration; real upload belongs to B40.
-- [ ] Run test/typecheck/build/test:e2e. Commit `feat: complete synthetic family sharing loop`. Report D0 as demo, with screenshots and limitations. Do not publicly deploy D0 as M1.
+- [ ] 対象仕様と前提：S02を確認し、今買う・待つ・別の商品や店を見る等の選択肢を比べ、困った時だけ計算・知識・手順の助けを開く。
+- [ ] 次の完成条件を対象機能で確認する：本人が比べる条件と選択を変えられ、支援を閉じて自分で続けられる。／買うことや一番安い商品を自動で正解にしない。／AIなしの固定の説明で用事を続けられる。商品検索・価格連携は別の拡張として扱う。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-### Task 3: B30 — 本人認証・家庭境界・保存を備えるM1土台
+B10のS01でworkspace・API起動・DB migration・session検査・Webのscriptと依存lockを用意する。役割切替fixtureはテスト用途とし、M1の認可はserver session由来。S02以後は保存済みの条件と本人の選択を使う。
 
-#### v0.4追補（このTaskの必須範囲）
+### Task 2: B20 — 記録・アルバム・共有確認
 
-Create `apps/web/src/features/experience/QuestionCapture.tsx`, `apps/web/src/features/family/ReplyToSeed.tsx`, `apps/web/src/features/experience/FixedNextActions.tsx`, `apps/api/app/modules/experience/questions.py`, `question_routes.py`, `apps/api/tests/test_question_cycle.py`。Extend QuestPort with `saveQuestion`, `createSeed`, `listEligibleActions`; HTTP endpoints `POST /questions`, `GET /questions/{id}/actions`。D0はmemory adapter、M1は同一契約のサーバー認可。
+**Files:** `apps/web/src/ports/RecordPort.ts`、`apps/web/src/ports/SharingPort.ts`、`apps/web/src/features/records/RecordCard.tsx`、`apps/web/src/features/records/VoiceInput.tsx`、`apps/web/src/features/records/PhotoAttachment.tsx`、`apps/web/src/features/records/Album.tsx`、`apps/web/src/features/sharing/ShareChoice.tsx`、`apps/web/src/features/sharing/ReviewInbox.tsx`、`apps/api/app/modules/records/models.py`、`apps/api/app/modules/records/routes.py`、`apps/api/app/modules/sharing/service.py`、`apps/api/app/modules/sharing/routes.py`、`apps/api/app/modules/media/service.py`
 
-Questionはid, family_id, child_id, revision, original_text, focus_id, source_reply_ref|null, status。Seedはsource_question_id, source_reply_revision|null, child_selected_action_id|null, resulting_experience_id|null。送信用projectionとparent_reviewed_projection_revisionを原文から分離する。子の焦点変更・元返信撤回で派生候補を失効させる。
+**Interfaces:** EventRecordはid・authorId・eventDate・revision・originalText・mediaIds・experienceIdを持つ。RecordPort.saveRecord/getRecord/listRecordsとSharingPort.requestShare/reviewShare/revokeShareを分ける。音声入力は文字の候補を返し、本人が確認してからsaveRecordへ渡す。
 
-- [ ] 初回でexperienceなしの問いを作り、固定候補を選んで体験を開始するテストを先に書く。
-- [ ] 返信→本人の焦点→たね→次の体験記録を追跡するE2Eを追加。「読んだ」「候補を選んだ」だけでは家族循環成立イベントを発行しない。
-- [ ] 子が共有しなければ祖父母へ採用結果を表示しない。本人が新しいカードを共有した時だけ既存の親確認で届く。祖父母不参加／返信なしでも体験単体を完了できる。
-- [ ] 新聞は任意の表示・まとめ方とし、家族が毎回編集して発行することを一周の必要条件にしない。
-- [ ] `uv run pytest tests/test_question_cycle.py -q`とD0/M1家族循環E2Eを各工程で実行する。実装前は未実装による失敗、実装後に実経路での成功を記録する。
+**Test:** record-card.test.tsx／sharing.test.ts／test_record_sharing.py。対象Sの完成条件を対応付ける。
 
+#### S04 一言・音声の記録カード
 
-**Files:** Create `apps/api/pyproject.toml`, `uv.lock`, `app/main.py`, `app/settings.py`, `app/db.py`, `app/modules/identity/models.py`, `schemas.py`, `session.py`, `oidc.py`, `routes.py`, `app/modules/experience/models.py`, `service.py`, `routes.py`, `app/modules/sharing/models.py`, `service.py`, `routes.py`, `app/modules/family/models.py`, `service.py`, `routes.py`, `app/errors.py`, `migrations/versions/0001_family.py`, `compose.yaml`, `apps/web/src/adapters/http/HttpQuestPort.ts`.
+- [ ] 対象仕様と前提：S02を確認し、話すか短く書き、同じカードで本人の言葉を確認・修正して残す。共有希望も同じカードから選べる。
+- [ ] 次の完成条件を対象機能で確認する：音声の認識結果を本人が直してから保存し、使えない時は文字に切り替えられる。／話していない理由・理解・感情を補って本人の言葉にしない。／保存済み・未保存を区別し、共有しなくてもここで終われる。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-**Test:** `apps/api/tests/conftest.py`, `test_identity.py`, `test_tenant.py`, `test_experience.py`, `test_sharing.py`, `tests/e2e/m1-mode.spec.ts`.
+#### S05 写真を付ける
 
-**Interfaces:** `create_app(settings:Settings)->FastAPI`; `current_actor(request:Request)->Actor` from opaque session cookie; `require_membership(actor:Actor,family_id:UUID)->Membership`; `authorize_child(actor:Actor,child_id:UUID)->ChildProfile`. Actor is `{identity_id, membership_id, role, family_id}` derived server-side. Pydantic uses camelCase aliases for the front-end contract. HttpQuestPort maps to endpoints below and never sends role/actor assertions.
+- [ ] 対象仕様と前提：S04を確認し、同じ出来事へ写真を追加・差し替え・削除する。
+- [ ] 次の完成条件を対象機能で確認する：写真なしでも記録を保存できる。／許可された人だけが写真を取得でき、撤回した素材を再取得できない。／アップロード失敗を保存成功と表示しない。位置情報とサイズは既存画像仕様に従う。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-| Method/path | Contract | Authorized party |
-|---|---|---|
-| GET /templates | published Template[] | active family member |
-| POST /children/{id}/experiences | templateId,version→Experience | child or linked guardian |
-| PATCH /experiences/{id} | answers,status,expectedRevision,operationId | same child scope |
-| GET/POST /cards | permitted Card[] / draft Card | owner/linked guardian |
-| GET /cards/{id} | current permitted Card | owner/linked guardian/current recipient; otherwise404 |
-| PATCH /cards/{id} | text,childChoice,recipients,expectedRevision,operationId | author edits own text/choice; guardian edits draft text, never overrides child refusal |
-| POST /cards/{id}/publish | recipients,expectedRevision,operationId | guardian with child consent, or adult's own card |
-| POST /cards/{id}/revoke | expectedRevision,operationId | subject/linked guardian |
-| POST /cards/{id}/replies | text,operationId | current recipient |
-| POST /checkins | recipients,operationId | authenticated adult sender |
-| POST /seeds | cardId,text,operationId→id,status=candidate | permitted card reader, not executable curriculum |
+#### S06 アルバム・過去の出来事
 
-Identity routes: GET `/auth/login`→OIDC redirect, GET `/auth/callback`→opaque adult session, POST `/auth/logout`→204, POST `/families`→family ID, POST `/families/{id}/invitations`→one-time token, POST `/invitations/accept` with token→membership, POST `/session/family` with familyId→session rotated, POST `/session/child` with childId→restricted child session, POST `/session/parent`→fresh OIDC reauthentication/elevation. All mutations require CSRF; family/child changes require existing membership/GuardianLink. Client-selected family is only a request, not proof of membership.
+- [ ] 対象仕様と前提：S04を確認し、日付・本人・写真または一言から開き、当時の選択と後日の追記を見返す。
+- [ ] 次の完成条件を対象機能で確認する：保存した一件を再入力せず一覧と詳細で読める。／原文・後日の追記・家族の言葉の出所を区別する。／私的な予算・支援履歴を、家族向けの表示へ自動で含めない。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-Card approval must bind child-selected material revision and recipients, not just retain an old boolean. If parent changes the meaning, photo or audience after the child's selection, mark child consent pending and require a fresh child selection before publishing; parent approval is also invalidated. The server enforces the same material snapshot semantics for newspaper publication. Test that a parent cannot PATCH childChoice from no→yes or copy approval onto a new revision.
+#### S07 見せる内容・相手の選択
 
-- [ ] Create `uv` project dependencies FastAPI, uvicorn, SQLAlchemy2, psycopg, Alembic, authlib, httpx, pydantic-settings, pytest. Resolve and lock versions. Compose Postgres16 binds localhost only. Create a test database; destructive tests refuse any non-test DB name.
-- [ ] Conftest produces TestClient and a `world` fixture with child_a, guardian_a, grandparent_ab, unrelated_parent, card_a, family_a, family_b. Authenticated test clients are named world.child_a/client etc via dependency override only in test construction; test override code is not exported by production app.
-- [ ] Write these failing endpoint tests; fixture values are UUIDs and property `.client` is a TestClient with the appropriate test session.
+- [ ] 対象仕様と前提：S04・S01を確認し、本文・写真・相手を選び、保存と公開を分ける。
+- [ ] 次の完成条件を対象機能で確認する：共有の初期値は未選択で、見せない選択から終われる。／実際に送る文章と相手の名前を表示する。／変更・撤回に合わせて公開範囲を更新する。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-```python
-def test_other_family_hidden(world):
-    response = world.unrelated_parent.client.get(f'/cards/{world.card_a.id}')
-    assert response.status_code == 404
+#### S08 親の確認トレイ・一押し承認
 
-def test_child_cannot_publish(world):
-    response = world.child_a.client.post(f'/cards/{world.card_a.id}/publish', json={
-        'recipients':[str(world.grandparent_ab.id)], 'expectedRevision':1, 'operationId':'p1'})
-    assert response.status_code == 404
+- [ ] 対象仕様と前提：S07を確認し、内容・原文・相手を一枚にそろえ、承認・変更・保留を選ぶ。交換や任せ方の提案も同じ確認の入口へ置く。
+- [ ] 次の完成条件を対象機能で確認する：何を誰に送るか見える状態で、一押しで確定できる。／内容や相手を変更したら、古い共有意思と承認を使わない。／日付・宛先候補・下書きの準備を自動化し、同じ確認を重ねない。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-def test_session_actor_not_taken_from_json(world):
-    response = world.child_a.client.post('/checkins',json={
-        'sender_id':str(world.guardian_a.id),'recipients':[], 'operationId':'c1'})
-    assert response.status_code in (404,422)
-```
+### Task 3: B30 — 家族新聞・本人の近況・返信
 
-- [ ] Run `uv run pytest tests/test_tenant.py -q` in apps/api and observe actual failures. Implement migrations with family_id in every family-owned row, foreign keys constrained to same family, GuardianLink for each child, unique operation key plus payload digest, and expectedRevision optimistic concurrency.
-- [ ] Implement Google OIDC adult login using authlib, code flow+PKCE and discovery from allowlisted issuer. Validate state/nonce/signature/issuer/audience/expiry, store only server session token hash. Cookie HttpOnly/Secure/SameSite=Lax, CSRF token+Origin check for mutation, logout invalidates session. Reauthentication to parent mode uses a separate short-lived guardian elevation marker. Membership uses provider issuer+sub, not email matching. No password system.
-- [ ] Integration tests use mock OIDC/JWKS and cover wrong state, nonce, audience, expired tokens, unknown issuer and key rotation. Production rejects mock issuer and demo mode; local synthetic OIDC is an explicit test-only setting. Child session cannot access adult role through URL/localStorage/header manipulation. Invitations: hash token, single-use, 7-day default, revocation and rate-limit20 attempts/identity/hour; expired/replayed tokens fail without membership creation.
-- [ ] Implement APIs using select+authorize+revision validation in one transaction. The key invariant is checked server-side even if UI already checked:
+**Files:** `apps/web/src/ports/FamilyFeedPort.ts`、`apps/web/src/features/family/Newspaper.tsx`、`apps/web/src/features/family/CheckinCard.tsx`、`apps/web/src/features/family/ReplyForm.tsx`、`apps/web/src/features/experience/ReplyToSeed.tsx`、`apps/api/app/modules/family/feed.py`、`apps/api/app/modules/family/checkins.py`、`apps/api/app/modules/family/replies.py`、`apps/api/app/modules/experience/seeds.py`
 
-```python
-def guard_family(actor, record):
-    if actor.family_id != record.family_id:
-        raise HiddenResource()
+**Interfaces:** FamilyFeedPort.listFeed(date,author)は現在許可された記録だけを返す。postCheckin(text,recipients,operationId)、reply(recordId,text,operationId)、createSeed(sourceReplyRef,childFocus,operationId)は出所と版を保つ。成人自身の投稿と子素材の共有を分ける。
 
-def guard_revision(record, expected_revision):
-    if record.revision != expected_revision:
-        raise VersionConflict()
-```
+**Test:** family-feed.test.tsx／test_family_feed.py。対象Sの完成条件を対応付ける。
 
-HiddenResource maps to404 and VersionConflict to409 in app/errors.py; child-specific GuardianLink and recipient checks are additional mandatory service checks, not replaced by these two helpers.
-- [ ] Port contract tests run against MemoryQuestPort and HttpQuestPort with matching state semantics. Real persistence reload test, atomic double publish, family switching invalidates stale frontend query data. Run `uv run pytest -q`, Alembic upgrade on empty DB, web test/typecheck/build. Commit `feat: add authenticated family persistence`.
+#### S09 家族新聞・日付別の閲覧
 
-### Task 4: B40 — 非公開画像・新聞・撤回・削除
+- [ ] 対象仕様と前提：S08・S06を確認し、公開された出来事を最新・日付別で読み、過去へ戻る。号の発行は任意のまとめ方にする。
+- [ ] 次の完成条件を対象機能で確認する：同じ許可済み記録を新聞とアルバムで使う。／毎日、親が編集して発行しなくても読める。／新着がない時も過去を読め、撤回した素材は表示しない。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-**Files:** Create `app/modules/sharing/media.py`, `newspaper.py`, `lifecycle.py`, `app/modules/sharing/media_routes.py`, `newspaper_routes.py`, `app/ports/media_store.py`, `app/adapters/local_media_store.py`, `app/modules/operations/deletion.py`, `apps/web/src/features/sharing/PhotoInput.tsx`, `PrintNewspaper.tsx`, `apps/api/tests/test_media.py`, `test_newspaper.py`, `test_deletion.py`.
+#### S10 祖父母本人の「元気だよ」・一言
 
-**Interfaces:** `MediaStore.put(key:str,content:bytes)->None`, `get(key:str)->bytes`, `delete(key:str)->None`; callers authorize before adapter. `invalidate_card(db,card_id:UUID,actor:Actor)->None` revokes all related digital editions. Media URLs require current session; no permanently public links.
+- [ ] 対象仕様と前提：S01・S09を確認し、本人が日付・内容・相手を見て、一押しまたは短い入力で近況を届ける。
+- [ ] 次の完成条件を対象機能で確認する：成人本人の投稿は本人が確定し、子世代の承認待ちにしない。／送信の成功と相手の閲覧・返信を区別する。／未操作の日から健康や安全を判定せず、子の記録や学習も止めない。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-- [ ] Write failing tests: invalid image magic vs declared MIME, EXIF GPS removed, oversized image rejected, other-family media access404, revoked material invalidates newspaper and print view.
+#### S11 読んだよ・経験・質問
 
-```python
-def test_revocation_blocks_derived_newspaper(world):
-    issue = world.publish_issue(card=world.card_a, recipient=world.grandparent_ab)
-    world.guardian_a.client.post(f'/cards/{world.card_a.id}/revoke',json={
-        'expectedRevision':world.card_a.revision,'operationId':'revoke1'})
-    assert world.grandparent_ab.client.get(f'/newspapers/{issue.id}').status_code == 404
-    assert world.grandparent_ab.client.get(f'/newspapers/{issue.id}/print').status_code == 404
-```
+- [ ] 対象仕様と前提：S09を確認し、記事へ任意の返事を残し、誰の言葉かを保つ。
+- [ ] 次の完成条件を対象機能で確認する：返信しなくても記事を読め、子の体験が終われる。／経験・質問・応援を事実や正解へ置き換えない。／元の共有が撤回された時の閲覧範囲を守る。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-`world.publish_issue` posts as guardian to `/newspapers/draft` then `/newspapers/{id}/publish`, both with material versions and recipients. It never inserts bypassed data directly.
-- [ ] Run `uv run pytest tests/test_media.py tests/test_newspaper.py -q`. Implement JPEG/PNG only, max10MiB, pixel cap20MP, decode+re-encode stripping metadata; enforce at server and UI, add Pillow with version lock. Keep pending uploads inaccessible; failed upload leaves text intact. URL path does not accept arbitrary filesystem keys.
-- [ ] Use a private volume and authenticated read endpoint; `Cache-Control: private, no-store` for sensitive records/media. Newspaper edition stores approved versions and recipients; revoke transaction marks each dependent edition invalid. Print route rechecks permission and annotates that printed copies cannot be recalled.
-- [ ] Deletion: immediate access tombstone, background physical deletion target30days, backups max90days as operating targets. Implement deletion ledger and replay before serving a restored backup. Test export only includes authorized child/own data; restored tombstone never reappears. A scheduler runs due deletion jobs, never AI-generated instructions.
-- [ ] Run API tests and Playwright photo-denied→text-only flow, camera EXIF fixture, image reload after logout, revoke while newspaper screen is open, close/reopen after revocation. Commit `feat: protect media and derived newspaper lifecycle`.
+#### S12 家族の言葉から次のたね
 
-### Task 5: B50 — 3教材・お小遣い・成長と運営
+- [ ] 対象仕様と前提：S11・S02を確認し、家族の経験や質問を候補にし、子が次に試すことを選ぶ。
+- [ ] 次の完成条件を対象機能で確認する：採用しない選択を残し、自動で体験を開始しない。／元の返信、本人の焦点、次の体験をたどれる。／元の返信が撤回されたら派生候補を見直す。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-**Files:** Create `content/templates/helping-v1.json`, basic/deep variants in each template, `content/schema.json`, `app/modules/allowance/models.py`, `service.py`, `routes.py`, `app/modules/operations/events.py`, `routes.py`, `apps/web/src/features/allowance/Ledger.tsx`, `apps/web/src/features/sharing/GrowthAlbum.tsx`, `apps/web/src/features/operations/OperationsView.tsx`, `apps/api/tests/test_allowance.py`, `test_events.py`, `apps/web/src/features/experience/templates.test.ts`.
+### Task 4: B40 — 円の財布・家庭ルール・ポイント・交換
 
-**Interfaces:** `balance(entries:list[AllowanceEntry])->int`, entries have signed amount_yen, kind(received/spent/correction/promise), correction_of optional UUID. Event has event_name, pseudonymous_family_id, actor_role, template_version, request_id, occurred_at; no content fields. Operations metrics count requests, failures and recorded manual seconds.
+**Files:** `apps/web/src/ports/AllowancePort.ts`、`apps/web/src/ports/RewardPort.ts`、`apps/web/src/features/allowance/Wallet.tsx`、`apps/web/src/features/allowance/FamilyRules.tsx`、`apps/web/src/features/rewards/PointHistory.tsx`、`apps/web/src/features/rewards/RewardCatalog.tsx`、`apps/web/src/features/rewards/RedemptionCard.tsx`、`apps/api/app/modules/allowance/models.py`、`apps/api/app/modules/allowance/service.py`、`apps/api/app/modules/rewards/models.py`、`apps/api/app/modules/rewards/service.py`、`apps/api/app/modules/rewards/routes.py`
 
-- [ ] Write failing tests for promised vs received money and corrections; content tests require safety text, step IDs, source labels, basic/deep variants.
+**Interfaces:** AllowancePort.recordReceipt/recordExpense/listEntriesは円の履歴を扱う。RewardPort.grantPoints/listRewards/requestRedemption/reviewRedemption/confirmReceipt/cancelRedemptionはPの履歴と約束を扱う。冪等なoperationIdとexpectedRevisionを各変更に付ける。
 
-```python
-def test_promise_is_not_received():
-    from app.modules.allowance.service import balance, AllowanceEntry
-    entries=[AllowanceEntry(kind='promise',amount_yen=500),
-             AllowanceEntry(kind='received',amount_yen=200),
-             AllowanceEntry(kind='spent',amount_yen=-80)]
-    assert balance(entries) == 120
-```
+**Test:** wallet.test.ts／redemption.test.ts／test_reward_ledger.py。対象Sの完成条件を対応付ける。
 
-- [ ] Run `uv run pytest tests/test_allowance.py -q`; implement integer-yen ledger, one active goal per child, append-only corrections referencing original entry. No money movement or automated reward. API rejects spending positive amounts and received negative amounts, parents only for their linked children.
+#### S13 円の受取・支出・残り・目標
 
-```python
-def balance(entries):
-    return sum(entry.amount_yen for entry in entries if entry.kind != 'promise')
-```
+- [ ] 対象仕様と前提：S04・S01を確認し、家庭での受取と支払を記録し、残額と貯金目標を見せる。
+- [ ] 次の完成条件を対象機能で確認する：入った・使った・残ったを整数円で記録する。／渡す予定・承認した追加額を受取済み残高へ先に加えない。／訂正は元の取引に対応する履歴を残す。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-- [ ] Add three reviewed template families with versioned basic/deep data. Test loading v2 cannot mutate an active v1 Experience. Use synthetic prices marked as examples; no live tariff estimates.
-- [ ] Implement growth view showing observable choices and hints, not automatic S/Q ratings. Log allowlisted event fields only; tests assert raw text/photo/amount never serialized into analytics. O01 gets counts and intervention time only without separate content authorization.
-- [ ] Run all API tests, web tests and fixtures. Commit `feat: add curriculum variants allowance and pilot metrics`.
+#### S14 金額・渡し方・用途の家庭設定
 
-### Task 6: B60 — 任意のAI下書きadapter（固定版から独立）
+- [ ] 対象仕様と前提：S13を確認し、月・週・都度などの渡し方、金額、用途、相談する条件を親子で設定する。
+- [ ] 次の完成条件を対象機能で確認する：親が選んだルールと次の受取予定を子が見られる。／周期と金額を別に変更でき、周期だけの変更で期間総額を混同しない。／変更の対象期間と版を残し、本人の希望を確認できる。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-#### v0.4.1追加：課題分解・支援制御（F18、任意AIの比較範囲）
+#### S15 家族ポイントの付与・残高
 
-Create `apps/api/app/modules/experience/scaffolding.py`, `apps/api/app/modules/ai/guided_plans.py`, `apps/api/app/ports/guided_planner.py`, `apps/api/app/adapters/fake_guided_planner.py`, `openai_guided_planner.py`, `apps/api/tests/test_guided_plans.py`, `test_scaffolding.py`。Extend既存C02/QuestPortの`proposePlan`と`acceptPlan`、既存question/experience記録。StepCatalogは既存教材manifestを拡張し、最初は予算・買い物1題材に限定。
+- [ ] 対象仕様と前提：S13・S14を確認し、家庭が事前に合意した活動に、確定したポイントを付ける。
+- [ ] 次の完成条件を対象機能で確認する：円とポイントを別の残高と履歴で見せる。／付与と訂正を記録し、再試行・二重操作で二重付与しない。／記録・公開・毎日ログインや能力点をポイント獲得の義務にしない。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-- [ ] AI v0.4.1の入出力・状態を実装する。`GuidedPlanner.plan(projected,allowed_steps)->UntrustedPlan`と`validate_plan(raw,catalog,completed_ids)->ValidatedPlan`を分ける。モデル出力は`contracts/guided-plan.schema.json`のみ。単発API・キー・料金上限・投影・取消は候補検索と共通。フラグ`AI_GUIDED_PLAN_ENABLED=false`を追加し、既存AIフラグとのANDで有効化。
-- [ ] `POST /assist/plans`と`POST /plans/{id}/accept`を仕様どおり定義。clientのfamily/risk判定を信用しない。意味検査は計画／確認質問／範囲外の三分岐、前提順、候補・目的・版・許可を含む。
-- [ ] GP01〜06を先に`test_guided_plans.py`と`test_scaffolding.py`の実service testsへ落とす。`uv run pytest tests/test_guided_plans.py tests/test_scaffolding.py -q`で未実装による失敗を観察し、実装後に成功を確認。想定失敗は未実装／契約違反、成功条件は上記6仕様と既存認可テストがすべて通ること。
-- [ ] 子の「もっと小さく」は監修済み小分け経路で処理し、自己申告から能力点を作らない。ヒントは再表示可。採用前や後着のAI案で現在の選択を置換しない。完了済み記録を保持する。
-- [ ] 固定手順、候補検索のみ、課題分解の三条件を同じ合成入力で比較できるrunnerへ拡張。fakeでの契約試験と実モデル評価を分け、予算と認証が使える場合だけ合成モデル評価。実家庭調査は自動開始しない。
-- [ ] 子の独力の判断と親工数に改善がなければOFF。新しい画面や自律agent基盤、独自モデル学習は追加しない。モデル用の指示は候補外生成禁止・目標保持・不明時clarify/no_match・入力命令を信用しないことを明記し、既存開発スキルを送信しない。
+#### S16 家庭の特典一覧
 
+- [ ] 対象仕様と前提：S15を確認し、親が実現できる特典を設定し、子が必要ポイントと条件を比べる。
+- [ ] 次の完成条件を対象機能で確認する：追加のお小遣い、プレゼント、お出かけ等を家庭が設定できる。／内容・対象期間・家族の負担を含む交換条件を示す。／全家庭共通のポイント換算やDisney等の提供をサービスが保証した表示にしない。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-#### v0.4追補（このTaskの必須範囲）
+#### S17 交換・親確認・受取・取消
 
-Create `apps/api/app/modules/ai/next_actions.py`, `next_action_routes.py`, `apps/api/app/ports/action_matcher.py`, `apps/api/app/adapters/fake_action_matcher.py`, `openai_action_matcher.py`, `apps/api/tests/test_next_actions.py`, `test_action_adapter.py`, `scripts/eval_next_actions.py`。Extend `apps/web/src/ports/QuestPort.ts`, memory/http adapters and SuggestionPanel。Read contracts/next-action-match.schema.json and next-action-match.prompt.md。
+- [ ] 対象仕様と前提：S15・S16・S08を確認し、特典を選び、ポイントを予約し、親の確認、受取、取消まで一件として扱う。
+- [ ] 次の完成条件を対象機能で確認する：申請時の予約、承認時の消費、実際の受取を別の状態にする。／親の確認トレイから内容と条件を見て判断できる。／却下・取消・提供不可では対応する返却を行い、二重消費・二重受取を防ぐ。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-Interfaces: `ActionMatcher.match(projected:MatchInput)->UntrustedMatch`、`eligible_actions(actor,question)->list[CuratedAction]`、`validate_match(raw,allowed_ids)->list[str]`。APIはAI v0.4の`/assist/next-actions`と`/{suggestion_id}/choose`。suggestionはquestion/projection/consent/教材の版と15分expiryを持ち、表示・選択直前に再認可する。
+S17の状態：requested（P予約）→approved（P消費・未受取）→received。rejected/cancelledは対応する予約解除または返却へ進む。提供できない時はreceivedにしない。台帳・状態変更は一つのtransactionと冪等キーで確定する。
 
-- [ ] fake adapterで合成16ケースのapplication行を実service経由でテスト。model行はfake出力のPASSにしない。候補外、重複、no_match不整合、個人情報未確認、同意撤回、別家庭、期限切れ、廃止教材を拒否する。
-- [ ] 同じ返信でも本人のfocus_idが異なれば入力投影と候補が異なることを確認。候補ゼロ・固定だけで足りる場合はモデル呼出しゼロ。親の送信投影確認待ちでも固定候補は操作可能。
-- [ ] 先に`uv run pytest tests/test_next_actions.py tests/test_action_adapter.py -q`で失敗を確認。OpenAI adapterのHTTP mockでpayloadのmodel、strict schema、store=false、toolsなし、streamなし、秘密鍵が応答／ログにないことを検査。SDKの自動再試行を抑え、総2試行／10秒を超えない。
-- [ ] 環境設定は`AI_ENABLED=false`, `AI_PROVIDER=openai`, `AI_MODEL`, `OPENAI_API_KEY`, `AI_INPUT_PRICE_PER_M`, `AI_OUTPUT_PRICE_PER_M`, `AI_TOTAL_BUDGET_JPY`, `AI_LIVE_CHILD_DATA_ENABLED=false`。秘密値をコミットしない。価格／モデル／提供元条件がない時は固定版。キーや外部契約の未取得をD0の未完成理由にしない。
-- [ ] 適切な認証と料金条件が利用可能な時だけ、明示した合成データ用runnerを`uv run python ../../scripts/eval_next_actions.py --dataset ../../evals/next-action-cases.jsonl --repeats 3 --data-kind synthetic`で実行。既存24件も該当jobの評価を維持。実データは別gate。runnerはfixture全行のdata_kind確認後にのみ外部接続する。
-- [ ] 比較表に適切な候補／no_match、本人の主導権、親工数、p95待ち時間、費用を残す。AI41の改善を示せなければOFF維持。新聞の下書きは別機能として後から評価する。
+### Task 5: B50 — 任せ方の提案・家庭内金利
 
+**Files:** `apps/web/src/features/responsibility/ProposalCard.tsx`、`apps/web/src/features/responsibility/TrialReview.tsx`、`apps/web/src/features/allowance/InterestRule.tsx`、`apps/web/src/features/allowance/Allocation.tsx`、`apps/api/app/modules/responsibility/service.py`、`apps/api/app/modules/responsibility/routes.py`、`apps/api/app/modules/allowance/interest.py`
 
-**Files:** Create `app/ports/draft_provider.py`, `app/modules/ai/projection.py`, `policy.py`, `service.py`, `routes.py`, `budget.py`, `app/adapters/fake_draft_provider.py`, `apps/api/tests/test_ai_policy.py`, `test_ai_cases.py`, `apps/web/src/features/sharing/AIDraftReview.tsx`.
+**Interfaces:** ProposalService.evaluate(recordRefs,ruleVersion)は根拠・未確認点・提案条件・保留理由を返す。approveTrialは親子の合意した金額・周期・用途・期間を保存する。InterestService.quote(ruleVersion,period,ledgerRefs)は見込み額を返し、実際の受取はS13の円履歴へ別に記録する。
 
-**Interfaces:** `DraftProvider.generate(job:ProjectedJob)->UntrustedDraft`; `project_job(actor,job_type,source_ids,consent_version)->ProjectedJob`; `validate_draft(draft,job)->ValidatedDraft`; application envelope and schema are defined in AI v0.2. FakeDraftProvider is deterministic and returns only synthetic fixtures. Real provider is not required for fixed M1.
+**Test:** proposal.test.ts／interest.test.ts／test_interest.py。対象Sの完成条件を対応付ける。
 
-- [ ] Add tests for all24 `evals/ai-cases.jsonl` expectations. Application tests exercise actual service/projection with fake provider; model-layer cases are scheduled offline model evaluations, not fake-provider “passes”.
+#### S18 根拠付きのお小遣い・任せ方提案
 
-```python
-def test_provider_not_called_without_child_data_clearance(ai_world):
-    ai_world.settings.live_child_data_enabled=False
-    result=ai_world.request_newspaper()
-    assert ai_world.provider.calls == 0
-    assert result.mode == 'fixed'
-```
+- [ ] 対象仕様と前提：S03・S04・S13・S14を確認し、過去の選択・比較・相談等を参照し、次の金額・周期・用途を提案する。親が承認・変更・保留し、期間を決めて試す。
+- [ ] 次の完成条件を対象機能で確認する：対象領域、根拠となる記録、未確認点、提案条件を同じカードに示す。／記録不足では保留し、単一の能力点や全面的な自立認定へ変換しない。／親の承認と子の希望、試した後の見直しを残す。判定方式は透明なルールから始める案。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-ai_world constructs service with deterministic FakeDraftProvider, fake clock and repositories seeded with consent/version fixtures; request_newspaper goes through the same policy entry used by route. No network in test fixture.
-- [ ] Run `uv run pytest tests/test_ai_policy.py -q`. Implement pre-call identity/consent checks, permitted source projection, per-family daily10 and weekly50JPY budget reservations, maximum2 attempts within10seconds, explicit refusal/timeout fallback, structured schema and job-specific semantic validation. No tools callable by model; all IDs are allowlisted source refs.
-- [ ] Implement post-call consent/version check and kill switch. Rejected/expired results must not be persisted as usable draft. UI shows original+proposal+reason+uncertainty and edit/skip. No auto-publication.
-- [ ] Add real provider only after current service terms and credentials are explicitly available for that use. Record provider/model/price configuration, child-data conditions and endpoint. Run synthetic model cases3times/config before considering actual-family opt-in. The user’s implementation-start instruction is not authority to send child data to a provider.
-- [ ] Commit `feat: add bounded draft pipeline with offline adapter`. Report separately fake-service test results and actual-model evaluation status.
+#### S19 家庭内金利・使う／貯める配分
 
-### Task 7: B70 — 全体の品質・切戻し・実家庭へのゲート
+- [ ] 対象仕様と前提：S13・S14を確認し、親が負担する貯蓄ボーナスの期間・率・対象額・上限を設定し、使う・貯める配分と増える額を見る。
+- [ ] 次の完成条件を対象機能で確認する：月率／年率、支払者、対象額、上限、未受取を示す。／途中の引出しとルールの版変更で対象額を再計算する。／増える見込み、支払の約束、受取済みを区別する。5%等の既存数値は説明例として扱う。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-UX41〜45／AI41の証拠欄を設ける。利用者評価未実施とDOM／E2E合格を区別する。B60を含む時はGP01〜06も確認。
+S18は確認できる記録に基づくルール提案と手動の代替から始める。提案方式・閾値を能力保証にしない。S19の説明例は月率5%、500円→見込み25円、対象期間内で200円使い対象300円→見込み15円、次期525円×5%は整数円へ切り捨て26円。対象基準・上限・時点は家庭ルールの版と詳細案へ対応付け、受取履歴へ先に加えない。
 
-**Files:** Create `tests/e2e/m1-family-loop.spec.ts`, `m1-accessibility.spec.ts`, `m1-revocation.spec.ts`, `.github/workflows/verify.yml`, `docs/operations/LOCAL_RUN.md`, `docs/operations/RELEASE_CHECKLIST.md`.
+### Task 6: B60 — 必要なAI補助
 
-**Interfaces:** Test runner starts web+API+test Postgres; creates accounts through test OIDC and seeded invitations, not unprotected production role switching. CI uses lockfiles, fresh test database and fake AI.
+**Files:** `apps/web/src/features/experience/SuggestionPanel.tsx`、`apps/web/src/features/sharing/DraftReview.tsx`、`apps/api/app/modules/ai/jobs.py`、`apps/api/app/modules/ai/gates.py`、`contracts/next-action-match.schema.json`、`contracts/guided-plan.schema.json`、`contracts/ai-draft.schema.json`
 
-- [ ] Write the failing end-to-end assertions for published card visibility, parent reauthentication, logout data clearing and non-public media.
+**Interfaces:** 既存のnext_action_match／guided_plan／ai-draft契約を使う。監修済み候補の対応付けと新規文章を区別する。音声後の記録整理jobは新規契約を決めてから追加し、既存jobへ家庭金融履歴を無断で流さない。
 
-```ts
-import {test,expect} from '@playwright/test';
-test('reduced motion does not remove the main action',async({page})=>{
- await page.emulateMedia({reducedMotion:'reduce'});
- await page.goto('/demo');
- await expect(page.getByRole('button',{name:'やってみる',exact:true}).first()).toBeVisible();
- await expect(page.getByText('合成データのデモ')).toBeVisible();
-});
-```
+**Test:** 既存のAI契約・拒否経路・fixtureの評価検査。対象Sの完成条件を対応付ける。
 
-Production-build test must assert `/demo` is absent, not reuse this demo test as a production requirement. Run demo and production-like configurations in separate CI jobs.
-- [ ] Wire CI commands: `npm ci`, `npm run typecheck`, `npm test`, `npm run build`, `npm run test:e2e`; API `uv sync --frozen`, `uv run pytest -q`, migrations on empty test DB. Test runner scripts and package commands must be runnable without secrets; missing scripts fail CI rather than being silently skipped.
-- [ ] Complete AC01〜AC15 from product-design plus feature matrix F01〜F21, motion M01〜M07, and the five Review Focus cases. Save viewport screenshots at360/390/768 and200%text. Test user interaction with reduced motion at OS and app settings independently.
-- [ ] Local run docs give exact startup, migrations, test fixtures and cleanup commands for explicit test resources. Release checklist separates D0 demo, M1 local, live family pilot and optional live AI. Never label full product complete because only D0 passed.
-- [ ] Rollback: disable affected feature flags first, return AI to fixed output, revert application build to preceding tested image, preserve DB data. Destructive migrations require tested restore plus tombstone replay and separate approval; do not downgrade production DB on guesswork. Commit `test: verify family experience and release boundaries`.
+#### S23 困り所に合う候補・手順の補助
 
-## 要件と作業の対応
+- [ ] 対象仕様と前提：S03を確認し、本人が選んだ困り所を、監修済み候補・手順へ対応付ける。
+- [ ] 次の完成条件を対象機能で確認する：固定の支援へ戻れ、本人が採用・変更・見送りできる。／候補の出所と表示理由を示し、モデルに公開・お金・権限の変更を任せない。／現行AI契約で許された入出力と提供条件を満たす時だけ使う。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-| 要件 | 主な作業 | 完了証拠 |
-|---|---|---|
-| FR01 家族認証 | B30 | OIDC/session/invitation/tenant tests |
-| FR02 日常投稿 | B20/B40 | text-only, metadata stripping, private media |
-| FR03 教材 | B10/B50 | interchangeable templates, pause/decline/version |
-| FR04 たね | B20 | reply→seed→choice→new experience; no forced sharing |
-| FR05 共有 | B20/B30 | child choice, revision/audience checks |
-| FR06 新聞 | B20/B40 | 6 materials, print, derived revocation |
-| FR07 応答 | B20/B30 | optional response, idempotency |
-| FR08 近況 | B20/B30 | ACK-only timestamp, sender identity |
-| FR09 お小遣い | B50 | ledger, correction, no real transaction |
-| FR10 撤回・削除 | B30/B40 | cross-family rejection, tombstone restore |
-| FR11 運営 | B50 | event allowlist, no private content |
-| UX01/M01〜M07 | B10/B20/B70 | motion/reduced/focus/viewport evidence |
-| AI任意層 | B60 | actual service checks; model evaluation separately |
+#### S24 記録整理・新聞下書きの補助
 
-## 計画セルフレビュー
+- [ ] 対象仕様と前提：S04・S08を確認し、原文と数字の整理、新しい短文化案を分け、本人の言葉と生成文を区別する。
+- [ ] 次の完成条件を対象機能で確認する：原文と整理した項目の対応を示し、未発言の事実を埋めない。／新しい文章は下書きとして原文との差分を示し、確認した内容だけを共有する。／音声認識・通常の計算・AI生成を別の作業として扱う。新しい記録整理jobは既存契約への追加検討が必要。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
 
-製品の要件ID、三役の画面、教材交換、原文保持、共有撤回、実家庭の認証、AI初期OFFは上表と各作業に対応。原価・親負担・教育効果・支払意思は実装テストでは証明できず、PILOTで観察する。全コードをこの文書からコピーすれば完成するという意味ではなく、Codexが境界・ファイル・テストから実装するための計画である。実装開始前の依存インストール、ビルド、製品テストは未実施。
+### Task 7: B70 — 接続確認・運営とアクセシビリティ
+
+**Files:** `apps/api/app/modules/operations/events.py`、`apps/web/tests/e2e/record-album-sharing.spec.ts`、`apps/web/tests/e2e/family-newspaper.spec.ts`、`apps/web/tests/e2e/allowance-rewards.spec.ts`、`apps/web/tests/e2e/responsibility-interest.spec.ts`、`docs/workflow/VERIFICATION.md`
+
+**Interfaces:** 各Portから返る保存・公開・予約・消費・受取の状態を、関連する機能のE2Eで照合する。運営イベントは家族の全文を常時公開せず、実行した検査と未実施の確認を別に残す。
+
+**Test:** tests/e2e/各specと運営記録の検査。対象Sの完成条件を対応付ける。
+
+#### S28 機能をつないだ確認・運営記録
+
+- [ ] 対象仕様と前提：S01を確認し、各機能の完了を確かめ、関連する機能の引継ぎを確認する。
+- [ ] 次の完成条件を対象機能で確認する：保存・公開・金銭・受取を伴う変更に対応する検査を実行して証拠を残す。／返信なし・祖父母不参加・通信や音声やAIが使えない場合も主要な用事を続けられる。／操作できたこと、学習の改善、支払需要を別の成果として記録する。
+- [ ] 重要な保存・状態・計算・権限のテストを書き、未実装で失敗することを確認する。
+- [ ] 上の担当ファイルへ最小の実装を入れ、対象テスト・型・buildを確認する。
+- [ ] 対象機能を操作して修正し、既存機能との接続を確認してからcommitする。次のSへ進む。
+
+各Sの動作確認が済んだところで、関連する機能の引継ぎを検査する。製品の操作検査、実家庭での理解や学習、購入需要の確認を同じ完了として扱わない。
+
+## スキルと進捗の引継ぎ
+
+`.agents/skills/user-stories`で対象機能の完成条件を確認し、`sprint-plan`で依存と作業量を見直す。`outcome-roadmap`で目的を保つ。現在の区分は機能別開発であり、スキル例の2週間周期等は固定採用しない。
+
+元の機能F01〜F21と既存のB10〜B70は保持する。新しいお金・報酬機能はS15〜S22で区別し、既存F14を実装しただけで完了扱いにしない。実装済みとする時はTASKSと対象機能の実行証拠を更新し、CURRENTは生成する。
