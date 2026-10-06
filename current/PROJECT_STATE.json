@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-06T03:33:21.933Z",
+  "updated_at": "2026-10-06T03:37:21.003Z",
   "spec_status": "requirements_draft_scope_pending",
   "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "D91：製品書§0.11に家庭情報→提案の具体例とAI範囲A/B/Cを用意。Codex推奨B（新しい題材を調べクエスト化し、教材担当確認後に追加）は本人の回答待ち。合意後に担当者・初期題材・確認条件と約5分の初期入力を具体化。旧計画の同期は未完了。",
+  "next_codex_action": "D91：B（新規題材調査・クエスト化→確認後に子へ出す）の方向を合意。確認役は親・祖父母の候補、負担を抑えることが条件。製品書§0.11で担当選択、確認済み内容の再利用・再確認条件、短い概要を具体化する。一人担当・権限・画面は未確定。旧計画同期は未完了。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -693,12 +693,12 @@
     "product_specs_updated": true,
     "scope_approved": false,
     "implementation_plan_aligned": false,
-    "next_action": "D91：製品書§0.11に家庭情報→提案の具体例とAI範囲A/B/Cを用意。Codex推奨B（新しい題材を調べクエスト化し、教材担当確認後に追加）は本人の回答待ち。合意後に担当者・初期題材・確認条件と約5分の初期入力を具体化。旧計画の同期は未完了。",
+    "next_action": "D91：B（新規題材調査・クエスト化→確認後に子へ出す）の方向を合意。確認役は親・祖父母の候補、負担を抑えることが条件。製品書§0.11で担当選択、確認済み内容の再利用・再確認条件、短い概要を具体化する。一人担当・権限・画面は未確定。旧計画同期は未完了。",
     "not_approved": [
       "difficulty-selection UI proposal",
       "automatic ability certification",
       "detailed initial release scope",
-      "expanded AI generation/display contract"
+      "detailed AI generation/display and family-review authority contract"
     ],
     "verification": "document checks only; no product tests, model evaluations or family observations",
     "initial_experience_direction": {
@@ -728,7 +728,7 @@
     },
     "personalization_proposal": {
       "section": "0.11",
-      "status": "proposal_awaiting_founder_response",
+      "status": "ai_scope_direction_agreed_reviewer_and_workload_details_pending",
       "household_information_examples": "synthetic",
       "ai_scope_alternatives": [
         "reviewed_material_adjustment",
@@ -736,8 +736,13 @@
         "immediate_new_material_display"
       ],
       "recommended": "new_material_research_and_human_review",
-      "reviewer": "not_assigned",
-      "input_fields_finalized": false
+      "reviewer": "parent_or_grandparent_candidate; assignment and authority pending",
+      "input_fields_finalized": false,
+      "ai_scope_direction_agreed": true,
+      "user_wording": "いいよただ多すぎるとやるの面倒になるからそこもかんがえもんやな、確認担当は親祖父母じゃないかな",
+      "review_workload_constraint": "avoid excessive input, proposals and repeated review",
+      "review_load_proposals": "reuse reviewed content within valid conditions; review new/significantly changed content; concise summary and details; defer with reviewed fallback",
+      "single_reviewer_approved": false
     }
   }
 }
