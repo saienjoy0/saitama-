@@ -376,6 +376,7 @@ function parseFacts(raw,facts){
  return t;
 }
 function intentFor(t,scene){
+ if(/^(?:わから|分から|どうすれば|助けて|教えて|何したら|何をすれば|迷ってる|困った)/.test(t))return 'help';
  if(scene==='family'){
   if(/^(?:まず|最初|次に|はじめ)/.test(t))return 'firststep';
   if(/予算|親|任せ|約束|一緒|相談|決めていい/.test(t))return 'agreement';
@@ -404,6 +405,26 @@ function makeModel(turn,sess){
  const people=f.people||4,budget=f.budget||1000,menu=f.menu||'夕飯';
  const s={caption:'あなたの言葉から、次の一歩を組み立てました',title:'次は何をする？',say:'',slots:[],widgets:[],hint:'',next:'次のことを話してみよう'};
  const add=(label,val,source)=>s.slots.push(slot(label,val,source));
+ if(k==='help'){
+   const previous=sess.turns.length>=2?sess.turns[sess.turns.length-2].intent:null;
+   const hints={
+     dinner:{
+       shop:'A店とB店のどちらか迷っているなら、予算と帰る時間を比べてみよう。家族に聞けていないことはあるかな？',
+       pickup:'お父さんの迎え時間を聞けたなら、帰宅の約束と予算に合う案を自分で選ぼう。どの条件が一番大事？',
+       meat:'肉の量で迷っているなら、今日は何人で食べるかと、必要な量を確かめよう。単価が安いだけで決めなくて大丈夫。',
+       stock:'材料で迷っているなら、まず家にある物を見て、次にレシピの分量を調べよう。',
+       menu:'献立を決めるところから始めてもいいよ。家にある材料で作れる料理を家族と相談してみよう。'
+     },
+     family:{wish:'自分で決めたいことを一つだけ親に伝えてみよう。最初から全部を決めなくても大丈夫。',work:'まだ知らない家の仕事は、家族に聞いてみよう。',agreement:'誰が何を決めるかを、親と一緒に確認してみよう。'},
+     research:{question:'食事ができるまで、誰がどんな準備をしたか聞いてみよう。',discovery:'知ったことと、まだ知らないことを二つに分けてみよう。',budget:'支出を全て聞く必要はないよ。家族が話せる範囲で考えてみよう。',trial:'アイデアを家族に伝え、まず一度試せるか相談してみよう。'}
+   };
+   const advice=hints[scene][previous]||'まず、何を知りたいか一つに絞ってみよう。家族に聞くことも、一つの行動だよ。';
+   s.title='ここで迷ったら、少しだけ手伝うね';
+   s.say=advice;
+   s.widgets=[tile('next','次の一歩',advice,true,'必要なときのヒント')];
+   s.hint='急ぐ必要はないよ。分からなかったことを家族に聞いて、もう一度話してみよう。';
+   return s;
+ }
  if(scene==='dinner'){
   add('料理',menu,f.menu?'本人の発言':'クエスト例');
   add('人数',people+'人分',f.people?'本人の発言':'クエスト例');
@@ -699,7 +720,7 @@ document.addEventListener('click',e=>{
   hintOpen=!hintOpen;
   const m=makeModel(last,sessions[current]);el('hintPlace').innerHTML=hintOpen?'<div class="hint">'+esc(m.hint)+'<br>※ここで答えを選ぶ必要はないよ。</div>':'本人が必要な時だけヒントを開けます。';
  }
- if(b.dataset.action==='alone'){el('hintPlace').textContent='いいね。アプリを閉じて現実でやってみて、あとで戻って話してね。';}
+ if(b.dataset.action==='alone'){el('hintPlace').textContent='アプリを閉じても大丈夫。現実で試して、戻ってきたら分かったことを声で話してね。';el('status').textContent='やってきたら、下のマイクから「見てきたよ」と教えてね。';}
 });
 paintScene();
 </script>
