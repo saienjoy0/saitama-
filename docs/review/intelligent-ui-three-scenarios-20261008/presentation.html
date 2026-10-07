@@ -39,6 +39,82 @@ button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:g
 @media(max-width:970px){.layout{grid-template-columns:1fr;padding:12px}.stage{min-height:0}.presenter{position:static}.inn{padding:22px}.top{padding:17px 22px}.footer{padding:0 14px 16px}.presenter{padding:17px}.scriptList{grid-template-columns:1fr 1fr}}
 @media(max-width:540px){.brand{font-size:16px}.layout{gap:12px}.top{padding:13px 16px}.inn{padding:18px}.tiles{grid-template-columns:1fr}.tile.wide{grid-column:1}.scriptList{grid-template-columns:1fr}.righttop .chip{display:none}.stage{border-radius:19px}h1{font-size:27px}.composerFoot{align-items:stretch}.apply{max-width:60%}.quest{padding:14px}.moneybox strong{font-size:16px}}
 @media(prefers-reduced-motion:reduce){.reveal,.mic.record,.loader span{animation:none!important}.reveal{opacity:1}}
+
+/* Child-first usability revision: responsive type, large controls, clearer hierarchy */
+.stage .talk p{font-size:17px;line-height:1.72}
+.stage .response{font-size:17px;line-height:1.75}
+.stage .lead,.stage .tile p,.stage .step,.stage .quote,.stage .textinput{font-size:16px}
+.stage .tile h3,.stage .quest strong,.stage .comphead strong{font-size:16px}
+.stage .compare{font-size:15px}.stage .compare th{font-size:13px}
+.stage .tile{padding:16px;grid-column:1/-1}
+.stage .tiles{grid-template-columns:1fr}
+.stage .suggestion{min-height:48px;font-size:14px}
+.stage .outline{min-height:48px;font-size:14px}
+.stage .composer{border:2px solid #176b5b;box-shadow:0 8px 26px #176b5b0c}
+.stage .textinput{min-height:62px}
+.stage .mic{min-width:62px;min-height:62px}
+.stage .apply{font-size:15px;min-height:49px}
+.stage .quest{border-color:#cfdfd4}
+.stage .constructed{margin-top:16px}
+.stage .tile.isNext{background:#eef7ef;border-color:#c9dfcd;box-shadow:none}
+.stage .tile.isNext .quote{background:transparent;border:0;padding:0;font-size:15px}
+.stage .talk-ai{border-color:#bdd7c4;box-shadow:0 5px 19px #16593812}
+.stage .talk-child{border-color:#c3dcc9}
+.stage .historyFold .talk{max-width:100%}
+.stage .dialogue{gap:10px}
+.stage .workspace{margin-top:8px}
+.stage .constructedTitle{font-size:12px}
+.stage .slot{font-size:13px}
+.presenter{padding:20px}
+.presenter .helpText{font-size:13px}
+.presenter .sceneTabs button{font-size:13px;min-height:50px}
+.operatorFocus{background:#f0f8f2;border:1px solid #bedac8;border-radius:16px;padding:15px;margin:16px 0 13px}
+.operatorFocus .over{font-size:11px;font-weight:850;color:#32785e;margin:0 0 6px}
+.operatorFocus .line{font-size:15px;font-weight:800;line-height:1.7;margin:7px 0}
+.operatorFocus .reply{color:#355d4b;font-size:13px;line-height:1.7;margin:10px 0}
+.operatorFocus .uidesc{font-size:11px;color:#557862;line-height:1.6;margin:8px 0}
+.operatorPrimary{display:block;width:100%;border:0;border-radius:13px;background:#176b5b;color:white;font-weight:850;min-height:51px;font-size:14px;padding:10px 13px}
+.operatorNav{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
+.operatorNav button{min-height:45px;border:1px solid #cddfd0;background:white;border-radius:10px;font-size:13px;font-weight:750}
+.operatorNav button:disabled{opacity:.4}
+.allLines{margin-top:13px;border:1px solid #d9e8dc;border-radius:12px;background:#fff;padding:10px}
+.allLines summary{font-size:13px;font-weight:800;color:#32694e;cursor:pointer;min-height:35px;padding:7px 0}
+.allLines .scriptList{padding-top:10px}
+.presenter .scriptList button{font-size:12px;min-height:48px}
+.presenter .scriptList button[aria-current="step"]{border-color:#176b5b;background:#eaf6ee}
+.topTools{display:none;border:1px solid #b9dac6;background:#e9f6ee;color:#176b5b;border-radius:10px;font-weight:800;font-size:12px;padding:8px 10px;min-height:44px}
+.voiceBack{display:none}
+.stage.hasConversation .welcome,.stage.hasConversation #scLead{display:none}
+.stage.hasConversation h1{font-size:22px;margin-bottom:8px}
+.stage.hasConversation .quest{padding:11px 14px;margin:10px 0}
+.stage.hasConversation .questIcon{width:35px;height:35px;font-size:18px}
+.stage.hasConversation .suggestions{margin:8px 0 10px}
+.stage.hasConversation .composer{margin-bottom:11px;padding:12px}
+@media(max-width:970px){
+ .presenter{display:none;position:static}
+ .presenter.isOpen{display:block}
+ .topTools{display:inline-flex;align-items:center;justify-content:center}
+ .righttop{gap:6px}
+ .layout{gap:9px}
+ .presentMode .topTools{display:inline-flex}
+}
+@media(max-width:540px){
+ .inn{padding:17px 15px 80px}
+ .stage.hasConversation h1{font-size:20px}
+ .stage .dialogue{margin-top:8px}
+ .stage .talk{max-width:97%;padding:11px 13px}
+ .stage .talk p{font-size:16px}
+ .stage .response{font-size:16px}
+ .stage .tile{padding:13px}
+ .stage .quest{margin:10px 0}
+ .stage .composerFoot{gap:7px}
+ .stage .apply{font-size:13px}
+ .stage .suggestion{font-size:13px}
+ .voiceBack{display:block;position:fixed;bottom:14px;right:14px;z-index:10;border-radius:99px;border:0;background:#176b5b;color:white;min-height:52px;padding:10px 17px;font-size:14px;font-weight:850;box-shadow:0 10px 23px #176b5b4a}
+ .voiceBack[hidden]{display:none}
+}
+@media(prefers-reduced-motion:reduce){.stage .talk,.stage .tile{animation:none!important;transition:none!important}}
+
 </style>
 </head>
 <body>
