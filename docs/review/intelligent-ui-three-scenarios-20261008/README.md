@@ -1,6 +1,6 @@
 ## 2026-10-08 UIを使いやすくする改善
 
-**[使いやすくした最新版を開く（外部HTTPSプレビュー・実機未確認）](https://raw.githack.com/saienjoy0/saitama-/6348fd42f311fc0d6e8d886c2404dbb91c219be6/docs/review/intelligent-ui-three-scenarios-20261008/presentation.html)**
+**[使いやすくした最新版を開く（外部HTTPSプレビュー・実機未確認）](https://raw.githack.com/saienjoy0/saitama-/b085997dfafe5be0cb2c94659d5549db4b925cd0/docs/review/intelligent-ui-three-scenarios-20261008/presentation.html)**
 
 - 子どもの画面はクエスト→サジェスト→声/文字の入力→「はるちゃんの言葉」→「AIの返答」→組み立てたUIの順番。
 - サジェストは自動送信せず、入力欄に入るだけ。自分で言い換えてから進められる。
@@ -39,7 +39,7 @@ JavaScript構文と、サジェストの未送信・AI返答・カード切替�
 
 **発表では [presentation.html](./presentation.html) を開いてください。** 本体のトップには簡単なクエストとサジェストだけがあり、話すと「🎙 はるちゃんの言葉」→「✦ AIの返答」→「▦ 作られたカード」を順に表示します。会話履歴が残り、発表者用パネルにも各ターンの返答全文とUI部品名を表示します。
 
-- [HTTPSデモプレビュー（第三者サービス／実ブラウザ動作未確認）](https://raw.githack.com/saienjoy0/saitama-/f6bf5ef0c46a02435fffd48927083ec268c283c1/docs/review/intelligent-ui-three-scenarios-20261008/presentation.html)
+- [HTTPSデモプレビュー（第三者サービス／実ブラウザ動作未確認）](https://raw.githack.com/saienjoy0/saitama-/b085997dfafe5be0cb2c94659d5549db4b925cd0/docs/review/intelligent-ui-three-scenarios-20261008/presentation.html)
 - [発表台本：はるちゃんの入力→AIが返す文章→表示されるUIの全14ターン](./発表台本_はるちゃん入力_AI返答_UI.md)
 - [設計PR #13](https://github.com/saienjoy0/saitama-/pull/13)
 
@@ -111,7 +111,7 @@ JavaScript構文と、サジェストの未送信・AI返答・カード切替�
 
 **最初に開く：[プレゼン専用HTML](./presentation.html)**。
 
-[HTTPSプレビュー（第三者サービス・実ブラウザ未検証）](https://raw.githack.com/saienjoy0/saitama-/f6bf5ef0c46a02435fffd48927083ec268c283c1/docs/review/intelligent-ui-three-scenarios-20261008/presentation.html)。音声の入力はプライバシー保護のため架空の例文に限る。
+[HTTPSプレビュー（第三者サービス・実ブラウザ未検証）](https://raw.githack.com/saienjoy0/saitama-/b085997dfafe5be0cb2c94659d5549db4b925cd0/docs/review/intelligent-ui-three-scenarios-20261008/presentation.html)。音声の入力はプライバシー保護のため架空の例文に限る。
 
 前の [index.html](./index.html) は音声の意図分類を見せる旧見本として残す。発表では presentation.html を使う。
 
