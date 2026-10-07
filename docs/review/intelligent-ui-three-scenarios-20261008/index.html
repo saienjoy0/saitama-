@@ -14,6 +14,34 @@
 .actions{margin-top:auto;padding:10px 22px 20px}.primary{display:block;width:100%;min-height:52px;border-radius:14px;background:var(--green);border:1px solid var(--green);font-weight:800;color:white;padding:12px 14px}.secondary{background:white;color:var(--green);border:1px solid #c0d7c9;padding:10px 14px;border-radius:12px;font-size:13px;min-height:44px}.navs{display:flex;gap:8px;margin-top:8px}.navs button{flex:1}.status{min-height:22px;font-size:12px;color:var(--muted);text-align:center;margin:6px 0}.bottom{padding:10px 15px;background:#f4f7f2;font-size:11px;color:#62716c;text-align:center;border-top:1px solid var(--line)}.summary{border:1px solid #c8ded0;background:white;padding:17px;border-radius:18px}.summary h3{font-size:17px;margin:5px 0 12px}.summary dl{margin:0}.summary dt{font-size:12px;color:var(--muted);margin-top:11px}.summary dd{margin:4px 0 0;font-size:14px;line-height:1.7}.mutedFooter{font-size:12px;color:var(--muted);line-height:1.7;padding:8px 0}.chips{display:flex;gap:7px;flex-wrap:wrap}.chips span{font-size:11px;border-radius:999px;padding:5px 9px;background:#ecf5ef;color:#376b53}.smallSpace{height:9px}
 @media(max-width:720px){.shell{padding:15px 10px}.layout{grid-template-columns:1fr;gap:13px}.rail{padding:14px;border-radius:16px}.rail h1{font-size:18px}.rail h2,.rail .reference{display:none}.scenarios{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.scenario{display:block;text-align:center;padding:8px 5px;margin:0}.scenario .num{margin:0 auto 5px;width:30px;height:30px;border-radius:9px}.scenario strong{font-size:12px}.scenario small{display:none}.phone{width:min(100%,430px);min-height:590px;border-radius:24px}.screen{padding-inline:17px}.phoneHeader,.journey,.actions{padding-inline:17px}.top .sub{display:none}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* The voice-first surface is a synthetic review interface, not a live AI UI. */
+.voiceDock{margin:1px 21px 15px;padding:14px;border-radius:17px;background:#e9f5ee;border:1px solid #c4dfce}
+.voiceDock .head{display:flex;justify-content:space-between;align-items:center;gap:7px;margin-bottom:7px}.voiceDock strong{font-size:14px}
+.voiceStatus{font-size:12px;color:#336d52;line-height:1.6;min-height:19px}
+.voiceButtons{display:flex;gap:8px;align-items:center;margin-top:10px}
+.voiceButtons button{min-height:42px;flex:1;border-radius:12px;border:1px solid #176B5B;font-size:12px;font-weight:800;background:#fff;color:#176B5B;padding:8px}
+.voiceButtons button.mic{background:#176B5B;color:white}
+.voiceButtons button.recording{background:#bc3c37;border-color:#bc3c37}
+.voiceDock textarea{display:block;width:100%;resize:vertical;min-height:46px;max-height:120px;border:1px solid #b7d4c2;border-radius:10px;padding:9px 10px;margin:10px 0 0;background:white;line-height:1.6;color:#172B2A;font-size:13px}
+.voiceDock .speechSamples{display:flex;gap:6px;overflow-x:auto;margin-top:9px;padding-bottom:4px}
+.voiceDock .speechSamples button{flex-shrink:0;max-width:280px;background:transparent;border:1px solid #b0cfbe;color:#286549;padding:6px 9px;border-radius:11px;font-size:11px}
+.voiceDock .privacy{font-size:10px;line-height:1.5;color:#557163;margin:9px 0 0}
+.voiceResult{border:1px solid #a5d2b4;border-radius:16px;padding:14px;margin:8px 0 16px;background:#eef8f0}
+.voiceResult .aiLabel{font-size:12px}
+.voiceResult h3{font-size:15px;margin-bottom:8px}
+.voiceResult .row{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}
+.voiceResult .row span{border:1px solid #b9d8c6;border-radius:9px;padding:5px 8px;background:white;font-size:12px}
+.voiceResult .heard{font-size:12px;line-height:1.65;color:#335a46;margin:5px 0 9px;border-left:3px solid #6baf89;padding-left:9px}
+.voiceResult p{font-size:13px;line-height:1.75}
+.voiceResult .numbers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:9px 0}
+.voiceResult .numbers>div{padding:10px;background:white;border-radius:10px;border:1px solid #d0e4d5}
+.voiceResult small{display:block;font-size:10px;color:#597068}
+.voiceResult b{display:block;font-size:17px}
+.voiceResult .trail{font-size:11px;color:#4b6455}
+.voiceDock button:focus-visible{outline:3px solid #176B5B;outline-offset:2px}
+@media(max-width:720px){.voiceDock{margin:0 16px 12px}}
+
 </style>
 </head>
 <body>
@@ -30,6 +58,15 @@
     <div class="phoneWrap"><section class="phone" aria-label="やってみクエストの操作見本">
       <header class="phoneHeader"><div class="phBrand"><span class="miniMark">✦</span>やってみクエスト</div><span class="person">はる（小学5年生）</span></header>
       <div class="journey"><div class="eyebrow" id="progressLabel"></div><div class="track" aria-label="進捗"><div class="fill" id="progressFill"></div></div></div>
+      <section id="voiceDock" class="voiceDock" aria-label="音声で相談して画面を変える">
+  <div class="head"><strong>🎙 声で進めてみよう</strong><span class="tag">音声入力は任意</span></div>
+  <div id="voiceStatus" class="voiceStatus" role="status">「話す」を押すと、その言葉をもとに画面が切り替わります。</div>
+  <div class="voiceButtons"><button type="button" id="voiceStart" class="mic">🎤 話す</button><button type="button" id="voiceStop">■ 止める</button></div>
+  <textarea id="voiceText" rows="2" aria-label="話す内容（文字でも入力できます）" placeholder="例：お父さんはB店なら17時に迎えに来るって"></textarea>
+  <div class="voiceButtons"><button type="button" id="voiceApply">この言葉で画面を変える ↗</button></div>
+  <div id="voiceSamples" class="speechSamples" aria-label="試せる言葉"></div>
+  <p class="privacy">マイクは押した時だけ起動。音声認識はブラウザー提供で、音声が外部サービスへ送られる場合があります。デモには架空の話だけを使ってください。アプリ側の外部保存・AI送信はありません。</p>
+</section>
       <main id="screen" class="screen" aria-live="polite"></main>
       <div class="actions"><div id="feedback" class="status" role="status"></div><button id="next" class="primary" type="button">次へ進む →</button><div class="navs"><button id="back" class="secondary" type="button">← 前の場面</button><button id="restart" class="secondary" type="button">最初から</button></div></div>
       <footer class="bottom">合成シナリオ｜表示と記録の演出です。AIには接続していません。</footer>
@@ -120,5 +157,126 @@ byId('next').addEventListener('click',next);
 byId('back').addEventListener('click',()=>{const st=state[current];if(st.summary){st.summary=false;render();return;}st.index=Math.max(0,st.index-1);st.hint=false;render()});
 byId('restart').addEventListener('click',()=>{state[current]={index:0,chosen:{},notes:{},hint:false};render()});
 render();
+
+/* Opt-in browser recognition → local intent routing → component-like panels.
+   No LLM, no automatic decisions/permissions, no audio storage. */
+const speechDemo = {
+  first:{last:'',history:[],meta:{},kind:'',examples:['夕飯を自分で決めてみたい','料理は一緒にして、予算は親に相談する','まず家の仕事を調べてみる']},
+  research:{last:'',history:[],meta:{},kind:'',examples:['誰が夕飯の準備をしているの？','家賃10万円と食費7万円、光熱費2万円だった','父は在庫が分からないから、買い物の前に教える']},
+  dinner:{last:'',history:[],meta:{},kind:'',examples:['カレーを作りたい。米とルーは家にある','A店は980円、B店は920円。どっちがいい？','お父さんはB店なら17時、A店なら16時30分に迎えに来るって','400グラム520円と600グラム600円で迷う','A店で買い物して、カレーを作った']}
+};
+let recognition=null,recognitionLive=false,recognitionInitial=false;
+const SpeechCtor=window.SpeechRecognition||window.webkitSpeechRecognition;
+const originalRenderVoice=render;
+function voiceEscape(s){return escapeHTML(s)}
+function captureFacts(raw,scene){
+ const t=raw.replace(/\s+/g,''),m=scene.meta;
+ const a=t.match(/(?:予算|使えるお金|上限)[はがを:：]?([0-9０-９,，]+)円/);
+ if(a)m.budget=a[1].replace(/[０-９]/g,c=>String(c.charCodeAt(0)-65296)).replace(/[,，]/g,'')+'円';
+ if(/カレー/.test(t))m.menu='カレー';
+ if(/(?:米|ごはん)/.test(t))m.rice='米';
+ if(/ルー/.test(t))m.roux='ルー';
+ if(/(?:玉ねぎ|たまねぎ)/.test(t))m.onion='玉ねぎ';
+ if(/にんじん/.test(t))m.carrot='にんじん';
+ if(/(?:父|お父さん|パパ)/.test(t))m.father='父の話を聞いた';
+ const store=t.match(/([ABＡＢ])店(?:で|は|なら|に|が|を)?(?:合計)?([0-9０-９,，]+)円/g)||[];
+ store.forEach(v=>{const hit=v.match(/([ABＡＢ])店(?:で|は|なら|に|が|を)?(?:合計)?([0-9０-９,，]+)円/);if(hit){const key=/[AＡ]/.test(hit[1])?'a':'b';m[key+'Price']=hit[2].replace(/[０-９]/g,c=>String(c.charCodeAt(0)-65296)).replace(/[,，]/g,'')+'円'}});
+ return t;
+}
+function routeSpeech(scenario,text){
+ const normalized=captureFacts(text,scenario);
+ let idx=state[current].index,kind='question';
+ if(current==='first'){
+   if(/家事|家の仕事|分担|誰が|料理の前/.test(normalized)){idx=1;kind='family_list'}
+   else if(/親|予算|任せ|約束|できる|決めていい|一緒に|相談/.test(normalized)){idx=2;kind='agreement'}
+   else if(/まず|最初|調べて|やってみる/.test(normalized)){idx=3;kind='next_action'}
+   else {idx=0;kind='goals'}
+ }else if(current==='research'){
+   if(/伝え|提案|改善|重複|二度買|買う前|知らせ/.test(normalized)){idx=3;kind='proposal'}
+   else if(/収入|家賃|生活費|支出|万円|光熱費|いくら残/.test(normalized)){idx=2;kind='budget'}
+   else if(/誰|聞|父|母|仕事|家事|在庫/.test(normalized)){idx=1;kind='interview'}
+   else {idx=0;kind='question'}
+ }else{
+   if(/買った|作った|終わった|帰った|食べた/.test(normalized)){idx=6;kind='reflection'}
+   else if(/600|６００|400|４００|パック|グラム|g|お得|量|単価/.test(normalized)){idx=5;kind='unit_compare'}
+   else if(/迎え|時間|父|お父さん|16時|１７時|17時|Ｂ店なら|B店なら/.test(normalized)){idx=4;kind='time_compare'}
+   else if(/店|スーパー|チラシ|安い|値段|価格|どっち|比較|980|920/.test(normalized)){idx=2;kind='price_compare'}
+   else if(/在庫|冷蔵庫|材料|米|ルー|足り|買う物/.test(normalized)){idx=1;kind='checklist'}
+   else {idx=0;kind='menu'}
+ }
+ return {idx,kind};
+}
+function adaptVoice(text,source){
+ const raw=text.trim();if(!raw){byId('voiceStatus').textContent='何をしたいか一言入れてください。';return}
+ const scene=speechDemo[current],r=routeSpeech(scene,raw),st=state[current];
+ scene.last=raw;scene.kind=r.kind;scene.history.push({text:raw,source:source,kind:r.kind,at:st.index}); 
+ if(scene.history.length>15)scene.history.shift();
+ st.index=r.idx;st.summary=false;st.hint=/わから|困っ|どうすれば|教えて|難し|迷っ/.test(raw);
+ // These are participant statements, not verified facts or completed actions.
+ const k=String(r.idx);
+ if(st.notes[k]&&st.notes[k].indexOf(raw)<0)st.notes[k]+='\n'+raw; else if(!st.notes[k])st.notes[k]=raw;
+ render();
+ byId('voiceStatus').textContent=(source==='mic'?'聞き取りました：':'入力を受け取りました：')+'「'+raw.slice(0,44)+(raw.length>44?'…':'')+'」';
+ byId('feedback').textContent='あなたの言葉で「'+step().title+'」のUIへ切り替えました';
+}
+function outputForVoice(scene){
+ const s=speechDemo[current];
+ if(!s.last)return '';
+ const m=s.meta,kind=s.kind;
+ const all=s.history.map(z=>z.text);
+ const parts=['<section class="voiceResult" aria-label="話した内容に合わせて変わった表示"><div class="aiLabel">✦ 入力に応じて組み立てたUI（固定ルール）</div>','<p class="heard">聞いた言葉：「'+voiceEscape(s.last)+'」</p>'];
+ const tags=[];
+ if(m.budget)tags.push('予算 '+m.budget);
+ if(m.menu)tags.push('献立 '+m.menu);
+ if(m.rice)tags.push('米は確認の発言あり');
+ if(m.roux)tags.push('ルーは確認の発言あり');
+ if(m.father)tags.push('家族との相談の発言あり');
+ if(tags.length)parts.push('<div class="row">'+tags.map(x=>'<span>'+voiceEscape(x)+'</span>').join('')+'</div>');
+ if(kind==='price_compare'){
+   parts.push('<h3>お店を比べるカード</h3><div class="numbers"><div><small>A店（例）</small><b>'+voiceEscape(m.aPrice||'980円')+'</b><small>近い店</small></div><div><small>B店（例）</small><b>'+voiceEscape(m.bPrice||'920円')+'</b><small>少し遠い店</small></div></div><p>安さだけでは決まらない。帰る時間・運び方・家族の都合は確かめた？</p>');
+ }else if(kind==='time_compare'){
+   parts.push('<h3>家族との相談を反映した比較</h3><div class="numbers"><div><small>A店（例）</small><b>'+voiceEscape(m.aPrice||'980円')+'</b><small>16:30 迎え可能という仮例</small></div><div><small>B店（例）</small><b>'+voiceEscape(m.bPrice||'920円')+'</b><small>17:00 迎え可能という仮例</small></div></div><p>どちらを選ぶかは自分で決め、父の返事をもう一度確かめよう。実際の時刻・合意はあなたの報告に基づく。</p>');
+ }else if(kind==='unit_compare'){
+   parts.push('<h3>単価と予算を比べる</h3><div class="numbers"><div><small>肉 400g</small><b>520円</b><small>100gあたり130円</small></div><div><small>肉 600g</small><b>600円</b><small>100gあたり100円</small></div></div><p>安い単価でも、今日は何g必要？ほかの材料を含めた合計も見て決めよう。</p>');
+ }else if(kind==='budget'){
+   parts.push('<h3>わかったお金・まだ知らないお金</h3><div class="numbers"><div><small>収入（架空例）</small><b>40万円</b></div><div><small>確認済み支出（架空例）</small><b>19万円</b></div></div><p>差は21万円。ただしこれが自由に使える金額とは限らない。まだ未確認の出費があるか家族へ質問しよう。</p>');
+ }else if(kind==='interview'||kind==='proposal'){
+   parts.push('<h3>'+(kind==='interview'?'家族に聞きに行くカード':'提案を実際に試すカード')+'</h3><p>'+(kind==='interview'?'「何を」「いつ」「誰が」しているか、家族に聞いてみよう。':'誰に、いつ情報を伝えたら役立つか相談して、一度試そう。')+'</p>');
+ }else if(kind==='agreement'||kind==='family_list'||kind==='goals'||kind==='next_action'){
+   parts.push('<h3>家族との取り決めを考える</h3><p>自分で決めたいこと・親に相談したいこと・一緒にすることを分けよう。決定権はAIが増やせません。</p>');
+ }else if(kind==='checklist'||kind==='menu'){
+   parts.push('<h3>'+(kind==='checklist'?'材料の確認カード':'何を作るかの相談カード')+'</h3><p>家で確かめる → 必要量を決める → 予算を相談する。聞いた情報は後で使えるけれど、まだ確かめていない事実は埋めない。</p>');
+ }else if(kind==='reflection'){
+   parts.push('<h3>出来事の記録カード</h3><p>話した内容を体験の記録に追加しました。何を選んでどうなったかを、実際に行動した部分だけで残します。親の共有確認は別です。</p>');
+ }else parts.push('<h3>今、何を確かめる？</h3><p>気になることを家族に聞き、わかったことを戻って話してね。</p>');
+ parts.push('<p class="trail">今回の声／文字の報告：'+s.history.length+'件。音声の原音はこのデモでは保持しません。</p></section>');
+ return parts.join('');
+}
+function voicePaint(){
+ const scene=speechDemo[current];
+ const samples=byId('voiceSamples');
+ samples.innerHTML=scene.examples.map((x,i)=>'<button type="button" data-speak-example="'+i+'" title="例文から画面を変える">'+voiceEscape(x)+'</button>').join('');
+ if(scene.last&&!state[current].summary){
+   const screen=byId('screen');
+   screen.insertAdjacentHTML('afterbegin',outputForVoice(scene));
+ }
+}
+render=function(){ originalRenderVoice();voicePaint() };
+function micMessage(v){byId('voiceStatus').textContent=v}
+byId('voiceStart').addEventListener('click',()=>{
+ if(!SpeechCtor){micMessage('このブラウザは音声認識に対応していません。下の文字入力を使ってください。');return}
+ if(recognitionLive){micMessage('音声認識中です。終了する場合は「止める」を押してください。');return}
+ if(!recognition){recognition=new SpeechCtor();recognition.lang='ja-JP';recognition.interimResults=false;recognition.continuous=false;recognition.maxAlternatives=1;
+   recognition.onresult=e=>{let raw='';for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)raw+=e.results[i][0].transcript}if(raw){byId('voiceText').value=raw;adaptVoice(raw,'mic')}};
+   recognition.onerror=e=>{micMessage('音声認識できませんでした（'+e.error+'）。マイク許可・通信状態を確認するか、文字入力を使ってください。')};
+   recognition.onend=()=>{recognitionLive=false;byId('voiceStart').classList.remove('recording');byId('voiceStart').textContent='🎤 話す'};
+ }
+ try{recognition.start();recognitionLive=true;byId('voiceStart').classList.add('recording');byId('voiceStart').textContent='● 聞いています';micMessage('録音ではなく音声認識中です。ひとこと話してください。')}catch(e){recognitionLive=false;micMessage('音声認識を開始できませんでした。文字入力を使ってください。')}
+});
+byId('voiceStop').addEventListener('click',()=>{if(recognition&&recognitionLive){recognition.stop();micMessage('聞き取りを止めました。')}else micMessage('現在、聞き取り中ではありません。')});
+byId('voiceApply').addEventListener('click',()=>adaptVoice(byId('voiceText').value,'text'));
+document.addEventListener('click',e=>{const btn=e.target.closest('button[data-speak-example]');if(!btn)return;const val=speechDemo[current].examples[Number(btn.dataset.speakExample)];byId('voiceText').value=val;adaptVoice(val,'example')});
+render();
+
 </script>
 </body></html>
