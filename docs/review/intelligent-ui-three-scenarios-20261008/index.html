@@ -170,7 +170,7 @@ const SpeechCtor=window.SpeechRecognition||window.webkitSpeechRecognition;
 const originalRenderVoice=render;
 function voiceEscape(s){return escapeHTML(s)}
 function captureFacts(raw,scene){
- const t=raw.replace(/\s+/g,''),m=scene.meta;
+ const t=raw.replace(/\s+/g,'').replace(/[０-９]/g,c=>String(c.charCodeAt(0)-65296)),m=scene.meta;
  const a=t.match(/(?:予算|使えるお金|上限)[はがを:：]?([0-9０-９,，]+)円/);
  if(a)m.budget=a[1].replace(/[０-９]/g,c=>String(c.charCodeAt(0)-65296)).replace(/[,，]/g,'')+'円';
  if(/カレー/.test(t))m.menu='カレー';
@@ -181,6 +181,10 @@ function captureFacts(raw,scene){
  if(/(?:父|お父さん|パパ)/.test(t))m.father='父の話を聞いた';
  const store=t.match(/([ABＡＢ])店(?:で|は|なら|に|が|を)?(?:合計)?([0-9０-９,，]+)円/g)||[];
  store.forEach(v=>{const hit=v.match(/([ABＡＢ])店(?:で|は|なら|に|が|を)?(?:合計)?([0-9０-９,，]+)円/);if(hit){const key=/[AＡ]/.test(hit[1])?'a':'b';m[key+'Price']=hit[2].replace(/[０-９]/g,c=>String(c.charCodeAt(0)-65296)).replace(/[,，]/g,'')+'円'}});
+ const timePattern=/([ABＡＢ])店(?:では|なら|だと|は|で|に|が)?(\d{1,2})時(\d{1,2})?分?/g;
+ for(const match of t.matchAll(timePattern)){const key=/[AＡ]/.test(match[1])?'a':'b';m[key+'Pickup']=match[2].padStart(2,'0')+':'+(match[3]||'00').padStart(2,'0')}
+ const meatPattern=/(400|600)(?:g|グラム)(?:は|で|なら|が)?(\d{2,5})円/g;
+ for(const match of t.matchAll(meatPattern)){m['meat'+match[1]]=Number(match[2])}
  return t;
 }
 function routeSpeech(scenario,text){
@@ -201,6 +205,7 @@ function routeSpeech(scenario,text){
    else if(/600|６００|400|４００|パック|グラム|g|お得|量|単価/.test(normalized)){idx=5;kind='unit_compare'}
    else if(/迎え|時間|父|お父さん|16時|１７時|17時|Ｂ店なら|B店なら/.test(normalized)){idx=4;kind='time_compare'}
    else if(/店|スーパー|チラシ|安い|値段|価格|どっち|比較|980|920/.test(normalized)){idx=2;kind='price_compare'}
+   else if(/予算|いくら使える|お金が/.test(normalized)){idx=0;kind='budget_guard'}
    else if(/在庫|冷蔵庫|材料|米|ルー|足り|買う物/.test(normalized)){idx=1;kind='checklist'}
    else {idx=0;kind='menu'}
  }
@@ -235,9 +240,12 @@ function outputForVoice(scene){
  if(kind==='price_compare'){
    parts.push('<h3>お店を比べるカード</h3><div class="numbers"><div><small>A店（例）</small><b>'+voiceEscape(m.aPrice||'980円')+'</b><small>近い店</small></div><div><small>B店（例）</small><b>'+voiceEscape(m.bPrice||'920円')+'</b><small>少し遠い店</small></div></div><p>安さだけでは決まらない。帰る時間・運び方・家族の都合は確かめた？</p>');
  }else if(kind==='time_compare'){
-   parts.push('<h3>家族との相談を反映した比較</h3><div class="numbers"><div><small>A店（例）</small><b>'+voiceEscape(m.aPrice||'980円')+'</b><small>16:30 迎え可能という仮例</small></div><div><small>B店（例）</small><b>'+voiceEscape(m.bPrice||'920円')+'</b><small>17:00 迎え可能という仮例</small></div></div><p>どちらを選ぶかは自分で決め、父の返事をもう一度確かめよう。実際の時刻・合意はあなたの報告に基づく。</p>');
+   parts.push('<h3>家族との相談を反映した比較</h3><div class="numbers"><div><small>A店（例）</small><b>'+voiceEscape(m.aPrice||'980円')+'</b><small>' +voiceEscape(m.aPickup||'16:30')+' 迎え（'+(m.aPickup?'本人の報告':'仮例')+'）</small></div><div><small>B店（例）</small><b>'+voiceEscape(m.bPrice||'920円')+'</b><small>'+voiceEscape(m.bPickup||'17:00')+' 迎え（'+(m.bPickup?'本人の報告':'仮例')+'）</small></div></div><p>どちらを選ぶかは自分で決め、父の返事をもう一度確かめよう。実際の時刻・合意はあなたの報告に基づく。</p>');
  }else if(kind==='unit_compare'){
-   parts.push('<h3>単価と予算を比べる</h3><div class="numbers"><div><small>肉 400g</small><b>520円</b><small>100gあたり130円</small></div><div><small>肉 600g</small><b>600円</b><small>100gあたり100円</small></div></div><p>安い単価でも、今日は何g必要？ほかの材料を含めた合計も見て決めよう。</p>');
+   const small=m.meat400||520,big=m.meat600||600;
+   parts.push('<h3>単価と予算を比べる</h3><div class="numbers"><div><small>肉 400g</small><b>'+small+'円</b><small>100gあたり'+Math.round(small/4)+'円</small></div><div><small>肉 600g</small><b>'+big+'円</b><small>100gあたり'+Math.round(big/6)+'円</small></div></div><p>安い単価でも、今日は何g必要？ほかの材料を含めた合計も見て決めよう。金額は本人の報告があればその値、なければ合成例。</p>');
+ }else if(kind==='budget_guard'){
+   parts.push('<h3>今日使える予算</h3><div class="numbers"><div><small>今回の条件</small><b>'+voiceEscape(m.budget||'1,000円（仮例）')+'</b></div><div><small>人数</small><b>4人分（仮例）</b></div></div><p>献立・必要な材料・買い足す物を家族に確かめよう。変更するときは本人が親に相談する。</p>');
  }else if(kind==='budget'){
    parts.push('<h3>わかったお金・まだ知らないお金</h3><div class="numbers"><div><small>収入（架空例）</small><b>40万円</b></div><div><small>確認済み支出（架空例）</small><b>19万円</b></div></div><p>差は21万円。ただしこれが自由に使える金額とは限らない。まだ未確認の出費があるか家族へ質問しよう。</p>');
  }else if(kind==='interview'||kind==='proposal'){
