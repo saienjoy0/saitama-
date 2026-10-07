@@ -475,7 +475,7 @@ function intentFor(t,scene){
  if(/400|600|グラム|g|単価|パック|お得/.test(t))return 'meat';
  if(/迎え|送迎|16時|17時|父|お父さん|時間/.test(t))return 'pickup';
  if(/A店|B店|スーパー|チラシ|安い|どっち|比較|価格|値段/.test(t))return 'shop';
- if(/在庫|米|ルー|玉ねぎ|材料|家に|冷蔵庫|足り/.test(t))return 'stock';
+ if(/在庫|米|ルー|玉ねぎ|材料|家に|冷蔵庫|足り|何も見つ|何もなかった|見つから/.test(t))return 'stock';
  return 'menu';
 }
 function tile(type,title,data,wide,tag){return {type,title,data,wide:!!wide,tag:tag||''}}
@@ -515,16 +515,40 @@ function makeModel(turn,sess){
    s.title=menu+'の材料を確認しよう';s.say='「'+menu+'を作りたい」んだね。まず冷蔵庫を見て、家にある材料を確かめよう。何人で食べるかと予算も家族に聞いてみよう。';
    s.widgets=[textLine('最初の3つのステップ',['家にある食材を確かめる','必要な量をレシピで確かめる','買い足す物を家族に相談する']),tile('next','外でやってみる','冷蔵庫を見て、使えそうな食材を確かめよう')];s.hint='何も思いつかないなら、献立を一つだけ決めるところから始めよう。';
   }else if(k==='stock'){
-   s.title='何を買い足せばいいかな？';s.say=(f.stock?.length?'「'+f.stock.join('・')+'」があると聞いたよ。':'在庫を確かめたんだね。')+' 家にある物と必要な量を分けてみよう。';
-   s.widgets=[tile('list','家にあると報告したもの',f.stock?.length?f.stock:['まだ材料名は聞けていません']),tile('next','現実でやってみる','レシピと材料の量を家族と確かめて、買い足す物を決めよう')];s.hint='レシピの4人分を確認してもいいね。量はAIが勝手に決めないよ。';
+   const noIngredients=/(?:何も見つ|何もなかった|見つから)/.test(turn.text);
+   if(f.stock?.length){
+    s.title='家にある材料を整理したよ';
+    s.say='家には「'+f.stock.join('・')+'」があるんだね。4人分かどうかはまだ分からないから、作りたい料理のレシピと必要な量を確かめてみよう。';
+    s.widgets=[tile('list','はるちゃんが報告した材料',f.stock),tile('next','次に外で確かめること','何人で食べるかを家族に確認して、足りない材料の量とお店の値段を調べよう')];
+   }else if(noIngredients){
+    s.title='家の材料が見つからなかったんだね';
+    s.say='材料が見つからなかったんだね。まず家族に、何人分作るかと使える予算を聞いてから、必要なものを考えてみよう。';
+    s.widgets=[tile('next','家族に聞いてみよう','何人で食べる？ 家に使っていい材料はある？ 買い物の予算は？')];
+   }else{
+    s.title='冷蔵庫には何があった？';
+    s.say='材料を確かめてきたんだね。冷蔵庫には何があった？ 見つけた材料を名前で教えてね。何もなければ「何もなかった」でも大丈夫だよ。';
+    s.widgets=[tile('next','見つけた材料を教えてね','たとえば「米とルーがあった」。分からなければ、家族に確認してから話そう')];
+   }
+   s.hint='材料名がわかるまで、お店を決めなくて大丈夫。必要なものを一つずつ確認しよう。';
   }else if(k==='shop'){
-   const a=f.Aprice||980,b=f.Bprice||920;let cheap=a===b?'同じ':a<b?'A店':'B店';
-   s.title='どのお店なら、条件に合う？';s.say='はるが調べた2店を比べるね。'+(cheap==='同じ'?'今の金額は同じだね。':cheap+'のほうが'+yen(Math.abs(a-b))+'安いね。')+' でも、値段だけで決まるかな？帰る時間と荷物も家族に聞いてみよう。';
-   s.widgets=[tile('table','買い物の比較',[['','A店','B店'],['買い足す合計',yen(a),yen(b)],['情報の出所',f.Aprice?'本人の報告':'合成例',f.Bprice?'本人の報告':'合成例']],true,'比べるUI'),tile('next','もう一つ確かめよう','帰りの時間や、買った物の運び方を家族に聞いてみよう')];s.hint='今日の予算と、家に帰る時間も条件だよ。';
+   if(!f.Aprice||!f.Bprice){
+     s.title='2つのお店の値段を聞かせて';
+     s.say='お店の値段を調べたんだね。A店とB店では、それぞれいくらだった？ 分かった金額だけでいいよ。まだなら、チラシや売り場で確かめてきてね。';
+     s.widgets=[tile('table','分かった値段',[['','A店','B店'],['金額',f.Aprice?yen(f.Aprice):'未確認',f.Bprice?yen(f.Bprice):'未確認']],true),tile('next','次に調べること','分からないお店の金額を確認して、ここに話してね')];
+   }else{
+     const a=f.Aprice,b=f.Bprice;let cheap=a===b?'同じ':a<b?'A店':'B店';
+     s.title='どのお店なら、条件に合う？';s.say='はるが調べた2店を比べるね。'+(cheap==='同じ'?'今の金額は同じだね。':cheap+'のほうが'+yen(Math.abs(a-b))+'安いね。')+' でも、値段だけで決まるかな？帰る時間と荷物も家族に聞いてみよう。';
+     s.widgets=[tile('table','買い物の比較',[['','A店','B店'],['買い足す合計',yen(a),yen(b)],['情報の出所','本人の報告','本人の報告']],true,'比べるUI'),tile('next','もう一つ確かめよう','帰りの時間や、買った物の運び方を家族に聞いてみよう')];
+   }
+   s.hint='今日の予算と、家に帰る時間も条件だよ。';
   }else if(k==='pickup'){
-   const a=f.Aprice||980,b=f.Bprice||920,ap=f.Apickup||'16:30',bp=f.Bpickup||'17:00';
-   s.title='家族の都合も入れて、もう一度比べよう';s.say='B店は'+yen(b)+'で迎えが'+bp+'、A店は'+yen(a)+'で迎えが'+ap+'だね。16時45分までに帰宅する約束だったね。値段と時間を比べて、どんな案を家族に提案する？';
-   s.widgets=[tile('table','条件が増えた比較',[['','A店','B店'],['買い足し',yen(a),yen(b)],['迎え',ap,bp],['予算内',a<=budget?'◯':'要相談',b<=budget?'◯':'要相談']],true,'条件が変わった'),tile('next','自分で決める','今日の条件に合う案を選んで、もう一度家族と合意しよう')];s.hint='安い店を選ぶのが必ず正解ではない。時間や荷物も大事な条件だよ。';
+   const a=f.Aprice,b=f.Bprice,ap=f.Apickup,bp=f.Bpickup;
+   s.title='家族の都合も入れて、もう一度比べよう';
+   s.say='お父さんから迎えの時間も聞けたんだね。A店は'+(ap||'未確認')+'、B店は'+(bp||'未確認')+'。値段と時間を比べて、どんな案を家族に提案する？';
+   const rows=[['','A店','B店'],['買い足し',a?yen(a):'未確認',b?yen(b):'未確認'],['迎え',ap||'未確認',bp||'未確認']];
+   if(f.budget)rows.push(['予算内',a?(a<=budget?'◯':'要相談'):'未確認',b?(b<=budget?'◯':'要相談'):'未確認']);
+   s.widgets=[tile('table','条件が増えた比較',rows,true,'本人が聞いてきた条件'),tile('next','自分で決める','帰宅時間の約束と予算を家族に確認して、今日の条件に合う案を選ぼう')];
+   s.hint='安い店を選ぶのが必ず正解ではない。時間や荷物も大事な条件だよ。';
   }else if(k==='meat'){
    const small=f.meat400||520,big=f.meat600||600;
    s.title='「お得」なら、大きい方がいい？';s.say='小さい方は100gあたり'+yen(small/4)+'、大きい方は'+yen(big/6)+'。'+(small/4>big/6?'大きい方が単価は安いね。':'単価も比較できるね。')+' でも、今日必要なのは何g？ほかの材料を含めた予算も確かめよう。';
@@ -707,8 +731,8 @@ function nextSuggestions(intent){
  if(current==='dinner'){
    const options={
     menu:['家に米とルーがある','材料を確かめてきた'],
-    stock:['A店は980円、B店は920円','お店の値段を調べてきた'],
-    shop:['父はA店なら16時30分、B店なら17時に迎えられる','父に相談してくる'],
+    stock:sessions[current].facts.stock?.length?['お店の値段を調べてきた','A店は980円、B店は920円']:['米とルーがあった','何もなかった'],
+    shop:sessions[current].facts.Aprice&&sessions[current].facts.Bprice?['父はA店なら16時30分、B店なら17時に迎えられる','父に相談してくる']:['A店は980円、B店は920円','値段をまだ調べていない'],
     pickup:['400グラム520円と600グラム600円で迷う','今日はA店にする'],
     meat:['A店で買い物してカレーを作った','家族に決めた理由を説明する'],
     result:[]
