@@ -127,12 +127,12 @@ button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:g
       <h1 id="scTitle">今日は、何をやってみたい？</h1>
       <p id="scLead" class="lead">やりたいことを話してみよう。途中で変えても大丈夫。</p>
       <section class="quest"><div class="questIcon" id="questIcon">🍛</div><div><span class="over">今回のクエスト</span><strong id="questTitle">おばあちゃんを迎える夕飯</strong><p id="questDesc">献立・お金・買い物を自分で考えて、家族と相談する</p></div></section>
-      <div class="eyebrow">こんなことから始められるよ</div>
+      <div class="eyebrow">迷ったら、話すきっかけを選ぼう</div>
       <nav class="suggestions" id="suggestions" aria-label="会話のきっかけ"></nav>
       <section class="composer" aria-label="声で進める">
-        <div class="comphead"><strong>🎙 何から始める？</strong><small>声でも、文字でも</small></div>
+        <div class="comphead"><strong>🎙 はるちゃんの言葉</strong><small>声でも、文字でも</small></div>
         <div class="inputrow"><textarea id="utterance" class="textinput" rows="2" placeholder="たとえば「カレーを作りたい。予算は1000円」"></textarea><button id="mic" class="mic" type="button" aria-label="マイクで話す">🎙</button></div>
-        <div class="composerFoot"><p class="tiny">声はボタンを押した時だけ。録音保存なし。</p><button type="button" class="apply" id="apply">話した内容からつくる ↗</button></div>
+        <div class="composerFoot"><p class="tiny">声はボタンを押した時だけ。録音保存なし。</p><button type="button" class="apply" id="apply">この言葉で進める ↗</button></div>
         <p class="status" id="status" role="status" aria-live="polite"></p>
       </section>
       <section id="dialogue" class="dialogue" aria-live="polite" aria-label="はるちゃんとAIの会話"></section>
@@ -422,7 +422,7 @@ function paintScene(){
  // When restoring a scene, the latest reply is already known; no typing animation needed.
  if(sess.turns.length){const last=el('composedSentence');if(last){last.textContent=sess.turns.at(-1).reply;const cursor=el('typingCursor');if(cursor)cursor.hidden=true;}}
  el('suggestions').innerHTML=sc.suggestions.map(x=>'<button type="button" class="suggestion" data-say="'+esc(x)+'">'+esc(x)+' ↗</button>').join('');
- el('sceneTabs').innerHTML=Object.entries(configs).map(([id,v])=>'<button type="button" data-scene="'+id+'" aria-pressed="'+(id===current)+'">'+esc(v.label)+'</button>').join('');
+ el('sceneTabs').innerHTML=['family','research','dinner'].map(id=>{const v=configs[id];return '<button type="button" data-scene="'+id+'" aria-pressed="'+(id===current)+'">'+esc(v.label)+'</button>'}).join('');
  el('scriptList').innerHTML=presenterExamples();
  setOperator(operatorPositions[current]);
  updateVoiceBack();
@@ -457,7 +457,7 @@ el('reset').addEventListener('click',()=>{sessions[current]={facts:{},turns:[],s
 document.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b)return;
  if(b.dataset.scene){chooseScene(b.dataset.scene);return;}
- if(b.dataset.say){el('utterance').value=b.dataset.say;applyUtterance('example');return;}
+ if(b.dataset.say){el('utterance').value=b.dataset.say;el('status').textContent='入力欄に入れました。自分の言葉に直して「この言葉で進める」を押してね。';if(el('utterance').focus)el('utterance').focus();return;}
  if(b.dataset.example!==undefined){const i=Number(b.dataset.example);setOperator(i);el('utterance').value=configs[current].examples[i];applyUtterance('example');if(i<configs[current].examples.length-1)setOperator(i+1);return;}
  if(b.dataset.action==='hint'){
   const last=sessions[current].turns.at(-1);if(!last)return;
