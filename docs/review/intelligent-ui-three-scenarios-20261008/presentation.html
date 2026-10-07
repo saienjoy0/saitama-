@@ -115,6 +115,89 @@ button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:g
 }
 @media(prefers-reduced-motion:reduce){.stage .talk,.stage .tile{animation:none!important;transition:none!important}}
 
+
+/* Review UX refinement: keep Haru/AI exchange and generated UI visible together */
+.stage:not(.hasConversation) .workspace{display:none}
+.stage:not(.hasConversation) .inn{max-width:675px}
+.stage:not(.hasConversation) .quest{margin:18px 0}
+.stage:not(.hasConversation) .composer{box-shadow:0 6px 24px #133e2e0c}
+.stage .suggestion{min-height:48px;font-size:15px;padding:9px 15px}
+.stage .textinput{font-size:16px;min-height:60px}
+.stage .apply{min-height:48px;font-size:15px}
+.stage .mic{min-width:64px;min-height:60px}
+.stage .talk p{font-size:16px;line-height:1.75}
+.stage .talk-who{font-size:12px}
+.stage .tile h3{font-size:16px}
+.stage .tile p,.stage .step,.stage .quote{font-size:15px}
+.stage .compare{font-size:14px}
+.stage .composer .comphead strong{font-size:16px}
+.stage .outline{min-height:48px;font-size:14px}
+.stage.hasConversation .inn{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:9px 23px;max-width:1070px;padding:21px 29px 35px;align-items:start}
+.stage.hasConversation #scLabel{grid-column:1/-1;grid-row:1}
+.stage.hasConversation #scTitle{grid-column:1/-1;grid-row:2;font-size:25px;margin:0}
+.stage.hasConversation .quest{grid-column:1/-1;grid-row:3;margin:6px 0 11px}
+.stage.hasConversation .inn>.eyebrow:not(#scLabel){grid-column:1;grid-row:4;margin:0}
+.stage.hasConversation .suggestions{grid-column:1;grid-row:5;margin:0 0 10px}
+.stage.hasConversation .dialogue{grid-column:1;grid-row:6;margin:0 0 12px}
+.stage.hasConversation .composer{grid-column:1;grid-row:7;margin:0;align-self:start}
+.stage.hasConversation .workspace{grid-column:2;grid-row:4/span 4;min-width:0;border-left:1px solid #dcebe0;padding:0 0 8px 23px;margin:0}
+.stage.hasConversation .workspace .constructed{margin:0;padding:0;border-top:0}
+.stage.hasConversation .workspace .tiles{grid-template-columns:1fr}
+.stage.hasConversation .workspace .tile.wide{grid-column:1}
+.stage.hasConversation .workspace h2{font-size:21px}
+.stage.hasConversation .workspace .slot{font-size:12px}
+.stage.hasConversation .workspace .tile{padding:14px}
+.stage.hasConversation .workspace .tile p{line-height:1.65}
+.stage.hasConversation .workspace .compare th{font-size:12px}
+.stage.hasConversation .dialogue .talk{max-width:100%}
+.stage.hasConversation .quest p{font-size:13px}
+.stage.hasConversation .quest strong{font-size:16px}
+.stage.hasConversation .suggestion{font-size:14px}
+.presenter .operatorPrimary{min-height:52px}
+.presenter .sceneTabs button,.presenter .operatorNav button,.presenter .reset{min-height:48px}
+.presenter .scriptList{max-height:380px;overflow:auto}
+.presenterClose{display:none}
+@media(max-width:970px){
+ .presenter.isOpen{display:block;position:fixed;left:12px;right:12px;top:72px;bottom:12px;z-index:30;overflow-y:auto;overscroll-behavior:contain;box-shadow:0 16px 60px #173b3190;padding:18px}
+ .presenterClose{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1px solid #bdd7c4;background:#eef7f0;color:#176b5b;border-radius:10px;font-size:14px;font-weight:800;padding:9px 14px;float:right}
+ .stage.hasConversation .inn{max-width:100%;padding:20px 24px 35px}
+}
+@media(max-width:740px){
+ .stage.hasConversation .inn{display:flex;flex-direction:column;gap:0;padding:16px 15px 85px}
+ .stage.hasConversation #scLabel,.stage.hasConversation #scTitle,.stage.hasConversation .quest,.stage.hasConversation .inn>.eyebrow:not(#scLabel),.stage.hasConversation .suggestions,.stage.hasConversation .dialogue,.stage.hasConversation .workspace,.stage.hasConversation .composer{width:100%;grid-column:auto;grid-row:auto}
+ .stage.hasConversation #scTitle{font-size:21px;margin:0 0 4px}
+ .stage.hasConversation .quest{margin:7px 0 10px}
+ .stage.hasConversation .inn>.eyebrow:not(#scLabel){order:1}
+ .stage.hasConversation .suggestions{order:2;margin:6px 0 12px}
+ .stage.hasConversation .dialogue{order:3}
+ .stage.hasConversation .workspace{order:4;border:0;border-top:1px solid #dcebe0;padding:17px 0 8px}
+ .stage.hasConversation .composer{order:5;position:sticky;bottom:0;background:#fffdf8;z-index:5;box-shadow:0 -8px 20px #183c2819;border:1px solid #c5e1cc;border-radius:15px;padding:12px;margin-top:6px}
+ .stage.hasConversation .composer .comphead{margin-bottom:7px}
+ .stage.hasConversation .composer .textinput{min-height:47px;max-height:85px}
+ .stage.hasConversation .composer .mic{min-height:50px}
+ .stage.hasConversation .composerFoot .tiny{display:none}
+ .stage.hasConversation .composerFoot .apply{width:100%;max-width:100%}
+ .stage.hasConversation .composerFoot{margin-top:6px}
+ .stage.hasConversation .composer .status{font-size:11px;margin:6px 0 0}
+ .stage.hasConversation .workspace .tile{padding:14px}
+ .stage.hasConversation .workspace .compare{font-size:13px}
+ .stage.hasConversation .dialogue .talk p{font-size:16px}
+ .stage.hasConversation .voiceBack{display:none}
+ .voiceBack{bottom:unset;top:63px;right:14px;min-height:44px;font-size:12px;padding:7px 12px}
+ .stage.hasConversation .voiceBack{display:none}
+}
+@media(max-width:420px){
+ .top{padding:11px 12px}
+ .top .brand{font-size:14px;gap:5px}
+ .top .mark{width:29px;height:29px}
+ .topTools{font-size:12px;padding:8px 9px}
+ .top .quiet{font-size:11px;padding:4px}
+ .righttop{gap:4px}
+ .stage .suggestion{font-size:14px}
+ .stage.hasConversation .composer{bottom:0}
+}
+@media(prefers-reduced-motion:reduce){.stage .reveal,.stage .talk,.stage .tile{animation:none!important;transition:none!important;opacity:1}}
+
 </style>
 </head>
 <body>
@@ -140,7 +223,7 @@ button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:g
     </div>
   </main>
   <aside class="presenter" id="presenter" aria-label="発表用の操作">
-    <span class="chip">発表者用</span><h2 style="margin-top:12px">声からUIが生まれる</h2>
+    <button type="button" id="closePresenter" class="presenterClose">✕ 閉じる</button><span class="chip">発表者用</span><h2 style="margin-top:12px">声からUIが生まれる</h2>
     <p class="helpText">まず、はるちゃんの発言を見せる。次にAIが返した文章を一文字ずつ表示。最後にその返答から作ったUIカードを出します。過去の会話も確認できます。</p>
     <h3>見せるシナリオ</h3><div class="sceneTabs" id="sceneTabs"></div>
     <div class="operatorFocus" aria-label="発表で使うセリフ"><p class="over" id="operatorProgress">STEP 1</p><div id="operatorLine" class="line">はるちゃんの言葉</div><p class="reply" id="operatorReply"></p><p class="uidesc" id="operatorUI"></p><button type="button" id="playLine" class="operatorPrimary">このセリフで会話を見せる ▶</button><div class="operatorNav"><button type="button" id="prevLine">← 前のセリフ</button><button type="button" id="nextLine">次のセリフ →</button></div></div><details class="allLines"><summary>すべての発言と返答を確認する</summary><div class="scriptList" id="scriptList"></div></details>
@@ -451,8 +534,10 @@ el('presentBtn').addEventListener('click',()=>{document.body.classList.toggle('p
 el('toolsBtn').addEventListener('click',()=>{if(document.body.classList.contains('presentMode')){document.body.classList.remove('presentMode');el('presentBtn').textContent='発表モード'}const opened=el('presenter').classList.toggle('isOpen');el('toolsBtn').setAttribute('aria-expanded',String(opened));if(opened&&el('presenter').scrollIntoView)el('presenter').scrollIntoView({behavior:'smooth',block:'start'})});
 el('prevLine').addEventListener('click',()=>setOperator(operatorPositions[current]-1));
 el('nextLine').addEventListener('click',()=>setOperator(operatorPositions[current]+1));
-el('playLine').addEventListener('click',()=>{const i=operatorPositions[current];el('utterance').value=configs[current].examples[i];applyUtterance('example');if(i<configs[current].examples.length-1)setOperator(i+1)});
+el('playLine').addEventListener('click',()=>{const i=operatorPositions[current];el('utterance').value=configs[current].examples[i];applyUtterance('example');if(i<configs[current].examples.length-1)setOperator(i+1);closeTools()});
 el('voiceBack').addEventListener('click',()=>{if(el('utterance').scrollIntoView)el('utterance').scrollIntoView({behavior:'smooth',block:'center'});el('utterance').focus()});
+el('closePresenter').addEventListener('click',()=>{closeTools();el('toolsBtn').focus()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTools()});
 el('reset').addEventListener('click',()=>{sessions[current]={facts:{},turns:[],show:false};paintScene()});
 document.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b)return;
