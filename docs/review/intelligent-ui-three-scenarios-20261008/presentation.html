@@ -120,7 +120,7 @@ button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:g
 <body>
 <div class="layout">
   <main id="stage" class="stage" aria-label="子どもの体験デモ">
-    <header class="top"><div class="brand"><span class="mark">✦</span> やってみクエスト</div><div class="righttop"><span class="chip">子どもの画面</span><button type="button" class="quiet" id="presentBtn">発表モード</button></div></header>
+    <header class="top"><div class="brand"><span class="mark">✦</span> やってみクエスト</div><div class="righttop"><span class="chip">子どもの画面</span><button type="button" class="topTools" id="toolsBtn" aria-expanded="false" aria-controls="presenter">台本・操作</button><button type="button" class="quiet" id="presentBtn">発表モード</button></div></header>
     <div class="inn">
       <div class="eyebrow" id="scLabel">今日のクエスト</div>
       <p class="welcome">おかえり、はる！</p>
@@ -139,17 +139,18 @@ button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:g
       <section class="workspace" id="workspace" aria-live="polite"><div class="preHint">言葉に合わせて、必要な質問やカードがここに現れます。答えを決めるのは、はる自身です。</div></section>
     </div>
   </main>
-  <aside class="presenter" aria-label="発表用の操作">
+  <aside class="presenter" id="presenter" aria-label="発表用の操作">
     <span class="chip">発表者用</span><h2 style="margin-top:12px">声からUIが生まれる</h2>
     <p class="helpText">まず、はるちゃんの発言を見せる。次にAIが返した文章を一文字ずつ表示。最後にその返答から作ったUIカードを出します。過去の会話も確認できます。</p>
     <h3>見せるシナリオ</h3><div class="sceneTabs" id="sceneTabs"></div>
-    <h3>はるちゃんのセリフ → AIの返答 → 出るUI（クリックで再現）</h3><div class="scriptList" id="scriptList"></div>
+    <div class="operatorFocus" aria-label="発表で使うセリフ"><p class="over" id="operatorProgress">STEP 1</p><div id="operatorLine" class="line">はるちゃんの言葉</div><p class="reply" id="operatorReply"></p><p class="uidesc" id="operatorUI"></p><button type="button" id="playLine" class="operatorPrimary">このセリフで会話を見せる ▶</button><div class="operatorNav"><button type="button" id="prevLine">← 前のセリフ</button><button type="button" id="nextLine">次のセリフ →</button></div></div><details class="allLines"><summary>すべての発言と返答を確認する</summary><div class="scriptList" id="scriptList"></div></details>
     <h3>見せたい3つの変化</h3>
     <p class="helpText"><strong>①</strong> 子どもの言葉が画面に反映される。<br><strong>②</strong> 必要なUIと説明文が組み立てられる。<br><strong>③</strong> 家族に聞いて戻ると、条件が変わり、再びUIが組み直される。</p>
     <button type="button" class="reset" id="reset">このシナリオを最初から</button>
     <p class="tiny" style="margin-top:11px">発表用の合成デモ。ライブ生成AI・実際の家族連携はありません。マイクの認識はブラウザのサービスを利用する場合があります。</p>
   </aside>
 </div>
+<button type="button" id="voiceBack" class="voiceBack" hidden>🎙 もう一度話す</button>
 <footer class="footer">※ 設計イメージを示すデモです。音声→文字認識は対応ブラウザの機能、その後の文章・UI構成は事前設計したルールとテンプレートによる実演です。内容は架空の家庭・価格です。実家庭データは使用しないでください。</footer>
 <script>
 'use strict';
@@ -177,6 +178,7 @@ const configs={
 };
 const sessions={family:{facts:{},turns:[],show:false},research:{facts:{},turns:[],show:false},dinner:{facts:{},turns:[],show:false}};
 let current='dinner',rec=null,recOn=false,waiting=0,hintOpen=false;
+const operatorPositions={family:0,research:0,dinner:0};
 const el=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[x]));
 const yen=n=>Number(n).toLocaleString('ja-JP')+'円';
@@ -287,7 +289,7 @@ function makeModel(turn,sess){
 }
 function renderWidget(w,i){
  const cls='tile'+(w.wide?' wide':'')+' reveal';
- let html='<article class="'+cls+'" style="--delay:'+(670+170*i)+'ms"><div class="tile-head"><h3>'+esc(w.title)+'</h3>'+(w.tag?'<span class="tile-tag">'+esc(w.tag)+'</span>':'')+'</div>';
+ let html='<article class="'+cls+(w.type==='next'?' isNext':'')+'" style="--delay:'+(670+170*i)+'ms"><div class="tile-head"><h3>'+esc(w.title)+'</h3>'+(w.tag?'<span class="tile-tag">'+esc(w.tag)+'</span>':'')+'</div>';
  if(w.type==='list')html+='<div class="steps">'+w.data.map((x,j)=>'<div class="step"><span class="stepNum">'+(j+1)+'</span><span>'+esc(x)+'</span></div>').join('')+'</div>';
  if(w.type==='next')html+='<div class="quote">'+esc(w.data)+'</div>';
  if(w.type==='table')html+='<table class="compare"><thead><tr>'+w.data[0].map(c=>'<th>'+esc(c)+'</th>').join('')+'</tr></thead><tbody>'+w.data.slice(1).map(row=>'<tr>'+row.map((c,j)=>'<td'+(j===0?'':' class="value"')+'>'+esc(c)+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
@@ -319,11 +321,35 @@ function paintDialogue(opts={}){
  const sess=sessions[current],history=sess.turns;
  if(!history.length){el('dialogue').innerHTML='';return;}
  const last=history.at(-1);
- const shown=history.slice(-2),old=history.slice(0,-2);
+ const shown=history.slice(-1),old=history.slice(0,-1);
  const prior=old.length?'<details class="historyFold"><summary>これまでの会話 '+old.length+'件を開く</summary>'+old.map(t=>dialogueBubble(t,false,false)).join('')+'</details>':'';
  const start='<div class="dialogueIntro">はるちゃんとAIのやり取り</div>';
  el('dialogue').innerHTML=start+prior+shown.map(t=>dialogueBubble(t,t===last&&!opts.pending,Boolean(opts.pending&&t===last))).join('');
 }
+
+function setOperator(n){
+ const sc=configs[current],pos=Math.min(sc.examples.length-1,Math.max(0,n));
+ operatorPositions[current]=pos;
+ const t=sc.examples[pos],shadow={facts:{}};
+ for(let i=0;i<=pos;i++)parseFacts(sc.examples[i],shadow.facts);
+ const m=makeModel({text:t,intent:intentFor(normalize(t),current),origin:'example'},shadow);
+ el('operatorProgress').textContent='STEP '+(pos+1)+' / '+sc.examples.length;
+ el('operatorLine').textContent='🎙 はるちゃん「'+t+'」';
+ el('operatorReply').textContent='✦ AI「'+m.say+'」';
+ el('operatorUI').textContent='▦ UI：'+m.widgets.map(x=>x.title).join('・');
+ el('prevLine').disabled=pos===0;
+ el('nextLine').disabled=pos===sc.examples.length-1;
+ const buttons=el('scriptList').querySelectorAll?el('scriptList').querySelectorAll('button[data-example]'):[];
+ buttons.forEach((b,i)=>b.setAttribute('aria-current',i===pos?'step':'false'));
+}
+function closeTools(){
+ el('presenter').classList.remove('isOpen');
+ el('toolsBtn').setAttribute('aria-expanded','false');
+}
+function focusConversation(){
+ if(el('dialogue').scrollIntoView)el('dialogue').scrollIntoView({block:'start',behavior:'smooth'});
+}
+function updateVoiceBack(){el('voiceBack').hidden=sessions[current].turns.length===0}
 function presenterExamples(){
  const shadow={facts:{}};
  const items=configs[current].examples;
@@ -360,6 +386,8 @@ function showUI(t,origin){
    paintDialogue();
    animateText(m.say,local,scene);
    el('status').textContent='声から文章とカードを組み立てました（デモ表示）';
+   updateVoiceBack();
+   if(!document.body.classList.contains('presentMode')&&window.innerWidth<=970)focusConversation();
    el('suggestions').innerHTML=nextSuggestions(intent).map(x=>'<button type="button" class="suggestion" data-say="'+esc(x)+'">'+esc(x)+' ↗</button>').join('');
  },480);
 }
@@ -396,6 +424,8 @@ function paintScene(){
  el('suggestions').innerHTML=sc.suggestions.map(x=>'<button type="button" class="suggestion" data-say="'+esc(x)+'">'+esc(x)+' ↗</button>').join('');
  el('sceneTabs').innerHTML=Object.entries(configs).map(([id,v])=>'<button type="button" data-scene="'+id+'" aria-pressed="'+(id===current)+'">'+esc(v.label)+'</button>').join('');
  el('scriptList').innerHTML=presenterExamples();
+ setOperator(operatorPositions[current]);
+ updateVoiceBack();
 }
 function chooseScene(sc){
  if(!configs[sc])return;
@@ -417,13 +447,18 @@ el('mic').addEventListener('click',()=>{
 });
 el('apply').addEventListener('click',()=>applyUtterance('text'));
 el('utterance').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();applyUtterance('text')}});
-el('presentBtn').addEventListener('click',()=>{document.body.classList.toggle('presentMode');el('presentBtn').textContent=document.body.classList.contains('presentMode')?'操作パネルを表示':'発表モード'});
+el('presentBtn').addEventListener('click',()=>{document.body.classList.toggle('presentMode');el('presentBtn').textContent=document.body.classList.contains('presentMode')?'操作パネルを表示':'発表モード';closeTools()});
+el('toolsBtn').addEventListener('click',()=>{if(document.body.classList.contains('presentMode')){document.body.classList.remove('presentMode');el('presentBtn').textContent='発表モード'}const opened=el('presenter').classList.toggle('isOpen');el('toolsBtn').setAttribute('aria-expanded',String(opened));if(opened&&el('presenter').scrollIntoView)el('presenter').scrollIntoView({behavior:'smooth',block:'start'})});
+el('prevLine').addEventListener('click',()=>setOperator(operatorPositions[current]-1));
+el('nextLine').addEventListener('click',()=>setOperator(operatorPositions[current]+1));
+el('playLine').addEventListener('click',()=>{const i=operatorPositions[current];el('utterance').value=configs[current].examples[i];applyUtterance('example');if(i<configs[current].examples.length-1)setOperator(i+1)});
+el('voiceBack').addEventListener('click',()=>{if(el('utterance').scrollIntoView)el('utterance').scrollIntoView({behavior:'smooth',block:'center'});el('utterance').focus()});
 el('reset').addEventListener('click',()=>{sessions[current]={facts:{},turns:[],show:false};paintScene()});
 document.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b)return;
  if(b.dataset.scene){chooseScene(b.dataset.scene);return;}
  if(b.dataset.say){el('utterance').value=b.dataset.say;applyUtterance('example');return;}
- if(b.dataset.example!==undefined){el('utterance').value=configs[current].examples[Number(b.dataset.example)];applyUtterance('example');return;}
+ if(b.dataset.example!==undefined){const i=Number(b.dataset.example);setOperator(i);el('utterance').value=configs[current].examples[i];applyUtterance('example');if(i<configs[current].examples.length-1)setOperator(i+1);return;}
  if(b.dataset.action==='hint'){
   const last=sessions[current].turns.at(-1);if(!last)return;
   hintOpen=!hintOpen;
