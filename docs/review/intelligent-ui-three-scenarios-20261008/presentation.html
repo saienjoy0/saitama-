@@ -295,6 +295,29 @@ button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:g
 .questOverlay button[aria-pressed="true"]{background:#176b5b;border-color:#176b5b;color:#fff}
 @media(max-width:420px){.questMenuBtn{font-size:12px;padding:8px;white-space:nowrap}.top .brand{font-size:14px}.top .righttop{gap:3px}}
 
+
+/* The guide starts the conversation with a concrete, quest-specific question. */
+.openingTalk{padding:16px 18px;background:#eef7ef;border:1px solid #cde2d2;border-radius:18px;margin:12px 0}
+.openingWho{font-size:12px;font-weight:850;color:#26705c;margin:0 0 8px}
+.openingTalk p{font-size:17px;line-height:1.7;margin:0}
+.openingTalk .openingNote{color:#577968;font-size:13px;margin-top:8px}
+.stage.hasConversation .openingTalk{display:none}
+.stage:not(.hasConversation) .quest{margin:11px 0 0}
+.stage:not(.hasConversation) .suggestions{margin:9px 0 14px}
+.stage:not(.hasConversation) .openingTalk{margin:12px 0}
+@media(max-width:740px){
+ .stage:not(.hasConversation) .inn{padding-top:13px}
+ .stage:not(.hasConversation) #scTitle{font-size:24px;margin:0 0 6px}
+ .stage:not(.hasConversation) #scLead{display:none}
+ .stage:not(.hasConversation) .quest{padding:10px 12px;margin:6px 0 0}
+ .stage:not(.hasConversation) .quest p{display:none}
+ .stage:not(.hasConversation) .openingTalk{padding:12px 14px;margin:9px 0 11px}
+ .stage:not(.hasConversation) .openingTalk p{font-size:17px}
+ .stage:not(.hasConversation) .openingTalk .openingNote{font-size:12px}
+ .stage:not(.hasConversation) .questPicker{margin:6px 0}
+ .stage:not(.hasConversation) .suggestions{margin:7px 0}
+}
+
 </style>
 </head>
 <body>
@@ -305,15 +328,16 @@ button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:g
     <div class="inn" id="journeyScroll">
       <div class="eyebrow" id="scLabel">今日のクエスト</div>
       <p class="welcome">おかえり、はる！</p>
-      <h1 id="scTitle">今日は、何をやってみたい？</h1>
+      <h1 id="scTitle">おばあちゃんと食べる夕飯を考えよう</h1>
       <p id="scLead" class="lead">やりたいことを話してみよう。途中で変えても大丈夫。</p>
       <nav id="questPicker" class="questPicker" aria-label="クエストを選ぶ"></nav>
       <section class="quest"><div class="questIcon" id="questIcon">🍛</div><div><span class="over">今回のクエスト</span><strong id="questTitle">おばあちゃんを迎える夕飯</strong><p id="questDesc">献立・お金・買い物を自分で考えて、家族と相談する</p></div></section>
-      <div class="eyebrow">迷ったら、話すきっかけを選ぼう</div>
+      <section id="openingTalk" class="openingTalk" aria-label="AIからの最初の質問"><div class="openingWho">✦ AIからの最初の質問 <span class="liveLabel">デモ</span></div><p id="openingQuestion">はるちゃん、今度のおばあちゃんとの夕飯、何を作ってみたい？</p><p class="openingNote" id="openingNudge">好きな料理を話してみよう。まだ決まっていなくても大丈夫。</p></section>
+      <div class="eyebrow">話す言葉の例（選んでから変えてもいいよ）</div>
       <nav class="suggestions" id="suggestions" aria-label="会話のきっかけ"></nav>
       <section class="composer" aria-label="声で進める">
         <div id="nextPrompt" class="nextPrompt" aria-label="次の会話のヒント"></div>
-        <div class="comphead"><strong id="composeTitle">🎙 何から始める？</strong><small>声でも、文字でも</small></div>
+        <div class="comphead"><strong id="composeTitle">🎙 つくりたい料理を話そう</strong><small>声でも、文字でも</small></div>
         <div class="inputrow"><textarea id="utterance" class="textinput" rows="2" aria-label="はるちゃんが話す言葉" placeholder="たとえば「カレーを作りたい。予算は1000円」"></textarea><button id="mic" class="mic" type="button" aria-label="マイクで話す">🎙</button></div>
         <div class="composerFoot"><p class="tiny">声はボタンを押した時だけ。録音保存なし。</p><button type="button" class="apply" id="apply">AIに相談する →</button></div>
         <p class="status" id="status" role="status" aria-live="polite"></p>
@@ -339,26 +363,26 @@ button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:g
 <script>
 'use strict';
 const configs={
- dinner:{title:'おばあちゃんを迎える夕飯',lead:'自分の献立を考えて、調べて、家族と相談して動いてみよう。',desc:'献立・お金・買い物を自分で考えて、家族と相談する',icon:'🍛',label:'実践クエスト',examples:[
+ dinner:{title:'おばあちゃんを迎える夕飯',openingTitle:'おばあちゃんと食べる夕飯を考えよう',openingQuestion:'はるちゃん、今度のおばあちゃんとの夕飯、何を作ってみたい？',openingNudge:'好きな料理を一つ話そう。まだ決まっていなくても大丈夫。',initialPrompt:'🎙 つくりたい料理を話そう',placeholder:'たとえば「カレーを作りたい」',lead:'まずは献立を考えよう。決めたあとは、材料や予算を家族と確認するよ。',desc:'献立・お金・買い物を自分で考えて、家族と相談する',icon:'🍛',label:'実践クエスト',examples:[
  'カレーを作りたい。4人分で、予算は1000円。',
  '家に米と玉ねぎとルーがある。あとは何を買えばいい？',
  'A店は980円、B店は920円だった。どっちがいい？',
  'お父さんに聞いたら、B店は17時、A店は16時30分に迎えに来られるって。',
  '400グラム520円と600グラム600円のお肉、どっちがお得？',
  'A店に決めて父に頼んだ。400グラムを買って、一緒にカレーを作った。'
- ],suggestions:['カレーを作りたい','家にある物を調べた','お店を比べたい']},
- family:{title:'自分で決めていいことを考えよう',lead:'家族で話して、「やってみたい」を一緒に決めよう。',desc:'まず自分の希望を出して、親子で任せる範囲を相談する',icon:'🏠',label:'初回の約束',examples:[
+ ],suggestions:['カレーを作りたい','まだ決まっていない']},
+ family:{title:'自分で決めていいことを考えよう',openingTitle:'夕飯のこと、どこまで自分でやってみたい？',openingQuestion:'はるちゃん、次の夕飯では献立を決めることと買い物、どっちを自分でやってみたい？',openingNudge:'まずは、やってみたいことを教えてね。親との約束はそのあとで相談しよう。',initialPrompt:'🎙 やってみたいことを話そう',placeholder:'たとえば「献立を自分で決めたい」',lead:'何をやりたいか親に伝えるところから始めよう。',desc:'まず自分の希望を出して、親子で任せる範囲を相談する',icon:'🏠',label:'初回の約束',examples:[
  '夕飯の献立も、買う物も自分で決めたい。',
  '家では母が在庫を見て、父が帰りに買い物している。',
  '親に聞いたら、献立は自分で決めていい。予算と道は相談、調理は一緒にするって。',
  'まずは家の仕事を調べてみたい。'
- ],suggestions:['夕飯を自分で決めたい','家の仕事が気になる','親と約束を相談した']},
- research:{title:'家の仕事とお金を調べよう',lead:'見える仕事も見えにくい仕事も、調べて一つ試してみよう。',desc:'家族に聞き、まだ分からないことを見つけ、提案を試す',icon:'🔎',label:'調査クエスト',examples:[
+ ],suggestions:['献立を自分で決めたい','買い物もやってみたい','まだ決まっていない']},
+ research:{title:'家の仕事とお金を調べよう',openingTitle:'夕飯の前にある仕事を探そう',openingQuestion:'夕飯を作る前って、料理以外にどんな準備があると思う？',openingNudge:'知っていることを一つ教えてね。分からなければ家族に聞いてみよう。',initialPrompt:'🎙 思いついた準備を話そう',placeholder:'たとえば「買い物に行くこと」',lead:'夕飯ができるまでに必要な準備を見つけよう。',desc:'家族に聞き、まだ分からないことを見つけ、提案を試す',icon:'🔎',label:'調査クエスト',examples:[
  '夕飯って買い物と料理だけでできるのかな？',
  '母に聞いたら、在庫を調べて献立を考える仕事もあるって。',
  '収入は40万円、家賃10万円、食費7万円、光熱費2万円だと聞いた。',
  '父は店に行くまで在庫が分からないから、買い物前に知らせてみる。'
- ],suggestions:['夕飯の前の仕事を知りたい','家計について聞いた','自分の提案を試したい']}
+ ],suggestions:['買い物に行くこと','冷蔵庫を確認すること','分からない']}
 };
 const sessions={family:{facts:{},turns:[],show:false},research:{facts:{},turns:[],show:false},dinner:{facts:{},turns:[],show:false}};
 let current='dinner',rec=null,recOn=false,waiting=0,hintOpen=false;
@@ -372,7 +396,7 @@ function parseFacts(raw,facts){
  let mt=t.match(/(?:予算|上限)(?:は|が|で|を|:|：)?([\d,]+)円/);
  if(mt)facts.budget=Number(mt[1].replace(/,/g,''));
  mt=t.match(/(\d+)人分/);if(mt)facts.people=Number(mt[1]);
- if(/カレー/.test(t))facts.menu='カレー';
+ for(const dish of ['カレー','オムライス','ハンバーグ','シチュー','パスタ','焼きそば','チャーハン','親子丼','うどん','餃子']){if(t.includes(dish)){facts.menu=dish;break}}
  const stock=['米','ルー','玉ねぎ','にんじん','じゃがいも'];
  for(const x of stock){if(t.includes(x)&&(/ある|あった|残って|確認|見た/.test(t))){(facts.stock??=[]);if(!facts.stock.includes(x))facts.stock.push(x)}}
  for(const m of t.matchAll(/([AB])店(?:は|なら|で|だと|が|に|の|:)?(?:合計)?([\d,]+)円/g))facts[m[1]+'price']=Number(m[2].replace(/,/g,''));
@@ -385,7 +409,7 @@ function parseFacts(raw,facts){
  return t;
 }
 function intentFor(t,scene){
- if(/^(?:わから|分から|どうすれば|助けて|教えて|何したら|何をすれば|迷ってる|困った)/.test(t))return 'help';
+ if(/^(?:まだ決ま|決めてない|決まってない|わから|分から|どうすれば|助けて|教えて|何したら|何をすれば|迷ってる|困った)/.test(t))return 'help';
  if(scene==='family'){
   if(/^(?:まず|最初|次に|はじめ)/.test(t))return 'firststep';
   if(/予算|親|任せ|約束|一緒|相談|決めていい/.test(t))return 'agreement';
@@ -411,7 +435,7 @@ function slot(label,value,source){return {label,value:String(value),source:sourc
 function textLine(title,lines){return tile('list',title,lines)}
 function makeModel(turn,sess){
  const f=sess.facts,k=turn.intent,scene=current;
- const people=f.people||4,budget=f.budget||1000,menu=f.menu||'夕飯';
+ const people=f.people||4,budget=f.budget||1000,menu=f.menu||'料理';
  const s={caption:'あなたの言葉から、次の一歩を組み立てました',title:'次は何をする？',say:'',slots:[],widgets:[],hint:'',next:'次のことを話してみよう'};
  const add=(label,val,source)=>s.slots.push(slot(label,val,source));
  if(k==='help'){
@@ -427,7 +451,8 @@ function makeModel(turn,sess){
      family:{wish:'自分で決めたいことを一つだけ親に伝えてみよう。最初から全部を決めなくても大丈夫。',work:'まだ知らない家の仕事は、家族に聞いてみよう。',agreement:'誰が何を決めるかを、親と一緒に確認してみよう。'},
      research:{question:'食事ができるまで、誰がどんな準備をしたか聞いてみよう。',discovery:'知ったことと、まだ知らないことを二つに分けてみよう。',budget:'支出を全て聞く必要はないよ。家族が話せる範囲で考えてみよう。',trial:'アイデアを家族に伝え、まず一度試せるか相談してみよう。'}
    };
-   const advice=hints[scene][previous]||'まず、何を知りたいか一つに絞ってみよう。家族に聞くことも、一つの行動だよ。';
+   const firstHelp={dinner:'まだ献立が決まっていないんだね。好きな料理か、冷蔵庫にある材料から考えてみよう。家族に「何が食べたい？」と聞くのもいいよ。',family:'迷っているんだね。まずは夕飯の献立を決めるだけでもいいよ。買い物までやるかは、親と相談して決めよう。',research:'まだ思いつかないんだね。夕飯ができる前に、誰かが冷蔵庫を見たり買い物したりしていないかな？家の人に聞いてみよう。'};
+   const advice=previous?(hints[scene][previous]||firstHelp[scene]):firstHelp[scene];
    s.title='ここで迷ったら、少しだけ手伝うね';
    s.say=advice;
    s.widgets=[tile('next','次の一歩',advice,true,'必要なときのヒント')];
@@ -435,11 +460,11 @@ function makeModel(turn,sess){
    return s;
  }
  if(scene==='dinner'){
-  add('料理',menu,f.menu?'本人の発言':'クエスト例');
-  add('人数',people+'人分',f.people?'本人の発言':'クエスト例');
-  add('予算',yen(budget),f.budget?'本人の発言':'クエスト例');
+  if(f.menu)add('料理',menu);
+  add('人数',f.people?people+'人分':'家族に確認',f.people?'本人の発言':'未確認');
+  add('予算',f.budget?yen(budget):'家族と相談',f.budget?'本人の発言':'未確認');
   if(k==='menu'){
-   s.title=menu+'を作るには、何から始める？';s.say='「'+menu+'を作りたい」んだね。最初に家にある材料を見てみよう。知識は手伝えるけれど、今日の冷蔵庫は自分で確かめよう。';
+   s.title=menu+'の材料を確認しよう';s.say='「'+menu+'を作りたい」んだね。まず冷蔵庫を見て、家にある材料を確かめよう。何人で食べるかと予算も家族に聞いてみよう。';
    s.widgets=[textLine('最初の3つのステップ',['家にある食材を確かめる','必要な量をレシピで確かめる','買い足す物を家族に相談する']),tile('next','外でやってみる','冷蔵庫を見て、使えそうな食材を確かめよう')];s.hint='何も思いつかないなら、献立を一つだけ決めるところから始めよう。';
   }else if(k==='stock'){
    s.title='何を買い足せばいいかな？';s.say=(f.stock?.length?'「'+f.stock.join('・')+'」があると聞いたよ。':'在庫を確かめたんだね。')+' 家にある物と必要な量を分けてみよう。';
@@ -669,15 +694,17 @@ function applyUtterance(origin){
 function paintScene(){
  const sc=configs[current];waiting++;hintOpen=false;
  el('scLabel').textContent=sc.label;
- el('scTitle').textContent='今日は、何をやってみたい？';
+ el('scTitle').textContent=sc.openingTitle;
  el('scLead').textContent=sc.lead;
+ el('openingQuestion').textContent=sc.openingQuestion;
+ el('openingNudge').textContent=sc.openingNudge;
  el('questTitle').textContent=sc.title;
  el('questDesc').textContent=sc.desc;
  el('questIcon').textContent=sc.icon;
- el('status').textContent='クエストについて、まず一言話してみよう。';
+ el('status').textContent='AIの質問に、声か文字で答えてみよう。';
  el('utterance').value='';
- el('composeTitle').textContent=sessions[current].turns.length?'🎙 続きを話そう':'🎙 何から始める？';
- el('utterance').placeholder=sc.examples[0];
+ el('composeTitle').textContent=sessions[current].turns.length?'🎙 続きを話そう':sc.initialPrompt;
+ el('utterance').placeholder=sc.placeholder;
  const sess=sessions[current];
  el('stage').classList.toggle('hasConversation',sess.turns.length>0);
  el('workspace').innerHTML=sess.turns.length?sceneMarkup(makeModel(sess.turns[sess.turns.length-1],sess),sess.turns[sess.turns.length-1]):'<div class="preHint">最初はシンプル。はるが話したら、必要な説明やカードがここに組み上がるよ。</div>';
