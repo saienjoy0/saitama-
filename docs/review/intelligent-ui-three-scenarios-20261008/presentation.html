@@ -265,17 +265,40 @@ button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:g
 }
 @media(prefers-reduced-motion:reduce){.stage .inn{scroll-behavior:auto}}
 
+
+/* Child-first shell: the presenter is never part of the child's main screen. */
+.layout{grid-template-columns:minmax(0,1fr);max-width:1110px}
+.presenter{display:none}
+.presenter.isOpen{display:block;position:fixed;z-index:41;right:18px;top:18px;bottom:18px;width:min(405px,calc(100vw - 36px));max-height:none;overflow-y:auto;overscroll-behavior:contain;box-shadow:0 18px 65px #0e392d66;padding:20px}
+.presenter .presenterClose{display:inline-flex;align-items:center;justify-content:center;float:right}
+.presenterBackdrop:not([hidden]){display:block;position:fixed;inset:0;z-index:40;background:#0f271c99}
+.presenter .operatorMode{display:block;border:1px solid #c4dfcd;padding:9px 12px;background:#f6fcf7;color:#176b5b;border-radius:12px;margin:10px 0;width:100%;min-height:48px;font-size:13px;font-weight:700}
+.topTools,.presentMode .topTools{display:inline-flex;min-height:44px;min-width:45px;align-items:center;justify-content:center;border-radius:12px;font-size:19px}
+.righttop .chip{font-size:11px}
+.questPicker{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 4px}
+.questPicker button{border:1px solid #d6e7d8;border-radius:12px;background:#fff;color:#37634e;min-height:45px;padding:9px 12px;font-size:13px;font-weight:700}
+.questPicker button[aria-pressed="true"]{background:#176b5b;border-color:#176b5b;color:#fff}
+.stage.hasConversation .questPicker{display:none}
+@media(max-width:740px){
+ .layout{max-width:none}
+ .presenter.isOpen{inset:4vh 10px 4vh 10px;width:auto;max-height:92vh;padding:16px}
+ .questPicker{gap:6px;margin:10px 0}
+ .questPicker button{font-size:12px;min-height:44px;padding:8px 9px}
+ .stage:not(.hasConversation) .inn{padding-bottom:185px}
+}
+
 </style>
 </head>
 <body>
 <div class="layout">
   <main id="stage" class="stage" aria-label="子どもの体験デモ">
-    <header class="top"><div class="brand"><span class="mark">✦</span> やってみクエスト</div><div class="righttop"><span class="chip">子どもの画面</span><button type="button" class="topTools" id="toolsBtn" aria-expanded="false" aria-controls="presenter">台本・操作</button><button type="button" class="quiet" id="presentBtn">発表モード</button></div></header>
-    <div class="inn">
+    <header class="top"><div class="brand"><span class="mark">✦</span> やってみクエスト</div><div class="righttop"><span class="chip">はるのクエスト</span><button type="button" class="topTools" id="toolsBtn" aria-label="デモの操作パネル" aria-expanded="false" aria-controls="presenter">⚙</button></div></header>
+    <div class="inn" id="journeyScroll">
       <div class="eyebrow" id="scLabel">今日のクエスト</div>
       <p class="welcome">おかえり、はる！</p>
       <h1 id="scTitle">今日は、何をやってみたい？</h1>
       <p id="scLead" class="lead">やりたいことを話してみよう。途中で変えても大丈夫。</p>
+      <nav id="questPicker" class="questPicker" aria-label="クエストを選ぶ"></nav>
       <section class="quest"><div class="questIcon" id="questIcon">🍛</div><div><span class="over">今回のクエスト</span><strong id="questTitle">おばあちゃんを迎える夕飯</strong><p id="questDesc">献立・お金・買い物を自分で考えて、家族と相談する</p></div></section>
       <div class="eyebrow">迷ったら、話すきっかけを選ぼう</div>
       <nav class="suggestions" id="suggestions" aria-label="会話のきっかけ"></nav>
@@ -290,8 +313,9 @@ button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:g
       <section class="workspace" id="workspace" aria-live="polite"><div class="preHint">言葉に合わせて、必要な質問やカードがここに現れます。答えを決めるのは、はる自身です。</div></section>
     </div>
   </main>
+  <div id="presenterBackdrop" class="presenterBackdrop" hidden></div>
   <aside class="presenter" id="presenter" aria-label="発表用の操作">
-    <button type="button" id="closePresenter" class="presenterClose">✕ 閉じる</button><span class="chip">発表者用</span><h2 style="margin-top:12px">声からUIが生まれる</h2>
+    <button type="button" id="closePresenter" class="presenterClose">✕ 閉じる</button><span class="chip">発表者用</span><button type="button" class="operatorMode" id="presentBtn">発表表示に切り替える</button><h2 style="margin-top:12px">声からUIが生まれる</h2>
     <p class="helpText">まず、はるちゃんの発言を見せる。次にAIが返した文章を一文字ずつ表示。最後にその返答から作ったUIカードを出します。過去の会話も確認できます。</p>
     <h3>見せるシナリオ</h3><div class="sceneTabs" id="sceneTabs"></div>
     <div class="operatorFocus" aria-label="発表で使うセリフ"><p class="over" id="operatorProgress">STEP 1</p><div id="operatorLine" class="line">はるちゃんの言葉</div><p class="reply" id="operatorReply"></p><p class="uidesc" id="operatorUI"></p><button type="button" id="playLine" class="operatorPrimary">このセリフで会話を見せる ▶</button><div class="operatorNav"><button type="button" id="prevLine">← 前のセリフ</button><button type="button" id="nextLine">次のセリフ →</button></div></div><details class="allLines"><summary>すべての発言と返答を確認する</summary><div class="scriptList" id="scriptList"></div></details>
@@ -495,6 +519,7 @@ function setOperator(n){
 }
 function closeTools(){
  el('presenter').classList.remove('isOpen');
+ el('presenterBackdrop').hidden=true;
  el('toolsBtn').setAttribute('aria-expanded','false');
 }
 
@@ -573,11 +598,32 @@ function showUI(t,origin){
 }
 function nextSuggestions(intent){
  if(current==='dinner'){
-   if(intent==='menu')return ['家に米とルーがある','A店は980円、B店は920円','どう決めればいい？'];
-   if(intent==='shop')return ['父はA店なら16時30分、B店なら17時に迎えられる','400グラム520円と600グラム600円で迷う'];
-   if(intent==='pickup')return ['今日はA店にする','400グラム520円と600グラム600円で迷う'];
+   const options={
+    menu:['家に米とルーがある','材料を確かめてきた'],
+    stock:['A店は980円、B店は920円','お店の値段を調べてきた'],
+    shop:['父はA店なら16時30分、B店なら17時に迎えられる','父に相談してくる'],
+    pickup:['400グラム520円と600グラム600円で迷う','今日はA店にする'],
+    meat:['A店で買い物してカレーを作った','家族に決めた理由を説明する'],
+    result:[]
+   };
+   return options[intent]||[];
  }
- return configs[current].suggestions.slice(0,2);
+ if(current==='family'){
+   const options={
+     wish:['家の仕事を調べてきた','親にどこまで任せるか聞いてくる'],
+     work:['親に聞いたら予算は相談、調理は一緒だって','まずは家の仕事を調べてみたい'],
+     agreement:['まずは家の仕事を調べてみたい'],
+     firststep:[]
+   };
+   return options[intent]||[];
+ }
+ const options={
+   question:['母に聞いたら在庫を調べてると分かった'],
+   discovery:['家計の支出を聞いてきた'],
+   budget:['父には買い物前に在庫を伝えてみたい'],
+   trial:[]
+ };
+ return options[intent]||[];
 }
 function applyUtterance(origin){
  const text=el('utterance').value.trim();
@@ -605,6 +651,7 @@ function paintScene(){
  if(sess.turns.length){const last=el('composedSentence');if(last){last.textContent=sess.turns.at(-1).reply;const cursor=el('typingCursor');if(cursor)cursor.hidden=true;}}
  el('suggestions').innerHTML=sc.suggestions.map(x=>'<button type="button" class="suggestion" data-say="'+esc(x)+'">'+esc(x)+' ↗</button>').join('');
  el('sceneTabs').innerHTML=['family','research','dinner'].map(id=>{const v=configs[id];return '<button type="button" data-scene="'+id+'" aria-pressed="'+(id===current)+'">'+esc(v.label)+'</button>'}).join('');
+ el('questPicker').innerHTML=['family','research','dinner'].map(id=>{const v=configs[id];return '<button type="button" data-child-scene="'+id+'" aria-pressed="'+(id===current)+'">'+esc(v.icon+' '+v.label)+'</button>'}).join('');
  el('scriptList').innerHTML=presenterExamples();
  paintNextPrompts(sess.turns.length?nextSuggestions(sess.turns.at(-1).intent):[]);
  setOperator(operatorPositions[current]);
@@ -614,6 +661,8 @@ function chooseScene(sc){
  if(!configs[sc])return;
  if(recOn&&rec){rec.stop();recOn=false;el('mic').classList.remove('record')}
  current=sc;paintScene();
+ if(el('journeyScroll'))el('journeyScroll').scrollTop=0;
+ closeTools();
 }
 const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
 el('mic').addEventListener('click',()=>{
@@ -630,8 +679,9 @@ el('mic').addEventListener('click',()=>{
 });
 el('apply').addEventListener('click',()=>applyUtterance('text'));
 el('utterance').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();applyUtterance('text')}});
-el('presentBtn').addEventListener('click',()=>{document.body.classList.toggle('presentMode');el('presentBtn').textContent=document.body.classList.contains('presentMode')?'操作パネルを表示':'発表モード';closeTools()});
-el('toolsBtn').addEventListener('click',()=>{if(document.body.classList.contains('presentMode')){document.body.classList.remove('presentMode');el('presentBtn').textContent='発表モード'}const opened=el('presenter').classList.toggle('isOpen');el('toolsBtn').setAttribute('aria-expanded',String(opened));if(opened&&el('presenter').scrollIntoView)el('presenter').scrollIntoView({behavior:'smooth',block:'start'})});
+el('presentBtn').addEventListener('click',()=>{const active=document.body.classList.toggle('presentMode');el('presentBtn').textContent=active?'標準表示に戻す':'発表表示に切り替える';closeTools()});
+el('toolsBtn').addEventListener('click',()=>{const opened=el('presenter').classList.toggle('isOpen');el('presenterBackdrop').hidden=!opened;el('toolsBtn').setAttribute('aria-expanded',String(opened));});
+el('presenterBackdrop').addEventListener('click',closeTools);
 el('prevLine').addEventListener('click',()=>setOperator(operatorPositions[current]-1));
 el('nextLine').addEventListener('click',()=>setOperator(operatorPositions[current]+1));
 el('playLine').addEventListener('click',()=>{const i=operatorPositions[current];el('utterance').value=configs[current].examples[i];applyUtterance('example');if(i<configs[current].examples.length-1)setOperator(i+1);closeTools()});
@@ -641,7 +691,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTools()});
 el('reset').addEventListener('click',()=>{sessions[current]={facts:{},turns:[],show:false};paintScene()});
 document.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b)return;
- if(b.dataset.scene){chooseScene(b.dataset.scene);return;}
+ if(b.dataset.scene||b.dataset.childScene){chooseScene(b.dataset.scene||b.dataset.childScene);return;}
  if(b.dataset.say){el('utterance').value=b.dataset.say;el('status').textContent='入力欄に入れました。自分の言葉に直してから相談できるよ。';if(el('utterance').focus)el('utterance').focus();return;}
  if(b.dataset.example!==undefined){const i=Number(b.dataset.example);setOperator(i);el('utterance').value=configs[current].examples[i];applyUtterance('example');if(i<configs[current].examples.length-1)setOperator(i+1);return;}
  if(b.dataset.action==='hint'){
