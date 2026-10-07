@@ -10,6 +10,22 @@
 *{box-sizing:border-box}body{margin:0}button,textarea{font:inherit}button{cursor:pointer}button:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #117965;outline-offset:3px}button:disabled{opacity:.45;cursor:default}
 button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:grid;grid-template-columns:minmax(0,1fr) 308px;gap:20px}.stage{background:var(--paper);min-height:820px;border-radius:26px;border:1px solid #d3e5d8;box-shadow:0 16px 60px #113b2c12;overflow:hidden}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:20px 34px}.brand{font-weight:850;letter-spacing:-.03em;font-size:19px;display:flex;gap:10px;align-items:center}.mark{display:grid;place-items:center;background:var(--green);color:#fff;width:35px;height:35px;border-radius:12px}.righttop{display:flex;align-items:center;gap:9px}.quiet{border:0;background:none;color:var(--muted);font-size:12px;text-decoration:underline;min-height:38px}.chip{border-radius:99px;background:var(--pale);font-size:11px;color:#256848;font-weight:750;padding:6px 10px}
 .inn{padding:27px 40px 34px;max-width:780px;margin:auto}.eyebrow{color:#31816b;font-weight:800;font-size:12px;letter-spacing:.1em;margin-bottom:9px}.welcome{margin:0 0 5px;font-size:13px;color:var(--muted)}h1{font-size:clamp(25px,3.1vw,36px);line-height:1.36;letter-spacing:-.06em;margin:0 0 14px}h2{font-size:21px;letter-spacing:-.04em;line-height:1.45;margin:0 0 9px}h3{font-size:14px;margin:0 0 11px}.lead{color:#49675a;font-size:14px;line-height:1.75;margin:0}.quest{display:flex;gap:14px;align-items:flex-start;border:1px solid #d4e7d8;background:#fff;border-radius:19px;padding:18px;margin:23px 0}.questIcon{display:grid;place-items:center;background:#dff2e4;border-radius:14px;width:49px;height:49px;font-size:23px;flex-shrink:0}.quest .over{font-size:11px;font-weight:850;letter-spacing:.08em;color:var(--green)}.quest strong{display:block;font-size:16px;margin:4px 0}.quest p{font-size:12px;line-height:1.65;color:var(--muted);margin:0}.suggestions{display:flex;flex-wrap:wrap;gap:8px;margin:13px 0 20px}.suggestion{min-height:41px;border:1px solid #cce5d4;background:#f8fcf8;border-radius:99px;padding:8px 13px;font-size:12px;font-weight:700;text-align:left}.suggestion:hover{background:#e8f6ee}.composer{border:1px solid #badbc7;border-radius:19px;background:white;padding:15px;margin-bottom:19px}.comphead{display:flex;justify-content:space-between;gap:7px;align-items:center;margin-bottom:10px}.comphead strong{font-size:14px}.comphead small{color:#617d6e;font-size:11px}.inputrow{display:flex;align-items:stretch;gap:9px}.textinput{width:100%;min-height:56px;max-height:160px;resize:vertical;border:1px solid #dfebe1;border-radius:13px;padding:12px 13px;line-height:1.55;font-size:14px;color:var(--ink);background:#f9fcfa}.mic{width:59px;flex-shrink:0;min-height:56px;border:0;border-radius:14px;color:white;background:var(--green);font-size:25px}.mic.record{background:#c14d48;animation:pulse 1s infinite}.apply{background:var(--green);color:white;border:0;border-radius:13px;padding:13px 16px;min-height:47px;font-size:13px;font-weight:850}.composerFoot{display:flex;gap:9px;justify-content:space-between;align-items:center;margin-top:10px}.tiny{font-size:11px;line-height:1.6;color:#648174;margin:0}.status{font-size:12px;min-height:20px;line-height:1.55;color:#36806a;margin:10px 0 0}.workspace{margin-top:18px;min-height:110px}.preHint{padding:17px;border-radius:17px;background:#eff6f0;color:#4e7161;font-size:13px;line-height:1.7}.progressBox{border:1px dashed #c7dfcd;background:#f4faf4;border-radius:17px;padding:16px 18px;margin:8px 0 16px}.progressBox b{font-size:13px}.loader{height:7px;border-radius:9px;background:#d8eada;margin-top:12px;overflow:hidden}.loader span{display:block;width:40%;background:var(--green);height:100%;animation:slide 1.1s infinite}
+.dialogue{display:grid;gap:11px;margin:0 0 17px}
+.dialogueIntro{font-size:12px;font-weight:850;color:#2e725c;margin:5px 0 0;letter-spacing:.02em}
+.talk{border:1px solid #dbe8df;border-radius:17px;padding:13px 15px;max-width:90%;min-width:0;animation:rise .3s both}
+.talk-child{justify-self:end;background:#eaf5ec;border-color:#c5dfcd;border-bottom-right-radius:5px}
+.talk-ai{justify-self:start;background:#fff;border-color:#d6e7d9;border-bottom-left-radius:5px}
+.talk-who{font-size:11px;font-weight:850;color:#31725b;display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.talk-child .talk-who{color:#4f7d69}
+.talk p{font-size:14px;line-height:1.8;margin:0;overflow-wrap:anywhere}
+.talk-ai p{font-weight:540}
+.talk .pending{color:#6d8e7b;font-style:italic;font-size:12px}
+.historyFold{margin:0 0 3px;border:1px solid #dceadd;border-radius:12px;background:#f7faf7;padding:7px 10px}
+.historyFold summary{font-size:12px;font-weight:750;color:#476c5c;cursor:pointer}
+.historyFold .talk{margin:8px 0}
+.workspaceIntro{font-size:11px;letter-spacing:.06em;color:#348069;font-weight:900;margin:0 0 13px}
+.presenterPair{display:grid;gap:5px}.presenterPair .childLine{color:#245c49;font-weight:700}.presenterPair .answerLine{font-size:11px;color:#586f60;font-weight:450}
+.presenterPair .uiLine{font-size:10px;color:#358667}
 .speech{border-left:3px solid #99c9aa;padding:4px 0 4px 13px;margin:2px 0 15px;font-size:13px;line-height:1.6;color:#537267}.constructed{border-top:1px solid var(--line);margin-top:23px;padding-top:24px}.constructedTitle{font-size:10px;letter-spacing:.11em;font-weight:900;color:#43886f;margin-bottom:10px}.cursor{display:inline-block;color:#12856a;font-weight:800;animation:caret .7s infinite}.cursor[hidden]{display:none}.response{font-size:16px;font-weight:730;line-height:1.8;margin:0 0 16px}.slotgrid{display:flex;flex-wrap:wrap;gap:7px;margin:9px 0 17px}.slot{display:inline-flex;gap:5px;background:#ecf7ef;border:1px solid #d4e8da;padding:6px 9px;border-radius:9px;font-size:11px}.slot em{font-style:normal;color:#6e8376}.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tile{background:white;border:1px solid var(--line);border-radius:18px;padding:17px;min-width:0;box-shadow:0 5px 18px #164b2d08}.tile.wide{grid-column:1/-1}.tile-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.tile-tag{font-size:10px;padding:4px 8px;border-radius:9px;background:#edf7ee;color:#37745a;font-weight:800}.tile h3{font-size:14px;margin:0}.tile p{margin:0;color:#4e6558;font-size:13px;line-height:1.75}.steps{display:grid;gap:8px}.step{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.6}.stepNum{display:grid;place-items:center;flex-shrink:0;width:24px;height:24px;border-radius:8px;background:#dff3e5;color:#19705a;font-size:12px;font-weight:850}.compare{width:100%;border-collapse:collapse;font-size:12px;text-align:left}.compare th{color:#72897c;font-size:11px;font-weight:650}.compare th,.compare td{padding:9px 5px;border-bottom:1px solid #eaf0ea}.compare tr:last-child td{border-bottom:0}.compare .value{font-weight:800;color:#255d47}.money{display:grid;grid-template-columns:1fr 1fr;gap:8px}.moneybox{border:1px solid #e0ece4;background:#f6faf6;border-radius:12px;padding:11px}.moneybox small{display:block;color:#667d70;font-size:10px}.moneybox strong{font-size:19px;display:block;margin:4px 0}.moneybox span{font-size:10px;color:#678173;line-height:1.6;display:block}.bullet{display:grid;gap:6px}.bullet div{font-size:12px;line-height:1.65}.quote{border-left:3px solid #b4d6c1;background:#f6faf5;padding:11px 12px;font-size:12px;line-height:1.7}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}.outline{border:1px solid #bad9c5;background:#fff;border-radius:11px;min-height:43px;padding:9px 14px;font-size:12px;font-weight:800;color:var(--green)}.hint{background:#fff6dc;border-left:3px solid #dcb94b;border-radius:0 10px 10px 0;font-size:12px;padding:11px 13px;line-height:1.75;margin-top:10px}
 .reveal{animation:rise .48s both;animation-delay:var(--delay,0ms)}.narrative{font-size:13px;line-height:1.7;color:#365f47}.source{font-size:10px;color:#6a8273;line-height:1.5;margin-top:9px}.liveLabel{font-size:10px;border:1px solid #c8dbc8;border-radius:99px;padding:4px 7px;color:#56806b}
 .presenter{background:#fff;border:1px solid #dbe8df;border-radius:23px;padding:21px;position:sticky;top:22px;box-shadow:0 8px 28px #234a3210}.presenter h2{font-size:17px}.presenter h3{font-size:12px;margin-top:23px}.sceneTabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:13px 0}.sceneTabs button{padding:9px 5px;border:1px solid #d8e7dc;border-radius:12px;background:white;font-size:11px;min-height:45px;font-weight:750}.sceneTabs button[aria-pressed="true"]{color:white;background:var(--green);border-color:var(--green)}.scriptList{display:grid;gap:8px}.scriptList button{width:100%;border:1px solid #dce8df;border-radius:12px;padding:11px 12px;text-align:left;background:#f9fcfa;line-height:1.5;font-size:12px}.scriptList button:hover{border-color:#79b895;background:#eaf7ee}.helpText{font-size:12px;line-height:1.85;color:#586f61}.presenter .reset{border:1px solid #d8e7da;background:#fff;border-radius:11px;padding:10px 12px;font-size:12px;width:100%;margin-top:13px}.footer{max-width:1240px;margin:0 auto;padding:0 22px 24px;color:#6c8475;font-size:11px;line-height:1.7}.presentMode .layout{grid-template-columns:1fr;max-width:1060px}.presentMode .presenter{display:none}.presentMode .inn{max-width:850px}.presentMode .stage{min-height:740px}
@@ -37,14 +53,15 @@ button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:g
         <div class="composerFoot"><p class="tiny">声はボタンを押した時だけ。録音保存なし。</p><button type="button" class="apply" id="apply">話した内容からつくる ↗</button></div>
         <p class="status" id="status" role="status" aria-live="polite"></p>
       </section>
+      <section id="dialogue" class="dialogue" aria-live="polite" aria-label="はるちゃんとAIの会話"></section>
       <section class="workspace" id="workspace" aria-live="polite"><div class="preHint">言葉に合わせて、必要な質問やカードがここに現れます。答えを決めるのは、はる自身です。</div></section>
     </div>
   </main>
   <aside class="presenter" aria-label="発表用の操作">
     <span class="chip">発表者用</span><h2 style="margin-top:12px">声からUIが生まれる</h2>
-    <p class="helpText">はじめはシンプルな画面。話すと、文章とカードが一枚ずつ組み上がります。下の例文はマイクが不安定な時の代替です。</p>
+    <p class="helpText">まず、はるちゃんの発言を見せる。次にAIが返した文章を一文字ずつ表示。最後にその返答から作ったUIカードを出します。過去の会話も確認できます。</p>
     <h3>見せるシナリオ</h3><div class="sceneTabs" id="sceneTabs"></div>
-    <h3>発表で話す言葉（クリックで入力）</h3><div class="scriptList" id="scriptList"></div>
+    <h3>はるちゃんのセリフ → AIの返答 → 出るUI（クリックで再現）</h3><div class="scriptList" id="scriptList"></div>
     <h3>見せたい3つの変化</h3>
     <p class="helpText"><strong>①</strong> 子どもの言葉が画面に反映される。<br><strong>②</strong> 必要なUIと説明文が組み立てられる。<br><strong>③</strong> 家族に聞いて戻ると、条件が変わり、再びUIが組み直される。</p>
     <button type="button" class="reset" id="reset">このシナリオを最初から</button>
@@ -199,15 +216,42 @@ function renderWidget(w,i){
  return html+'</article>';
 }
 function sceneMarkup(m,turn,typing){
- return '<div class="speech reveal" style="--delay:0ms">🗣 はる「'+esc(turn.text)+'」</div>'+
- '<div class="constructed"><div class="constructedTitle reveal" style="--delay:80ms">✦ '+esc(m.caption)+'</div>'+
+ return '<div class="constructed"><div class="workspaceIntro">▦ AIの返答をもとに組み立てたUI（デモ）</div><div class="constructedTitle reveal" style="--delay:80ms">✦ '+esc(m.caption)+'</div>'+
  '<h2 class="reveal" style="--delay:100ms">'+esc(m.title)+'</h2>'+
- '<p class="response reveal" style="--delay:170ms">'+(typing?'<span id="composedSentence"></span><span class="cursor" id="typingCursor">▍</span>':esc(m.say))+'</p>'+
+ 
  '<div class="slotgrid reveal" style="--delay:220ms">'+m.slots.map(s=>'<span class="slot"><em>'+esc(s.label)+'</em><b>'+esc(s.value)+'</b></span>').join('')+'</div>'+
  '<div class="tiles">'+m.widgets.map(renderWidget).join('')+'</div>'+
  '<div class="actions reveal" style="--delay:480ms"><button type="button" class="outline" data-action="hint">💡 ヒントがほしい</button><button type="button" class="outline" data-action="alone">自分でやってみる</button></div>'+
  '<div id="hintPlace" class="source">本人が必要な時だけヒントを開けます。表示された候補は本人の判断を代行しません。</div></div>';
 }
+
+function dialogueBubble(turn, latest, pending){
+ const child='<article class="talk talk-child"><div class="talk-who">🎙 はるちゃんが話したこと</div><p>'+esc(turn.text)+'</p></article>';
+ const answer=pending?'<span class="pending">今の言葉から返答を組み立てています…</span>':
+ latest?'<span id="composedSentence"></span><span class="cursor" id="typingCursor">▍</span>':esc(turn.reply||'');
+ const ai='<article class="talk talk-ai"><div class="talk-who">✦ AIの返答 <span class="liveLabel">発表用の模擬AI</span></div><p>'+answer+'</p></article>';
+ return child+ai;
+}
+function paintDialogue(opts={}){
+ const sess=sessions[current],history=sess.turns;
+ if(!history.length){el('dialogue').innerHTML='';return;}
+ const last=history.at(-1);
+ const shown=history.slice(-2),old=history.slice(0,-2);
+ const prior=old.length?'<details class="historyFold"><summary>これまでの会話 '+old.length+'件を開く</summary>'+old.map(t=>dialogueBubble(t,false,false)).join('')+'</details>':'';
+ const start='<div class="dialogueIntro">はるちゃんとAIのやり取り</div>';
+ el('dialogue').innerHTML=start+prior+shown.map(t=>dialogueBubble(t,t===last&&!opts.pending,Boolean(opts.pending&&t===last))).join('');
+}
+function presenterExamples(){
+ const shadow={facts:{}};
+ const items=configs[current].examples;
+ return items.map((txt,i)=>{
+  const n=parseFacts(txt,shadow.facts),it=intentFor(n,current);
+  const m=makeModel({text:txt,intent:it,origin:'example'},shadow);
+  const cards=m.widgets.map(w=>w.title).join('・');
+  return '<button type="button" data-example="'+i+'"><span style="color:#31816b;font-weight:850">STEP '+(i+1)+'</span><span class="presenterPair"><span class="childLine">🎙 はる「'+esc(txt)+'」</span><span class="answerLine">✦ AI「'+esc(m.say)+'」</span><span class="uiLine">▦ 表示：'+esc(cards)+'</span></span></button>';
+ }).join('');
+}
+
 function animateText(sentence,token,scene){
  const target=el('composedSentence');if(!target)return;
  const parts=Array.from(sentence);let pos=0;
@@ -221,13 +265,15 @@ function showUI(t,origin){
  const sess=sessions[current];let normalized=parseFacts(t,sess.facts);
  const intent=intentFor(normalized,current);
  const turn={text:t,intent,origin};sess.turns.push(turn);
- const m=makeModel(turn,sess);hintOpen=false;sess.show=true;
+ const m=makeModel(turn,sess);turn.reply=m.say;turn.uiTitle=m.title;hintOpen=false;sess.show=true;
+ paintDialogue({pending:true});
  el('status').textContent='声から拾った情報を確認し、表示を組み立てています…（デモ）';
  el('workspace').innerHTML='<div class="progressBox"><b>✨ 「'+esc(t.slice(0,55))+'」をもとに、次のUIを組み立て中…</b><div class="loader"><span></span></div><p class="tiny" style="margin-top:8px">次の質問・説明文・使うカードを選んでいます。</p></div>';
  const local=++waiting,scene=current;
  window.setTimeout(()=>{
    if(local!==waiting||scene!==current)return;
-   el('workspace').innerHTML=sceneMarkup(m,turn,true);
+   el('workspace').innerHTML=sceneMarkup(m,turn,false);
+   paintDialogue();
    animateText(m.say,local,scene);
    el('status').textContent='声から文章とカードを組み立てました（デモ表示）';
    el('suggestions').innerHTML=nextSuggestions(intent).map(x=>'<button type="button" class="suggestion" data-say="'+esc(x)+'">'+esc(x)+' ↗</button>').join('');
@@ -259,9 +305,12 @@ function paintScene(){
  el('utterance').placeholder=sc.examples[0];
  const sess=sessions[current];
  el('workspace').innerHTML=sess.turns.length?sceneMarkup(makeModel(sess.turns[sess.turns.length-1],sess),sess.turns[sess.turns.length-1]):'<div class="preHint">最初はシンプル。はるが話したら、必要な説明やカードがここに組み上がるよ。</div>';
+ paintDialogue();
+ // When restoring a scene, the latest reply is already known; no typing animation needed.
+ if(sess.turns.length){const last=el('composedSentence');if(last){last.textContent=sess.turns.at(-1).reply;const cursor=el('typingCursor');if(cursor)cursor.hidden=true;}}
  el('suggestions').innerHTML=sc.suggestions.map(x=>'<button type="button" class="suggestion" data-say="'+esc(x)+'">'+esc(x)+' ↗</button>').join('');
  el('sceneTabs').innerHTML=Object.entries(configs).map(([id,v])=>'<button type="button" data-scene="'+id+'" aria-pressed="'+(id===current)+'">'+esc(v.label)+'</button>').join('');
- el('scriptList').innerHTML=sc.examples.map((x,i)=>'<button type="button" data-example="'+i+'"><span style="color:#31816b;font-weight:850">STEP '+(i+1)+'</span><br>'+esc(x)+'</button>').join('');
+ el('scriptList').innerHTML=presenterExamples();
 }
 function chooseScene(sc){
  if(!configs[sc])return;
