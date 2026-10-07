@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'">
+<title>やってみクエスト｜声から生まれる体験デモ</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;color:#173b31;background:#eef4ef;--green:#176b5b;--pale:#e9f6ee;--ink:#173b31;--muted:#657c70;--line:#deebe1;--paper:#fffdf8}
+*{box-sizing:border-box}body{margin:0}button,textarea{font:inherit}button{cursor:pointer}button:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #117965;outline-offset:3px}button:disabled{opacity:.45;cursor:default}
+button{color:inherit}.layout{max-width:1240px;margin:auto;padding:22px;display:grid;grid-template-columns:minmax(0,1fr) 308px;gap:20px}.stage{background:var(--paper);min-height:820px;border-radius:26px;border:1px solid #d3e5d8;box-shadow:0 16px 60px #113b2c12;overflow:hidden}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:20px 34px}.brand{font-weight:850;letter-spacing:-.03em;font-size:19px;display:flex;gap:10px;align-items:center}.mark{display:grid;place-items:center;background:var(--green);color:#fff;width:35px;height:35px;border-radius:12px}.righttop{display:flex;align-items:center;gap:9px}.quiet{border:0;background:none;color:var(--muted);font-size:12px;text-decoration:underline;min-height:38px}.chip{border-radius:99px;background:var(--pale);font-size:11px;color:#256848;font-weight:750;padding:6px 10px}
+.inn{padding:27px 40px 34px;max-width:780px;margin:auto}.eyebrow{color:#31816b;font-weight:800;font-size:12px;letter-spacing:.1em;margin-bottom:9px}.welcome{margin:0 0 5px;font-size:13px;color:var(--muted)}h1{font-size:clamp(25px,3.1vw,36px);line-height:1.36;letter-spacing:-.06em;margin:0 0 14px}h2{font-size:21px;letter-spacing:-.04em;line-height:1.45;margin:0 0 9px}h3{font-size:14px;margin:0 0 11px}.lead{color:#49675a;font-size:14px;line-height:1.75;margin:0}.quest{display:flex;gap:14px;align-items:flex-start;border:1px solid #d4e7d8;background:#fff;border-radius:19px;padding:18px;margin:23px 0}.questIcon{display:grid;place-items:center;background:#dff2e4;border-radius:14px;width:49px;height:49px;font-size:23px;flex-shrink:0}.quest .over{font-size:11px;font-weight:850;letter-spacing:.08em;color:var(--green)}.quest strong{display:block;font-size:16px;margin:4px 0}.quest p{font-size:12px;line-height:1.65;color:var(--muted);margin:0}.suggestions{display:flex;flex-wrap:wrap;gap:8px;margin:13px 0 20px}.suggestion{min-height:41px;border:1px solid #cce5d4;background:#f8fcf8;border-radius:99px;padding:8px 13px;font-size:12px;font-weight:700;text-align:left}.suggestion:hover{background:#e8f6ee}.composer{border:1px solid #badbc7;border-radius:19px;background:white;padding:15px;margin-bottom:19px}.comphead{display:flex;justify-content:space-between;gap:7px;align-items:center;margin-bottom:10px}.comphead strong{font-size:14px}.comphead small{color:#617d6e;font-size:11px}.inputrow{display:flex;align-items:stretch;gap:9px}.textinput{width:100%;min-height:56px;max-height:160px;resize:vertical;border:1px solid #dfebe1;border-radius:13px;padding:12px 13px;line-height:1.55;font-size:14px;color:var(--ink);background:#f9fcfa}.mic{width:59px;flex-shrink:0;min-height:56px;border:0;border-radius:14px;color:white;background:var(--green);font-size:25px}.mic.record{background:#c14d48;animation:pulse 1s infinite}.apply{background:var(--green);color:white;border:0;border-radius:13px;padding:13px 16px;min-height:47px;font-size:13px;font-weight:850}.composerFoot{display:flex;gap:9px;justify-content:space-between;align-items:center;margin-top:10px}.tiny{font-size:11px;line-height:1.6;color:#648174;margin:0}.status{font-size:12px;min-height:20px;line-height:1.55;color:#36806a;margin:10px 0 0}.workspace{margin-top:18px;min-height:110px}.preHint{padding:17px;border-radius:17px;background:#eff6f0;color:#4e7161;font-size:13px;line-height:1.7}.progressBox{border:1px dashed #c7dfcd;background:#f4faf4;border-radius:17px;padding:16px 18px;margin:8px 0 16px}.progressBox b{font-size:13px}.loader{height:7px;border-radius:9px;background:#d8eada;margin-top:12px;overflow:hidden}.loader span{display:block;width:40%;background:var(--green);height:100%;animation:slide 1.1s infinite}
+.speech{border-left:3px solid #99c9aa;padding:4px 0 4px 13px;margin:2px 0 15px;font-size:13px;line-height:1.6;color:#537267}.constructed{border-top:1px solid var(--line);margin-top:23px;padding-top:24px}.constructedTitle{font-size:10px;letter-spacing:.11em;font-weight:900;color:#43886f;margin-bottom:10px}.response{font-size:16px;font-weight:730;line-height:1.8;margin:0 0 16px}.slotgrid{display:flex;flex-wrap:wrap;gap:7px;margin:9px 0 17px}.slot{display:inline-flex;gap:5px;background:#ecf7ef;border:1px solid #d4e8da;padding:6px 9px;border-radius:9px;font-size:11px}.slot em{font-style:normal;color:#6e8376}.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tile{background:white;border:1px solid var(--line);border-radius:18px;padding:17px;min-width:0;box-shadow:0 5px 18px #164b2d08}.tile.wide{grid-column:1/-1}.tile-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.tile-tag{font-size:10px;padding:4px 8px;border-radius:9px;background:#edf7ee;color:#37745a;font-weight:800}.tile h3{font-size:14px;margin:0}.tile p{margin:0;color:#4e6558;font-size:13px;line-height:1.75}.steps{display:grid;gap:8px}.step{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.6}.stepNum{display:grid;place-items:center;flex-shrink:0;width:24px;height:24px;border-radius:8px;background:#dff3e5;color:#19705a;font-size:12px;font-weight:850}.compare{width:100%;border-collapse:collapse;font-size:12px;text-align:left}.compare th{color:#72897c;font-size:11px;font-weight:650}.compare th,.compare td{padding:9px 5px;border-bottom:1px solid #eaf0ea}.compare tr:last-child td{border-bottom:0}.compare .value{font-weight:800;color:#255d47}.money{display:grid;grid-template-columns:1fr 1fr;gap:8px}.moneybox{border:1px solid #e0ece4;background:#f6faf6;border-radius:12px;padding:11px}.moneybox small{display:block;color:#667d70;font-size:10px}.moneybox strong{font-size:19px;display:block;margin:4px 0}.moneybox span{font-size:10px;color:#678173;line-height:1.6;display:block}.bullet{display:grid;gap:6px}.bullet div{font-size:12px;line-height:1.65}.quote{border-left:3px solid #b4d6c1;background:#f6faf5;padding:11px 12px;font-size:12px;line-height:1.7}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}.outline{border:1px solid #bad9c5;background:#fff;border-radius:11px;min-height:43px;padding:9px 14px;font-size:12px;font-weight:800;color:var(--green)}.hint{background:#fff6dc;border-left:3px solid #dcb94b;border-radius:0 10px 10px 0;font-size:12px;padding:11px 13px;line-height:1.75;margin-top:10px}
+.reveal{animation:rise .48s both;animation-delay:var(--delay,0ms)}.narrative{font-size:13px;line-height:1.7;color:#365f47}.source{font-size:10px;color:#6a8273;line-height:1.5;margin-top:9px}.liveLabel{font-size:10px;border:1px solid #c8dbc8;border-radius:99px;padding:4px 7px;color:#56806b}
+.presenter{background:#fff;border:1px solid #dbe8df;border-radius:23px;padding:21px;position:sticky;top:22px;box-shadow:0 8px 28px #234a3210}.presenter h2{font-size:17px}.presenter h3{font-size:12px;margin-top:23px}.sceneTabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:13px 0}.sceneTabs button{padding:9px 5px;border:1px solid #d8e7dc;border-radius:12px;background:white;font-size:11px;min-height:45px;font-weight:750}.sceneTabs button[aria-pressed="true"]{color:white;background:var(--green);border-color:var(--green)}.scriptList{display:grid;gap:8px}.scriptList button{width:100%;border:1px solid #dce8df;border-radius:12px;padding:11px 12px;text-align:left;background:#f9fcfa;line-height:1.5;font-size:12px}.scriptList button:hover{border-color:#79b895;background:#eaf7ee}.helpText{font-size:12px;line-height:1.85;color:#586f61}.presenter .reset{border:1px solid #d8e7da;background:#fff;border-radius:11px;padding:10px 12px;font-size:12px;width:100%;margin-top:13px}.footer{max-width:1240px;margin:0 auto;padding:0 22px 24px;color:#6c8475;font-size:11px;line-height:1.7}.presentMode .layout{grid-template-columns:1fr;max-width:1060px}.presentMode .presenter{display:none}.presentMode .inn{max-width:850px}.presentMode .stage{min-height:740px}
+@keyframes rise{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}@keyframes slide{from{transform:translateX(-105%)}to{transform:translateX(365%)}}@keyframes pulse{50%{filter:brightness(1.25)}}
+@media(max-width:970px){.layout{grid-template-columns:1fr;padding:12px}.stage{min-height:0}.presenter{position:static}.inn{padding:22px}.top{padding:17px 22px}.footer{padding:0 14px 16px}.presenter{padding:17px}.scriptList{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.brand{font-size:16px}.layout{gap:12px}.top{padding:13px 16px}.inn{padding:18px}.tiles{grid-template-columns:1fr}.tile.wide{grid-column:1}.scriptList{grid-template-columns:1fr}.righttop .chip{display:none}.stage{border-radius:19px}h1{font-size:27px}.composerFoot{align-items:stretch}.apply{max-width:60%}.quest{padding:14px}.moneybox strong{font-size:16px}}
+@media(prefers-reduced-motion:reduce){.reveal,.mic.record,.loader span{animation:none!important}.reveal{opacity:1}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <main class="stage" aria-label="子どもの体験デモ">
+    <header class="top"><div class="brand"><span class="mark">✦</span> やってみクエスト</div><div class="righttop"><span class="chip">子どもの画面</span><button type="button" class="quiet" id="presentBtn">発表モード</button></div></header>
+    <div class="inn">
+      <div class="eyebrow" id="scLabel">今日のクエスト</div>
+      <p class="welcome">おかえり、はる！</p>
+      <h1 id="scTitle">今日は、何をやってみたい？</h1>
+      <p id="scLead" class="lead">やりたいことを話してみよう。途中で変えても大丈夫。</p>
+      <section class="quest"><div class="questIcon" id="questIcon">🍛</div><div><span class="over">今回のクエスト</span><strong id="questTitle">おばあちゃんを迎える夕飯</strong><p id="questDesc">献立・お金・買い物を自分で考えて、家族と相談する</p></div></section>
+      <div class="eyebrow">こんなことから始められるよ</div>
+      <nav class="suggestions" id="suggestions" aria-label="会話のきっかけ"></nav>
+      <section class="composer" aria-label="声で進める">
+        <div class="comphead"><strong>🎙 何から始める？</strong><small>声でも、文字でも</small></div>
+        <div class="inputrow"><textarea id="utterance" class="textinput" rows="2" placeholder="たとえば「カレーを作りたい。予算は1000円」"></textarea><button id="mic" class="mic" type="button" aria-label="マイクで話す">🎙</button></div>
+        <div class="composerFoot"><p class="tiny">声はボタンを押した時だけ。録音保存なし。</p><button type="button" class="apply" id="apply">話した内容からつくる ↗</button></div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </section>
+      <section class="workspace" id="workspace" aria-live="polite"><div class="preHint">言葉に合わせて、必要な質問やカードがここに現れます。答えを決めるのは、はる自身です。</div></section>
+    </div>
+  </main>
+  <aside class="presenter" aria-label="発表用の操作">
+    <span class="chip">発表者用</span><h2 style="margin-top:12px">声からUIが生まれる</h2>
+    <p class="helpText">はじめはシンプルな画面。話すと、文章とカードが一枚ずつ組み上がります。下の例文はマイクが不安定な時の代替です。</p>
+    <h3>見せるシナリオ</h3><div class="sceneTabs" id="sceneTabs"></div>
+    <h3>発表で話す言葉（クリックで入力）</h3><div class="scriptList" id="scriptList"></div>
+    <h3>見せたい3つの変化</h3>
+    <p class="helpText"><strong>①</strong> 子どもの言葉が画面に反映される。<br><strong>②</strong> 必要なUIと説明文が組み立てられる。<br><strong>③</strong> 家族に聞いて戻ると、条件が変わり、再びUIが組み直される。</p>
+    <button type="button" class="reset" id="reset">このシナリオを最初から</button>
+    <p class="tiny" style="margin-top:11px">発表用の合成デモ。ライブ生成AI・実際の家族連携はありません。マイクの認識はブラウザのサービスを利用する場合があります。</p>
+  </aside>
+</div>
+<footer class="footer">※ 設計イメージを示すデモです。音声→文字認識は対応ブラウザの機能、その後の文章・UI構成は事前設計したルールとテンプレートによる実演です。内容は架空の家庭・価格です。実家庭データは使用しないでください。</footer>
+<script>
+'use strict';
+const configs={
+ dinner:{title:'おばあちゃんを迎える夕飯',lead:'自分の献立を考えて、調べて、家族と相談して動いてみよう。',desc:'献立・お金・買い物を自分で考えて、家族と相談する',icon:'🍛',label:'実践クエスト',examples:[
+ 'カレーを作りたい。4人分で、予算は1000円。',
+ '家に米と玉ねぎとルーがある。あとは何を買えばいい？',
+ 'A店は980円、B店は920円だった。どっちがいい？',
+ 'お父さんに聞いたら、B店は17時、A店は16時30分に迎えに来られるって。',
+ '400グラム520円と600グラム600円のお肉、どっちがお得？',
+ 'A店に決めて父に頼んだ。400グラムを買って、一緒にカレーを作った。'
+ ],suggestions:['カレーを作りたい','家にある物を調べた','お店を比べたい']},
+ family:{title:'自分で決めていいことを考えよう',lead:'家族で話して、「やってみたい」を一緒に決めよう。',desc:'まず自分の希望を出して、親子で任せる範囲を相談する',icon:'🏠',label:'初回の約束',examples:[
+ '夕飯の献立も、買う物も自分で決めたい。',
+ '家では母が在庫を見て、父が帰りに買い物している。',
+ '親に聞いたら、献立は自分で決めていい。予算と道は相談、調理は一緒にするって。',
+ 'まずは家の仕事を調べてみたい。'
+ ],suggestions:['夕飯を自分で決めたい','家の仕事が気になる','親と約束を相談した']},
+ research:{title:'家の仕事とお金を調べよう',lead:'見える仕事も見えにくい仕事も、調べて一つ試してみよう。',desc:'家族に聞き、まだ分からないことを見つけ、提案を試す',icon:'🔎',label:'調査クエスト',examples:[
+ '夕飯って買い物と料理だけでできるのかな？',
+ '母に聞いたら、在庫を調べて献立を考える仕事もあるって。',
+ '収入は40万円、家賃10万円、食費7万円、光熱費2万円だと聞いた。',
+ '父は店に行くまで在庫が分からないから、買い物前に知らせてみる。'
+ ],suggestions:['夕飯の前の仕事を知りたい','家計について聞いた','自分の提案を試したい']}
+};
+const sessions={family:{facts:{},turns:[],show:false},research:{facts:{},turns:[],show:false},dinner:{facts:{},turns:[],show:false}};
+let current='dinner',rec=null,recOn=false,waiting=0,hintOpen=false;
+const el=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[x]));
+const yen=n=>Number(n).toLocaleString('ja-JP')+'円';
+function normalize(raw){return String(raw).replace(/[０-９]/g,c=>String(c.charCodeAt(0)-65296)).replace(/[ＡＢ]/g,c=>c==='Ａ'?'A':'B').replace(/\s+/g,'');}
+function parseFacts(raw,facts){
+ const t=normalize(raw);
+ let mt=t.match(/(?:予算|上限)(?:は|が|で|を|:|：)?([\d,]+)円/);
+ if(mt)facts.budget=Number(mt[1].replace(/,/g,''));
+ mt=t.match(/(\d+)人分/);if(mt)facts.people=Number(mt[1]);
+ if(/カレー/.test(t))facts.menu='カレー';
+ const stock=['米','ルー','玉ねぎ','にんじん','じゃがいも'];
+ for(const x of stock){if(t.includes(x)&&(/ある|あった|残って|確認|見た/.test(t))){(facts.stock??=[]);if(!facts.stock.includes(x))facts.stock.push(x)}}
+ for(const m of t.matchAll(/([AB])店(?:は|なら|で|だと|が|に|の|:)?(?:合計)?([\d,]+)円/g))facts[m[1]+'price']=Number(m[2].replace(/,/g,''));
+ for(const m of t.matchAll(/([AB])店(?:は|なら|で|だと|が|に)?(?:迎え|送迎|の迎え)?(?:は|なら|が|で)?(\d{1,2})時(?:(\d{1,2})分)?/g))facts[m[1]+'pickup']=String(m[2]).padStart(2,'0')+':'+String(m[3]||'0').padStart(2,'0');
+ for(const m of t.matchAll(/(400|600)(?:g|グラム)(?:は|なら|で|が)?([\d,]+)円/g))facts['meat'+m[1]]=Number(m[2].replace(/,/g,''));
+ if(/父|お父さん/.test(t))facts.fatherMentioned=true;
+ if(/買った|作った|終わった|試した/.test(t))facts.reportedAction=true;
+ if(/A店に(決め|する|した|変え)|A店で買った/.test(t))facts.selectedShop='A';
+ if(/B店に(決め|する|した|変え)|B店で買った/.test(t))facts.selectedShop='B';
+ return t;
+}
+function intentFor(t,scene){
+ if(scene==='family'){
+  if(/予算|親|任せ|約束|一緒|相談|決めていい/.test(t))return 'agreement';
+  if(/母|父|誰|仕事|家事|在庫|洗濯/.test(t))return 'work';
+  if(/まず|調べて|挑戦|次/.test(t))return 'firststep';
+  return 'wish';
+ }
+ if(scene==='research'){
+  if(/知らせ|伝え|提案|二度|重複|試し|買い物前/.test(t))return 'trial';
+  if(/収入|家賃|家計|生活費|光熱費|食費|支出|万円|金額/.test(t))return 'budget';
+  if(/聞いた|聞いて|父|母|仕事|在庫|準備/.test(t))return 'discovery';
+  return 'question';
+ }
+ if(/買った|作った|終わった|帰った|食べた/.test(t))return 'result';
+ if(/400|600|グラム|g|単価|パック|お得/.test(t))return 'meat';
+ if(/迎え|送迎|16時|17時|父|お父さん|時間/.test(t))return 'pickup';
+ if(/A店|B店|スーパー|チラシ|安い|どっち|比較|価格|値段/.test(t))return 'shop';
+ if(/在庫|米|ルー|玉ねぎ|材料|家に|冷蔵庫|足り/.test(t))return 'stock';
+ return 'menu';
+}
+function tile(type,title,data,wide,tag){return {type,title,data,wide:!!wide,tag:tag||''}}
+function slot(label,value,source){return {label,value:String(value),source:source||'本人の発言'}}
+function textLine(title,lines){return tile('list',title,lines)}
+function makeModel(turn,sess){
+ const f=sess.facts,k=turn.intent,scene=current;
+ const people=f.people||4,budget=f.budget||1000,menu=f.menu||'夕飯';
+ const s={caption:'あなたの言葉から、次の一歩を組み立てました',title:'次は何をする？',say:'',slots:[],widgets:[],hint:'',next:'次のことを話してみよう'};
+ const add=(label,val,source)=>s.slots.push(slot(label,val,source));
+ if(scene==='dinner'){
+  add('料理',menu,f.menu?'本人の発言':'クエスト例');
+  add('人数',people+'人分',f.people?'本人の発言':'クエスト例');
+  add('予算',yen(budget),f.budget?'本人の発言':'クエスト例');
+  if(k==='menu'){
+   s.title=menu+'を作るには、何から始める？';s.say='「'+menu+'を作りたい」んだね。最初に家にある材料を見てみよう。知識は手伝えるけれど、今日の冷蔵庫は自分で確かめよう。';
+   s.widgets=[textLine('最初の3つのステップ',['家にある食材を確かめる','必要な量をレシピで確かめる','買い足す物を家族に相談する']),tile('next','外でやってみる','冷蔵庫を見て、使えそうな食材を確かめよう')];s.hint='何も思いつかないなら、献立を一つだけ決めるところから始めよう。';
+  }else if(k==='stock'){
+   s.title='何を買い足せばいいかな？';s.say=(f.stock?.length?'「'+f.stock.join('・')+'」があると聞いたよ。':'在庫を確かめたんだね。')+' 家にある物と必要な量を分けてみよう。';
+   s.widgets=[tile('list','家にあると報告したもの',f.stock?.length?f.stock:['まだ材料名は聞けていません']),tile('next','現実でやってみる','レシピと材料の量を家族と確かめて、買い足す物を決めよう')];s.hint='レシピの4人分を確認してもいいね。量はAIが勝手に決めないよ。';
+  }else if(k==='shop'){
+   const a=f.Aprice||980,b=f.Bprice||920;let cheap=a===b?'同じ':a<b?'A店':'B店';
+   s.title='どのお店なら、条件に合う？';s.say='お店の価格を並べてみたよ。'+(cheap==='同じ'?'今の金額は同じだね。':cheap+'のほうが'+yen(Math.abs(a-b))+'安いね。')+' でも、値段だけで決まるかな？';
+   s.widgets=[tile('table','買い物の比較',[['','A店','B店'],['買い足す合計',yen(a),yen(b)],['情報の出所',f.Aprice?'本人の報告':'合成例',f.Bprice?'本人の報告':'合成例']],true,'比べるUI'),tile('next','もう一つ確かめよう','帰りの時間や、買った物の運び方を家族に聞いてみよう')];s.hint='今日の予算と、家に帰る時間も条件だよ。';
+  }else if(k==='pickup'){
+   const a=f.Aprice||980,b=f.Bprice||920,ap=f.Apickup||'16:30',bp=f.Bpickup||'17:00';
+   s.title='家族の都合も入れて、もう一度比べよう';s.say='価格だけでなく、迎えの時間も条件に入ったね。'+(f.Apickup||f.Bpickup?'聞いてきた時間を':'デモで設定した迎えの時間を')+'比べるよ。最後に決めるのは、はるだよ。';
+   s.widgets=[tile('table','条件が増えた比較',[['','A店','B店'],['買い足し',yen(a),yen(b)],['迎え',ap,bp],['予算内',a<=budget?'◯':'要相談',b<=budget?'◯':'要相談']],true,'条件が変わった'),tile('next','自分で決める','今日の条件に合う案を選んで、もう一度家族と合意しよう')];s.hint='安い店を選ぶのが必ず正解ではない。時間や荷物も大事な条件だよ。';
+  }else if(k==='meat'){
+   const small=f.meat400||520,big=f.meat600||600;
+   s.title='「お得」なら、大きい方がいい？';s.say='100gあたりなら'+(small/4>big/6?'600g':'400g')+'の方が安いね。でも今日は何g必要かな？予算の合計も確認しよう。';
+   s.widgets=[tile('money','肉の量と単価', [['400g',yen(small),'100gあたり '+yen(small/4)],['600g',yen(big),'100gあたり '+yen(big/6)]],true,'計算カード'),tile('next','まだ決めなくていい','食べる量・残りの使い方・予算を考えて選ぼう')];s.hint='400gで足りるなら、100gの単価が高くても支払総額は少なくて済むよ。';
+  }else if(k==='result'){
+   s.title='今日のやってみを、記録にしよう';s.say='いま話してくれた出来事を記録の下書きにするね。実際に行ったかどうかは本人の報告として残すよ。';
+   s.widgets=[tile('paper','家族新聞のもとになる下書き',{heading:'はるの夕飯チャレンジ',text:'はるは「'+turn.text+'」と報告しました。',note:'本人の発言から作った文案。事実の確認・家族への共有はまだです。'},true,'新聞プレビュー'),tile('next','その後で','話した内容を自分で確認してから、家族に見せたい部分を選ぼう')];s.hint='家族へ共有したい時は、本人が内容を確認し、親が送る内容と相手を確認するよ。';
+  }
+ }else if(scene==='family'){
+  if(k==='wish'){
+   s.title='どこまで、自分でやってみたい？';s.say='はるの希望から始めよう。どんなことを自分で決めたい？ まずは家族と話せる形に整理してみるね。';
+   s.widgets=[textLine('話し合ってみること',['本人が決めたいこと','これまでにやったこと','親と相談が必要なこと']),tile('next','まず家族へ','何を決めたいか、親に自分の言葉で話してみよう')];s.hint='「献立だけ」「買い物も」など、やってみたい範囲を自分で選べるよ。';
+  }else if(k==='work'){
+   s.title='家の仕事は、どんなふうにつながっている？';s.say='話してくれたことをもとに、家の仕事を見える化するね。まだ聞いていない仕事は埋めずに残そう。';
+   s.widgets=[textLine('家族にもう一度聞けること',['料理の前：在庫と献立','買い物：だれが、いつ行く？','終わった後：片付けや明日の準備']),tile('next','次の現実の行動','家族に、誰が何をするか聞いて確かめよう')];s.hint='仕事の担当は家庭ごとに違うよ。勝手に決めつけないようにしよう。';
+  }else if(k==='agreement'){
+   s.title='「自分で」と「相談」を分けよう';s.say='家族の条件をもとに、話し合うカードにまとめたよ。ただしこれは親が承認した約束にはまだならないよ。';
+   s.widgets=[tile('columns','親子で確かめる約束',[['自分で決めたい','献立・買い足す物'],['家族と相談','人数・予算・道'],['一緒にする','包丁や火を使う調理']],true,'相談カード'),tile('next','親子で行動','親に内容を見せ、条件を確かめて約束しよう')];s.hint='予算や行き先は、AIが勝手に変えないよ。';
+  }else{
+   s.title='最初の挑戦を決めよう';s.say='いきなり一食全部を担当する必要はないよ。自分で始められる一歩を選んでね。';
+   s.widgets=[textLine('小さな一歩',['食事の準備を調べる','今日の食材を確かめる','次回の献立を提案する']),tile('next','本人が選ぶ','まず何をしてみるか一つ決めよう')];s.hint='途中で難しければ、やる範囲を小さくしていいよ。';
+  }
+ }else{
+  if(k==='question'){
+   s.title='まず、何が気になる？';s.say='家の仕組みは、見たことのない仕事もあるよ。知りたいことを一つ探してみよう。';
+   s.widgets=[textLine('家の人に聞ける問い',['食事ができるまで、誰が何をした？','何が生活費になる？','同じ物を買うのはなぜ？']),tile('next','家の中で調べる','家族に質問して、答えを聞いてこよう')];s.hint='最初の考えも残しておくと、あとで発見と比べられるよ。';
+  }else if(k==='discovery'){
+   s.title='聞いてみると、別の仕事が見えたね';s.say='話してくれた家族の仕事を整理しよう。自分で見たことと家族に聞いたことは分けて残すね。';
+   s.widgets=[textLine('気づきにつながる手順',['家族に聞いた仕事を記録','準備と買い物のつながりを見る','まだ知らない役割を確かめる']),tile('next','一つ確かめる','今日の夕飯までに、どんな準備があったか見てみよう')];s.hint='「料理」だけでなく「何を作るかを考える」も必要な仕事かもしれないね。';
+  }else if(k==='budget'){
+   s.title='わかったお金と、まだ知らないお金';s.say='いま聞いた収入と支出を並べるよ。ただし差額は、自由に使えるお金とは限らないね。';
+   s.widgets=[tile('money','家計で聞いたこと（合成例）',[['収入','40万円','本人が聞いた例'],['確認した支出','19万円','家賃・食費・光熱費']],true,'お金の整理'),tile('next','家族に聞いてみよう','通信費や交通費など、まだ話に出ていない支出はある？')];s.hint='全額を聞かなくてもいいよ。家族が話せる範囲だけで十分。';
+  }else{
+   s.title='見つけた問題を、一度試す提案へ';s.say='在庫を知らずに買ってしまうなら、情報の伝え方を家族と相談できそうだね。';
+   s.widgets=[tile('columns','相談前と相談後',[['今まで','買う人が在庫を確認できないことがある'],['本人の提案','買い物に出る前に材料を知らせる'],['確かめること','家族が無理なく続けられるタイミング']],true,'相談のたたき台'),tile('next','現実にやってみる','家族に提案して、一度試した結果をまた話してね')];s.hint='毎日の担当に決める前に、家族の都合を聞いて一度試そう。';
+  }
+ }
+ if(s.widgets.length===0) s.widgets=[tile('next','一歩進める','家族に聞いて、自分で考えてみよう')];
+ return s;
+}
+function renderWidget(w,i){
+ const cls='tile'+(w.wide?' wide':'')+' reveal';
+ let html='<article class="'+cls+'" style="--delay:'+(170+140*i)+'ms"><div class="tile-head"><h3>'+esc(w.title)+'</h3>'+(w.tag?'<span class="tile-tag">'+esc(w.tag)+'</span>':'')+'</div>';
+ if(w.type==='list')html+='<div class="steps">'+w.data.map((x,j)=>'<div class="step"><span class="stepNum">'+(j+1)+'</span><span>'+esc(x)+'</span></div>').join('')+'</div>';
+ if(w.type==='next')html+='<div class="quote">'+esc(w.data)+'</div>';
+ if(w.type==='table')html+='<table class="compare"><thead><tr>'+w.data[0].map(c=>'<th>'+esc(c)+'</th>').join('')+'</tr></thead><tbody>'+w.data.slice(1).map(row=>'<tr>'+row.map((c,j)=>'<td'+(j===0?'':' class="value"')+'>'+esc(c)+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
+ if(w.type==='columns'||w.type==='money'){
+  if(w.type==='money')html+='<div class="money">'+w.data.map(x=>'<div class="moneybox"><small>'+esc(x[0])+'</small><strong>'+esc(x[1])+'</strong><span>'+esc(x[2])+'</span></div>').join('')+'</div>';
+  else html+='<div class="bullet">'+w.data.map(x=>'<div><strong>'+esc(x[0])+'</strong><p>'+esc(x[1])+'</p></div>').join('')+'</div>';
+ }
+ if(w.type==='paper')html+='<div style="padding:15px;background:#fffaf0;border:1px solid #f0ead6;border-radius:11px"><span style="font-size:11px;color:#978660">やってみ新聞｜下書き</span><h2 style="margin-top:7px">'+esc(w.data.heading)+'</h2><p class="narrative">'+esc(w.data.text)+'</p><p class="source">'+esc(w.data.note)+'</p></div>';
+ return html+'</article>';
+}
+function sceneMarkup(m,turn){
+ return '<div class="speech reveal" style="--delay:0ms">🗣 はる「'+esc(turn.text)+'」</div>'+
+ '<div class="constructed"><div class="constructedTitle reveal" style="--delay:80ms">✦ '+esc(m.caption)+'</div>'+
+ '<h2 class="reveal" style="--delay:100ms">'+esc(m.title)+'</h2>'+
+ '<p class="response reveal" style="--delay:170ms">'+esc(m.say)+'</p>'+
+ '<div class="slotgrid reveal" style="--delay:220ms">'+m.slots.map(s=>'<span class="slot"><em>'+esc(s.label)+'</em><b>'+esc(s.value)+'</b></span>').join('')+'</div>'+
+ '<div class="tiles">'+m.widgets.map(renderWidget).join('')+'</div>'+
+ '<div class="actions reveal" style="--delay:480ms"><button type="button" class="outline" data-action="hint">💡 ヒントがほしい</button><button type="button" class="outline" data-action="alone">自分でやってみる</button></div>'+
+ '<div id="hintPlace" class="source">本人が必要な時だけヒントを開けます。表示された候補は本人の判断を代行しません。</div></div>';
+}
+function showUI(t,origin){
+ const sess=sessions[current];let normalized=parseFacts(t,sess.facts);
+ const intent=intentFor(normalized,current);
+ const turn={text:t,intent,origin};sess.turns.push(turn);
+ const m=makeModel(turn,sess);hintOpen=false;sess.show=true;
+ el('status').textContent='声から拾った情報を確認し、表示を組み立てています…（デモ）';
+ el('workspace').innerHTML='<div class="progressBox"><b>✨ 「'+esc(t.slice(0,55))+'」をもとに、次のUIを組み立て中…</b><div class="loader"><span></span></div><p class="tiny" style="margin-top:8px">次の質問・説明文・使うカードを選んでいます。</p></div>';
+ const local=++waiting,scene=current;
+ window.setTimeout(()=>{
+   if(local!==waiting||scene!==current)return;
+   el('workspace').innerHTML=sceneMarkup(m,turn);
+   el('status').textContent='声から文章とカードを組み立てました（デモ表示）';
+   el('suggestions').innerHTML=nextSuggestions(intent).map(x=>'<button type="button" class="suggestion" data-say="'+esc(x)+'">'+esc(x)+' ↗</button>').join('');
+ },480);
+}
+function nextSuggestions(intent){
+ if(current==='dinner'){
+   if(intent==='menu')return ['家に米とルーがある','A店は980円、B店は920円','どう決めればいい？'];
+   if(intent==='shop')return ['父はA店なら16時30分、B店なら17時に迎えられる','400グラム520円と600グラム600円で迷う'];
+   if(intent==='pickup')return ['今日はA店にする','400グラム520円と600グラム600円で迷う'];
+ }
+ return configs[current].suggestions.slice(0,2);
+}
+function applyUtterance(origin){
+ const text=el('utterance').value.trim();
+ if(!text){el('status').textContent='まず、はるの言葉を一つ聞かせてね。';return;}
+ showUI(text,origin);el('utterance').value='';
+}
+function paintScene(){
+ const sc=configs[current];waiting++;hintOpen=false;
+ el('scLabel').textContent=sc.label;
+ el('scTitle').textContent='今日は、何をやってみたい？';
+ el('scLead').textContent=sc.lead;
+ el('questTitle').textContent=sc.title;
+ el('questDesc').textContent=sc.desc;
+ el('questIcon').textContent=sc.icon;
+ el('status').textContent='クエストについて、まず一言話してみよう。';
+ el('utterance').value='';
+ el('utterance').placeholder=sc.examples[0];
+ const sess=sessions[current];
+ el('workspace').innerHTML=sess.turns.length?sceneMarkup(makeModel(sess.turns[sess.turns.length-1],sess),sess.turns[sess.turns.length-1]):'<div class="preHint">最初はシンプル。はるが話したら、必要な説明やカードがここに組み上がるよ。</div>';
+ el('suggestions').innerHTML=sc.suggestions.map(x=>'<button type="button" class="suggestion" data-say="'+esc(x)+'">'+esc(x)+' ↗</button>').join('');
+ el('sceneTabs').innerHTML=Object.entries(configs).map(([id,v])=>'<button type="button" data-scene="'+id+'" aria-pressed="'+(id===current)+'">'+esc(v.label)+'</button>').join('');
+ el('scriptList').innerHTML=sc.examples.map((x,i)=>'<button type="button" data-example="'+i+'"><span style="color:#31816b;font-weight:850">STEP '+(i+1)+'</span><br>'+esc(x)+'</button>').join('');
+}
+function chooseScene(sc){
+ if(!configs[sc])return;
+ if(recOn&&rec){rec.stop();recOn=false;el('mic').classList.remove('record')}
+ current=sc;paintScene();
+}
+const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
+el('mic').addEventListener('click',()=>{
+ if(recOn&&rec){rec.stop();el('status').textContent='音声の聞き取りを止めました。';return;}
+ if(!Rec){el('status').textContent='このブラウザは音声入力に対応していません。例文または文字入力で試せます。';return;}
+ if(!rec){
+  rec=new Rec();rec.lang='ja-JP';rec.continuous=false;rec.interimResults=false;
+  rec.onresult=e=>{let t='';for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)t+=e.results[i][0].transcript}
+    if(t){el('utterance').value=t;applyUtterance('mic')}};
+  rec.onerror=e=>{el('status').textContent='音声認識に失敗しました（'+e.error+'）。例文か文字入力でも同じ体験を試せます。'};
+  rec.onend=()=>{recOn=false;el('mic').classList.remove('record');el('mic').textContent='🎙'};
+ }
+ try{rec.start();recOn=true;el('mic').classList.add('record');el('mic').textContent='■';el('status').textContent='聞き取り中。話し終わったら画面を組み立てます。'}catch(e){recOn=false;el('status').textContent='マイクを開始できませんでした。文字入力でも試せます。'}
+});
+el('apply').addEventListener('click',()=>applyUtterance('text'));
+el('utterance').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();applyUtterance('text')}});
+el('presentBtn').addEventListener('click',()=>{document.body.classList.toggle('presentMode');el('presentBtn').textContent=document.body.classList.contains('presentMode')?'操作パネルを表示':'発表モード'});
+el('reset').addEventListener('click',()=>{sessions[current]={facts:{},turns:[],show:false};paintScene()});
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.scene){chooseScene(b.dataset.scene);return;}
+ if(b.dataset.say){el('utterance').value=b.dataset.say;applyUtterance('example');return;}
+ if(b.dataset.example!==undefined){el('utterance').value=configs[current].examples[Number(b.dataset.example)];applyUtterance('example');return;}
+ if(b.dataset.action==='hint'){
+  const last=sessions[current].turns.at(-1);if(!last)return;
+  hintOpen=!hintOpen;
+  const m=makeModel(last,sessions[current]);el('hintPlace').innerHTML=hintOpen?'<div class="hint">'+esc(m.hint)+'<br>※ここで答えを選ぶ必要はないよ。</div>':'本人が必要な時だけヒントを開けます。';
+ }
+ if(b.dataset.action==='alone'){el('hintPlace').textContent='いいね。アプリを閉じて現実でやってみて、あとで戻って話してね。';}
+});
+paintScene();
+</script>
+</body>
+</html>
