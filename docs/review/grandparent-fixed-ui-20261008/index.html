@@ -20,6 +20,7 @@ hr{border:0;border-top:1px solid var(--line);margin:24px 0}details{border:1px so
 .photoGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.photoTile{min-width:0;border:1px solid var(--line);background:white;border-radius:14px;padding:7px;text-align:left}.photoTile span{display:block;font-size:17px;line-height:1.55;font-weight:700;padding:7px 4px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}.two .btn{font-size:17px}.status{border-radius:12px;padding:13px;background:#eaf4f0;font-size:18px;line-height:1.6}.error{background:#fff5df}.steps{font-size:46px;color:var(--green);font-weight:900}.eyebrow{color:#34765c;font-size:16px;font-weight:800}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #f1b645;outline-offset:2px}
+#app.large main p{font-size:24px}#app.large main .quote{font-size:26px}#app.large main h1{font-size:33px}#app.large main h2{font-size:27px}#app.large main .meta{font-size:19px}#app.large main .label{font-size:22px}#app.large main button{font-size:21px}
 @media(max-width:360px){main{padding:12px 11px 26px}.two{grid-template-columns:1fr}h1{font-size:25px}.photo{height:190px}footer button{font-size:15px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 </style></head><body>
@@ -43,7 +44,7 @@ const SAMPLE=[
 {id:"first",version:1,published:true,date:"10月2日",author:"はるちゃん",title:"自分で献立を考えたい",intro:"何から始めるかを家族と相談したよ。",choice:"まず家のご飯がどう決まるか調べることにしたよ。",reason:"",report:"家族の話を聞くところから始めると報告しました。",detail:"",photos:[]}
 ];
 let data=SAMPLE.map(x=>({...x}));
-const S={tab:"news",page:"list",article:"curry",from:"news",photo:0,replyKind:"question",draft:"今度はどんな料理を作ってみたい？",failNext:false,error:false,sending:false,ack:new Set(),events:[],steps:null,inputSteps:"",genki:false,scroll:{news:0,album:0,today:0},large:false};
+const S={tab:"news",page:"list",article:"curry",from:"news",photo:0,replyKind:"question",draft:"今度はどんな料理を作ってみたい？",failNext:false,error:false,sending:false,ack:new Set(),events:[],steps:null,inputSteps:"",genki:false,stepError:false,scroll:{news:0,album:0,today:0},large:false};
 const kinds={support:{title:"応援のひとこと",example:"自分で考えて選んだんだね。教えてくれてありがとう。"},question:{title:"聞いてみたいこと",example:"今度はどんな料理を作ってみたい？"},experience:{title:"私の経験・工夫",example:"私はお肉が余ったら小分けにして冷凍していたよ。"}};
 const h=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const btn=(label,act,klass)=>'<button class="btn '+(klass||"")+'" data-action="'+act+'">'+label+'</button>';
@@ -101,6 +102,7 @@ return btn('← アルバムに戻る','tab:album','plain')+'<h1>'+h(p.article.t
 }
 function today(){
 let x='<div class="eyebrow">おばあちゃんから家族へ</div><h1>今日のわたし</h1><div class="card soft"><h2>今日の歩数</h2><div class="steps">'+(S.steps===null?'—':S.steps.toLocaleString())+' <small style="font-size:20px">歩</small></div><p class="meta">'+(S.steps===null?'まだ記録していません':'手入力・このデモ内の記録')+'</p><label class="label" for="steps">歩数を入力</label><p class="meta">歩数計などで確認した数値を入力できます。</p><input class="num" id="steps" type="number" min="0" max="99999" inputmode="numeric" placeholder="例：5200" value="'+h(S.inputSteps)+'"/>'+btn('歩数を記録する','savesteps','alt')+'</div>';
+if(S.stepError)x+='<div class="status error" role="alert">歩数は0〜99,999の整数で入力してください。まだ記録されていません。</div>';
 x+='<div class="card"><h2>今日も元気だよ</h2><p>歩数を記録しなくても家族に近況を送れます。</p><div class="card soft"><p>送る相手：保護者</p><p>送ることば：「今日も元気だよ」</p></div>';
 x+=S.genki?'<div class="status">✓ 今日の「元気だよ」は送信済み（デモ）</div>':btn('♥ 今日も元気だよを送る','genki');
 if(S.error)x+='<div class="status error">まだ送れていません。もう一度お試しください。</div>';
@@ -109,7 +111,7 @@ x+='<p class="meta">送らなかった日から健康や安全を判定するこ
 x+='<details><summary>失敗時の動作を試す（デモ）</summary><p>次の送信を一度だけ失敗させます。</p>'+btn('次の送信を失敗させる','fail','plain')+'</details>';return x;
 }
 function render(scroll=0){
-node.style.fontSize=S.large?'110%':'100%';
+document.getElementById('app').classList.toggle('large',S.large);
 document.querySelectorAll('footer [data-tab]').forEach(b=>S.tab===b.dataset.tab?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'));
 node.innerHTML=S.page==='detail'?detail():S.page==='reply'?reply():S.page==='complete'?complete():S.page==='photo'?photo():S.tab==='news'?home():S.tab==='album'?album():today();
 node.scrollTop=scroll;
@@ -143,7 +145,7 @@ if(act==='return'){toTab(S.tab==='album'?'album':'news');return}
 if(act==='back'){S.page='detail';S.error=false;render();return}
 if(act==='reply'){S.page='reply';S.replyKind='question';S.draft=kinds.question.example;S.error=false;render();return}
 if(act==='read'){send('read');return}if(act==='send'){send('reply');return}if(act==='genki'){send('genki');return}
-if(act==='savesteps'){const n=Number(S.inputSteps);if(S.inputSteps.trim()!==''&&Number.isInteger(n)&&n>=0&&n<=99999){S.steps=n;S.error=false}else S.error=true;render(node.scrollTop);return}
+if(act==='savesteps'){const n=Number(S.inputSteps);if(S.inputSteps.trim()!==''&&Number.isInteger(n)&&n>=0&&n<=99999){S.steps=n;S.stepError=false}else S.stepError=true;render(node.scrollTop);return}
 if(act==='fail'){S.failNext=true;render(node.scrollTop);return}
 if(act==='photo'){S.photo=Number(arg);S.page='photo';render();return}
 if(act==='prev'){S.photo=Math.max(0,S.photo-1);render();return}
