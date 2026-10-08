@@ -44,8 +44,9 @@ const SAMPLE=[
 {id:"first",version:1,published:true,date:"10月2日",author:"はるちゃん",title:"自分で献立を考えたい",intro:"何から始めるかを家族と相談したよ。",choice:"まず家のご飯がどう決まるか調べることにしたよ。",reason:"",report:"家族の話を聞くところから始めると報告しました。",detail:"",photos:[]}
 ];
 let data=SAMPLE.map(x=>({...x}));
-const S={tab:"news",page:"list",article:"curry",from:"news",photo:0,replyKind:"question",draft:"今度はどんな料理を作ってみたい？",failNext:false,error:false,sending:false,ack:new Set(),events:[],steps:null,inputSteps:"",genki:false,stepsSent:null,stepError:false,eventCounter:0,scroll:{news:0,album:0,today:0},large:false};
+const S={tab:"news",page:"list",article:"curry",from:"news",photo:0,replyKind:"question",draft:"今度はどんな料理を作ってみたい？",failNext:false,error:false,sending:false,ack:new Set(),events:[],steps:null,inputSteps:"",genki:false,genkiDay:"",stepsDay:"",stepsSent:null,stepsSentDay:"",stepError:false,eventCounter:0,scroll:{news:0,album:0,today:0},large:false};
 const kinds={support:{title:"応援のひとこと",example:"自分で考えて選んだんだね。教えてくれてありがとう。"},question:{title:"聞いてみたいこと",example:"今度はどんな料理を作ってみたい？"},experience:{title:"私の経験・工夫",example:"私はお肉が余ったら小分けにして冷凍していたよ。"}};
+const dayKey=()=>{const p=new Intl.DateTimeFormat("en-US",{timeZone:"Asia/Tokyo",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());const find=t=>p.find(x=>x.type===t).value;return find("year")+"-"+find("month")+"-"+find("day")};
 const h=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const btn=(label,act,klass)=>'<button class="btn '+(klass||"")+'" data-action="'+act+'">'+label+'</button>';
 const shown=()=>data.filter(x=>x.published===true);
@@ -101,15 +102,15 @@ const p=photos()[S.photo];if(!p)return btn('アルバムに戻る','tab:album');
 return btn('← アルバムに戻る','tab:album','plain')+'<h1>'+h(p.article.title)+'</h1>'+img(p,'photo')+'<p class="meta">'+(S.photo+1)+' / '+photos().length+'・'+h(p.article.date)+'</p><div class="two">'+btn('← 前の写真','prev','alt')+btn('次の写真 →','next','alt')+'</div><hr/>'+btn('この記事を読む','open:'+p.article.id,'plain');
 }
 function today(){
-let x='<div class="eyebrow">おばあちゃんから家族へ</div><h1>今日のわたし</h1><div class="card soft"><h2>今日の歩数</h2><div class="steps">'+(S.steps===null?'—':S.steps.toLocaleString())+' <small style="font-size:20px">歩</small></div><p class="meta">'+(S.steps===null?'まだ記録していません':'手入力・このデモ内の記録')+'</p><label class="label" for="steps">歩数を入力</label><p class="meta">歩数計などで確認した数値を入力できます。</p><input class="num" id="steps" type="number" min="0" max="99999" inputmode="numeric" placeholder="例：5200" value="'+h(S.inputSteps)+'"/>'+btn('歩数を記録する','savesteps','alt')+'</div>';
+let x='<div class="eyebrow">おばあちゃんから家族へ</div><h1>今日のわたし</h1><div class="card soft"><h2>今日の歩数</h2><div class="steps">'+(S.stepsDay!==dayKey()?'—':S.steps.toLocaleString())+' <small style="font-size:20px">歩</small></div><p class="meta">'+(S.stepsDay!==dayKey()?'まだ記録していません':'手入力・このデモ内の記録')+'</p><label class="label" for="steps">歩数を入力</label><p class="meta">歩数計などで確認した数値を入力できます。</p><input class="num" id="steps" type="number" min="0" max="99999" inputmode="numeric" placeholder="例：5200" value="'+h(S.stepsDay===dayKey()?S.inputSteps:'')+'"/>'+btn('歩数を記録する','savesteps','alt')+'</div>';
 if(S.stepError)x+='<div class="status error" role="alert">歩数は0〜99,999の整数で入力してください。まだ記録されていません。</div>';
-if(S.steps!==null){
+if(S.stepsDay===dayKey()&&S.steps!==null){
  x+='<div class="card"><h2>記録した歩数を家族へ</h2><p class="meta">送る相手：保護者／記録元：本人手入力</p>';
- x+=S.stepsSent===S.steps?'<div class="status">✓ '+S.steps.toLocaleString('ja-JP')+'歩を送りました（デモ）</div>':btn(S.steps.toLocaleString('ja-JP')+'歩を家族へ知らせる','sendsteps','alt');
+ x+=(S.stepsSent===S.steps&&S.stepsSentDay===dayKey())?'<div class="status">✓ '+S.steps.toLocaleString('ja-JP')+'歩を送りました（デモ）</div>':btn(S.steps.toLocaleString('ja-JP')+'歩を家族へ知らせる','sendsteps','alt');
  x+='</div>';
 }
 x+='<div class="card"><h2>今日も元気だよ</h2><p>歩数を記録しなくても家族に近況を送れます。</p><div class="card soft"><p>送る相手：保護者</p><p>送ることば：「今日も元気だよ」</p></div>';
-x+=S.genki?'<div class="status">✓ 今日の「元気だよ」は送信済み（デモ）</div>':btn('♥ 今日も元気だよを送る','genki');
+x+=(S.genki&&S.genkiDay===dayKey())?'<div class="status">✓ 今日の「元気だよ」は送信済み（デモ）</div>':btn('♥ 今日も元気だよを送る','genki');
 if(S.error)x+='<div class="status error">まだ送れていません。もう一度お試しください。</div>';
 if(S.sending)x+='<div class="status">送信中です（デモ）</div>';
 x+='<p class="meta">送らなかった日から健康や安全を判定することはありません。</p></div>';
@@ -127,7 +128,7 @@ function send(type){
 if(S.sending||type==='read'&&S.ack.has(S.article))return;
 if(type==='reply'&&!S.draft.trim()){S.error=true;render(node.scrollTop);return}
 if(!['genki','steps'].includes(type)&&!article())return;
-if(type==='steps'&&(S.steps===null||S.stepsSent===S.steps))return;
+if(type==='steps'&&(S.steps===null||S.stepsDay!==dayKey()||(S.stepsSent===S.steps&&S.stepsSentDay===dayKey())))return;
 S.sending=true;S.error=false;render(node.scrollTop);
 const fail=S.failNext;S.failNext=false;
 setTimeout(()=>{
@@ -135,11 +136,11 @@ setTimeout(()=>{
  if(fail){S.error=true;render(node.scrollTop);return}
  const a=article();const now=new Date().toISOString();
 const e={kind:type,articleId:['genki','steps'].includes(type)?null:a?.id,articleVersion:['genki','steps'].includes(type)?null:a?.version,recipient:['genki','steps'].includes(type)?'parents-demo':'haru-demo',text:type==='read'?'読んだよ':type==='genki'?'今日も元気だよ':type==='steps'?'歩数を知らせる':S.draft,replyType:type==='reply'?S.replyKind:null,simulation:true,
- familyId:'family-demo',memberId:'grandma',clientEventId:'grandma-action-'+(++S.eventCounter),sentAt:now,steps:type==='steps'?S.steps:undefined,stepSource:type==='steps'?'manual':undefined};
+ familyId:'family-demo',memberId:'grandma',clientEventId:'grandma-action-'+Date.now()+'-'+(++S.eventCounter),sentAt:now,steps:type==='steps'?S.steps:undefined,stepSource:type==='steps'?'manual':undefined};
  if(type==='read')S.ack.add(S.article);
  if(type==='reply')S.page='complete';
- if(type==='genki')S.genki=true;
-if(type==='steps')S.stepsSent=S.steps;
+ if(type==='genki'){S.genki=true;S.genkiDay=dayKey();}
+if(type==='steps'){S.stepsSent=S.steps;S.stepsSentDay=dayKey();}
  S.events.push(e);document.dispatchEvent(new CustomEvent('yattemi:grandparent-demo-event',{detail:{...e}}));
 if(window.parent!==window)window.parent.postMessage({type:'yattemi:grandparent-demo-event',detail:e},window.location.origin==='null'?'*':window.location.origin);
 render(node.scrollTop);
@@ -156,7 +157,7 @@ if(act==='return'){toTab(S.tab==='album'?'album':'news');return}
 if(act==='back'){S.page='detail';S.error=false;render();return}
 if(act==='reply'){S.page='reply';S.replyKind='question';S.draft=kinds.question.example;S.error=false;render();return}
 if(act==='read'){send('read');return}if(act==='send'){send('reply');return}if(act==='genki'){send('genki');return}if(act==='sendsteps'){send('steps');return}
-if(act==='savesteps'){const n=Number(S.inputSteps);if(S.inputSteps.trim()!==''&&Number.isInteger(n)&&n>=0&&n<=99999){S.steps=n;S.stepError=false}else S.stepError=true;render(node.scrollTop);return}
+if(act==='savesteps'){const n=Number(S.inputSteps);if(S.inputSteps.trim()!==''&&Number.isInteger(n)&&n>=0&&n<=99999){S.steps=n;S.stepsDay=dayKey();S.stepError=false}else S.stepError=true;render(node.scrollTop);return}
 if(act==='fail'){S.failNext=true;render(node.scrollTop);return}
 if(act==='photo'){S.photo=Number(arg);S.page='photo';render();return}
 if(act==='prev'){S.photo=Math.max(0,S.photo-1);render();return}
