@@ -46,7 +46,7 @@ dinner:{name:"③ おばあちゃんの夕飯",points:40,title:"夕飯の献立�
 ]}};
 var S={role:"child",scene:"initial",step:{initial:0,research:0,dinner:0},saved:{initial:false,research:false,dinner:false},share:{initial:"private",research:"private",dinner:"private"},version:{initial:0,research:0,dinner:0},edited:{},agreement:false,award:{research:"none",dinner:"none"},reward:"none",issues:0,posts:[],replies:[],message:""};
 function e(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
-function B(label,act,style){return '<button class="act '+(style||"")+'" data-a="'+act+'">'+label+'</button>'}
+function B(label,act,style,disabled){return '<button class="act '+(style||"")+'" data-a="'+act+'" '+(disabled||'')+'>'+label+'</button>'}
 function pts(){return (S.award.research==="earned"?20:0)+(S.award.dinner==="earned"?40:0)}
 function avail(){return pts()-(["reserved","approved","delivered"].includes(S.reward)?50:0)}
 function stamp(text){return '<span class="tag">'+e(text)+'</span>'}
@@ -64,6 +64,7 @@ function child(){
  }
  if(last)x+='<div class="bubble child"><strong>🎙 はるちゃんの報告（合成）</strong>'+e(last[0])+'</div><div class="bubble ai"><strong>✦ AIの返答</strong>'+e(last[1])+'<div class="note"><b>この提案の理由</b><p>'+e(last[2])+'</p></div><details><summary>次に現実ですること</summary>'+e(last[3])+'</details></div>';
  x+='<div class="box"><h2>これまでのアルバム</h2>'+Object.keys(scenes).map(id=>S.saved[id]?savedView(id):"").join('')+(Object.values(S.saved).some(Boolean)?"":'<p class="sub">まだ保存した記事はありません。</p>')+'</div>';
+ if(S.posts.length)x+='<div class="box"><h2>おばあちゃんの近況</h2>'+postList()+'</div>';
  x+='<div class="box"><h2>お金とごほうび</h2>'+stamp("確定 "+pts()+"P")+stamp("使える "+avail()+"P")+((S.reward==="reserved")?stamp("50P予約中"):"")+'<p class="sub">初回0P・調査20P・夕飯40Pは家庭で事前に合意した合成例。父の確認まで未確定です。新聞への共有は条件ではありません。</p>';
  if(S.reward==="none"||S.reward==="cancelled")x+='<p>家庭の特典例：カフェへ一緒に行く（50P）</p>'+B("カフェの特典をお願いする","request","secondary",avail()<50?'disabled':'');
  if(S.reward==="reserved")x+='<p>50Pを予約中。父の交換承認待ち。カフェはまだ未実施。</p>'+B("依頼を取り消す","cancel","tertiary");
@@ -88,12 +89,12 @@ function mother(){
 function postList(){return S.posts.length?S.posts.map(v=>'<div class="note">祖母本人の近況（手入力）：'+e(v)+'</div>').join(''):'<p class="sub">今は近況が届いていません。安全や健康状態を推定しません。</p>'}
 function father(){
  let x='<div class="eyebrow">父｜活動・報酬の確認担当（合成権限）</div><h1>活動の結果とごほうびを確認</h1><div class="note">子の活動確認と、祖母に新聞を見せる承認は別です。祖母が読まなくても報酬を確認できます。</div>';
- for(const id of ["research","dinner"]){let p=scenes[id].points,st=S.award[id],label={none:"本人の完了報告待ち",pending:"親の確認待ち",held:"確認を保留中",earned:"一度だけ確定済み"}[st];x+='<div class="box"><h2>'+e(scenes[id].headline)+' '+p+'P</h2><p>状態：'+e(label)+'</p>';if(st==="pending"||st==="held")x+='<div class="controls">'+B("実行を確認して "+p+"P 確定","award:"+id)+B("保留","holdaward:"+id,"tertiary")+'</div>';x+='</div>'}
+ for(const id of ["research","dinner"]){let p=scenes[id].points,st=S.award[id],label={none:"本人の完了報告待ち",pending:S.saved[id]?"親の確認待ち":"子のアルバム保存待ち",held:"確認を保留中",earned:"一度だけ確定済み"}[st];x+='<div class="box"><h2>'+e(scenes[id].headline)+' '+p+'P</h2><p>状態：'+e(label)+'</p>';if((st==="pending"||st==="held")&&S.saved[id])x+='<div class="controls">'+B("実行を確認して "+p+"P 確定","award:"+id)+B("保留","holdaward:"+id,"tertiary")+'</div>';x+='</div>'}
  x+='<div class="box"><h2>ポイントの記録</h2>'+stamp("確定"+pts()+"P")+stamp("使える"+avail()+"P")+'<p class="sub">ポイントと実際のお金は別です。</p></div><div class="box"><h2>家族のカフェ50P</h2>';
  if(S.reward==="reserved")x+='<p>子が50Pを予約しました。内容・日程・費用を家庭で確認します。</p><div class="controls">'+B("交換を承認（提供はまだ）","approve")+B("今回は却下・予約解除","reject","secondary")+'</div>';
  else if(S.reward==="approved")x+='<p>交換承認済み・まだカフェには行っていません。</p><div class="controls">'+B("実際にカフェへ行った（合成）","deliver")+B("未提供で取消・50P返還","refund","tertiary")+'</div>';
  else x+='<p class="sub">'+(S.reward==="delivered"?"提供済み。追加の消費はありません。":"子からの交換確認待ちです。")+'</p>';
- return x+'</div><div class="box"><h2>祖母から家族への近況</h2>'+postList()+'</div>';
+ return x+'</div><div class="box"><h2>子の家族アルバム</h2>'+Object.keys(S.saved).filter(id=>S.saved[id]).map(id=>'<div class="box"><strong>'+e(scenes[id].headline)+'</strong><p class="sub">'+e(scenes[id].share)+'</p></div>').join('')+'</div><div class="box"><h2>祖母から家族への近況</h2>'+postList()+'</div>';
 }
 function grandma(){
  let ids=Object.keys(S.share).filter(id=>S.share[id]==="published"),x='<div class="eyebrow">祖母｜おたより・写真・私の近況</div><h1>家族からのおたより</h1><p>孫から見せてもらった記事を好きな時に読めます。</p><div class="note">見せると決めた内容だけ。家計・ポイント・親の確認情報は祖母へ表示しません。</div>';
