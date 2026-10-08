@@ -96,7 +96,7 @@ function receive(raw){
 }
 function memberCard(person){
  const gen=todays(person.id,"genki"),lastGen=latest(person.id,"genki"),todaySteps=todays(person.id,"steps"),lastSteps=latest(person.id,"steps");
- let card='<div class="card"><div class="row between"><div class="row"><span class="personIcon">'+person.emoji+'</span><div><div class="name">'+person.label+'</div><span class="meta">'+person.role+'・本人からの近況</span></div></div>'+(gen?'<span class="tag">今日の連絡あり</span>':'<span class="tag neutral">今日の連絡は未着</span>')+'</div>';
+ let card='<div class="card"><div class="row between"><div class="row"><span class="personIcon">'+person.emoji+'</span><div><div class="name">'+person.label+'</div><span class="meta">'+person.role+'・本人からの近況</span></div></div>'+((gen||todaySteps)?'<span class="tag">今日の近況あり</span>':'<span class="tag neutral">今日の近況は未着</span>')+'</div>';
  card+='<div class="subgrid"><div class="info"><div class="title">今日の「元気だよ」</div><div class="big">'+(gen?"届きました":"まだ届いていません")+'</div><div class="note">'+(gen?"本人の送信 "+timeLabel(gen.sentAt):lastGen?"前回 "+dateLabel(lastGen.sentAt):"これまでに受信した記録なし")+'</div></div>';
  card+='<div class="info"><div class="title">今日の歩数</div><div class="big">'+(todaySteps?todaySteps.steps.toLocaleString("ja-JP")+" 歩":"記録は未着")+'</div><div class="note">'+(todaySteps?"本人手入力・"+timeLabel(todaySteps.sentAt):lastSteps?"前回 "+dateLabel(lastSteps.sentAt)+"： "+lastSteps.steps.toLocaleString("ja-JP")+"歩":"歩数の受信記録なし")+'</div></div></div>';
  if(gen||todaySteps)card+='<p class="meta">受信時刻：'+timeLabel((gen&&todaySteps?Date.parse(gen.receivedAt)>Date.parse(todaySteps.receivedAt)?gen:todaySteps:gen||todaySteps).receivedAt)+'。本人の送信記録であり、現在の体調・安全を保証しません。</p>';
