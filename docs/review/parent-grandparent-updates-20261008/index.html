@@ -87,7 +87,7 @@ function receive(raw){
  if(raw.kind==="steps"&&(!Number.isInteger(raw.steps)||raw.steps<0||raw.steps>99999||raw.stepSource!=="manual"))return false;
  if(raw.kind==="genki"&&raw.text!=="今日も元気だよ")return false;
  if(state.seenIds.has(raw.clientEventId))return false;
- const receivedAt=new Date().toISOString();
+ const receivedAt=raw.clientEventId.startsWith('seed-')?raw.sentAt:new Date().toISOString();
  const e={familyId:FAMILY,memberId:raw.memberId,kind:raw.kind,clientEventId:raw.clientEventId,sentAt:raw.sentAt,receivedAt,source:"grandparent-demo",steps:raw.kind==="steps"?raw.steps:null,stepSource:raw.kind==="steps"?"manual":null,text:raw.kind==="genki"?raw.text:null};
  state.seenIds.add(e.clientEventId);state.events.push(e);
  const who=names.find(x=>x.id===e.memberId);
@@ -159,7 +159,7 @@ function seed(){
  receive({familyId:FAMILY,memberId:"grandma",kind:"genki",clientEventId:"seed-genki-old",sentAt:ago(3),source:"grandparent-demo",text:"今日も元気だよ"});
  state.notice="";main.scrollTop=0;
 }
-window.YattemiParentDemo={receive,makeEvent,getState:()=>({view:state.view,focus:state.focus,count:state.events.length,todayGenki:!!todays("grandma","genki"),todaySteps:todays("grandma","steps")?.steps||null}),getEvents:()=>state.events.map(e=>({...e})),clear:()=>{state.events=[];state.seenIds=new Set();state.notice="";render()},switchView};
+window.YattemiParentDemo={receive,makeEvent,getState:()=>({view:state.view,focus:state.focus,count:state.events.length,todayGenki:!!todays("grandma","genki"),todaySteps:todays("grandma","steps")?.steps??null}),getEvents:()=>state.events.map(e=>({...e})),clear:()=>{state.events=[];state.seenIds=new Set();state.notice="";render()},switchView};
 seed();render();
 })();
 </script></body></html>
