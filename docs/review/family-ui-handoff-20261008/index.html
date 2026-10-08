@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>やってみクエスト｜子ども・保護者・祖父母の家族体験</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;color:#193d32;background:#f7faf7;--green:#176b5b;--line:#dce9df}
+*{box-sizing:border-box}body{margin:0}button,textarea{font:inherit}button{cursor:pointer}
+.app{height:100dvh;max-width:760px;min-height:320px;margin:auto;background:#fffdf9;display:flex;flex-direction:column;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+header{display:flex;gap:8px;align-items:center;min-height:60px;padding:9px 14px;background:white;border-bottom:1px solid var(--line);flex:0 0 auto}
+.brand{font-weight:900;font-size:17px;letter-spacing:-.03em;display:flex;align-items:center;gap:7px;min-width:0;flex:1}
+.star{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border-radius:12px;background:#176b5b;color:white}
+.headbtn{min-height:44px;padding:8px 10px;border-radius:11px;background:#edf7f0;color:#205f49;border:1px solid #cddfd3;font-weight:800;font-size:12px;white-space:nowrap}
+main{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;padding:16px 15px 18px;scroll-behavior:smooth}
+.eyebrow{font-size:11px;color:#387d65;font-weight:850;letter-spacing:.08em;margin:6px 0}
+h1{font-size:23px;letter-spacing:-.045em;line-height:1.45;margin:4px 0 12px}
+.quest{border:1px solid #dcebe0;background:#f5faf6;padding:11px 12px;border-radius:15px;display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.quest .ico{font-size:26px}.quest strong{font-size:14px}.quest p{margin:3px 0 0;font-size:12px;color:#6c8073}
+.question{background:#edf7ef;border:1px solid #cee2d3;padding:14px;border-radius:17px;margin:11px 0 13px}
+.question small{font-weight:850;font-size:12px;color:#2f795f}.question p{font-size:17px;font-weight:750;line-height:1.65;margin:9px 0 5px}.question span{font-size:12px;color:#648374}
+.promptlist{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+.chip{border-radius:999px;border:1px solid #cbded0;padding:9px 12px;color:#295e4a;background:#fff;font-size:13px;min-height:44px}
+.talkTitle{font-size:12px;font-weight:850;color:#3c7b61;margin:15px 0 8px}
+.bubble{max-width:94%;padding:13px 14px;border-radius:16px;border:1px solid #dce8df;margin:9px 0}
+.bubble b{display:block;font-size:11px;color:#548273;margin-bottom:6px}
+.bubble p{margin:0;line-height:1.8;font-size:16px;overflow-wrap:anywhere}
+.child{margin-left:auto;background:#e8f4e9;border-radius:16px 16px 5px 16px}
+.ai{margin-right:auto;background:white;border-radius:16px 16px 16px 5px}
+.old{font-size:12px;color:#557b65;margin:9px 0}.old summary{cursor:pointer;padding:8px;border-radius:10px;background:#f5faf6}
+.cards{margin-top:15px;border-top:1px solid var(--line);padding-top:14px}
+.cards .over{color:#46806a;font-size:11px;font-weight:850}
+.cards h2{font-size:19px;line-height:1.5;margin:7px 0 11px}
+.facts{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.fact{background:#ebf5ee;border:1px solid #d5e7da;border-radius:10px;padding:7px 10px;font-size:12px}
+.fact b{color:#617f70;font-weight:650;margin-right:5px}
+.tile{background:white;border:1px solid #d9e8dd;border-radius:16px;padding:13px;margin:9px 0;line-height:1.75;font-size:14px}
+.tile strong{display:block;font-size:15px;margin-bottom:6px}
+.tile ul{padding-left:1.25em;margin:6px 0}.tile li{margin:5px 0}
+.tile table{border-collapse:collapse;width:100%;font-size:13px}.tile th,.tile td{text-align:left;padding:9px;border-bottom:1px solid #e3ece5}.tile th{background:#f4faf5}
+.hint{border:0;border-radius:10px;background:#edf7f0;color:#176b5b;padding:10px 12px;min-height:44px;font-weight:800;margin-top:8px}
+.note{color:#70877a;font-size:12px}
+.dock{flex:0 0 auto;background:#fffefa;padding:7px 10px calc(8px + env(safe-area-inset-bottom));border-top:1px solid #cbdfd1;box-shadow:0 -4px 22px #15372212}
+.next{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin-bottom:7px}.next button{font-size:12px;white-space:nowrap;background:#eff8f0;min-height:35px;border:1px solid #cbded0;border-radius:999px;padding:6px 10px}
+.inputrow{display:flex;gap:7px}.inputrow textarea{flex:1;min-width:0;resize:vertical;min-height:49px;max-height:85px;border:1px solid #d0e1d6;border-radius:12px;padding:12px;font-size:16px;background:#fff}
+.mic,.send{display:grid;place-items:center;min-height:49px;min-width:48px;border:0;border-radius:12px;background:#176b5b;color:white;font-size:23px}.mic{background:#e8f4eb;color:#126450;border:1px solid #bcddc5}
+.status{min-height:0;font-size:11px;color:#4f7c65;margin:4px 0 0}.status:empty{display:none}
+.dropdown{position:absolute;top:62px;right:9px;z-index:20;background:#fff;border:1px solid #cce0d1;border-radius:15px;padding:10px;box-shadow:0 12px 36px #173b3150;display:grid;gap:6px;max-width:calc(100vw - 18px)}.dropdown[hidden]{display:none}
+.dropdown button{text-align:left;background:#f6faf7;color:#265a45;border:1px solid #d6e5da;border-radius:12px;padding:12px;min-height:45px}
+@media(min-width:780px){.app{border-radius:14px;margin-top:12px;height:calc(100dvh - 24px);box-shadow:0 12px 45px #173b3120}}
+@media(max-width:390px){.brand{font-size:15px}header{padding:8px}.headbtn{padding:7px;font-size:11px}main{padding:11px}.question p{font-size:16px}}
+@media(prefers-reduced-motion:reduce){main{scroll-behavior:auto}}
+
+.stagepill{font-size:12px;color:#3a7e60;background:#f0f8f1;border:1px solid #d8eadc;padding:8px 12px;border-radius:12px;margin:10px 0;font-weight:800}
+.stagepill[hidden]{display:none}
+.flow{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 12px}
+.flow span{font-size:11px;background:#edf5f0;border:1px solid #dce9df;padding:5px 8px;border-radius:999px;color:#5e8071}
+.flow .current{background:#176b5b;border-color:#176b5b;color:white}
+.actionbox{padding:13px;border:1px solid #bad9c3;background:#eaf6ee;border-radius:14px;margin:9px 0;line-height:1.65}
+.actionbox b{display:block;font-size:12px;color:#246a52;margin-bottom:3px}
+.actionbox div{font-size:15px;font-weight:650}
+.comparison tr:nth-child(even){background:#f8fbf8}
+.sourcelabel{font-size:11px;color:#587a69;line-height:1.55;margin:8px 0}
+.storyWarning{font-size:13px;color:#536c5d;background:#f6f9f4;padding:10px;border-radius:12px}
+@media(max-width:390px){.stagepill{font-size:11px}.actionbox div{font-size:14px}}
+.reasonBox{background:#eef8f0;border:1px solid #cde4d3;border-radius:15px;padding:12px 13px;margin:8px 0 12px}
+.reasonTag{color:#237057;font-weight:850;font-size:12px}
+.reasonSummary{font-size:15px;line-height:1.65;margin:7px 0}
+.reasonDetails{border-top:1px solid #d0e5d5;padding-top:8px;font-size:13px}
+.reasonDetails summary,.openingEvidence summary{cursor:pointer;color:#1c765a;font-weight:800;min-height:34px;display:flex;align-items:center}
+.basisItem{padding:8px 0;border-bottom:1px solid #e1eee4}.basisItem:last-child{border:0}
+.basisKey{font-size:12px;font-weight:850;color:#466f5a}.basisItem ul{padding-left:1.2em;margin:6px 0}.basisItem li{margin:4px 0;line-height:1.6}
+.basisItem.hypothesis .basisKey{color:#9c6724}.basisItem.unverified .basisKey{color:#805f4b}
+.openingEvidence{margin-top:9px;border-top:1px solid #cce3d3;padding-top:6px}.openingEvidence p{font-size:12px!important;line-height:1.65!important;font-weight:400!important;color:#54765f}
+@media(max-width:390px){.reasonSummary{font-size:14px}}
+
+/* Same four-person cycle as GitHub review PR #13; standalone mobile layout. */
+.familyRoles{display:flex;gap:5px;padding:5px 10px;background:#fff;border-bottom:1px solid #dce9df;flex-shrink:0;overflow-x:auto}
+.familyRoles button{border:1px solid #dae8dd;background:#f7faf7;border-radius:10px;min-width:74px;flex:1;min-height:44px;color:#315e48;font-weight:750;font-size:13px}
+.familyRoles button[aria-pressed=true]{background:#176b5b;color:white;border-color:#176b5b}
+#familyMain{min-height:0;flex:1 1 auto;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:14px 14px 28px}
+#familyMain[hidden]{display:none} .dock[hidden],#main[hidden]{display:none}
+.familyBox{border:1px solid #d7e6dd;background:white;border-radius:15px;padding:13px;margin:12px 0;line-height:1.65}
+.familyBox strong{display:block;margin-bottom:8px}.familyBox h2{font-size:19px;margin:2px 0 8px}
+.familyBox p{font-size:14px}.familyBox .tiny{font-size:12px;color:#608272}
+.familyBox .act{border:0;border-radius:11px;background:#176b5b;color:white;min-height:48px;padding:9px 13px;font-size:14px;font-weight:800;margin:4px}
+.familyBox .act.alt{background:#ebf6ee;color:#175e4b;border:1px solid #cee6d4}
+.familyBox textarea{width:100%;min-height:85px;border:1px solid #b7d8c2;border-radius:10px;padding:10px;font-size:16px;resize:vertical}
+.familyBox .stateTag{display:inline-block;background:#eff7ef;padding:5px 8px;border-radius:99px;font-size:12px;color:#44725a}
+.familyBox.news{background:#fff9ef;border:1px solid #d9caae}.familyBox.news h2{text-align:center;border-top:3px double #b49a78;border-bottom:1px solid #d9c8af;padding:12px 2px;font-family:serif}
+.grandma #familyMain .familyBox p{font-size:20px;line-height:1.7}.grandma #familyMain .familyBox .act{min-height:56px;font-size:16px}
+.familyHide{display:none!important}
+@media(max-width:390px){.familyRoles button{font-size:12px;min-width:65px}.brand{font-size:15px}}
+
+
+/* 親も子と同じ余白・カード・一画面一判断を使う。子の既存AI会話UIは維持。 */
+.familyRoles button{min-width:0;flex:1 1 0;font-size:14px}
+.familyBox{padding:15px;border-radius:16px;box-shadow:0 2px 15px #153d2b05}
+.parentOverview{border:1px solid #cde3d2;background:#edf7ef;border-radius:15px;padding:14px;margin:10px 0}
+.parentOverview p{font-size:13px;margin:5px 0}
+.parentTabs{display:flex;gap:7px;overflow-x:auto;margin:12px 0;scrollbar-width:none}
+.parentTabs button{background:#f5faf6;color:#2a6450;border:1px solid #d2e7d9;border-radius:11px;min-height:48px;padding:9px 12px;flex:1;white-space:nowrap;font-weight:800;font-size:13px}
+.parentTabs button[aria-selected="true"]{background:#176b5b;border-color:#176b5b;color:#fff}
+.parentUrgency{display:inline-flex;align-items:center;gap:5px;background:#fff4dc;color:#815c22;border-radius:99px;padding:5px 9px;font-size:12px;font-weight:700}
+.parentEmpty{background:#f5faf6;border:1px dashed #c9e1d1;border-radius:12px;padding:15px;color:#53735e;font-size:14px}
+.parentChild{padding:12px 14px;background:#eaf6ed;border-radius:14px;border:1px solid #d2e5d6;margin:9px 0}
+.parentChild .by{font-size:12px;font-weight:850;color:#267458}
+.parentChild p{font-size:16px;line-height:1.7}
+.parentAi{border-left:3px solid #4e9977;background:#f5faf5;padding:12px 13px;border-radius:5px 12px 12px 5px;margin:9px 0;font-size:14px}
+.parentAi strong{color:#176b5b;font-size:12px;display:block;margin-bottom:5px}
+.parentAi p{margin:0;font-size:14px;line-height:1.7}
+.parentStatus{font-size:12px;display:inline-block;border-radius:99px;background:#ebf5ed;color:#47775c;padding:5px 9px;font-weight:750}
+.parentWarning{color:#8d5b22;background:#fff4e5}
+.parentAction{display:grid;gap:5px;margin-top:12px}
+.parentAction .act{display:block;width:100%;margin:2px 0!important;text-align:center}
+.parentSectionTitle{margin:17px 0 6px;font-size:16px;color:#325e49}
+.parentEvidence{font-size:12px;color:#54745e;border-top:1px solid #deebe0;margin-top:10px;padding-top:10px}
+.parentMeta{font-size:12px;color:#657c6a}
+.parentSummary{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.parentSummary span{background:#fff;border:1px solid #d7e7dd;border-radius:10px;padding:8px 10px;font-size:12px}
+.grandma #familyMain .familyBox .act{min-height:56px;font-size:16px}
+#familyMain h1{font-size:23px;margin:5px 0 10px;letter-spacing:-.03em}
+#familyMain .eyebrow{font-size:12px;font-weight:850;color:#287456}
+#familyMain .familyBox h2{font-size:18px}
+#familyMain .familyBox .act{min-height:48px}
+#familyMain .parentChild p{font-size:16px}
+.cycleAccordion{margin-top:10px;border:1px solid #d4e6da;border-radius:14px;background:#fff}
+.cycleAccordion summary{padding:11px 13px;min-height:48px;color:#176b5b;font-size:15px;font-weight:800;cursor:pointer}
+.cycleAccordion[open]>div{padding:0 10px 12px}
+@media(max-width:390px){.familyRoles button{font-size:12px;min-width:0}.parentTabs button{font-size:12px;padding:8px}}
+/* Attachment layout retained; wrap examples and keep all content inside scroll rows. */
+main,#familyMain,.familyBox,.tile{overflow-wrap:anywhere}
+.next button{max-width:280px;white-space:normal;flex-shrink:0;text-align:left}
+.next{max-height:76px;overflow:auto}
+button:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #976016;outline-offset:2px}
+.familyBox input,.familyBox select{max-width:100%;min-height:44px;font:inherit;padding:8px;border:1px solid #b7d8c2;border-radius:9px}
+.familyBox label{display:block;margin:9px 0 4px}.tiny{font-size:12px;color:#416a56;line-height:1.65}
+.demoNotice{font-size:11px;padding:4px 10px;background:#edf7ef;color:#295e4a;flex-shrink:0}
+.grandparent #familyMain p{font-size:19px;line-height:1.8}
+.grandparent #familyMain .act{font-size:16px;min-height:56px}
+@media(max-height:500px){.quest{display:none}.next{max-height:48px}header{min-height:44px}.demoNotice{padding:1px 8px}}
+</style>
+</head>
+<body>
+<div class="app" id="appCycle">
+<header><div class="brand"><span class="star">✦</span>やってみクエスト</div><button id="choose" class="headbtn" aria-expanded="false">📚 クエスト ▾</button></header>
+<nav id="menu" class="dropdown" hidden>
+<button data-scene="dinner">🍛 夕飯づくり</button>
+<button data-scene="family">🏠 親子の約束</button>
+<button data-scene="research">🔎 家の調査</button>
+</nav>
+<div class="demoNotice">模擬AI・架空の家族体験｜記録はこの画面内のみ。再読込で消えます。</div>
+<nav class="familyRoles" id="familyRoles" aria-label="体験する家族を選ぶ">
+<button data-role="child" aria-pressed="true">👧 はる</button>
+<button data-role="parent" aria-pressed="false">👨‍👩‍👧 保護者</button>
+<button data-role="grandparent" aria-pressed="false">👵 祖父母</button></nav>
+<main id="familyMain" hidden aria-label="家族の記録と確認"></main><main id="main" aria-label="はるちゃんの体験">
+<div class="eyebrow" id="label">実践クエスト</div>
+<h1 id="title"></h1>
+<section id="quest" class="quest"><div class="ico" id="emoji"></div><div><strong id="questname"></strong><p id="questdesc"></p></div></section>
+<section id="start" class="question"><small>✦ AIからの最初の提案</small><p id="firstQuestion"></p><span id="nudge"></span><details id="openingEvidence" class="openingEvidence"><summary>どうしてこの候補なの？</summary><p id="openingReasonText">前回の家庭調査（発表用の架空の記録）に米・玉ねぎ・にんじん・ルーがありました。今日の在庫は未確認です。家族の好み・経験は本人が話したときだけ使います。</p></details></section>
+<div id="promptLabel" class="eyebrow">話す言葉の例</div>
+<nav id="prompts" class="promptlist"></nav>
+<div id="stagePill" class="stagepill" aria-live="polite"></div>
+<div id="history"></div>
+<div id="result"></div><div id="cycleSave"></div><div id="cycleAlbum"></div>
+</main>
+<div class="dock" id="childDock">
+<div id="next" class="next"></div>
+<div class="inputrow"><textarea id="input" rows="1" aria-label="はるちゃんが話す言葉" placeholder="自分の言葉で話してね"></textarea><button type="button" class="mic" id="mic" aria-label="マイクを使う">🎙</button><button type="button" class="send" id="send" aria-label="AIに相談する">➤</button></div>
+<p class="status" id="status" role="status"></p>
+</div>
+</div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const yen=n=>n==null?'未確認':Number(n).toLocaleString('ja-JP')+'円';
+const scenes={
+ dinner:{label:'実践クエスト',title:'おばあちゃんと食べる夕飯を考えよう',quest:'おばあちゃんを迎える夕飯',desc:'献立を考え、家族に相談して、実際に作ろう',emoji:'🍛',question:'はるちゃん、おばあちゃんの夕飯を考えよう。前に米・玉ねぎ・にんじん・ルーがあったよね。今日も使えるならカレーはどうかな？',nudge:'理由：前回の家庭調査の記録を使った候補だよ。今の在庫はまだ未確認。別の料理を選んでもいいよ。',prompts:['カレーを作りたい','家庭科でカレーを作ったことがある','別の料理も考えたい']},
+ family:{label:'初回の約束',title:'夕飯のこと、どこまで自分でやってみたい？',quest:'自分で決めていいことを考えよう',desc:'希望を家族に伝え、任される範囲を相談',emoji:'🏠',question:'はるちゃん、献立を決めることと買い物、どっちを自分でやってみたい？',nudge:'まず自分の希望を一つ教えてね。',prompts:['献立を自分で決めたい','買い物もやってみたい','まだ決まっていない']},
+ research:{label:'調査クエスト',title:'夕飯の前にある仕事を探そう',quest:'家の仕事とお金を調べよう',desc:'家族に聞いて、改善を一つ試す',emoji:'🔎',question:'夕飯を作る前って、料理以外にどんな準備があると思う？',nudge:'分からなければ家族に聞いてみよう。',prompts:['買い物に行くこと','冷蔵庫を確認すること','分からない']}
+};
+const steps=[['menu','献立'],['scope','家族の条件'],['stock','家の材料'],['needed','買う物'],['prices','店の値段'],['preference','店の候補'],['pickupRequest','相談する'],['pickupResponse','家族の返答'],['finalChoice','自分で決める'],['meatCompare','売り場で比較'],['meatChoice','商品を選ぶ'],['execute','実際にやる'],['reflect','記録']];
+const phases=steps.map(x=>x[0]);
+function newState(){return {phase:'menu',facts:{},turns:[],done:false}}
+// 発表用の架空の過去記録。今日の在庫を確認した事実とは区別する。
+const demoHistory={dinner:{pastIngredients:['米','玉ねぎ','にんじん','ルー'],origin:'前回の家庭調査（合成記録）',currentConfirmed:false}};
+
+const states={dinner:newState(),family:newState(),research:newState()};
+let scene='dinner',recognition=null;
+const example={
+ menu:['カレーを作りたい。家庭科で作ったことがある','おばあちゃんは私が作るカレーが好き','別の料理にしたい'],
+ scope:['家族に聞いた。4人分で予算は1000円。調理は親と一緒にする','家族に人数と予算を聞いてくる'],
+ stock:['米、玉ねぎ、にんじん、ルーは4人分使えるだけあった','冷蔵庫を見てきた'],
+ needed:['ルーの箱と家族に確認した。肉400gとじゃがいも1袋が足りない。トマト2個も出したい','まだ必要な材料を調べてない'],
+ prices:['A店は肉520円、じゃがいも260円、トマト200円。B店は肉480円、じゃがいも240円、トマト200円','お店の値段を調べてくる'],
+ preference:['B店が60円安いから、B店に行きたい','まだ決めてない'],
+ pickupRequest:['荷物が重そうだから父に迎えを頼みたい。どう言えばいい？','家族に相談してくる'],
+ pickupResponse:['父に聞いた。A店なら16時30分、B店なら17時。16時45分までに帰る約束','まだ返事を聞いていない'],
+ finalChoice:['A店にする。予算内で早く帰れるから。父もA店なら迎えられると言ってくれた','どちらがいいか迷ってる'],
+ meatCompare:['A店で肉400gが520円、600gが600円だった。どちらがお得？','売り場で価格を見てくる'],
+ meatChoice:['400gを選ぶ。今日は400gで足りるし、トマトも買いたい','まだ迷っている'],
+ execute:['A店で400gの肉とじゃがいもとトマトを980円で買った。父と帰り、親とカレーを作った','まだ買い物していない'],
+ reflect:['B店は安かったけど、父の迎えに合うA店を選んだ。次は2日分なら大きい肉も考えたい','この内容で下書きを確認したい']
+};
+const dishes=['カレー','オムライス','シチュー','ハンバーグ','パスタ','うどん','焼きそば','チャーハン'];
+function normalize(t){return String(t).replace(/[０-９]/g,k=>String(k.charCodeAt(0)-65296)).replace(/\s/g,'')}
+function extract(t,f){
+ const a=normalize(t);
+ for(const x of dishes)if(a.includes(x)&&/作りたい|作ることに|にする|にしたい|に決め|作ろう|がいい/.test(a))f.dish=x;
+ if(/家庭科/.test(a)&&/カレー/.test(a)&&/作った|作る|習った|経験/.test(a))f.schoolCurryExperience=true;
+ // 本人が明示して初めて、祖母の好みの情報として使う。
+ if(/(?:おばあちゃん|祖母)/.test(a)&&/カレー/.test(a)&&/好き/.test(a)){
+   f.grandmaLikesCurry=true;
+   f.grandmaLikesHaruCurry=/私|わたし|僕|ぼく|はる|自分/.test(a);
+ }
+ if(/別の料理|カレー以外/.test(a))f.differentDishRequested=true;
+
+ let m=a.match(/(\d+)人(?:分)?/);if(m)f.people=Number(m[1]);
+ m=a.match(/(?:予算|上限)(?:は|が|で|を|:|：)?([\d,]+)円/);if(m)f.budget=Number(m[1].replace(/,/g,''));
+ if(/(?:親|お父さん|お母さん|父|母)と一緒に(?:調理|作る|料理)|調理は(?:親|父|母)と一緒|親と一緒/.test(a))f.parentCooking=true;
+ const found=['米','玉ねぎ','にんじん','ルー'];
+ if(/ある|あった|残って|使える/.test(a)){
+  for(const x of found)if(a.includes(x)){f.stock??=[];if(!f.stock.includes(x))f.stock.push(x)}
+  if(/4人分(?:使える|足りる)/.test(a))f.stockServingsConfirmed=true;
+ }
+ if(/肉(?:は|が)?400(?:g|グラム)/.test(a))f.meatNeeded=true;
+ if(/じゃがいも/.test(a)&&/(?:足りない|買う|必要|買い足す)/.test(a))f.potatoNeeded=true;
+ if(/トマト(?:2個)?/.test(a)&&/(?:出したい|買う|必要|買い足す)/.test(a))f.tomatoNeeded=true;
+ if(/16時45分(?:まで|には)/.test(a))f.homeDeadline='16:45';
+ for(const m of a.matchAll(/([AB])店(?:なら|は|で|だと)?(\d{1,2})時(?:(\d{1,2})分)?/g))f[m[1]+'Pickup']=m[2].padStart(2,'0')+':'+(m[3]||'0').padStart(2,'0');
+ const chunks=a.split(/(?=[AB]店(?:は|:|：))/).filter(x=>/^[AB]店/.test(x));
+ for(const ch of chunks){const shop=ch[0];let mm=ch.match(/肉(?:400(?:g|グラム))?(?:が|は|なら)?([\d,]+)円/);if(mm)f[shop+'Meat']=Number(mm[1].replace(/,/g,''));mm=ch.match(/じゃがいも(?:1袋)?(?:が|は|なら)?([\d,]+)円/);if(mm)f[shop+'Potato']=Number(mm[1].replace(/,/g,''));mm=ch.match(/トマト(?:2個)?(?:が|は|なら)?([\d,]+)円/);if(mm)f[shop+'Tomato']=Number(mm[1].replace(/,/g,''));}
+ for(const m of a.matchAll(/(400|600)(?:g|グラム)(?:が|は|なら|で)?([\d,]+)円/g))f['pack'+m[1]]=Number(m[2].replace(/,/g,''));
+ if(/A店(?:にする|を選|で買う|に決め)/.test(a))f.selectedStore='A';
+ if(/B店(?:にする|を選|で買う|に決め)/.test(a))f.selectedStore='B';
+ if(/父も|父が|お父さんも/.test(a)&&/迎えられる|いいと言った|OK|了承/.test(a))f.pickupAgreement=true;
+}
+const E=(text)=>esc(text);
+const factsHtml=(facts)=>'<div class="facts">'+facts.map(x=>'<span class="fact"><b>'+E(x[0])+'</b>'+E(x[1])+'</span>').join('')+'</div>';
+const box=(head,body)=>'<div class="tile"><strong>'+E(head)+'</strong>'+E(body)+'</div>';
+const rows=(head,items)=>'<div class="tile"><strong>'+E(head)+'</strong><ul>'+items.map(i=>'<li>'+E(i)+'</li>').join('')+'</ul></div>';
+const table=(head,rs)=>'<div class="tile comparison"><strong>'+E(head)+'</strong><table>'+rs.map((r,i)=>'<tr>'+r.map(v=>'<'+(i===0?'th':'td')+'>'+E(v)+'</'+(i===0?'th':'td')+'>').join('')+'</tr>').join('')+'</table></div>';
+const action=txt=>'<div class="actionbox"><b>🏃 アプリの外でやってみよう</b><div>'+E(txt)+'</div></div>';
+const source=(t)=>'<p class="sourcelabel">※ '+E(t)+'</p>';
+function reply(say,title,card,next,phase,more){return {say,title,card,next:next||[],phase,extra:more||''}}
+// 公開用の説明根拠。モデルの内部思考ではなく、利用した観察・出所・仮説・次の確認を短く整理。
+function explain(turn,st,phaseBefore){
+ const f=st.facts,phase=phaseBefore,t=turn,known=[],possible=[],unknown=[],alternatives=[];
+ let headline='今わかっていることを整理して、次の行動を一つ提案しているよ。';
+ const reported=(v)=>known.push('はるちゃんの報告：'+v);
+ if(scene==='dinner'){
+  switch(phase){
+   case 'menu':
+    headline='前回の材料記録や本人の経験を手がかりに、実際に作れそうな献立を考えたよ。';
+    known.push('前回の家庭調査（デモ記録）：米・玉ねぎ・にんじん・ルーがあった');
+    if(f.schoolCurryExperience)reported('家庭科でカレーを作った経験がある');
+    if(f.grandmaLikesCurry)reported(f.grandmaLikesHaruCurry?'おばあちゃんは、はるちゃんの作るカレーが好き':'おばあちゃんはカレーが好き');
+    if(f.dish)reported('今回作りたい料理は'+f.dish);
+    possible.push('材料が今も残っていれば、カレーの買い足しを減らせるかもしれない');
+    unknown.push('今日使える食材の有無、家族の希望、必要な人数と予算');
+    alternatives.push('別の料理を選ぶ・家族に食べたい物を聞く');break;
+   case 'scope':
+    headline='材料の量や買う予算は、食べる人数と家族の約束で変わるから確認しよう。';
+    if(f.people)reported(f.people+'人分');if(f.budget)reported('予算'+yen(f.budget));
+    unknown.push(...(!f.people?['食べる人数']:[]),...(!f.budget?['家族が許可した予算']:[]),...(!f.parentCooking?['調理を手伝う人']:[]));
+    alternatives.push('家族が忙しければ、話せるときまで保留する');break;
+   case 'stock':
+    headline='前にあった材料が今もあるとは限らない。実物を見てから買う物を考えよう。';
+    known.push('前回の家庭調査（デモ記録）：材料があった');
+    if(f.stock?.length)reported('今回見つけたもの：'+f.stock.join('・'));
+    possible.push('使える材料が多ければ、買い足す物を減らせるかもしれない');
+    unknown.push('残っている量と今回使ってよいか');break;
+   case 'needed':
+    headline='買い物リストは、作る人数・レシピの必要量・今の在庫の差で決まるからだよ。';
+    if(f.stock?.length)reported('使えると確認した材料：'+f.stock.join('・'));
+    unknown.push('箱やレシピの分量、追加したい付け合わせ');
+    alternatives.push('買い足しが多ければ献立や量を家族と見直す');break;
+   case 'prices':
+    headline='買う物と量が決まったので、同じ量で店の値段を比べられるよ。';
+    if(f.meatNeeded)reported('肉400gが必要');
+    if(f.AMeat!=null)reported('A店の肉'+yen(f.AMeat));
+    if(f.BMeat!=null)reported('B店の肉'+yen(f.BMeat));
+    unknown.push('未確認の商品の価格や当日の売り場価格');break;
+   case 'preference':
+    headline='安い店は候補になるけれど、時間・運び方・家族の都合も選択条件だからだよ。';
+    if(f.totalA!=null)reported('A店合計'+yen(f.totalA));if(f.totalB!=null)reported('B店合計'+yen(f.totalB));
+    unknown.push('帰宅時間と荷物の運び方');alternatives.push('予算・帰宅の約束を優先して別の案にする');break;
+   case 'pickupRequest':
+    headline='帰りの荷物や移動の条件は、実際に家族へ聞かないと分からないからだよ。';
+    reported('家族への相談が必要と考えた');unknown.push('お父さんが迎えられるかと、その時間');
+    alternatives.push('迎えが難しければ買う量や店を家族と変更する');break;
+   case 'pickupResponse':
+    headline='お父さんの返答を価格と並べると、実行できる案か比べやすくなるよ。';
+    if(f.APickup)reported('A店の迎え'+f.APickup);if(f.BPickup)reported('B店の迎え'+f.BPickup);
+    if(f.homeDeadline)reported('帰宅の約束'+f.homeDeadline);
+    unknown.push('迎えの最終合意');break;
+   case 'finalChoice':
+    headline='最安値だけで決めず、予算と時間と家族の約束を合わせるためだよ。';
+    if(f.selectedStore)reported(f.selectedStore+'店を選ぶ');if(/から|ので|ため/.test(t))reported('本人が話した選択理由：'+t);
+    unknown.push('お父さんと最終確認できたか');alternatives.push('選ぶ店・買い物時間・買う量を再検討');break;
+   case 'meatCompare':
+    headline='100gあたりの単価と支払う合計は別。必要量と予算を一緒に見るためだよ。';
+    if(f.pack400!=null)reported('400gが'+yen(f.pack400));if(f.pack600!=null)reported('600gが'+yen(f.pack600));
+    unknown.push('今日必要な量と余りの使い道');alternatives.push('安い単価より必要量と合計を重視する');break;
+   case 'meatChoice':
+    headline='選ぶ理由は安さだけではなく、食べる量や一緒に買いたい物にもあるよ。';
+    reported('本人の選択：'+t);unknown.push('実際に売り場で買えるか');break;
+   case 'execute':
+    headline='予定したことと実際にしたことを分けて、正しく記録するためだよ。';
+    reported('今回の報告：'+t);unknown.push('購入・調理・食事のうち未報告の部分');break;
+   case 'reflect':
+    headline='最後に選んだ理由を残すと、何を考えて行動したか振り返れるからだよ。';
+    reported('振り返り：'+t);alternatives.push('共有しない・自分の言葉で修正する');break;
+  }
+ }else if(scene==='family'){
+   headline='はるちゃんの希望と、親が任せてよい範囲は違うことがあるから、相談して決めるんだよ。';
+   reported('はるちゃんの希望・相談内容：'+t);unknown.push('家族が同意した範囲');alternatives.push('まず一つだけ任せてもらう');
+ }else{
+   headline='家の仕事やお金の流れは、実際に家族に聞くことで確かめられるからだよ。';
+   reported('はるちゃんが話したこと：'+t);unknown.push('まだ家族に聞いていない仕事や支出');alternatives.push('聞けた範囲だけで一つ提案して試す');
+ }
+ return {headline,known,possible,unknown,alternatives};
+}
+function reasonUI(ex){
+ let lines='';
+ const part=(type,caption,values)=>values.length?'<div class="basisItem '+type+'"><span class="basisKey">'+E(caption)+'</span><ul>'+values.map(v=>'<li>'+E(v)+'</li>').join('')+'</ul></div>':'';
+ lines+=part('confirmed','出所のある情報',ex.known);
+ lines+=part('hypothesis','AIの見込み（まだ確定ではない）',ex.possible);
+ lines+=part('unverified','確認が必要',ex.unknown);
+ lines+=part('alternative','他の選び方',ex.alternatives);
+ return '<section class="reasonBox" aria-label="AIの提案理由"><div class="reasonTag">💡 この提案の理由</div><p class="reasonSummary">'+E(ex.headline)+'</p><details class="reasonDetails"><summary>何を根拠にしたの？</summary>'+lines+'</details></section>';
+}
+
+function dinner(text,st){
+ const f=st.facts,normalized=normalize(text);const phase=st.phase;
+ const help=/^(?:まだ|わから|分から|どうしたら|どうすれば|助けて|迷って|困った)/.test(normalized);
+ if(help){const helpMap={menu:'前回は米・玉ねぎ・にんじん・ルーがあったよ。今もあればカレーは候補だね。でも今日の在庫やおばあちゃんの希望は、まだ確認していないよ。別の料理も選べるよ。',scope:'家族に「何人で食べる？」「買う予算はいくら？」「調理は一緒にできる？」と聞こう。',stock:'家の食材が分からない時は、冷蔵庫と棚を一緒に見てもらおう。',needed:'ルーの箱やレシピを親と見て、4人分に足りないものだけ探そう。',prices:'買う物が決まったら、A店とB店の今日のチラシで同じ量を比べよう。',preference:'値段だけでなく、帰りの荷物や家族の予定も比べていいよ。',pickupRequest:'「買い物の荷物を運ぶのを手伝ってほしい。何時なら迎えられる？」と伝えてみよう。',pickupResponse:'父にA店とB店の迎え時間を聞いて、帰宅の約束も確認しよう。',finalChoice:'お金と迎え時間の両方を考えて、どちらか選ぶ理由を話してみて。',meatCompare:'肉400gと600gの値段を確かめて、100gあたりの価格を比べよう。',meatChoice:'必要なのは400g。多い量を買うと、ほかの材料も予算に入るかな？',execute:'買い物と料理が終わったら、実際にしたことだけ教えてね。',reflect:'どこで迷ったか、何を選んだか、一つ話すだけでもいいよ。'};
+  return reply(helpMap[phase],'困ったら、ここだけ考えてみよう',action(helpMap[phase]),example[phase],phase);
+ }
+ if(phase==='menu'){
+  if(f.differentDishRequested&&!f.dish)return reply('もちろん、カレー以外でも大丈夫。過去に材料があったのは一つの手がかりで、作る料理を決める理由の全部ではないよ。作りたいものを教えてね。','はるちゃんの希望から決めよう',box('ほかの料理でも大丈夫','家族の希望や、作った経験から選んでみよう'),['オムライスにしたい','シチューにしたい'],phase);
+  if(!f.dish){const hints=[];if(f.schoolCurryExperience)hints.push('家庭科でカレーを作ったことがある');if(f.grandmaLikesCurry)hints.push(f.grandmaLikesHaruCurry?'おばあちゃんは、はるちゃんのカレーが好き':'おばあちゃんはカレーが好き');hints.push('前の記録では米やルーがあった（今日の在庫は未確認）');return reply('教えてくれたことから、カレーも候補にできそうだね。'+hints.join('、')+'。でも選ぶのははるちゃんだよ。カレーにする？別の料理がいい？','この料理を選ぶ理由を考えよう',rows('参考になりそうなこと',hints),['カレーを作りたい','別の料理にしたい'],phase);}
+  const reasons=[];
+  if(f.schoolCurryExperience)reasons.push('家庭科で作った経験がある');
+  if(f.grandmaLikesCurry)reasons.push(f.grandmaLikesHaruCurry?'おばあちゃんは、はるちゃんの作るカレーが好きと教えてくれた':'おばあちゃんはカレーが好きと教えてくれた');
+  if(f.dish==='カレー')reasons.push('前の記録にカレーの材料があった（今日残っているかは未確認）');
+  st.phase='scope';return reply('「'+f.dish+'」にするんだね。'+(reasons.length?'そう考えた理由も整理できるよ：'+reasons.join('、')+'。 ':'')+'次は何人で食べるか、予算と調理を手伝ってもらえるかを家族に聞こう。','選んだ理由と、次に聞くこと',factsHtml([['献立',f.dish],['人数','まだ聞いていない'],['食材の予算','まだ聞いていない']])+action('家族に人数・予算・調理の手伝いを確認する'),example.scope,st.phase);
+ }
+ if(phase==='scope'){
+  if(!f.people||!f.budget||!f.parentCooking)return reply('今聞けたことは整理したよ。まだ分からない条件は、家族に聞いてから先へ進もう。人数・予算・調理を一緒にするか確認してね。','夕飯の約束を確かめよう',factsHtml([['人数',f.people?f.people+'人':'未確認'],['予算',yen(f.budget)],['調理',f.parentCooking?'親と一緒':'未確認']])+action('分からない条件を家族に聞く'),example.scope,phase);
+  st.phase='stock';return reply(f.people+'人分で予算'+yen(f.budget)+'、親と調理するんだね。次は家にある食材が今日も使えるか、実際に確かめよう。','家にある材料を見てみよう',factsHtml([['人数',f.people+'人'],['買い足す予算',yen(f.budget)],['調理','親と一緒']])+action('冷蔵庫と棚を見て、米・玉ねぎ・にんじん・ルーが使えるか確認する'),example.stock,st.phase);
+ }
+ if(phase==='stock'&&f.dish&&f.dish!=='カレー'){
+  st.phase='otherIngredients';
+  return reply('「'+f.dish+'」のレシピを一つ見て、必要な材料と家にある物を比べてみよう。カレー用の材料リストは使わないよ。',''+f.dish+'の材料を確認しよう',action('選んだ料理のレシピを親と確認して、家にある物と買い足す物を整理する'),['家の材料とレシピを確認した'],st.phase);
+ }
+ if(phase==='otherIngredients'){
+  st.phase='otherResearch';
+  return reply('材料を調べてきたんだね。必要な材料と買い足す物を、自分で確認した範囲で教えてね。今日のお店の価格は、買う物が決まってから調べよう。','買う物を整理してから店を調べよう',box('はるちゃんの報告',text)+action('レシピと家の在庫から買い足す物を決め、家族に相談する'),['買い足す物を家族に相談する'],st.phase);
+ }
+ if(phase==='otherResearch'){
+  return reply('まず買い足す物と量が決まっているか、家族と確認しよう。値段を比べる時は、同じ量・同じ条件で調べてね。','自分の買い物リストを確認しよう',box('はるちゃんが話したこと',text)+action('必要な物を決めたら、実際のチラシや売り場を見て値段を調べる'),[],phase);
+ }
+ if(phase==='stock'){
+  if(!f.stock||f.stock.length<4||!f.stockServingsConfirmed)return reply('家の食材を確認してくれたんだね。まだ全部の材料と4人分に足りるかが分からないよ。米・玉ねぎ・にんじん・ルーを一緒に確かめよう。','今日使える材料を確かめよう',rows('いま聞けた食材',f.stock?.length?f.stock:['まだ材料名は聞いていません'])+action('家の材料の名前と、4人分使えるかを確認する'),example.stock,phase);
+  st.phase='needed';return reply('米・玉ねぎ・にんじん・ルーは4人分使えるんだね。それだけで買い物リストは決められないから、レシピやルーの箱を見て、足りない物を調べよう。','必要な材料と比べよう',rows('家で使えると報告した材料',f.stock)+action('レシピとルーの箱を親と見て、必要な量と足りない材料を探す'),example.needed,st.phase);
+ }
+ if(phase==='needed'){
+  if(!f.meatNeeded||!f.potatoNeeded||!f.tomatoNeeded)return reply('レシピと家の材料を照らし合わせよう。足りない物の名前と量を教えてね。おばあちゃんに出したい物があれば、それも教えて。','買い足す物を整理しよう',rows('まだ確認したい項目',['肉は何グラム必要？','じゃがいもはどのくらい？','トマトなど、別に出したい物は？'])+action('レシピや家族の希望を確かめる'),example.needed,phase);
+  st.phase='prices';return reply('買う物が決まったね。肉400g、じゃがいも1袋、トマト2個を買う予定にしよう。お店を比べる前に、同じ量で価格を調べてみよう。','買い物リストができたよ',rows('買い足す物（はるちゃんの報告）',['カレー用の肉 400g','じゃがいも 1袋','おばあちゃんに出すトマト 2個'])+action('家族が使ってよいと言ったお店の今日の値段を確認する')+source('この時点では店の値段はまだ分かっていません'),example.prices,st.phase);
+ }
+ if(phase==='prices'){
+  const complete=['AMeat','APotato','ATomato','BMeat','BPotato','BTomato'].every(k=>f[k]!=null);
+  const priceTable=table('同じ量で比べよう',[['買う物','A店','B店'],['肉400g',yen(f.AMeat),yen(f.BMeat)],['じゃがいも1袋',yen(f.APotato),yen(f.BPotato)],['トマト2個',yen(f.ATomato),yen(f.BTomato)]]);
+  if(!complete)return reply('調べた値段を並べたよ。未確認のところは埋めずに残すね。全部そろってから合計を比べよう。','値段を調べているところ',priceTable+action('まだ分からない商品の値段を確かめる'),example.prices,phase);
+  f.totalA=f.AMeat+f.APotato+f.ATomato;f.totalB=f.BMeat+f.BPotato+f.BTomato;st.phase='preference';
+  return reply('A店は合計'+yen(f.totalA)+'、B店は'+yen(f.totalB)+'。'+(f.totalA>f.totalB?'B店が'+yen(f.totalA-f.totalB)+'安いね。':'店の合計を比べたよ。')+' でも、店を決める前にほかの条件も考えてみよう。','合計が分かったよ',priceTable+factsHtml([['A店合計',yen(f.totalA)],['B店合計',yen(f.totalB)],['予算',yen(f.budget)]])+action('どちらに行きたいか、理由を考えてみる'),example.preference,st.phase);
+ }
+ if(phase==='preference'){
+  if(!/[AB]店|安い|どちら|どっち/.test(normalized))return reply('A店とB店のどちらに行ってみたい？ 値段をどう考えたか話してみよう。','今の希望を聞かせて',box('比べて分かったこと','A店 '+yen(f.totalA)+'／ B店 '+yen(f.totalB)),example.preference,phase);
+  st.phase='pickupRequest';return reply('値段から考えたんだね。ただ、持ち帰る荷物や帰る時間もあるよ。今回は父に迎えを頼みたいか、家族と相談してみよう。','帰り方も考えよう',factsHtml([['A店',yen(f.totalA)],['B店',yen(f.totalB)]])+action('荷物と帰り方を考え、必要なら父に迎えを頼む'),example.pickupRequest,st.phase);
+ }
+ if(phase==='pickupRequest'){
+  if(!/父|迎え|荷物|頼/.test(normalized))return reply('荷物を運べるか心配なら、何をお願いしたいか家族に話してみよう。','家族への頼み方を考えよう',action('買い物の帰り方を家族と相談する'),example.pickupRequest,phase);
+  st.phase='pickupResponse';return reply('「買う物が少し重そうだから、帰りに迎えをお願いしたい。A店とB店なら、それぞれ何時に来られる？」と聞いてみよう。お願いする理由と場所・時間を伝えると相談しやすいよ。','父に聞いてみよう',box('相談の言い方（例）','「買い物の帰りの荷物を手伝ってほしい。何時なら迎えられる？」')+action('アプリを閉じて父に直接聞く。返事を聞いてから戻る'),example.pickupResponse,st.phase);
+ }
+ if(phase==='pickupResponse'){
+  if(!f.APickup||!f.BPickup||!f.homeDeadline)return reply('まだ迎えの時間か帰宅の約束が分からないよ。父に聞いた時間と、家に帰る目安を教えてね。','家族の返事を確認しよう',factsHtml([['A店の迎え',f.APickup||'未確認'],['B店の迎え',f.BPickup||'未確認'],['帰宅の約束',f.homeDeadline||'未確認']])+action('実際の返事を家族に確認する'),example.pickupResponse,phase);
+  st.phase='finalChoice';return reply('父の返事はA店なら'+f.APickup+'、B店なら'+f.BPickup+'なんだね。帰宅は'+f.homeDeadline+'までの約束。B店が安いけれど迎えの時間も違う。今日はどうしたい？','値段と時間を両方比べよう',table('はるちゃんが聞いてきた条件',[['条件','A店','B店'],['合計',yen(f.totalA),yen(f.totalB)],['迎え',f.APickup,f.BPickup],['帰宅の約束',f.homeDeadline,f.homeDeadline]])+action('選んだ店と理由を父に伝えて、実際に迎えを頼めるか合意する'),example.finalChoice,st.phase);
+ }
+ if(phase==='finalChoice'){
+  if(!f.selectedStore||!f.pickupAgreement)return reply('どちらのお店にする？ 理由を考えたら、父にもう一度お願いして、行けるか確認してね。','決めて、家族と確かめよう',box('まだ確定していないこと','行くお店と、父が迎えられるかの合意')+action('家族に最終案を伝える'),example.finalChoice,phase);
+  st.phase='meatCompare';return reply(f.selectedStore+'店にするんだね。理由も考えて父と相談できた。お店では、チラシと同じ商品や量があるか、売り場で確かめよう。','売り場で実物を確かめよう',factsHtml([['行くお店',f.selectedStore+'店'],['予算',yen(f.budget)],['家族との相談','本人が同意を報告']])+action('店で肉400gの価格と、ほかの量の商品の価格を見比べる'),example.meatCompare,st.phase);
+ }
+ if(phase==='meatCompare'){
+  if(!f.pack400||!f.pack600)return reply('肉のパックは、量と値段をセットで教えてね。比べる時は100gあたりに直せるよ。','売り場の価格を教えて',box('確認中','400gと600g、それぞれ何円だった？')+action('安全な場所で売り場の表示を確認する'),example.meatCompare,phase);
+  st.phase='meatChoice';
+  const shop=f.selectedStore||'A',other=(f[shop+'Potato']||0)+(f[shop+'Tomato']||0),price400=f.pack400+other,price600=f.pack600+other;
+  return reply('400gは100gあたり'+yen(f.pack400/4)+'、600gは'+yen(f.pack600/6)+'。大きい方が単価は安いけど、ほかの材料も足したら400gなら'+yen(price400)+'、600gなら'+yen(price600)+'だね。今日使う量と予算で考えよう。','お得な量と、必要な量は違う',table('量と合計を比べる',[['肉の量','400g','600g'],['肉の値段',yen(f.pack400),yen(f.pack600)],['100gあたり',yen(f.pack400/4),yen(f.pack600/6)],['他の材料も含む',yen(price400),yen(price600)]])+action('4人分に必要な肉の量を考え、買う方を選ぶ'),example.meatChoice,st.phase);
+ }
+ if(phase==='meatChoice'){
+  if(!/400|600/.test(normalized)||!/選ぶ|にする|買う|足りる/.test(normalized))return reply('単価だけでは決められないね。今回は何グラムを買う？ 理由もあれば聞かせて。','どちらを選ぶ？',box('決める観点','使う量、予算、余った時の使い道'),example.meatChoice,phase);
+  f.packDecisionText=text;st.phase='execute';return reply('必要な量と、ほかの材料のことも考えて選んだんだね。あとは家族の約束を守りながら買い物と料理をしてみよう。終わったら実際にしたことを教えてね。','買い物と料理をやってみよう',box('はるちゃんが選んだこと',text)+action('実際に買い物し、親と約束した工程を一緒に料理する'),example.execute,st.phase);
+ }
+ if(phase==='execute'){
+  if(isUnconfirmed(normalized)||!/買った|購入した|支払った/.test(normalized)||!/作った|調理した/.test(normalized))return reply('まだ終わっていないことは、終わったことにしなくていいよ。買い物や料理を実際にしたら、あとで話してね。','実際にしたことを記録しよう',box('確認中','何を買って、どこまで料理した？'),example.execute,phase);
+  f.executionText=text;st.phase='reflect';return reply('買い物と料理をしたんだね。今の言葉をそのまま下書きとして残したよ。最後に、どうやって選んだか、覚えていることを一つ教えてくれる？','今日のやってみを記録しよう',box('今日の行動（本人の報告）',text)+action('値段や時間で考えたことがあれば一つ話す。話したくなければここで終えてよい'),example.reflect,st.phase);
+ }
+ if(phase==='reflect'){
+  if(/確認したい|ここで終える|振り返りは後/.test(normalized)){st.done=true;return reply('今報告した行動だけを残すね。振り返りはあとでよいよ。','本人の行動報告',box('したこと（本人の報告）',f.executionText)+source('共有はまだしていません。'),[],phase)}
+  f.reflectionText=text;st.done=true;
+  const newspaper='はるちゃんは「'+(f.executionText||'')+'」と報告しました。考えたこと：「'+text+'」。';
+  return reply('話してくれた言葉から新聞の下書きを作ったよ。書いてあることが合っているか読んでみよう。家族への共有はまだしていないよ。','家族新聞の下書き',box('📰 今日のやってみ',newspaper)+source('本人の発言を元にした未確認の下書き。親の確認・家族への送信は未実施'),[],phase);
+ }
+ return reply('続きを話してみよう。','次に進もう','',[],phase);
+}
+const otherExamples={
+ family:{menu:['献立を自分で決めたい','買い物もやってみたい'],jobs:['母が在庫を確認して、父が買い物をしていると聞いた','まだ家族に聞いていない'],terms:['親に聞いた。献立は自分で決めていい。予算と道は相談、調理は一緒にする','家族に任せる範囲を聞いてくる'],choice:['この約束でいい。まず家の仕事を調べてみたい','別の挑戦を考えたい']},
+ research:{menu:['買い物に行くこと','分からない'],jobs:['家族に聞いた。在庫を調べて献立を考えてから買い物をしていた','まだ聞いていない'],money:['収入は40万円、家賃10万円、食費7万円、光熱費2万円だと聞いた','金額は聞かずに仕事を調べたい'],proposal:['父は店に行くまで在庫が分からないから、買い物前に知らせたい','別の方法を考えたい'],adjust:['父に相談した。店に入った後では遅いので出発前に知らせる約束をした','まだ相談していない'],trial:['出発前に親と米と玉ねぎとルーを確認して父に伝えた','まだ伝えていない']}
+};
+function simpleOther(text,st){
+ const t=normalize(text),f=st.facts,p=st.phase;
+ const out=(say,title,card,nextPhase=p)=>{st.phase=nextPhase;return reply(say,title,card,st.done?[]:(otherExamples[scene][nextPhase]||[]),nextPhase)};
+ if(st.done)return out('この体験の本人の言葉として追記したよ。次の挑戦は、自分で選んでね。','体験の記録',box('本人の追記',text));
+ if(scene==='family'){
+  if(p==='menu'){f.wish=text;return out('自分でやってみたいことを受け取ったよ。今は家族がどう分担しているか聞いてみよう。','今の家の仕事を聞こう',box('本人の希望',text)+action('家族に、夕飯前の仕事を誰がしているか聞く'),'jobs')}
+  if(p==='jobs'){
+   if(!/聞いた|聞いて|している|担当/.test(t)||isUnconfirmed(t))return out('まだ分からない担当は埋めないよ。聞けた仕事を一つ教えてね。','家族に聞いてから戻ろう',action('夕飯の前に何をしているか家族に聞く'));
+   f.jobsText=text;return out('本人から聞いた家族の仕事として残すね。次は、何を自分で決めてよいか相談しよう。','任せる範囲を相談しよう',box('家族に聞いた仕事（本人の報告）',text)+action('自分で決めること・相談すること・一緒にすることを親と話す'),'terms');
+  }
+  if(p==='terms'){
+   if(isUnconfirmed(t)||!/親|母|父|家族/.test(t)||!/決めていい|任せ|約束|一緒|相談/.test(t))return out('相談しただけでは、決めてよい範囲は分からないよ。実際に聞いた条件を教えてね。','約束の内容を確認しよう',action('家族が返した条件を確認する'));
+   f.termsText=text;return out('これははるちゃんが聞いた条件だよ。保護者の確認はまだ。自分もこの条件でよいか確かめて、最初の挑戦を選んでね。','本人が条件と最初の一歩を選ぶ',box('親から聞いた条件（未確認）',text)+action('条件で困ることがないか話し、最初の挑戦を選ぶ'),'choice');
+  }
+  if(p==='choice'){
+   if(!/この約束でいい|この条件でいい|同意|合意/.test(t))return out('別の案も選べるよ。条件を変えたいなら、親と相談し直そう。','希望する条件を話そう',box('本人が話したこと',text), 'terms');
+   f.firstChoice=text;st.done=true;return out('本人が選んだ条件と次の一歩を残したよ。保護者が条件を確認してから、家族の約束として扱うよ。','初回の約束を保護者に確認してもらおう',box('本人の選択',text)+source('初回0P。記録の保存と任せ方の確認は別です。'),'complete');
+  }
+ }else{
+  if(p==='menu'){f.initialText=text;return out('それが今の考えなんだね。夕飯の前にどんな準備があるか、家族に聞いて確かめよう。','家族の仕事を調べよう',box('調べる前の考え',text)+action('家族に夕飯前の仕事を聞く'),'jobs')}
+  if(p==='jobs'){
+   if(isUnconfirmed(t)||!/聞いた|聞いて|確認した|見た/.test(t))return out('まだ聞いていない仕事は空欄のままにするよ。誰に何を聞けたか教えてね。','調べた内容を待っているよ',action('家族に準備を聞く。調べる間はアプリを閉じてよい'));
+   f.jobsText=text;return out('家族に聞いた仕事として残すね。お金は家族が話せる範囲だけ調べればよいよ。数字を聞かずに続けても大丈夫。','仕事とお金のつながりを調べよう',box('本人の調査報告',text)+action('収入や生活費の一部について、家族が話せる範囲を聞く'),'money');
+  }
+  if(p==='money'){
+   const income=t.match(/収入(?:は|が)?(\d+(?:\.\d+)?)万円/);
+   const amounts=[...t.matchAll(/(?:家賃|食費|光熱費)(?:は|が)?(\d+(?:\.\d+)?)万円/g)].map(m=>Number(m[1])*10000);
+   let card=box('本人が話したこと',text),say='家計を全部調べる必要はないよ。家の仕事で、困っていることや変えてみたいことを一つ考えよう。';
+   if(income&&amounts.length){const total=amounts.reduce((a,b)=>a+b,0),balance=Number(income[1])*10000-total;f.moneyText=text;card+=factsHtml([['聞いた収入',yen(Number(income[1])*10000)],['聞いた支出の合計',yen(total)],['計算上の差',yen(balance)]])+source('未確認の支出があります。差額は自由に使えるお金ではありません。家計額を新聞へ自動転記しません。');say='聞いた金額だけで計算したよ。ほかの支出は未確認だから、差額を自由に使えるお金とは扱わないよ。'}
+   else if(!/金額は聞かず|お金は後|仕事を調べ/.test(t))return out('金額は作らないよ。聞けた数字だけ教えるか、数字なしで仕事の調査を続けられるよ。','話せる範囲だけ調べよう',card);
+   return out(say,'分かったことと未確認を分けよう',card+action('仕事の流れで困っていることを家族に聞き、一つ提案を考える'),'proposal');
+  }
+  if(p==='proposal'){
+   if(!/知らせたい|伝えたい|提案|してみたい|試したい/.test(t))return out('自分の別案でもいいよ。何をどう変えたいか、一つ教えてね。','試す案を自分で選ぼう',box('本人の言葉',text));
+   f.proposalText=text;return out('その提案はまだ実施した結果ではないよ。相手の都合を聞いて、いつ・どうやって試すか相談しよう。','家族とやり方を調整しよう',box('本人の提案',text)+action('提案を家族に伝え、相手の都合を聞く'),'adjust');
+  }
+  if(p==='adjust'){
+   if(isUnconfirmed(t)||!/約束|合意|と言った|と言って|ことにした/.test(t))return out('相談の返事はまだ分からないよ。相手がいつならよいと言ったか教えてね。','家族の返事を確かめよう',action('家族と一度試す方法を決める'));
+   f.adjustmentText=text;return out('調整した方法として残すね。毎日の担当には自動設定しないよ。一度試して、実際にしたことを報告してね。','相談した方法を一度試そう',box('家族と調整した方法（本人の報告）',text)+action('家族と決めたタイミングで一度試す'),'trial');
+  }
+  if(p==='trial'){
+   if(isUnconfirmed(t)||!/伝えた|知らせた|試した|行った/.test(t))return out('まだ実際に試していないことは、未実施のままで大丈夫。終わったらしたことだけ教えてね。','実行した結果を待っているよ',action('家族と決めた方法を一度試す'));
+   f.executionText=text;st.done=true;return out('実際にしたという本人の報告を残したよ。まだ保護者の確認前だよ。保存も共有も自分で選べるよ。','調査を試した結果を残そう',box('実行報告（保護者未確認）',text)+source('提案したことと実際に試した結果を分けています。'),'complete');
+  }
+ }
+ return out('今話した内容だけを残すね。','本人の記録',box('話した言葉',text));
+}
+// Limited rules fail closed for negative, planned, or ambiguous action reports.
+function isUnconfirmed(t){return /まだ|未実施|未確認|していない|してない|しなかった|できなかった|買っていない|買ってない|買わなかった|作っていない|作ってない|作らなかった|聞いていない|聞いてない|伝えていない|伝えてない|試していない|試してない|わけではない|と言う予定|予定|つもり|かもしれない|やってない|嘘|うそ/.test(t)}
+function bubble(turn){return '<div class="bubble child"><b>🎙 はるちゃん</b><p>'+E(turn.text)+'</p></div><div class="bubble ai"><b>✦ AIの返答（発表用の模擬AI）</b><p>'+E(turn.model.say)+'</p></div>'}
+function render(){
+ const st=states[scene],has=st.turns.length>0,cur=st.turns.at(-1);
+ $('history').innerHTML=has?'<div class="talkTitle">はるちゃんとAIのやり取り</div>'+(st.turns.length>1?'<details class="old"><summary>これまでの会話 '+(st.turns.length-1)+'件</summary>'+st.turns.slice(0,-1).map(bubble).join('')+'</details>':'')+bubble(cur):'';
+ $('result').innerHTML=has?'<section class="cards"><div class="over">▦ はるちゃんの情報から組み立てたUI</div><h2>'+E(cur.model.title)+'</h2>'+reasonUI(cur.reason)+cur.model.card+'<button class="hint" type="button" id="help">💡 ここで困ったら</button><p class="note">まだ実際にしていない行動は「未実施」。この画面は発表用の合成デモです。</p></section>':'';
+ $('next').innerHTML=has?cur.model.next.map(text=>'<button type="button" data-fill="'+E(text)+'">'+E(text)+'</button>').join(''):'';
+ $('stagePill').hidden=!has;
+ if(has){const currentStep=Math.max(0,phases.indexOf(st.phase));$('stagePill').textContent=scene==='dinner'?(st.phase.startsWith('other')?'いまの段階：選んだ料理の材料を調べる':'いまの段階：'+steps[currentStep][1]+'（'+(currentStep+1)+' / '+steps.length+'）'):(st.done?'本人の報告を記録しました':({menu:'希望を話す',jobs:'家族に聞く',terms:'条件を相談',choice:'本人が選ぶ',money:'分かった範囲を整理',proposal:'改善案を選ぶ',adjust:'家族と調整',trial:'一度試す'}[st.phase]||'記録'));requestAnimationFrame(()=>{$('main').scrollTop=Math.max(0,$('history').offsetTop-70)})}
+}
+function paint(){
+ const config=scenes[scene],st=states[scene],has=st.turns.length>0;
+ $('label').textContent=config.label;$('title').textContent=config.title;$('emoji').textContent=config.emoji;
+ $('questname').textContent=config.quest;$('questdesc').textContent=config.desc;$('firstQuestion').textContent=config.question;$('nudge').textContent=config.nudge;
+ $('openingEvidence').hidden=scene!=='dinner';
+ $('input').value='';$('status').textContent='';$('start').hidden=has;$('promptLabel').hidden=has;$('prompts').hidden=has;
+ $('prompts').innerHTML=config.prompts.map(text=>'<button type="button" class="chip" data-fill="'+E(text)+'">'+E(text)+'</button>').join('');
+ render();
+}
+function send(origin='text'){
+ const text=$('input').value.trim();if(!text){$('status').textContent='話したいことを一つ聞かせてね。';return}
+ const st=states[scene],before=st.phase;if(!isUnconfirmed(normalize(text)))extract(text,st.facts);
+ const model=scene==='dinner'?dinner(text,st):simpleOther(text,st);
+ const reason=explain(text,st,before);
+ st.turns.push({text,model,reason,origin,phaseBefore:before});$('input').value='';$('input').blur();$('start').hidden=true;$('promptLabel').hidden=true;$('prompts').hidden=true;$('status').textContent='';render();
+}
+$('send').onclick=()=>send();
+$('input').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();send()}});
+$('choose').onclick=()=>{const open=$('menu').hidden;$('menu').hidden=!open;$('choose').setAttribute('aria-expanded',String(open))};
+document.addEventListener('click',e=>{
+ const select=e.target.closest('[data-scene]');if(select){scene=select.dataset.scene;$('menu').hidden=true;$('choose').setAttribute('aria-expanded','false');$('main').scrollTop=0;paint();return}
+ const sample=e.target.closest('[data-fill]');if(sample){$('input').value=sample.dataset.fill;send('example');return}
+ if(e.target.closest('#help')){$('input').value='わからない';send('hint');return}
+ if(!e.target.closest('#menu')&&!e.target.closest('#choose')){$('menu').hidden=true;$('choose').setAttribute('aria-expanded','false')}
+});
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+$('mic').onclick=()=>{
+ if(!SR){$('status').textContent='このブラウザーでマイクが使えません。文字入力でも続けられます。';return}
+ if(recognition){recognition.stop();recognition=null;return}
+ const r=new SR();recognition=r;r.lang='ja-JP';r.interimResults=false;r.continuous=false;
+ r.onresult=e=>{const transcript=e.results[0]?.[0]?.transcript;if(transcript){$('input').value=transcript;send('mic')}};
+ r.onerror=()=>{$('status').textContent='聞き取れませんでした。文字で入力できます。'};
+ r.onend=()=>{recognition=null;$('mic').textContent='🎙'};
+ try{r.start();$('mic').textContent='■';$('status').textContent='聞き取り中です…'}catch(e){recognition=null;$('status').textContent='マイクが起動できませんでした。文字入力で続けてね。'}
+};
+
+/* Separate simulated family-publication/reward state: it is NOT a live shared backend. */
+const cycle={role:'child',parentTab:'checks',agreement:'pending',save:{dinner:false,family:false,research:false},share:{dinner:'private',family:'private',research:'private'},text:{},versions:{dinner:0,family:0,research:0},award:{dinner:'none',research:'none'},pointsUsed:'none',posts:[],replies:[],issues:0,message:''};
+const titles={dinner:'おばあちゃんと夕飯を考えた日',family:'家族と初めての約束',research:'家の仕事を調べた日'};
+const safeSummary={dinner:'はるはおばあちゃんの夕飯について、家の材料や買い物の条件を考えました。',family:'はるは献立を自分で考えてみたいと家族に伝えました。',research:'はるは夕飯前に家族がしている仕事を調べました。'};
+function cyBtn(msg,cmd,alt=false){return '<button type="button" class="act'+(alt?' alt':'')+'" data-cycle="'+cmd+'">'+esc(msg)+'</button>'}
+function cyStatus(id){return ({private:'非公開',requested:'保護者の確認待ち',returned:'保護者が修正・はるの再確認待ち',published:'祖母に公開済み',held:'共有保留'}[cycle.share[id]]||cycle.share[id])}
+function cyPoints(){return (cycle.award.research==='earned'?20:0)+(cycle.award.dinner==='earned'?40:0)}
+function cyFree(){return cyPoints()-(['reserved','approved','delivered'].includes(cycle.pointsUsed)?50:0)}
+function cyRecordedText(id){
+ const st=states[id];if(!st||!st.turns.length)return '';
+ const f=st.facts||{};
+ if(id==='dinner'){
+  if(f.executionText){return '本人が報告したこと：'+f.executionText+(f.reflectionText?' ／ 選んだ理由：'+f.reflectionText:'');}
+  return '途中の記録（未実施を含む）：'+st.turns.at(-1).text;
+ }
+ return '本人が話したこと：'+st.turns.at(-1).text;
+}
+function cyPublicationDraft(id){
+ const f=states[id]?.facts||{};
+ if(id==='dinner'&&f.executionText){return 'はるちゃんの報告：'+f.executionText+(f.reflectionText?'。どうしてそう決めたか：'+f.reflectionText:'');}
+ return 'はるちゃんからの記録：'+(states[id]?.turns.at(-1)?.text||'');
+}
+function cyPreview(id,forChild=true){
+ return '<div class="familyBox"><strong>'+esc(titles[id])+'</strong><span class="stateTag">'+cyStatus(id)+'</span><p>'+esc(cyRecordedText(id))+'</p>'+
+ (forChild&&(cycle.share[id]==='private'||cycle.share[id]==='held')?cyBtn('おばあちゃんにも見せたい','share:'+id,true):'')+
+ (forChild&&cycle.share[id]==='returned'?'<p class="tiny">保護者の修正案：'+esc(cycle.text[id]||'')+'</p>'+cyBtn('修正案を確認して、もう一度お願いする','resubmit:'+id,true):'')+'</div>';
+}
+function cyActivityReady(id){
+ if(id==='dinner')return Boolean(states.dinner.done&&states.dinner.facts.executionText);
+ if(id==='research')return states.research.turns.some(t=>/出発前|店に入る前/.test(t.text)&&/伝えた|知らせた|試した/.test(t.text));
+ return false;
+}
+
+function renderChildCycle(){
+ const id=scene,has=states[id].turns.length>0,ready=cyActivityReady(id);
+ const hint=id==='dinner'&&!states.dinner.done?'夕飯はまだ進行中です。途中まででも保存できます。':id==='research'&&!ready?'実際に試したと報告した後、保護者がポイントを確認できます。':'自分の言葉を残せます。祖母に見せるかはあとで選べます。';
+ $('cycleSave').innerHTML=has?'<div class="familyBox"><h2>📖 今日の発見を残そう</h2><div class="parentChild"><div class="by">今の本人の言葉</div><p>'+esc(states[id].turns.at(-1).text)+'</p></div><p class="tiny">'+esc(hint)+'</p>'+(cycle.save[id]?'<span class="stateTag">自分のアルバムに保存済み（このデモ内）</span>':cyBtn('自分のアルバムに保存する','save:'+id))+'<p class="tiny">保存と祖母への共有は別。家族が読める記事は自分で選べます。</p></div>':'';
+ const saved=Object.keys(cycle.save).filter(x=>cycle.save[x]);
+ $('cycleAlbum').innerHTML='<details class="cycleAccordion" id="albumFold"><summary>📚 これまでのアルバム　'+saved.length+'件</summary><div>'+(saved.length?saved.map(x=>cyPreview(x)).join(''):'<p class="tiny">まだ保存した出来事はありません。</p>')+'</div></details>'+
+ '<details class="cycleAccordion" id="rewardFold"><summary>🎁 お金とごほうび　使える '+cyFree()+'P</summary><div><p>確定 '+cyPoints()+'P ／ 使える '+cyFree()+'P</p><p class="tiny">調査20P・夕飯40Pは架空の事前合意例。保護者が実際の報告を確認したあとだけ確定。新聞への共有や祖母の返信は条件ではありません。</p>'+
+ (cycle.pointsUsed==='none'||cycle.pointsUsed==='cancelled'?(cyFree()>=50?cyBtn('カフェ50Pをお願いする','request',true):'<p class="tiny">カフェは50Pから。確認済みのポイントが貯まってからお願いできるよ。</p>'):'<p class="tiny">カフェの特典：'+({reserved:'50P予約・保護者の確認待ち',approved:'交換承認済み・まだ行っていない',delivered:'実際に体験済み（デモ）'}[cycle.pointsUsed]||'確認待ち')+'</p>')+
+ (cycle.pointsUsed==='reserved'?cyBtn('カフェ依頼を取り消す','cancel',true):'')+'</div></details>'+
+ ((cycle.replies.length||cycle.posts.length)?'<div class="familyBox"><h2>👵 おばあちゃんから</h2>'+cycle.replies.map(x=>'<p>'+esc(x)+'</p>').join('')+cycle.posts.map(x=>'<p>'+esc(x)+'</p>').join('')+'</div>':'');
+}
+
+function parentInsight(id){
+ const st=states[id],t=st.turns.at(-1);if(!t)return '<p class="parentEmpty">この体験の記録はまだありません。</p>';
+ const explanation=t.reason?.headline||'本人の言葉をもとに整理しています。';
+ const evidence=t.reason?.known||[];
+ return '<div class="parentChild"><div class="by">🎙 はるちゃんの発言（報告）</div><p>'+esc(t.text)+'</p></div>'+
+ '<div class="parentAi"><strong>✦ AIがどう整理したか</strong><p>'+esc(t.model?.say||'')+'</p><details class="reasonDetails"><summary>なぜこの提案？ 出所と未確認</summary><p>'+esc(explanation)+'</p>'+
+ (evidence.length?'<p>'+evidence.map(esc).join(' ／ ')+'</p>':'')+
+ ((t.reason?.unknown||[]).length?'<p>まだ確認したい：'+t.reason.unknown.map(esc).join('、')+'</p>':'')+'</details></div>';
+}
+function parentReviewCard(id){
+ const t=states[id]?.turns.at(-1),s=cycle.share[id];
+ let html='<section class="familyBox"><h2>📰 '+esc(titles[id])+'</h2>'+parentInsight(id)+'<p class="parentMeta">共有する相手：おばあちゃん ／ 内容バージョン '+cycle.versions[id]+'</p>'+
+ '<div class="parentAi"><strong>新聞に掲載する文章の案</strong><p>'+esc(cycle.text[id]||cyPublicationDraft(id))+'</p></div>'+
+ '<p class="tiny">本人が共有したいと選択した文章のみ。写真の選択・同意はこのデモでは未実装です。</p>';
+ if(s==='requested')html+='<div class="parentAction">'+cyBtn('この文章をおばあちゃんに見せる','publish:'+id)+cyBtn('文章を修正して本人へ返す','return:'+id,true)+cyBtn('今回は保留する','hold:'+id,true)+'</div>';
+ return html+'</section>';
+}
+function parentAwardCard(id){
+ const p=id==='research'?20:40,st=cycle.award[id],r=cyActivityReady(id),saved=cycle.save[id];
+ const status=st==='earned'?'活動確認済み・一度だけ確定':st==='held'?'確認を保留中':!r?'実施した報告はまだありません':!saved?'子のアルバム保存待ち':'本人からの報告・保護者の確認待ち';
+ let html='<section class="familyBox"><h2>🏃 '+esc(titles[id])+'　'+p+'P</h2><span class="parentStatus '+(st==='pending'?'parentWarning':'')+'">'+esc(status)+'</span>'+parentInsight(id)+'<p class="parentEvidence">このポイントは家庭で事前に約束した場合の合成例です。子の申告と、保護者が実際に確認したことは別です。</p>';
+ if(saved&&(st==='pending'||st==='held'))html+='<div class="parentAction">'+cyBtn('活動を確認して'+p+'P確定','award:'+id)+cyBtn('まだ確認しない','holdaward:'+id,true)+'</div>';
+ return html+'</section>';
+}
+function renderOtherCycle(){
+ const f=$('familyMain');if(!f)return;
+ let h='';
+ if(cycle.role==='parent'){
+  const waiting=Object.keys(cycle.share).filter(id=>cycle.share[id]==='requested');
+  const toVerify=['research','dinner'].filter(id=>cycle.save[id]&&(cycle.award[id]==='pending'||cycle.award[id]==='held'));
+  h='<div class="eyebrow">保護者｜はるの記録を見て、必要な時だけ確認</div><h1>家族の記録と確認</h1>'+
+  '<div class="parentOverview"><strong>今日の確認</strong><div class="parentSummary"><span>📰 共有の確認 '+waiting.length+'件</span><span>🏃 活動の確認 '+toVerify.length+'件</span><span>📚 記録 '+Object.values(cycle.save).filter(Boolean).length+'件</span></div><p>子どもの会話から、本人の発言とAIの提案理由をそのまま確認できます。記事の共有とポイント付与は別々に判断します。</p></div>'+
+  '<nav class="parentTabs" aria-label="保護者の用事"><button data-parent-tab="checks" aria-selected="'+(cycle.parentTab==='checks')+'">確認する '+(waiting.length+toVerify.length)+'</button><button data-parent-tab="album" aria-selected="'+(cycle.parentTab==='album')+'">アルバム</button><button data-parent-tab="family" aria-selected="'+(cycle.parentTab==='family')+'">家族・特典</button></nav>';
+  if(cycle.parentTab==='checks'){
+   if(cycle.agreement==='pending'&&states.family.turns.length)h+='<div class="familyBox"><h2>🏠 最初の任せ方の約束</h2>'+parentInsight('family')+'<p class="tiny">親子が実際に話した内容を保護者が確認するまでは「約束済み」ではありません。</p>'+cyBtn('今回の約束を確認する（デモ）','agree')+'</div>';
+   h+='<h2 class="parentSectionTitle">📰 新聞に見せる内容</h2>'+(waiting.length?waiting.map(parentReviewCard).join(''):'<div class="parentEmpty">今、共有の確認待ちはありません。子が選んだ記事だけ、ここに届きます。</div>');
+   h+='<h2 class="parentSectionTitle">🏃 活動とポイント</h2>'+(toVerify.length?toVerify.map(parentAwardCard).join(''):'<div class="parentEmpty">活動の確認待ちはありません。本人の実施報告と保存が揃ったらここに届きます。</div>');
+  }else if(cycle.parentTab==='album'){
+   h+='<div class="familyBox"><h2>📚 はるの成長アルバム</h2><p class="tiny">親は、結果だけでなく本人の言葉とAIの支援を振り返れます。祖母へ自動公開はされません。</p></div>';
+   const ids=Object.keys(cycle.save).filter(x=>cycle.save[x]);
+   h+=ids.length?ids.map(id=>'<div class="familyBox"><h2>'+esc(titles[id])+'</h2>'+parentInsight(id)+'<p class="parentMeta">共有の状態：'+cyStatus(id)+'</p></div>').join(''):'<div class="parentEmpty">まだアルバムに保存された記録がありません。</div>';
+  }else if(cycle.parentTab==='family'){
+   h+='<div class="familyBox"><h2>🎁 家族のごほうび</h2><div class="parentSummary"><span>確定 '+cyPoints()+'P</span><span>使える '+cyFree()+'P</span></div><p>家族で登録した例：カフェ50P。予約、交換承認、実際に行ったかは区別します。</p>'+
+   (cycle.pointsUsed==='reserved'?'<div class="parentAction">'+cyBtn('50Pの交換を承認（まだ未提供）','approve')+cyBtn('今回は却下して予約を解除','reject',true)+'</div>':cycle.pointsUsed==='approved'?'<div class="parentAction">'+cyBtn('カフェへ行ったことを確認','deliver')+cyBtn('未提供で取消・50P返還','refund',true)+'</div>':'<p class="tiny">'+(cycle.pointsUsed==='delivered'?'交換済み・カフェの実施も記録済み（デモ）':'いまは交換の承認待ちはありません。')+'</p>')+'</div>';
+   h+='<div class="familyBox"><h2>📰 おばあちゃんに見せている記事</h2><p>許可済みの記事は、号を発行しなくても日付別で読めます。</p>'+Object.keys(cycle.share).filter(id=>cycle.share[id]==='published').map(id=>'<p>・'+esc(titles[id])+'</p>').join('')+cyBtn('許可済み記事を今月号にする（任意）','issue',true)+'<p class="tiny">発行した号：'+cycle.issues+'</p></div>';
+   h+='<div class="familyBox"><h2>👵 おばあちゃんの近況</h2>'+(cycle.posts.length?cycle.posts.map(x=>'<div class="parentChild"><p>'+esc(x)+'</p></div>').join(''):'<p class="tiny">今日はお知らせなし。未送信から健康状態は推測しません。</p>')+'</div>';
+  }
+ }else{
+  const ids=Object.keys(cycle.share).filter(id=>cycle.share[id]==='published');
+  h='<div class="eyebrow">おばあちゃん｜家族のおたよりと私の近況</div><h1>家族からのおたより</h1>';
+  h+='<div class="familyBox"><h2>きょうのおたより</h2><p>孫と保護者が見せると決めた記事だけ読めます。家計やポイントは表示しません。</p></div>';
+  h+=ids.length?ids.map(id=>'<article class="familyBox news"><h2>'+esc(titles[id])+'</h2><p>'+esc(cycle.text[id]||cyPublicationDraft(id))+'</p>'+cyBtn('読んだよ','read:'+id,true)+cyBtn('私の経験を返す','reply:'+id,true)+'</article>').join(''):'<div class="familyBox"><p>今日は新しいおたよりはありません。昔の記事を読んだり、自分から「元気だよ」を送れます。</p></div>';
+  h+='<div class="familyBox"><h2>これまでのおたより</h2><p>読める記事 '+ids.length+'件／新聞号 '+cycle.issues+'号</p></div>';
+  h+='<div class="familyBox"><h2>私から「元気だよ」を送る</h2><p>歩数は本人が手入力。送らない日から健康状態は判断しません。</p><textarea id="gpost">元気だよ。今日は5,200歩歩いたよ。</textarea>'+cyBtn('この近況を家族に送る（デモ）','post')+'</div>';
+ }
+ h+='<p class="tiny">これは画面内だけの家族体験デモです。実際の送信・認証・報酬処理ではありません。</p>';
+ if(cycle.message)h+='<div class="familyBox" role="status">'+esc(cycle.message)+'</div>';
+ f.innerHTML=h;
+}
+
+function selectCycleRole(role){
+ if(!['child','parent','grandma'].includes(role))return;
+ cycle.role=role;cycle.message='';
+ $('main').hidden=role!=='child';$('childDock').hidden=role!=='child';$('familyMain').hidden=role==='child';
+ $('choose').hidden=role!=='child';$('appCycle')?.classList.toggle('grandma',role==='grandma');
+ document.querySelectorAll('#familyRoles [data-role]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.role===role)));
+ if(role==='child')renderChildCycle();else renderOtherCycle();(role==='child' ? $('main'):$('familyMain')).scrollTop=0;
+}
+
+function cycleAction(cmd){const [act,id]=cmd.split(':');cycle.message='';
+ const childActs=['save','share','resubmit','request','cancel'];
+ const parentActs=['agree','publish','return','hold','award','holdaward','approve','reject','refund','deliver','issue'];
+ const grandActs=['read','reply','post'];
+ if(childActs.includes(act)&&cycle.role!=='child')return;
+ if(parentActs.includes(act)&&cycle.role!=='parent')return;
+ if(grandActs.includes(act)&&cycle.role!=='grandma')return;
+
+ if(act==='agree'&&states.family.turns.length){cycle.agreement='confirmed';cycle.message='保護者が任せ方の約束を確認しました（デモ）。'}
+ if(act==='save'&&states[id].turns.length){cycle.save[id]=true;cycle.message='アルバムに非公開保存しました（画面内の合成状態）'}
+ if(act==='share'&&cycle.save[id]){cycle.text[id]=cycle.text[id]||cyPublicationDraft(id);cycle.share[id]='requested';cycle.versions[id]++;cycle.message='保護者の確認待ち。祖母へは未公開です。'}
+ if(act==='resubmit'&&cycle.share[id]==='returned'){cycle.share[id]='requested';cycle.message='本人が修正文を確認して再依頼しました'}
+ if(act==='publish'&&cycle.share[id]==='requested'){cycle.share[id]='published';cycle.message='保護者が内容と宛先「祖母」を確認しました（模擬公開）'}
+ if(act==='return'&&cycle.share[id]==='requested'){cycle.share[id]='returned';cycle.text[id]='はるは家族と相談し、今回の挑戦を進めました。';cycle.versions[id]++;cycle.message='保護者が文章を変更したので、はる本人の再確認待ちです。祖母には未公開。'}
+ if(act==='hold'&&cycle.share[id]==='requested'){cycle.share[id]='held';cycle.message='共有を保留。アルバムは残ります。'}
+ if(act==='award'&&cycle.save[id]&&cyActivityReady(id)&&['pending','held'].includes(cycle.award[id])){cycle.award[id]='earned';cycle.message='親の実行確認により一度だけポイントが確定。'}
+ if(act==='holdaward'&&cycle.award[id]==='pending'){cycle.award[id]='held';cycle.message='活動確認を保留しました。'}
+ if(act==='request'&&['none','cancelled'].includes(cycle.pointsUsed)&&cyFree()>=50){cycle.pointsUsed='reserved';cycle.message='50Pを予約。カフェにはまだ行っていません。'}
+ if(act==='cancel'&&cycle.pointsUsed==='reserved'){cycle.pointsUsed='cancelled';cycle.message='予約を解除し50Pを戻しました。'}
+ if(act==='reject'&&cycle.pointsUsed==='reserved'){cycle.pointsUsed='cancelled';cycle.message='保護者が却下。50Pの予約を解除しました。'}
+ if(act==='approve'&&cycle.pointsUsed==='reserved'){cycle.pointsUsed='approved';cycle.message='交換を承認。特典は提供待ち。'}
+ if(act==='refund'&&cycle.pointsUsed==='approved'){cycle.pointsUsed='cancelled';cycle.message='未提供で50Pを返還。'}
+ if(act==='deliver'&&cycle.pointsUsed==='approved'){cycle.pointsUsed='delivered';cycle.message='カフェを体験済み（合成）。二度消費しません。'}
+ if(act==='issue'&&Object.values(cycle.share).includes('published')){cycle.issues++;cycle.message='許可済み記事だけで新聞号を作りました。'}
+ if(act==='read'&&cycle.share[id]==='published'){cycle.replies.push('祖母：「読んだよ」');cycle.message='任意の「読んだよ」を返しました。'}
+ if(act==='reply'&&cycle.share[id]==='published'){cycle.replies.push('祖母：「私は余った肉を冷凍していたよ」');cycle.message='祖母の経験談を返しました。はるが次に使うか選びます。'}
+ if(act==='post'){cycle.posts.push(($('gpost')?.value||'元気だよ').trim());cycle.message='祖母本人の近況を家族に送った模擬状態です。'}
+ if(cycle.role==='child'){renderChildCycle();if(act==='save'||act==='share'||act==='resubmit'){$('albumFold')?.setAttribute('open','');}}else renderOtherCycle();
+}
+// Keep the child experience's existing conversation and AI reasoning UI intact.
+const priorRender=render;render=function(){priorRender();renderChildCycle(); if(cycle.role!=='child')renderOtherCycle();};
+document.addEventListener('click',e=>{const role=e.target.closest('#familyRoles [data-role]');if(role){selectCycleRole(role.dataset.role);return}
+ const tab=e.target.closest('[data-parent-tab]');if(tab&&cycle.role==='parent'){cycle.parentTab=tab.dataset.parentTab;cycle.message='';renderOtherCycle();$('familyMain').scrollTop=0;return;}
+ const c=e.target.closest('[data-cycle]');if(c)cycleAction(c.dataset.cycle)});
+const priorSend=send;send=function(...args){priorSend(...args);if(scene!=='family'&&cyActivityReady(scene)&&cycle.award[scene]==='none')cycle.award[scene]='pending';renderChildCycle()};
+selectCycleRole('child');
+
+paint();
+</script>
+</body>
+</html>
