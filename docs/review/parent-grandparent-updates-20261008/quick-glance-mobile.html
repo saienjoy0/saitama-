@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>やってみクエスト｜親の画面</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;color:#1D332C;background:#ECEFE9;--g:#176B5B;--g2:#0F5448;--line:#E5EAE3;--soft:#F0F5EE;--paper:#FBFBF7;--sub:#687D71}
+*{box-sizing:border-box}body{margin:0}button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}
+#app{max-width:780px;margin:auto;height:100dvh;display:flex;flex-direction:column;background:var(--paper);overflow:hidden}
+.top{flex:none;display:flex;align-items:center;justify-content:space-between;padding:14px 20px 13px;background:var(--paper);gap:10px}
+.brand{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:820;letter-spacing:-.03em}
+.mark{width:35px;height:35px;display:grid;place-items:center;color:#fff;background:var(--g);border-radius:11px;font-size:19px}
+.role{color:#4D7465;font-size:12px;font-weight:800;background:#EAF1E8;border-radius:20px;padding:7px 11px}
+.demo{flex:none;background:#F5F0E4;color:#77684E;font-size:11px;text-align:center;padding:5px 8px}
+.main{flex:1;min-height:0;overflow-y:auto;padding:22px 20px 34px;overscroll-behavior:contain}
+.nav{flex:none;border-top:1px solid var(--line);background:#fff;display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:9px 13px calc(10px + env(safe-area-inset-bottom))}
+.nav button{min-height:60px;border:0;border-radius:13px;background:#F1F5EF;color:#647A6C;font-weight:800;font-size:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+.nav button span{font-size:19px}.nav button[aria-current=page]{background:#E4F1EA;color:var(--g2)}
+h1{font-size:30px;letter-spacing:-.04em;line-height:1.3;margin:6px 0 7px;font-weight:860}h2{font-size:22px;margin:8px 0 13px;line-height:1.38}p{font-size:16px;line-height:1.65;margin:7px 0}
+.eyebrow{font-size:13px;color:#66816E;font-weight:750}.meta{font-size:13px;line-height:1.55;color:var(--sub)}.muted{font-size:13px;color:var(--sub)}
+.card{border:1px solid #E8EDE6;border-radius:19px;background:#fff;padding:18px;margin:12px 0;box-shadow:0 3px 15px #1B42300A}
+.card.person{padding:0;box-shadow:0 5px 19px #1B42300B;overflow:hidden}
+.personLink{background:transparent;color:inherit;border:0;width:100%;text-align:left;padding:18px 17px 16px;display:block;min-height:125px}
+.personLink:focus-visible{outline:3px solid #C7963E;outline-offset:-4px}
+.personTop{display:flex;align-items:center;gap:10px}.personBody{margin-left:55px;margin-top:8px;display:flex;flex-direction:column;gap:7px}
+.personBody .line{font-size:15px;line-height:1.38;color:#354E42;display:flex;align-items:center;gap:8px}
+.personBody .line.strong{font-size:17px;font-weight:780;color:#1F4536}
+.personBody .line.neutral{color:#718277;font-size:14px}
+.personBody .line .symbol{font-size:16px;width:20px;flex:none;text-align:center}
+.avatar{background:#EAF1E8;border-radius:15px;height:45px;width:45px;font-size:23px;display:grid;place-items:center;flex:none}
+.personTitle{min-width:0;flex:1}.name{font-size:18px;font-weight:830;line-height:1.4}
+.statusChip{white-space:nowrap;border-radius:20px;padding:6px 9px;background:#E4F3EA;color:#237252;font-size:11px;font-weight:800}
+.statusChip.idle{background:#F2F4F1;color:#708176}.arrow{font-size:20px;color:#7E9987;margin-left:3px}
+.textHead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.textHead .meta{font-size:12px}
+.dateMeta{display:flex;align-items:center;gap:6px;color:#718679;font-size:13px}
+.smallDivider{height:1px;background:var(--line);margin:17px 0}
+.inlineLink{width:100%;border:0;background:transparent;color:var(--g2);font-weight:830;font-size:15px;text-align:left;display:flex;justify-content:space-between;align-items:center;min-height:47px;padding:8px 4px}
+.inlineLink:hover{background:#F1F5F0;border-radius:10px}
+.notice{color:#75877A;font-size:12px;line-height:1.65;padding:12px 2px 2px}
+.chip{font-size:11px;border-radius:99px;background:#E5F2EA;color:#2C7256;padding:6px 10px;font-weight:750}.chip.gray{background:#F2F3F1;color:#758779}
+.day{margin:8px 0 11px;background:#fff;border:1px solid var(--line);border-radius:17px;padding:13px 15px}.day h2{font-size:16px;margin:1px 0 7px}
+.item{border-top:1px solid #EDF1EB;padding:11px 0}.item:first-of-type{border-top:0}.itemTop{display:flex;align-items:center;gap:11px}.dot{width:8px;height:8px;background:#76AE91;flex:none;border-radius:50%}.item strong{font-size:15px}.item .meta{margin-left:19px;font-size:12px}
+.historyIntro{padding:12px 15px;border-radius:13px;background:#F1F5F0;margin:16px 0}.historyIntro .smallHead{font-size:12px;color:#6B7D6E}
+.toolbar{display:flex;gap:8px;margin:15px 0}.toolbar button{flex:1;min-height:46px;border:1px solid #DAE6DD;border-radius:12px;background:#fff;color:#527363;font-weight:780}.toolbar button.active{border-color:var(--g);background:#E6F2E9;color:var(--g2)}
+.btn{min-height:49px;border-radius:12px;padding:9px 13px;background:var(--g);color:#fff;border:1px solid var(--g);font-weight:780;font-size:15px}.btn.alt{background:#E7F3EA;color:#23654D;border-color:#CDE2D3}.btn.outline{background:#fff;color:#3D6953;border-color:#DBE7DE}.btn.block{width:100%;display:block}.actions{display:flex;gap:7px;flex-wrap:wrap}.actions button{flex:1}
+.back{border:0;background:none;font-size:14px;color:var(--g2);font-weight:820;min-height:43px;padding:8px 0}
+.empty{font-size:14px;color:#7A897D;background:#F4F7F3;border-radius:9px;padding:9px}.hint{background:#F1F6EF;border-radius:12px;padding:13px;color:#476455;line-height:1.6;font-size:14px;margin:13px 0}
+.big{font-size:39px;font-weight:860;color:var(--g)}.number{max-width:260px;width:100%;border:2px solid #BBD2C1;border-radius:12px;padding:10px;font-size:23px}
+.success,.fail{padding:11px;border-radius:10px;font-size:14px;line-height:1.55}.success{background:#E6F4E9;color:#286A4A}.fail{background:#FFF4DC;color:#94600B}
+.guide{margin:19px 0 8px;border:1px dashed #D6E2D7;border-radius:14px;background:#FCFDFB;padding:11px 14px}.guide summary{font-size:13px;font-weight:750;color:#597766;cursor:pointer;min-height:32px;line-height:32px}.guide p{font-size:13px}
+.divider{height:1px;background:var(--line);margin:16px 0}
+.parentDisclaimer{font-size:12px;color:#7A897D;line-height:1.6;margin:22px 0 10px}
+@media(min-width:670px){.main{padding:30px 36px}.people{display:grid;grid-template-columns:1fr 1fr;gap:15px}.people .person{margin:0}.card.person{min-height:165px}}
+@media(max-width:360px){.main{padding:15px 13px 26px}h1{font-size:27px}.top{padding:11px 13px}.brand{font-size:15px}.personLink{padding:15px 12px}.personTop{gap:7px}.avatar{width:41px;height:41px}.name{font-size:16px;white-space:nowrap}.personBody{margin-left:48px}.statusChip{font-size:10px;padding:5px 6px}.arrow{margin:0}}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #D5A43F;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+</style></head><body><div id="app"><header class="top"><div class="brand"><span class="mark">✦</span>家族のおたより</div><span class="role">保護者 · デモ</span></header><main id="main" class="main"></main><footer class="nav"><button data-view="today" aria-current="page"><span>⌂</span>今日の家族</button><button data-view="history"><span>▤</span>これまでの記録</button></footer></div>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id),main=$('main');
+const members=[{id:'grandma',name:'おばあちゃん',emoji:'👵'},{id:'grandpa',name:'おじいちゃん',emoji:'👴'}];
+const state={view:'today',person:'grandma',events:[],ids:new Set(),steps:null,stepSent:null,genkiSent:false,failNext:false,sendError:'',message:'',busy:false,mode:'parent'};
+const now=()=>Date.now(),jstDate=ms=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(ms)),time=ms=>new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit'}).format(new Date(ms));
+const ymd=ms=>{const p=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(ms)),v=t=>p.find(x=>x.type===t).value;return v('year')+'-'+v('month')+'-'+v('day')};
+const dLabel=ms=>new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',month:'numeric',day:'numeric',weekday:'short'}).format(new Date(ms));
+const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const b=(txt,action,style='')=>'<button class="btn '+style+'" data-action="'+action+'">'+txt+'</button>';
+function receive(e){if(!e||!members.some(m=>m.id===e.who)||!['genki','steps'].includes(e.type)||!Number.isFinite(e.sentAt)||e.sentAt>now()+300000||typeof e.id!=='string'||state.ids.has(e.id))return false;
+ if(e.type==='steps'&&(!Number.isInteger(e.steps)||e.steps<0||e.steps>99999))return false;
+ state.ids.add(e.id);state.events.push({...e,receivedAt:e.sentAt<now()-3600000?e.sentAt+120000:now(),origin:'本人による合成記録'});state.message=members.find(m=>m.id===e.who).name+'から'+(e.type==='genki'?'「元気だよ」':'歩数')+'を受信しました（デモ）';render();return true}
+function add(type,who,value,days=0){return receive({id:who+'-'+type+'-'+now()+'-'+Math.random(),who,type,steps:type==='steps'?value:undefined,sentAt:now()-days*86400000})}
+function list(who){return state.events.filter(e=>e.who===who).sort((a,b)=>b.sentAt-a.sentAt)}
+function at(who,type,date){return list(who).find(e=>e.type===type&&ymd(e.sentAt)===date)}
+function latest(who,type){return list(who).find(e=>e.type===type)}
+function recentMark(ts){const d=ymd(ts),t=ymd(now());const yesterday=ymd(now()-86400000);return d===t?'今日 '+time(ts):d===yesterday?'昨日 '+time(ts):dLabel(ts)+' '+time(ts)}
+function member(m){const date=ymd(now()),g=at(m.id,'genki',date),steps=at(m.id,'steps',date),lg=latest(m.id,'genki'),ls=latest(m.id,'steps'),have=!!(g||steps);
+let status=have?'今日届いた':'今日未着';
+let x='<article class="card person"><button class="personLink" data-action="history:'+m.id+'" aria-label="'+m.name+'の近況と履歴を見る"><div class="personTop"><span class="avatar">'+m.emoji+'</span><div class="personTitle"><div class="name">'+m.name+'</div></div><span class="statusChip '+(have?'':'idle')+'">'+status+'</span><span class="arrow" aria-hidden="true">›</span></div><div class="personBody">';
+if(g)x+='<div class="line strong"><span class="symbol">♥</span>今日も元気だよ <span class="meta">'+time(g.sentAt)+'</span></div>';
+else x+='<div class="line neutral"><span class="symbol">○</span>「元気だよ」はまだ届いていません</div>';
+if(steps)x+='<div class="line"><span class="symbol">◌</span><strong>'+steps.steps.toLocaleString('ja-JP')+' 歩</strong><span class="meta">本人入力</span></div>';
+else if(ls)x+='<div class="line neutral"><span class="symbol">◌</span>今日の歩数は未着</div>';
+if(!have){const last=[lg,ls].filter(Boolean).sort((a,b)=>b.sentAt-a.sentAt)[0];x+='<div class="line neutral">'+(last?'前回の連絡：'+recentMark(last.sentAt):'まだ記録がありません')+'</div>'}
+x+='</div></button></article>';return x}
+function today(){const date=ymd(now()),received=members.filter(m=>!!at(m.id,'genki',date)||!!at(m.id,'steps',date)).length;const label=dLabel(now());
+let x='<div class="textHead"><div><div class="eyebrow">'+label+'　家族の近況</div><h1>今日の家族</h1></div></div>';
+x+='<p class="meta" style="margin:0 0 15px">'+(received?received+'人から今日の連絡が届いています':'今日の連絡はまだありません')+' · 自分のペースで確認できます</p>';
+if(state.message)x+='<div class="success" role="status">'+escape(state.message)+'</div>';
+x+='<div class="people">'+members.map(member).join('')+'</div>';
+x+='<button class="inlineLink" data-action="allHistory"><span>これまでの近況を見る</span><span aria-hidden="true">→</span></button>';
+x+='<p class="parentDisclaimer">表示しているのは本人から届いた近況です。連絡や歩数だけで健康・安全が確認できたことにはなりません。</p>';
+x+=controls();return x}
+function history(){const m=members.find(m=>m.id===state.person)||members[0],lastG=latest(m.id,'genki'),lastS=latest(m.id,'steps');
+let x='<button class="back" data-action="home">← 今日の家族へ戻る</button><div class="eyebrow">家族の記録</div><h1>これまでの近況</h1>';
+x+='<div class="toolbar">'+members.map(a=>b(a.emoji+' '+a.name,'person:'+a.id,a.id===state.person?'active':'' )).join('')+'</div>';
+x+='<div class="historyIntro"><div class="smallHead">'+m.name+'から最後に届いた連絡</div><strong>'+(lastG?recentMark(lastG.sentAt)+'「元気だよ」':'「元気だよ」は未着')+'</strong><div class="meta">歩数：'+(lastS?lastS.steps.toLocaleString('ja-JP')+'歩（'+recentMark(lastS.sentAt)+'・本人入力）':'記録なし')+'</div></div>';
+x+='<h2 style="font-size:19px">過去7日間の記録</h2>';
+let count=0;
+for(let i=0;i<7;i++){const stamp=now()-i*86400000,date=ymd(stamp),ev=list(state.person).filter(e=>ymd(e.sentAt)===date);if(!ev.length)continue;count++;
+x+='<section class="day"><h2>'+dLabel(stamp)+'</h2>';
+ev.forEach(e=>{x+='<div class="item"><div class="itemTop"><span class="dot"></span><strong>'+(e.type==='genki'?'今日も元気だよ':'歩数 '+e.steps.toLocaleString('ja-JP')+' 歩')+'</strong><span class="meta">'+time(e.sentAt)+'</span></div><details style="margin:5px 0 0 19px"><summary class="meta" style="cursor:pointer">送信・受信の詳細</summary><div class="meta">本人送信 '+time(e.sentAt)+' ／ 画面受信 '+time(e.receivedAt)+'<br>'+(e.type==='steps'?'本人の手入力':'本人が押したボタン')+'</div></details></div>'});x+='</section>'}
+if(!count)x+='<div class="empty">過去7日間の受信記録はありません</div>';
+x+='<p class="parentDisclaimer">表示していない日には受信記録がありません。未着や歩数から体調を推測することはできません。</p>';
+x+=controls();return x}
+function controls(){return '<details class="guide"><summary>操作デモを試す（合成データ）</summary><p>祖父母からの連絡を受け取る動作を試せます。実際には送信されません。</p><div class="actions">'+b('祖母の送信画面へ','grand','alt')+b('祖父から「元気だよ」','receive:grandpa:genki','alt')+'</div><div class="actions">'+b('祖母から「元気だよ」','receive:grandma:genki','outline')+b('祖母から5,200歩','receive:grandma:steps','outline')+'</div></details>'}
+function grandma(){let x='<div class="eyebrow">祖母による操作の確認（合成）</div><h1>今日のわたし</h1><p>おばあちゃんが自分で記録して、家族へ送るところを試せます。</p><div class="card"><h2>今日の歩数</h2><div class="big">'+(state.steps===null?'—':state.steps.toLocaleString('ja-JP'))+' <small style="font-size:18px">歩</small></div><p class="meta">歩数計の数値を手で入力します。自動計測ではありません。</p><label for="number">歩数を入力する</label><div><input class="number" id="number" type="number" inputmode="numeric" min="0" max="99999" value="'+(state.steps??'')+'" placeholder="例 5200"></div>'+b('歩数を記録する','recordSteps','alt block')+'<p class="meta">ここで記録しただけでは保護者に届きません。</p>'+(state.steps===null?'':b(state.steps.toLocaleString('ja-JP')+'歩を家族へ知らせる','sendSteps','block'))+'</div>';
+ x+='<div class="card"><h2>今日も元気だよ</h2><p>歩数とは別に家族へ送れます。</p>'+b('♥ 今日も元気だよを送る','sendGenki','block')+'</div>';
+ if(state.busy)x+='<div class="hint">送信中です（デモ）。</div>';
+ if(state.sendError)x+='<div class="fail" role="alert">'+escape(state.sendError)+'</div>';
+ if(state.message)x+='<div class="success" role="status">'+escape(state.message)+'</div>';
+ x+='<details class="guide"><summary>送信失敗を試す</summary><p>次の1回だけ送信失敗を再現できます。</p>'+b('次の送信を失敗させる','failNext','outline block')+'</details>'+b('← 親の画面へ戻る','back','alt block');return x}
+function render(){document.querySelectorAll('.nav [data-view]').forEach(t=>t.setAttribute('aria-current',t.dataset.view===state.view?'page':'false'));let was=main.scrollTop;main.innerHTML=state.mode==='grandma'?grandma():state.view==='today'?today():history();main.scrollTop=state.mode==='grandma'?0:was}
+function send(kind){if(state.busy)return;const steps=state.steps;if(kind==='steps'&&steps===null){state.sendError='先に歩数を記録してください。';render();return}state.sendError='';state.message='';state.busy=true;render();let fail=state.failNext;state.failNext=false;window.setTimeout(()=>{state.busy=false;if(fail){state.sendError='まだ送れていません。もう一度押してください。';render();return}add(kind,'grandma',steps);state.sendError='';state.message=kind==='steps'?steps.toLocaleString('ja-JP')+'歩を家族へ送りました（デモ）':'「今日も元気だよ」を家族へ送りました（デモ）';render()},350)}
+document.querySelector('.nav').addEventListener('click',ev=>{let t=ev.target.closest('[data-view]');if(t){state.mode='parent';state.view=t.dataset.view;main.scrollTop=0;render()}});
+main.addEventListener('click',ev=>{let t=ev.target.closest('[data-action]');if(!t)return;let [k,a,b]=t.dataset.action.split(':');if(k==='grand'){state.mode='grandma';state.message='';render();return}if(k==='back'){state.mode='parent';state.view='today';state.message='';render();return}if(k==='history'){state.person=a;state.view='history';state.mode='parent';main.scrollTop=0;render();return}if(k==='allHistory'){state.view='history';state.mode='parent';main.scrollTop=0;render();return}if(k==='home'){state.view='today';state.mode='parent';main.scrollTop=0;render();return}if(k==='person'){state.person=a;render();return}if(k==='receive'){add(b,a,b==='steps'?5200:undefined);return}if(k==='recordSteps'){let n=Number($('number').value);if($('number').value!==''&&Number.isInteger(n)&&n>=0&&n<=99999){state.steps=n;state.sendError='';state.message=n.toLocaleString('ja-JP')+'歩を記録しました（まだ家族へは送っていません）'}else state.sendError='歩数は0〜99,999の整数で入力してください。';render();return}if(k==='sendSteps'){send('steps');return}if(k==='sendGenki'){send('genki');return}if(k==='failNext'){state.failNext=true;state.message='次の送信を失敗させます。';render();return}});
+add('genki','grandma',null,0);add('steps','grandma',5200,0);add('genki','grandpa',null,1);state.message='';render();
+})();
+</script></body></html>
