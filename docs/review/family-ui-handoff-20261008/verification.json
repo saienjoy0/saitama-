@@ -1,0 +1,113 @@
+{
+  "verified_at_utc": "2026-10-08T00:58:26.284368+00:00",
+  "scope": "synthetic review UI only; no real families, model calls or real reward provision",
+  "browser": "Chromium 151.0.7922.173 built on Debian GNU/Linux 13 (trixie)",
+  "node": "v24.19.0",
+  "playwright": "1.62.1",
+  "ui_file": "index.html",
+  "ui_sha256": "7346554be2374f19cc0013b5b128cd81aba8249079b73d96d03d843ed2079af5",
+  "baseline_sha256": "84ea7944900e69265f9c3e2c3a4363ebececc75e783febf0fa2229641aa5d8d4",
+  "browser_tests": {
+    "command": "node --test --test-reporter=tap tests/review/family-ui.cjs",
+    "tests": 20,
+    "passed": 20,
+    "failed": 0,
+    "log": "evidence/browser.tap"
+  },
+  "viewports": [
+    {
+      "width": 320,
+      "height": 568,
+      "scenarios": [
+        "HSC-01",
+        "HSC-02",
+        "HSC-03"
+      ],
+      "result": "passed",
+      "mobile_emulation": true,
+      "touch_emulation": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "scenarios": [
+        "HSC-01",
+        "HSC-02",
+        "HSC-03"
+      ],
+      "result": "passed",
+      "mobile_emulation": true,
+      "touch_emulation": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "scenarios": [
+        "HSC-01",
+        "HSC-02",
+        "HSC-03"
+      ],
+      "result": "passed",
+      "mobile_emulation": false,
+      "touch_emulation": false
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "scenarios": [
+        "HSC-01",
+        "HSC-02",
+        "HSC-03"
+      ],
+      "result": "passed",
+      "mobile_emulation": false,
+      "touch_emulation": false
+    }
+  ],
+  "extra_viewport": {
+    "width": 320,
+    "height": 460,
+    "text_enlargement": "CSS 200% for text elements",
+    "result": "passed"
+  },
+  "document_checks": {
+    "render_current": "passed",
+    "check_design_handoff": "passed",
+    "navigation_tests": "5 passed",
+    "check_review_static": "passed",
+    "git_diff_check": "passed"
+  },
+  "screenshots": {
+    "evidence/child-1440.png": "c5522b1ca3698d11c22f9b45914632d972ae3072bb7b6c74ee51e0dfd627e039",
+    "evidence/child-320.png": "9abfb37434209b574a8276b7af0b23868cc87d0ce4de7649fb77334798cd1a55",
+    "evidence/child-390.png": "28bf5089751134d8aba85d11c636d6d962fa3d17e19700dc8195c2324c2d1bdb",
+    "evidence/child-768.png": "1338aca0a0b79ec54c044ad6e37c99a0190c5eb4722f54d86cb007db4edd6da1",
+    "evidence/child-complete-1440.png": "fa3d10e10bc9daf80759a2ccb2a6a9554874e4dc621701ac5a367f69c9eca551",
+    "evidence/child-complete-320.png": "8902d691e6f99c1e99061ed0bc207f0044b19c3ed2896ba10b9f507c7d171f36",
+    "evidence/child-complete-390.png": "602e7d06bdcd525e8a3ad3a4f31de41c11bbf71d01792de447a7c3894876d059",
+    "evidence/child-complete-768.png": "1bf107119152415b4846f3227e2fcd1655f83deede7e63515d510745122a4df0",
+    "evidence/grandparent-1440.png": "31caebd28bc7aaa28e07133d8bc5d2506c6ee207c538f1e59d864e48e33febdd",
+    "evidence/grandparent-320.png": "91b27356c13403a7069c70ef3ba1cc80c6ff9867710432bd160ae655bfa0de9f",
+    "evidence/grandparent-390.png": "9cf34819b4ff270da264a822b742014106d1ff44cea127e1dcf71c41bcb3f0f1",
+    "evidence/grandparent-768.png": "62656b53da8c26abb4e86c22f7dc3e2149bcc592f0d1e9dc1b219e336448fa21",
+    "evidence/parent-1440.png": "ef816cb86cd5bfb06d68c4c234c4c5c000ce685df79a54d93fc35e25e23f3956",
+    "evidence/parent-320.png": "9fe672356b522438b37fd53ee5e77f4a5abd8cc0b0f011eb4febb506504e7dc6",
+    "evidence/parent-390.png": "ff86428090fc71ec408135cf79f7c8ebea93eba365070a55b5f505a48d1738c1",
+    "evidence/parent-768.png": "086bdaca9b15fe67707b54af01f8104c52a33009ef16c6b4d8544e8d415857f4"
+  },
+  "untested": [
+    "real phone keyboards and microphones",
+    "real users and family actions",
+    "network failure and tenant authorization",
+    "learning effects"
+  ],
+  "unimplemented": [
+    "generative AI",
+    "durable storage",
+    "authentication and family isolation",
+    "real transmission and notifications",
+    "photos and raw-audio storage",
+    "pedometer sensing",
+    "real points/payment/reward provision"
+  ]
+}

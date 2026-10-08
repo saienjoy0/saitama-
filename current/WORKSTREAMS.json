@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-10-02",
+  "updated_on": "2026-10-08",
   "authority_mode": "navigation",
   "project_url": null,
   "goal": "2026-10-16の発表準備に向け、保護者への聞き取りから仮説を見直す。LP・募集・本体設計・発表を並行して管理する。",
@@ -38,9 +38,9 @@
       "name": "発表",
       "task_ids": [],
       "issues": [{"task_id": "PITCH-01", "number": 7}],
-      "next_action": "Draft PR #2のブランチでブラウザ確認と台本実測を行い、発表での扱いを決める。",
-      "sources": ["https://github.com/saienjoy0/saitama-/pull/2"],
-      "source_location": "demo/presentation/はPR #2のブランチにある。開始前に最新PRを再取得する。"
+      "next_action": "ユーザー添付最新版を原本として保持し、3体験・3役の模擬UIを機能単位で改善する。ブラウザー検証と変更根拠をPRへ残す。ライブAI・永続保存・実家庭送信は別工程。",
+      "sources": ["docs/review/family-ui-handoff-20261008/README.md", "docs/review/family-ui-handoff-20261008/PLAN.md", "https://github.com/saienjoy0/saitama-/pull/13"],
+      "source_location": "最新基準はdocs/review/family-ui-handoff-20261008/baseline-upload.html（ユーザー添付の原本）、改善版は同ディレクトリindex.html。PR #2/#13の旧デモを最新版へ上書きしない。"
     }
   ]
 }

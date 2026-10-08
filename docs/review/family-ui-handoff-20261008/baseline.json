@@ -1,0 +1,31 @@
+{
+  "uploaded_name": "やってみクエスト_子ども_保護者_祖母_統合UI-2.html",
+  "baseline_file": "baseline-upload.html",
+  "bytes": 73479,
+  "sha256": "84ea7944900e69265f9c3e2c3a4363ebececc75e783febf0fa2229641aa5d8d4",
+  "baseline_immutable": true,
+  "working_file": "index.html",
+  "repo_base_commit": "8294a04625230b857c66b5210234bc9fdad47f97",
+  "reference_prs": {
+    "10": {
+      "head": "codex/product-design-dialogue-20261005",
+      "commit": "b5bd259e2a37950db4868a7201c862e78ccea48f",
+      "status_at_inspection": "open, not merged"
+    },
+    "11": {
+      "head": "codex/feature-organization-20261007",
+      "commit": "6b4697455a497bedb59326288cd013162392290d",
+      "status_at_inspection": "open, not merged"
+    },
+    "12": {
+      "head": "codex/action-first-scenarios-20261007",
+      "commit": "682066035dcb5dc96919521dbb8983025535bb31",
+      "status_at_inspection": "open, not merged"
+    },
+    "13": {
+      "head": "codex/three-scenario-intelligent-ui-demo-20261008",
+      "commit": "4ca07343ea70adcb884a3f52f60f91dc559d14de",
+      "status_at_inspection": "open, not merged"
+    }
+  }
+}
