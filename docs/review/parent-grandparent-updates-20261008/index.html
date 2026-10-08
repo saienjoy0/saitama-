@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>やってみクエスト｜保護者・家族の近況</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;background:#f0f4ef;color:#19352b;--green:#176b5b;--ink:#19352b;--muted:#5a7566;--line:#d9e5dc;--paper:#fffdf7;--soft:#edf5ee}
+*{box-sizing:border-box}body{margin:0}button{font:inherit;cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}
+#app{max-width:980px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;background:var(--paper);box-shadow:0 12px 32px #2f533914;overflow:hidden}
+.ribbon{flex:none;font-size:11px;padding:7px 14px;text-align:center;background:#f2e9d3;color:#69573e}
+header{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 18px 10px;border-bottom:1px solid var(--line);background:#fff}
+.brand{display:flex;gap:11px;align-items:center}.mark{width:43px;height:43px;border-radius:14px;background:var(--green);display:grid;place-items:center;font-size:23px;color:white}.brand strong{display:block;font-size:19px}.brand small{color:var(--muted);font-size:12px}.role{background:#edf6ef;border-radius:99px;font-size:13px;padding:8px 12px;font-weight:700;color:#266249}
+main{flex:1;min-height:0;overflow:auto;padding:23px 22px 35px;overscroll-behavior:contain}
+footer{flex:none;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 13px calc(9px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line)}
+footer button{border:1px solid var(--line);border-radius:13px;min-height:58px;background:#f5f8f3;color:#385a49;font-size:16px;font-weight:780}
+footer button[aria-current=page]{background:var(--green);border-color:var(--green);color:#fff}
+h1{font-size:28px;margin:5px 0 10px;line-height:1.4;letter-spacing:-.02em}h2{font-size:21px;line-height:1.4;margin:4px 0 11px}h3{font-size:18px;margin:4px 0 10px}p{font-size:16px;line-height:1.7;margin:7px 0}
+.eyebrow{font-size:12px;color:#33775b;font-weight:850;letter-spacing:.06em}.meta{font-size:13px;color:var(--muted);line-height:1.65}.muted{color:var(--muted)}.bold{font-weight:850}
+.card{background:#fff;border:1px solid var(--line);border-radius:19px;padding:19px;margin:12px 0}.soft{background:var(--soft)}.borderless{border:0;background:#f3f8f3}
+.row{display:flex;align-items:center;gap:12px}.between{justify-content:space-between}.flex{flex:1;min-width:0}
+.personIcon{display:grid;place-items:center;flex:none;width:50px;height:50px;background:#e2f1e8;border-radius:15px;font-size:25px}
+.name{font-size:20px;font-weight:850}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.subgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:16px 0}
+.info{padding:12px;border-radius:14px;background:#f3f8f3}.info .title{font-size:13px;color:#536d60}.info .big{font-size:22px;font-weight:850;line-height:1.45;margin-top:5px}.info .note{font-size:12px;color:#667c6c;line-height:1.5}
+.tag{display:inline-block;background:#e8f3eb;color:#2d674c;font-size:12px;font-weight:750;border-radius:99px;padding:6px 10px}.neutral{background:#f1f3ef;color:#52655a}.date{text-align:right;color:#6a7c6e;font-size:13px}
+.primary,.secondary,.quiet{min-height:48px;border:1px solid transparent;border-radius:12px;padding:10px 14px;font-size:15px;font-weight:800}
+.primary{background:var(--green);color:white}.secondary{background:#e4f1e8;color:#23634c;border-color:#bedfcc}.quiet{background:#fff;color:#466454;border-color:var(--line)}
+.full{width:100%}.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.divider{height:1px;background:var(--line);margin:16px 0}
+.notice{padding:13px 15px;border-radius:14px;background:#f2f6ee;color:#4b6858;font-size:13px;line-height:1.75;margin:14px 0}
+.warning{background:#fff5e1;color:#755113}.status{min-height:28px;color:#356b4d;font-size:13px;font-weight:700}
+.historyday{border:1px solid var(--line);border-radius:14px;padding:14px;margin:9px 0;background:white}
+.historyline{display:flex;gap:11px;align-items:flex-start;padding:10px 0;border-top:1px solid #e6efe7}
+.historyline:first-of-type{border-top:0}.historyline .bullet{width:11px;height:11px;border-radius:50%;background:#7bb49b;margin-top:7px;flex:none}
+.mini{font-size:14px}.empty{padding:13px;background:#f5f8f5;border-radius:13px;font-size:15px;color:#61776b}
+.badge{font-size:12px;letter-spacing:0;font-weight:700;padding:5px 9px;background:#f3f7ee;border-radius:9px;color:#50725e}
+.guide{margin-top:24px;border:1px dashed #cddfd1;border-radius:16px;padding:16px;background:#fcfdf9}
+.guide summary{font-weight:800;cursor:pointer;min-height:39px;font-size:16px}
+.guide p{font-size:14px}
+#grandDialog{position:fixed;inset:2% 0 0;z-index:50;border:0;width:min(94vw,510px);height:min(95vh,900px);padding:0;border-radius:19px;box-shadow:0 0 0 500px #142c2abb,0 22px 70px #10282066;overflow:hidden}
+#grandDialog:not([open]){display:none}
+.dialogHead{height:64px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:10px 15px;border-bottom:1px solid var(--line);gap:12px}
+.dialogHead strong{font-size:15px}
+#grandFrame{width:100%;height:calc(100% - 64px);border:0;background:#fff}
+.demoButtons{display:flex;flex-wrap:wrap;gap:8px;margin:11px 0}.demoButtons button{min-height:48px}
+#error{font-size:13px}
+button:focus-visible,summary:focus-visible{outline:3px solid #e9b248;outline-offset:2px}
+@media(max-width:650px){main{padding:16px 12px 27px}header{padding:10px 12px}.grid{grid-template-columns:1fr}.card{padding:15px}.subgrid{gap:7px}.info{padding:10px}h1{font-size:24px}.info .big{font-size:20px}.brand strong{font-size:17px}.brand small{font-size:11px}}
+@media(max-width:345px){.subgrid{grid-template-columns:1fr}.buttons>*{flex:1}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style></head>
+<body><div id="app">
+<div class="ribbon">合成・非本番デモ：実際の健康や安全の判定、家庭への通信は行いません</div>
+<header><div class="brand"><span class="mark">✦</span><div><strong>やってみクエスト</strong><small>家族の記録と確認</small></div></div><span class="role">保護者の画面</span></header>
+<main id="main" aria-live="polite"></main>
+<footer><button data-view="today" aria-current="page">🏠 今日の家族</button><button data-view="history">📖 これまでの近況</button></footer>
+</div>
+<dialog id="grandDialog" aria-label="祖母の操作デモ">
+ <div class="dialogHead"><strong>祖母の画面（操作確認用）</strong><button id="closeDemo" class="quiet">✕ 閉じる</button></div>
+ <iframe id="grandFrame" title="祖母の画面" loading="lazy" src="../grandparent-fixed-ui-20261008/index.html"></iframe>
+</dialog>
+<script>
+(function(){
+"use strict";
+const main=document.getElementById("main"),dialog=document.getElementById("grandDialog"),frame=document.getElementById("grandFrame");
+const names=[{id:"grandma",label:"おばあちゃん",role:"祖母",emoji:"👵"},{id:"grandpa",label:"おじいちゃん",role:"祖父",emoji:"👴"}];
+const FAMILY="family-demo";
+const state={view:"today",focus:"grandma",events:[],seenIds:new Set(),historyDays:7,showDemo:true,notice:""};
+function esc(x){return String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+const dayFormat=new Intl.DateTimeFormat("ja-JP",{timeZone:"Asia/Tokyo",year:"numeric",month:"2-digit",day:"2-digit",weekday:"short"});
+const timeFormat=new Intl.DateTimeFormat("ja-JP",{timeZone:"Asia/Tokyo",hour:"2-digit",minute:"2-digit",hour12:false});
+const keyOf=ms=>{const parts=new Intl.DateTimeFormat("en-US",{timeZone:"Asia/Tokyo",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date(ms));const get=t=>parts.find(p=>p.type===t).value;return get("year")+"-"+get("month")+"-"+get("day")};
+const todayKey=()=>keyOf(Date.now());
+const dateLabel=ms=>dayFormat.format(new Date(ms));
+const timeLabel=ms=>timeFormat.format(new Date(ms));
+const eventDateKey=e=>keyOf(e.sentAt);
+const morningOffset=(day,hour)=>{const now=new Date();return new Date(now.getTime()-day*86400000+hour*3600000).toISOString()};
+const eventsFor=id=>state.events.filter(e=>e.memberId===id).sort((a,b)=>Date.parse(b.sentAt)-Date.parse(a.sentAt));
+const latest=(id,kind)=>eventsFor(id).find(e=>e.kind===kind);
+const todays=(id,kind)=>eventsFor(id).find(e=>e.kind===kind&&eventDateKey(e)===todayKey());
+const safeBtn=(title,act,klass)=>'<button type="button" class="'+(klass||"secondary")+'" data-act="'+act+'">'+title+'</button>';
+function makeEvent(memberId,kind,value,days=0){
+ const stamp=new Date(Date.now()-days*86400000).toISOString();
+ return {familyId:FAMILY,memberId,kind,clientEventId:"demo-"+memberId+"-"+kind+"-"+Date.now()+"-"+Math.floor(Math.random()*100000),sentAt:stamp,source:"grandparent-demo",steps:kind==="steps"?value:undefined,stepSource:kind==="steps"?"manual":undefined,text:kind==="genki"?"今日も元気だよ":undefined}
+}
+function receive(raw){
+ if(!raw||typeof raw!=="object"||raw.familyId!==FAMILY||!names.some(n=>n.id===raw.memberId)||!["genki","steps"].includes(raw.kind))return false;
+ if(raw.source!=="grandparent-demo"||typeof raw.clientEventId!=="string"||raw.clientEventId.length>100||raw.clientEventId.length<4)return false;
+ if(typeof raw.sentAt!=="string"||!Number.isFinite(Date.parse(raw.sentAt))||Date.parse(raw.sentAt)>Date.now()+300000)return false;
+ if(raw.kind==="steps"&&(!Number.isInteger(raw.steps)||raw.steps<0||raw.steps>99999||raw.stepSource!=="manual"))return false;
+ if(raw.kind==="genki"&&raw.text!=="今日も元気だよ")return false;
+ if(state.seenIds.has(raw.clientEventId))return false;
+ const receivedAt=raw.clientEventId.startsWith('seed-')?raw.sentAt:new Date().toISOString();
+ const e={familyId:FAMILY,memberId:raw.memberId,kind:raw.kind,clientEventId:raw.clientEventId,sentAt:raw.sentAt,receivedAt,source:"grandparent-demo",steps:raw.kind==="steps"?raw.steps:null,stepSource:raw.kind==="steps"?"manual":null,text:raw.kind==="genki"?raw.text:null};
+ state.seenIds.add(e.clientEventId);state.events.push(e);
+ const who=names.find(x=>x.id===e.memberId);
+ state.notice=who.label+"からの"+(e.kind==="genki"?"「元気だよ」":"歩数")+"を受信しました（合成デモ）。";
+ render();return true
+}
+function memberCard(person){
+ const gen=todays(person.id,"genki"),lastGen=latest(person.id,"genki"),todaySteps=todays(person.id,"steps"),lastSteps=latest(person.id,"steps");
+ let card='<div class="card"><div class="row between"><div class="row"><span class="personIcon">'+person.emoji+'</span><div><div class="name">'+person.label+'</div><span class="meta">'+person.role+'・本人からの近況</span></div></div>'+((gen||todaySteps)?'<span class="tag">今日の近況あり</span>':'<span class="tag neutral">今日の近況は未着</span>')+'</div>';
+ card+='<div class="subgrid"><div class="info"><div class="title">今日の「元気だよ」</div><div class="big">'+(gen?"届きました":"まだ届いていません")+'</div><div class="note">'+(gen?"本人の送信 "+timeLabel(gen.sentAt):lastGen?"前回 "+dateLabel(lastGen.sentAt):"これまでに受信した記録なし")+'</div></div>';
+ card+='<div class="info"><div class="title">今日の歩数</div><div class="big">'+(todaySteps?todaySteps.steps.toLocaleString("ja-JP")+" 歩":"記録は未着")+'</div><div class="note">'+(todaySteps?"本人手入力・"+timeLabel(todaySteps.sentAt):lastSteps?"前回 "+dateLabel(lastSteps.sentAt)+"： "+lastSteps.steps.toLocaleString("ja-JP")+"歩":"歩数の受信記録なし")+'</div></div></div>';
+ if(gen||todaySteps)card+='<p class="meta">受信時刻：'+timeLabel((gen&&todaySteps?Date.parse(gen.receivedAt)>Date.parse(todaySteps.receivedAt)?gen:todaySteps:gen||todaySteps).receivedAt)+'。本人の送信記録であり、現在の体調・安全を保証しません。</p>';
+ else card+='<p class="meta">今日の連絡がないことだけでは、体調や安全について判断できません。</p>';
+ card+='<div class="buttons">'+safeBtn('これまでの近況を見る →','history:'+person.id)+'</div></div>';return card;
+}
+function today(){
+ let x='<div class="eyebrow">家族から届いた近況</div><h1>今日の家族</h1><p>おじいちゃん・おばあちゃんが送ってくれた記録を見られます。</p>';
+ x+='<div class="notice">「今日も元気だよ」は<strong>本人からの連絡</strong>です。健康状態や安全を診断するものではありません。歩数は本人の手入力として表示します。</div>';
+ if(state.notice)x+='<p class="status" role="status">'+esc(state.notice)+'</p>';
+ x+='<div class="grid">'+names.map(memberCard).join("")+'</div>';
+ x+='<div class="card soft"><h2>はるちゃんの確認・お願い</h2><p>クエストの許可、ご褒美の承認、どんなことをやったかの見せ方は、次の設計で決めます。</p><p class="meta">このデモでは承認ボタンや架空の承認結果を表示しません。</p></div>';
+ x+=demoControls();return x;
+}
+function history(){
+ const p=names.find(x=>x.id===state.focus)||names[0];
+ let x='<div class="eyebrow">家族の記録</div><h1>これまでの近況</h1><p>本人が送った「元気だよ」と歩数の履歴です。</p>';
+ x+='<div class="buttons">'+names.map(n=>safeBtn(n.emoji+" "+n.label,'member:'+n.id,n.id===p.id?"primary":"quiet")).join("")+'</div>';
+ x+='<div class="notice">記録がない日は「未着」と表示します。未着は異常や未読を意味しません。歩数が多い・少ないことから健康を推測しません。</div>';
+ const recorded=eventsFor(p.id);const dayKeys=[];for(let i=0;i<state.historyDays;i++)dayKeys.push(keyOf(Date.now()-86400000*i));
+ for(const dateKey of dayKeys){
+  const list=recorded.filter(e=>eventDateKey(e)===dateKey);
+  const label=dateLabel(new Date(dateKey+"T12:00:00+09:00"));
+  x+='<div class="historyday"><h3>'+esc(label)+'</h3>';
+  if(!list.length)x+='<div class="empty">この日の受信記録はありません</div>';
+  for(const e of list){
+   x+='<div class="historyline"><span class="bullet"></span><div class="flex"><strong>'+(e.kind==="genki"?"♥ 「今日も元気だよ」":'👣 '+e.steps.toLocaleString("ja-JP")+'歩')+'</strong><div class="meta">送信：'+timeLabel(e.sentAt)+' ／ この画面の受信：'+timeLabel(e.receivedAt)+'</div>'+(e.kind==="steps"?'<div class="meta">記録元：本人の手入力</div>':'')+'</div></div>';
+  }
+  x+='</div>';
+ }
+ x+=demoControls();return x;
+}
+function demoControls(){
+ return '<details class="guide"><summary>合成デモの動作を試す</summary><p>祖父母が操作した場合の受信を再現します。実際の家族には連絡しません。</p><div class="demoButtons">'+safeBtn('祖母から「元気だよ」を受信','fake:grandma:genki')+safeBtn('祖母から5,200歩を受信','fake:grandma:steps')+safeBtn('祖父から「元気だよ」を受信','fake:grandpa:genki')+'</div><p class="meta">祖母が実際に操作する流れを試す場合は下のボタンから祖母デモを開いてください。</p>'+safeBtn('祖母の画面を開く（同梱デモ）','openDemo','quiet')+'</details>';
+}
+function render(){
+ document.querySelectorAll('footer [data-view]').forEach(b=>{if(b.dataset.view===state.view)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+ const p=main.scrollTop;main.innerHTML=state.view==='today'?today():history();main.scrollTop=p;
+}
+function switchView(v){if(!["today","history"].includes(v))return;state.view=v;main.scrollTop=0;render()}
+document.querySelector('footer').addEventListener('click',e=>{const b=e.target.closest('[data-view]');if(b)switchView(b.dataset.view)});
+main.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;
+ const [act,a,c]=b.dataset.act.split(':');
+ if(act==="history"){state.focus=a;switchView("history")}
+ if(act==="member"){state.focus=a;render()}
+ if(act==="fake"){receive(makeEvent(a,c,c==="steps"?5200:null))}
+ if(act==="openDemo")dialog.showModal();
+});
+document.getElementById("closeDemo").addEventListener('click',()=>dialog.close());
+window.addEventListener("message",e=>{
+ if(e.source!==frame.contentWindow||!e.data||e.data.type!=="yattemi:grandparent-demo-event")return;
+ const original=e.data.detail||{};
+ const converted={familyId:FAMILY,memberId:"grandma",kind:original.kind==="steps"?"steps":original.kind==="genki"?"genki":null,clientEventId:original.clientEventId,sentAt:original.sentAt,source:"grandparent-demo",steps:original.steps,stepSource:original.stepSource,text:original.text};
+ receive(converted);
+});
+function seed(){
+ const ago=(n)=>new Date(Date.now()-n*86400000).toISOString();
+ receive({familyId:FAMILY,memberId:"grandma",kind:"genki",clientEventId:"seed-genki-grandma",sentAt:ago(1),source:"grandparent-demo",text:"今日も元気だよ"});
+ receive({familyId:FAMILY,memberId:"grandma",kind:"steps",clientEventId:"seed-steps-grandma",sentAt:ago(1),source:"grandparent-demo",steps:5200,stepSource:"manual"});
+ receive({familyId:FAMILY,memberId:"grandma",kind:"genki",clientEventId:"seed-genki-old",sentAt:ago(3),source:"grandparent-demo",text:"今日も元気だよ"});
+ state.notice="";main.scrollTop=0;
+}
+window.YattemiParentDemo={receive,makeEvent,getState:()=>({view:state.view,focus:state.focus,count:state.events.length,todayGenki:!!todays("grandma","genki"),todaySteps:todays("grandma","steps")?.steps??null}),getEvents:()=>state.events.map(e=>({...e})),clear:()=>{state.events=[];state.seenIds=new Set();state.notice="";render()},switchView};
+seed();render();
+})();
+</script></body></html>
