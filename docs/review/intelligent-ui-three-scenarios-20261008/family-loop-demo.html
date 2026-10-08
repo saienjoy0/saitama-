@@ -16,6 +16,7 @@ footer{flex:none;border-top:1px solid var(--line);background:#fff;padding:7px 10
 <button data-role="child" aria-pressed="true">👧 はる</button><button data-role="mother" aria-pressed="false">👩 母</button><button data-role="father" aria-pressed="false">👨 父</button><button data-role="grandma" aria-pressed="false">👵 祖母</button></nav></header><main id="main"></main><footer id="footer"></footer></div>
 <script>
 'use strict';
+const $=id=>document.getElementById(id);
 var scenes={
 initial:{name:"① 家族との約束",points:0,title:"何を任せてもらえる？",headline:"はるの新しい挑戦",share:"今度は献立を自分で考えたいと話し、家族と一食から挑戦することを相談しました。",turns:[
 ["いつも頼まれた物だけ買っているけれど、献立も決めたい","今までの経験を話してくれたんだね。どこまで任せてもらえるか家族に聞いてみよう。","本人の希望はわかった。でも家族の約束は未確認。","母に希望を伝える"],
