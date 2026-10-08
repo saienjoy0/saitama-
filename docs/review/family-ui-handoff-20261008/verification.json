@@ -109,5 +109,11 @@
     "photos and raw-audio storage",
     "pedometer sensing",
     "real points/payment/reward provision"
-  ]
+  ],
+  "github": {
+    "pull_request": "https://github.com/saienjoy0/saitama-/pull/14",
+    "baseline_readback": "byte-for-byte match, 73479 bytes",
+    "ui_readback": "byte-for-byte match",
+    "auto_merge": false
+  }
 }
