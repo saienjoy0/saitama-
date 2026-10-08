@@ -51,9 +51,9 @@ function B(label,act,style,disabled){return '<button class="act '+(style||"")+'"
 function pts(){return (S.award.research==="earned"?20:0)+(S.award.dinner==="earned"?40:0)}
 function avail(){return pts()-(["reserved","approved","delivered"].includes(S.reward)?50:0)}
 function stamp(text){return '<span class="tag">'+e(text)+'</span>'}
-function savedView(id){const d=scenes[id],status={private:"非公開",pending:"母の共有確認待ち",returned:"修正の再確認待ち",published:"祖母へ共有済み",held:"共有を保留"}[S.share[id]];let x='<div class="box"><strong>'+e(d.headline)+'</strong><p class="sub">自分のアルバムに保存済み／祖母への共有：'+e(status)+'</p><p>'+e(d.share)+'</p>';
- if(S.share[id]==="private"||S.share[id]==="held")x+=B("祖母にも見せたい","share:"+id,"secondary");
- if(S.share[id]==="returned")x+='<p class="sub">母から修正文の提案：'+e(S.edited[id])+'</p>'+B("変更後の文を確認して再依頼","resubmit:"+id,"secondary");
+function savedView(id,childActions=true){const d=scenes[id],status={private:"非公開",pending:"母の共有確認待ち",returned:"修正の再確認待ち",published:"祖母へ共有済み",held:"共有を保留"}[S.share[id]];let x='<div class="box"><strong>'+e(d.headline)+'</strong><p class="sub">自分のアルバムに保存済み／祖母への共有：'+e(status)+'</p><p>'+e(d.share)+'</p>';
+ if(childActions&&(S.share[id]==="private"||S.share[id]==="held"))x+=B("祖母にも見せたい","share:"+id,"secondary");
+ if(S.share[id]==="returned")x+='<p class="sub">母から修正文の提案：'+e(S.edited[id])+'</p>'+(childActions?B("変更後の文を確認して再依頼","resubmit:"+id,"secondary"):'');
  return x+'</div>'}
 function child(){
  const d=scenes[S.scene],i=S.step[S.scene],last=i>0?d.turns[i-1]:null;
@@ -81,7 +81,7 @@ function mother(){
  x+='<div class="box"><h2>祖母への共有確認</h2>';const pending=Object.keys(S.share).filter(id=>S.share[id]==="pending");
  if(!pending.length)x+='<p class="sub">新しい共有依頼はありません。</p>';
  for(const id of pending){let d=scenes[id];x+='<div class="box"><strong>'+e(d.headline)+'</strong><p class="sub">宛先：祖母／文章版 v'+S.version[id]+'</p><p>'+e(S.edited[id]||d.share)+'</p><details><summary>本人の原文・選択の出所</summary>本人の合成発言とAI補助を区別。未報告の家計・報酬は共有しない。</details><div class="controls">'+B("この内容を祖母へ見せる","publish:"+id)+B("文章を修正して子へ戻す","return:"+id,"secondary")+B("今回は保留","hold:"+id,"tertiary")+'</div></div>'}
- x+='</div><div class="box"><h2>家庭のアルバム</h2>'+Object.keys(S.saved).map(id=>S.saved[id]?savedView(id):"").join('')+'</div>';
+ x+='</div><div class="box"><h2>家庭のアルバム</h2>'+Object.keys(S.saved).map(id=>S.saved[id]?savedView(id,false):"").join('')+'</div>';
  x+='<div class="box"><h2>日付別新聞と新聞号</h2><p>共有承認済みの記事は号を作らなくても祖母が読めます。</p>'+Object.keys(S.share).filter(id=>S.share[id]==="published").map(id=>'<p>📰 '+e(scenes[id].headline)+'</p>').join('');
  if(Object.values(S.share).includes("published"))x+=B("許可済みの記事で今月号を発行（任意）","issue","secondary");
  x+='<p class="sub">新聞号：'+S.issues+'号。既に許可された素材だけを再利用。</p></div>';
