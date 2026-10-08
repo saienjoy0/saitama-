@@ -139,6 +139,22 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-v
 .grandparent #familyMain p{font-size:19px;line-height:1.8}
 .grandparent #familyMain .act{font-size:16px;min-height:56px}
 @media(max-height:500px){.quest{display:none}.next{max-height:48px}header{min-height:44px}.demoNotice{padding:1px 8px}}
+/* UIU-01/03/06: reveal actual changes, keep selection and reading position clear. */
+.parentTabs button[aria-pressed="true"]{background:var(--green);color:#fff;border:2px solid #114c40;box-shadow:inset 0 -3px 0 #fff}
+.reply-enter{animation:replyArrival 180ms ease-out}
+@keyframes replyArrival{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.reply-enter{animation:none}}
+@media(forced-colors:active){.parentTabs button[aria-pressed="true"]{border:3px solid Highlight}}
+.sampleLabel{display:block;color:#785523;background:#fff6df;padding:7px 9px;border-radius:9px;font-size:12px;line-height:1.6}
+.executionCheck{border:2px solid #80b99b;background:#f1faf3}
+.executionCheck textarea,.seedDraft textarea{width:100%;min-height:82px;font-size:16px;padding:10px;border:1px solid #b7d8c2;border-radius:10px}
+.recordDetail{margin-top:10px}.recordDetail summary{padding:9px;min-height:44px;color:var(--green);font-weight:750}
+.recordSnippet{overflow-wrap:anywhere}.next button{min-height:44px}
+.reasonDetails summary,.openingEvidence summary{min-height:44px}
+.seedOptions{display:grid;gap:6px}.seedOptions .act{margin:2px 0;text-align:left}
+.seedDraft label{font-size:15px}.seedDraft select{width:100%;font-size:16px}
+.sourceHint{padding:8px;background:#f3f7f2;border-radius:9px;font-size:13px}
+.postPreview .act{display:block;width:100%;margin:10px 0}.postPreview h2:focus{outline:3px solid #976016;outline-offset:3px}
 </style>
 </head>
 <body>
@@ -158,6 +174,7 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-v
 <div class="eyebrow" id="label">実践クエスト</div>
 <h1 id="title"></h1>
 <section id="quest" class="quest"><div class="ico" id="emoji"></div><div><strong id="questname"></strong><p id="questdesc"></p></div></section>
+<div id="familyInbox"></div>
 <section id="start" class="question"><small>✦ AIからの最初の提案</small><p id="firstQuestion"></p><span id="nudge"></span><details id="openingEvidence" class="openingEvidence"><summary>どうしてこの候補なの？</summary><p id="openingReasonText">前回の家庭調査（発表用の架空の記録）に米・玉ねぎ・にんじん・ルーがありました。今日の在庫は未確認です。家族の好み・経験は本人が話したときだけ使います。</p></details></section>
 <div id="promptLabel" class="eyebrow">話す言葉の例</div>
 <nav id="prompts" class="promptlist"></nav>
@@ -183,7 +200,7 @@ const scenes={
 };
 const steps=[['menu','献立'],['scope','家族の条件'],['stock','家の材料'],['needed','買う物'],['prices','店の値段'],['preference','店の候補'],['pickupRequest','相談する'],['pickupResponse','家族の返答'],['finalChoice','自分で決める'],['meatCompare','売り場で比較'],['meatChoice','商品を選ぶ'],['execute','実際にやる'],['reflect','記録']];
 const phases=steps.map(x=>x[0]);
-function newState(){return {phase:'menu',facts:{},turns:[],done:false}}
+function newState(){return {phase:'menu',facts:{},factSources:{},turns:[],done:false,pendingExecution:null}}
 // 発表用の架空の過去記録。今日の在庫を確認した事実とは区別する。
 const demoHistory={dinner:{pastIngredients:['米','玉ねぎ','にんじん','ルー'],origin:'前回の家庭調査（合成記録）',currentConfirmed:false}};
 
@@ -330,7 +347,7 @@ function reasonUI(ex){
  lines+=part('hypothesis','AIの見込み（まだ確定ではない）',ex.possible);
  lines+=part('unverified','確認が必要',ex.unknown);
  lines+=part('alternative','他の選び方',ex.alternatives);
- return '<section class="reasonBox" aria-label="AIの提案理由"><div class="reasonTag">💡 この提案の理由</div><p class="reasonSummary">'+E(ex.headline)+'</p><details class="reasonDetails"><summary>何を根拠にしたの？</summary>'+lines+'</details></section>';
+ return '<section class="reasonBox" aria-label="AIの提案理由"><div class="reasonTag">💡 この提案の理由</div><p class="reasonSummary">'+E(ex.headline)+'</p>'+(ex.includesExamples?'<p class="sampleLabel">話す例からの情報を含みます。本人の家庭の事実としては未確認です。</p>':'')+'<details class="reasonDetails"><summary>何を根拠にしたの？</summary>'+lines+'</details></section>';
 }
 
 function dinner(text,st){
@@ -477,14 +494,29 @@ function simpleOther(text,st){
 }
 // Limited rules fail closed for negative, planned, or ambiguous action reports.
 function isUnconfirmed(t){return /まだ|未実施|未確認|していない|してない|しなかった|できなかった|買っていない|買ってない|買わなかった|作っていない|作ってない|作らなかった|聞いていない|聞いてない|伝えていない|伝えてない|試していない|試してない|わけではない|と言う予定|予定|つもり|かもしれない|やってない|嘘|うそ/.test(t)}
-function bubble(turn){return '<div class="bubble child"><b>🎙 はるちゃん</b><p>'+E(turn.text)+'</p></div><div class="bubble ai"><b>✦ AIの返答（発表用の模擬AI）</b><p>'+E(turn.model.say)+'</p></div>'}
-function render(){
+function bubble(turn,fresh=false){return '<div class="bubble child"><b>🎙 '+(turn.origin==='example'?'話す例（はるちゃんの事実は未確認）':'はるちゃん')+'</b><p>'+E(turn.text)+'</p></div><div class="bubble ai'+(fresh?' reply-enter':'')+'"><b>✦ AIの返答（模擬）</b><p>'+E(turn.model.say)+'</p></div>'}
+function executionUI(st){
+ const p=st.pendingExecution;if(!p)return '';
+ return '<section class="familyBox executionCheck"><h2>実際にやったことを確認しよう</h2><p>'+(p.origin==='example'?'今の言葉は「話す例」です。実際にした報告には、まだ入れていません。':'今の報告は、まだ確認前の下書きです。')+'</p>'+
+ (p.form?'<label for="executionReport">実際にしたことだけを書いてね</label><textarea id="executionReport">'+esc(p.inputText)+'</textarea>'+cyBtn('実際にした内容として記録する','confirmexecution:'+scene):cyBtn('実際にやったので、自分の言葉で報告する','actual:'+scene))+
+ cyBtn('まだ・あとで試す','notyet:'+scene,true)+'</section>';
+}
+function revealLatest(){
+ const id=scene;requestAnimationFrame(()=>{
+  if(scene!==id||cycle.role!=='child')return;
+  const main=$('main'),bubble=$('history').querySelector(':scope > .child');if(!bubble)return;
+  const top=main.scrollTop+bubble.getBoundingClientRect().top-main.getBoundingClientRect().top-8;
+  main.scrollTo({top:Math.max(0,top),behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
+ });
+}
+function render(options={}){
  const st=states[scene],has=st.turns.length>0,cur=st.turns.at(-1);
- $('history').innerHTML=has?'<div class="talkTitle">はるちゃんとAIのやり取り</div>'+(st.turns.length>1?'<details class="old"><summary>これまでの会話 '+(st.turns.length-1)+'件</summary>'+st.turns.slice(0,-1).map(bubble).join('')+'</details>':'')+bubble(cur)+'<button type="button" class="hint" id="editLast">最後の発言を訂正する</button>':'';
- $('result').innerHTML=has?'<section class="cards"><div class="over">▦ はるちゃんの情報から組み立てたUI</div><h2>'+E(cur.model.title)+'</h2>'+reasonUI(cur.reason)+cur.model.card+'<button class="hint" type="button" id="help">💡 ここで困ったら</button><p class="note">まだ実際にしていない行動は「未実施」。この画面は発表用の合成デモです。</p></section>':'';
+ $('history').innerHTML=has?'<div class="talkTitle">はるちゃんとAIのやり取り</div>'+(st.turns.length>1?'<details class="old"><summary>これまでの会話 '+(st.turns.length-1)+'件</summary>'+st.turns.slice(0,-1).map(t=>bubble(t)).join('')+'</details>':'')+bubble(cur,options.fresh)+'<button type="button" class="hint" id="editLast">最後の発言を訂正する</button>':'';
+ $('result').innerHTML=has?'<section class="cards"><div class="over">▦ 話した内容を整理</div><h2>'+E(cur.model.title)+'</h2>'+reasonUI(cur.reason)+cur.model.card+executionUI(st)+'<button class="hint" type="button" id="help">💡 ここで困ったら</button><p class="note">まだ実際にしていない行動は「未実施」。この画面は合成デモです。</p></section>':'';
  $('next').innerHTML=has?cur.model.next.map(text=>'<button type="button" data-fill="'+E(text)+'">'+E(text)+'</button>').join(''):'';
  $('stagePill').hidden=!has;
- if(has){const currentStep=Math.max(0,phases.indexOf(st.phase));$('stagePill').textContent=scene==='dinner'?(st.phase.startsWith('other')?'いまの段階：選んだ料理の材料を調べる':'いまの段階：'+steps[currentStep][1]+'（'+(currentStep+1)+' / '+steps.length+'）'):(st.done?'本人の報告を記録しました':({menu:'希望を話す',jobs:'家族に聞く',terms:'条件を相談',choice:'本人が選ぶ',money:'分かった範囲を整理',proposal:'改善案を選ぶ',adjust:'家族と調整',trial:'一度試す'}[st.phase]||'記録'));requestAnimationFrame(()=>{$('main').scrollTop=Math.max(0,$('history').offsetTop-70)})}
+ if(has){const currentStep=Math.max(0,phases.indexOf(st.phase));$('stagePill').textContent=st.pendingExecution?'実行報告はまだ確認前':st.kind==='followup'?(st.done?'次の問いで確かめたことを記録しました':'いまの段階：自分の問いを確かめる'):scene==='dinner'?(st.phase.startsWith('other')?'いまの段階：選んだ料理の材料を調べる':'いまの段階：'+steps[currentStep][1]+'（'+(currentStep+1)+' / '+steps.length+'）'):(st.done?'本人の選択・報告を記録しました':({menu:'希望を話す',jobs:'家族に聞く',terms:'条件を相談',choice:'本人が選ぶ',money:'分かった範囲を整理',proposal:'改善案を選ぶ',adjust:'家族と調整',trial:'一度試す'}[st.phase]||'記録'));}
+ if(options.reveal)revealLatest();
 }
 function paint(){
  const config=scenes[scene],st=states[scene],has=st.turns.length>0;
@@ -496,9 +528,41 @@ function paint(){
  render();
 }
 function replayBeforeLast(id){
- const prior=states[id].turns.slice(0,-1),rebuilt=newState();
- for(const turn of prior){const before=rebuilt.phase;if(!isUnconfirmed(normalize(turn.text)))extract(turn.text,rebuilt.facts);const model=id==='dinner'?dinner(turn.text,rebuilt):simpleOther(turn.text,rebuilt);const reason=explain(turn.text,rebuilt,before);rebuilt.turns.push({...turn,model,reason,phaseBefore:before})}
+ const original=states[id],prior=original.turns.slice(0,-1),rebuilt=newState();
+ if(original.kind==='followup'){rebuilt.kind='followup';rebuilt.phase='result';rebuilt.source=copy(original.source);rebuilt.facts={question:original.facts.question,chosenAction:original.facts.chosenAction};}
+ for(const turn of prior)appendTurn(id,rebuilt,turn.text,turn.origin);
  states[id]=rebuilt;
+}
+function isExecutionReport(id,st,text){
+ const t=normalize(text);if(isUnconfirmed(t))return false;
+ if(id==='dinner'&&['execute','otherExecute'].includes(st.phase))return /買った|購入した|支払った/.test(t)&&/作った|調理した/.test(t);
+ if(id==='research'&&st.phase==='trial')return /伝えた|知らせた|試した|行った/.test(t);
+ return st.kind==='followup'&&st.phase==='result'&&/聞いた|確認した|見た|比べた|調べた|分かった|わかった|試した/.test(t);
+}
+function followupModel(text,st){
+ if(st.done)return reply('今の言葉を自分の記録に追記したよ。共有するかは別に選べるよ。','次の問いの記録',box('本人の言葉',text),[],st.phase);
+ if(!isExecutionReport(scene,st,text))return reply('まだ確かめていないことは、空欄のままで大丈夫。家族と相談して、選んだ方法を試してから戻ってきてね。','自分の問いを確かめよう',box('本人が選んだ問い',st.facts.question)+action(st.facts.chosenAction),['まだ試していない'],st.phase);
+ st.facts.executionText=text;st.done=true;st.phase='complete';
+ return reply('自分で確かめたという報告を残したよ。おばあちゃんの経験と、今回確かめたことは別の情報だよ。','次の問いで分かったこと',box('本人の問い',st.facts.question)+box('選んだ確かめ方',st.facts.chosenAction)+box('今回の本人の報告',text)+source('まだ共有していません。次の問いに自動でポイントは付きません。'),[],st.phase);
+}
+function appendTurn(id,st,text,origin){
+ const before=st.phase,priorFacts=copy(st.facts),t=normalize(text),isReport=origin!=='choice'&&isExecutionReport(id,st,text),confirmed=origin==='confirmed'&&st.pendingExecution&&isReport;
+ let model;
+ if(isReport&&!confirmed){
+  st.pendingExecution={text,origin,form:origin!=='example',inputText:origin==='example'?'':text};
+  model=reply(origin==='example'?'これは例を使った模擬返答だよ。実際にしたことは、自分の言葉で確認してから残そう。':'話してくれた内容を下書きにしたよ。実際にしたことだけになっているか確かめよう。','実行報告の前に本人が確認しよう',box('確認前の言葉'+(origin==='example'?'（例）':''),text)+source('未実施のままです。完了・ポイント確定・共有はしていません。'),[],before);
+ }else{
+  st.pendingExecution=null;
+  if(!isUnconfirmed(t)){
+   if(st.kind!=='followup')extract(text,st.facts);
+  }
+  model=st.kind==='followup'?(origin==='choice'?reply('自分の問いと確かめ方を選んだね。まだ実行していないので、家族と相談してから試そう。','次に確かめることを自分で選んだよ',box('本人が選んだ問い',st.facts.question)+action(st.facts.chosenAction),['まだ試していない'],st.phase):followupModel(text,st)):id==='dinner'?dinner(text,st):simpleOther(text,st);
+  if(confirmed){st.facts.executionConfirmed=true;st.factSources.executionText='reported';}
+ }
+ for(const key of Object.keys(st.facts))if(JSON.stringify(priorFacts[key])!==JSON.stringify(st.facts[key]))st.factSources[key]=origin==='example'?'example':'reported';
+ const reason=st.kind==='followup'?{headline:'家族の経験を今の事実と決めつけず、自分の問いを確かめるためだよ。',known:['本人が選んだ問い：'+st.facts.question,'本人が選んだ方法：'+st.facts.chosenAction],possible:[],unknown:st.done?[]:['まだ実際に確かめていないこと'],alternatives:['別の問い・あとで・共有しない']} : explain(text,st,before);
+ reason.includesExamples=origin==='example'||Object.values(st.factSources).includes('example');
+ st.turns.push({text,model,reason,origin,phaseBefore:before});
 }
 function send(origin='text'){
  const text=$('input').value.trim();if(!text){$('status').textContent='話したいことを一つ聞かせてね。';return}
@@ -507,10 +571,7 @@ function send(origin='text'){
   if(['pending','held'].includes(cycle.award[scene])){cycle.award[scene]='none';delete cycle.reports[scene]}
   if(scene==='family'){cycle.agreement='pending';cycle.agreementRecord=null}
  }
- const st=states[scene],before=st.phase;if(!isUnconfirmed(normalize(text)))extract(text,st.facts);
- const model=scene==='dinner'?dinner(text,st):simpleOther(text,st);
- const reason=explain(text,st,before);
- st.turns.push({text,model,reason,origin,phaseBefore:before});$('input').value='';$('input').blur();$('start').hidden=true;$('promptLabel').hidden=true;$('prompts').hidden=true;$('status').textContent='';render();
+ const st=states[scene];appendTurn(scene,st,text,origin);$('input').value='';$('input').blur();$('start').hidden=true;$('promptLabel').hidden=true;$('prompts').hidden=true;$('status').textContent=origin==='example'?'例で試しています。模擬AIが返答しました。':'模擬AIが返答しました。';render({fresh:true,reveal:true});
 }
 $('send').onclick=()=>send();
 $('input').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();send()}});
@@ -538,40 +599,62 @@ const cycle={role:'child',parentTab:'checks',agreement:'pending',agreementRecord
  save:{dinner:false,family:false,research:false},records:{},text:{},versions:{dinner:0,family:0,research:0},
  share:{dinner:'private',family:'private',research:'private'},consents:{},published:{},
  award:{dinner:'none',research:'none'},reports:{},pointsUsed:'none',posts:[],replies:[],issues:[],
- grandTab:'today',dateFilter:'all',postDraft:null,postText:'',postSteps:'',postRecipients:['parent'],statusRecords:[],replyDrafts:{},editDrafts:{},message:''};
+ grandTab:'today',dateFilter:'all',postDraft:null,postText:'',postSteps:'',postRecipients:['parent'],postEditScroll:0,statusRecords:[],replyDrafts:{},replyKinds:{},editDrafts:{},seedDraft:null,savedSeedDraft:null,seedCounter:0,deferredReplies:[],followups:[],message:''};
 const titles={dinner:'おばあちゃんと夕飯を考えた日',family:'家族と初めての約束',research:'家の仕事を調べた日'};
 const copy=x=>JSON.parse(JSON.stringify(x));
 const today=()=>new Date().toLocaleDateString('sv-SE');
-function snapshot(id){return {id,date:today(),turns:copy(states[id].turns),facts:copy(states[id].facts),done:states[id].done}}
+function snapshot(id){return {id,date:today(),turns:copy(states[id].turns),facts:copy(states[id].facts),factSources:copy(states[id].factSources),done:states[id].done,kind:states[id].kind||'quest',source:copy(states[id].source||null)}}
 function cyBtn(msg,cmd,alt=false){return '<button type="button" class="act'+(alt?' alt':'')+'" data-cycle="'+esc(cmd)+'">'+esc(msg)+'</button>'}
 function cyStatus(id){return ({private:'非公開',requested:'保護者の確認待ち',returned:'保護者が修正・本人の再確認待ち',published:'祖父母に公開済み',held:'共有保留'}[cycle.share[id]]||'非公開')}
 function cyPoints(){return (cycle.award.research==='earned'?20:0)+(cycle.award.dinner==='earned'?40:0)}
 function cyFree(){return cyPoints()-(['reserved','approved','delivered'].includes(cycle.pointsUsed)?50:0)}
-function cyActivityReady(id){return ['dinner','research'].includes(id)&&Boolean(states[id].facts.executionText)&&!isUnconfirmed(normalize(states[id].facts.executionText))}
+function cyActivityReady(id){return ['dinner','research'].includes(id)&&states[id].facts.executionConfirmed===true&&Boolean(states[id].facts.executionText)&&!isUnconfirmed(normalize(states[id].facts.executionText))}
 function recordedText(rec){
  if(!rec)return '';
- return rec.turns.map(t=>'本人の言葉：'+t.text).join('\n');
+ return rec.turns.map(t=>(t.origin==='example'?'話す例（事実は未確認）：':'本人の言葉：')+t.text).join('\n');
 }
 function cyRecordedText(id){return recordedText(cycle.records[id])}
 function cyPublicationDraft(id){
  const rec=cycle.records[id]; if(!rec)return '';
  const f=rec.facts;
  // Monetary household details are never automatically put into the public draft.
- if(f.executionText){const text='はるちゃんの実行報告：'+f.executionText+(f.reflectionText?'\n本人が考えたこと：'+f.reflectionText:'');return /収入|家賃|食費|光熱費|手取り|給料|給与|万円/.test(text)?'':text;}
- if(id==='family'&&f.firstChoice)return '本人が選んだこと：'+f.firstChoice;
- const last=rec.turns.at(-1).text;return /収入|家賃|食費|光熱費|手取り|給料|給与|万円/.test(last)?'':'本人の途中記録（実施・合意は未確認）：'+last;
+ if(f.executionText&&f.executionConfirmed){const text=(rec.kind==='followup'?'本人が確かめた問い：'+f.question+'\n':'')+'はるちゃんの実行報告：'+f.executionText+(f.reflectionText&&rec.factSources.reflectionText!=='example'?'\n本人が考えたこと：'+f.reflectionText:'');return /収入|家賃|食費|光熱費|手取り|給料|給与|万円/.test(text)?'':text;}
+ if(id==='family'&&f.firstChoice)return (rec.factSources.firstChoice==='example'?'約束の選び方の例（本人の希望は未確認）：':'本人が選んだこと：')+f.firstChoice;
+ const turn=rec.turns.at(-1),last=turn.text;return /収入|家賃|食費|光熱費|手取り|給料|給与|万円/.test(last)?'':(turn.origin==='example'?'話す例の途中記録（実施・合意は未確認）：':'本人の途中記録（実施・合意は未確認）：')+last;
 }
 function cyPreview(id){
  const rec=cycle.records[id],s=cycle.share[id];
- let h='<section class="familyBox"><strong>'+esc(titles[id])+'</strong><p class="tiny">'+esc(rec.date)+' ／ 保存版 '+cycle.versions[id]+'</p><span class="stateTag">'+cyStatus(id)+'</span><p style="white-space:pre-wrap">'+esc(cyRecordedText(id))+'</p>';
- if(['private','held'].includes(s))h+='<label for="share-'+id+'">祖父母に見せたい文章（家計などは除けます）</label><textarea id="share-'+id+'" data-draft="'+id+'">'+esc(cycle.editDrafts[id]??cycle.text[id]??cyPublicationDraft(id))+'</textarea><p class="tiny">相手：おばあちゃん。ここに書いた文章だけを保護者に確認してもらいます。</p>'+cyBtn('この文章をおばあちゃんにも見せたい','share:'+id,true);
+ const summary=rec.facts.executionConfirmed?rec.facts.executionText:rec.facts.question||rec.turns.at(-1).text;
+ let h='<section class="familyBox"><strong>'+esc(titles[id])+'</strong><p class="tiny">'+esc(rec.date)+' ／ 保存版 '+cycle.versions[id]+'</p><span class="stateTag">'+cyStatus(id)+'</span><p class="recordSnippet">'+esc(summary.length>120?summary.slice(0,120)+'…':summary)+'</p>'+sourceHint(rec.source)+(rec.facts.executionConfirmed?'':'<p class="tiny">途中の記録です。実際に行ったことは未確認です。</p>');
+ if(['private','held'].includes(s))h+='<p class="tiny">自分だけの記録にしておいても大丈夫。</p><label for="share-'+id+'">おばあちゃんに見せたい文章</label><textarea id="share-'+id+'" data-draft="'+id+'">'+esc(cycle.editDrafts[id]??cycle.text[id]??cyPublicationDraft(id))+'</textarea><p class="tiny">この文章だけを保護者に確認してもらいます。家計などは除けます。</p>'+cyBtn('この文章をおばあちゃんにも見せたい','share:'+id,true);
  if(s==='returned')h+='<strong>保護者の修正案</strong><p style="white-space:pre-wrap">'+esc(cycle.text[id])+'</p>'+cyBtn('この修正案で、もう一度お願いする','resubmit:'+id,true)+cyBtn('共有をやめる','withdraw:'+id,true);
  if(['published','requested'].includes(s))h+='<p style="white-space:pre-wrap">共有する文章：'+esc(cycle.text[id])+'</p>'+cyBtn(s==='published'?'共有を取り下げる':'共有依頼を取り下げる','withdraw:'+id,true);
- return h+'</section>';
+ return h+'<details class="recordDetail"><summary>会話をすべて読む（'+rec.turns.length+'件）</summary><p style="white-space:pre-wrap">'+esc(cyRecordedText(id))+'</p></details></section>';
+}
+function activeReply(id){return cycle.replies.find(r=>r.id===id&&!r.withdrawn&&r.kind!=='read'&&cycle.share[r.article]==='published'&&cycle.versions[r.article]===r.version)}
+function sourceHint(source){
+ if(!source)return '';
+ const r=activeReply(source.replyId);
+ return '<p class="sourceHint">'+(r?'出所：おばあちゃんの'+({experience:'経験',question:'質問',encouragement:'応援'}[r.kind])+' ／ '+esc(titles[source.article])+' ／ 版 '+source.version:'元の返信は現在取り下げられています。本人の問いと記録は自分だけに残せます。')+'</p>';
+}
+function renderInbox(){
+ const open=$('inboxFold')?.open,items=cycle.replies.filter(r=>!r.withdrawn&&(r.kind==='read'||activeReply(r.id))),posts=cycle.posts.filter(x=>x.recipients.includes('child'));
+ const draft=cycle.seedDraft;
+ let h='<details class="cycleAccordion" id="inboxFold"><summary>👵 おばあちゃんから '+(items.length+posts.length)+'件・次の問い</summary><div>';
+ h+=items.map(r=>'<section class="familyBox"><strong>'+esc(r.kind==='read'?'「読んだよ」':({experience:'おばあちゃんの経験',question:'おばあちゃんの質問',encouragement:'おばあちゃんの応援'}[r.kind]))+'</strong>'+(r.kind==='read'?'':'<p>'+esc(r.text)+'</p>')+'<p class="tiny">'+esc(titles[r.article])+' ／ '+esc(r.date)+' ／ 版 '+r.version+'</p>'+(r.kind==='read'?'':cycle.deferredReplies.includes(r.id)?'<p>あとで読むことにしました。</p>'+cyBtn('もう一度ひらく','reopenreply:'+r.id,true):'<div class="seedOptions">'+cyBtn('この一言から確かめることを考える','seed:'+r.id)+cyBtn('あとで読む','laterreply:'+r.id,true)+'</div>')+'</section>').join('');
+ h+=posts.map(x=>'<section class="familyBox"><strong>おばあちゃんの近況（本人発信）</strong><p>'+esc(x.text)+(x.steps!==null?' ／ 手入力 '+x.steps+'歩':'')+'</p><p class="tiny">'+esc(x.date)+'</p></section>').join('');
+ if(!items.length&&!posts.length)h+='<p>おたよりがなくても、自分の問いから始められます。</p>';
+ h+=cyBtn('別のこと・自分の問いを考える','ownseed',true);
+ if(cycle.savedSeedDraft&&!draft)h+=cyBtn('書きかけの問いを続ける','resumeseed',true);
+ if(draft)h+='<section class="familyBox seedDraft"><h2 id="seedHeading" tabindex="-1">次に何を確かめたい？</h2>'+(draft.source?sourceHint(draft.source):'<p>自分の問いから始めます。</p>')+'<label for="seedQuestion">自分が気になったこと</label><textarea id="seedQuestion" placeholder="気になったことを、自分の言葉で">'+esc(draft.question)+'</textarea><label for="seedMethod">確かめ方を選ぶ</label><select id="seedMethod">'+['家族に聞く','表示や記録を親と比べる','親と一緒に観察する'].map(x=>'<option '+(draft.method===x?'selected':'')+'>'+x+'</option>').join('')+'</select>'+cyBtn('この問いと方法で始める','beginseed')+cyBtn('あとで考える','cancelseed',true)+'</section>';
+ if(cycle.followups.length)h+='<section class="familyBox"><h2>自分が選んだ次の問い</h2>'+cycle.followups.map(id=>'<p>'+esc(states[id].facts.question)+' ／ '+(states[id].done?'実行報告を記録':'まだ確かめていない')+'</p>'+cyBtn('この問いを開く','start:'+id,true)).join('')+'</section>';
+ $('familyInbox').innerHTML=h+'</div></details>';
+ if(open||draft)$('inboxFold').open=true;
 }
 function renderChildCycle(){
  const id=scene,st=states[id],has=st.turns.length>0,rec=cycle.records[id],dirty=rec&&JSON.stringify(rec.turns)!==JSON.stringify(st.turns);
  const folds=['albumFold','rewardFold'].filter(x=>$(x)?.open);
+ renderInbox();
  $('cycleSave').innerHTML=has?'<section class="familyBox"><h2>📖 自分の発見を残そう</h2><p>途中でも保存できます。共有はあとで選べます。</p>'+(rec&&!dirty?'<span class="stateTag">保存した版は変わりません（この画面内のみ）</span>':cyBtn(rec?'今の会話で記録を更新する':'自分のアルバムに保存する','save:'+id))+(dirty?'<p class="tiny">更新すると、共有意思と保護者の承認を取り直します。公開中の旧版も取り下げます。</p>':'')+
  (cyActivityReady(id)&&['none','held'].includes(cycle.award[id])?cyBtn('実行した報告を保護者に確認してもらう','report:'+id,true):'')+
  (cycle.award[id]==='pending'?'<p class="tiny">活動の確認待ち。まだポイントは確定していません。</p>':'')+
@@ -583,13 +666,16 @@ function renderChildCycle(){
  '<details class="cycleAccordion" id="rewardFold"><summary>🎁 お金とごほうび　使える '+cyFree()+'P</summary><div><p>確定 '+cyPoints()+'P ／ 使える '+cyFree()+'P</p><p class="tiny">調査20P・夕飯40P・カフェ50Pは架空の事前合意例。実行報告と保護者の確認が必要です。アルバム保存・共有・返信は条件ではありません。円との換算はありません。</p>'+
  (['none','cancelled'].includes(cycle.pointsUsed)?(cyFree()>=50?cyBtn('カフェ50Pをお願いする','request',true):'<p>カフェは50Pから。今は交換できません。</p>'):'<p>カフェ：'+({reserved:'50P予約・保護者の確認待ち',approved:'交換承認済み・まだ提供されていない',delivered:'提供を保護者が確認済み（デモ）'}[cycle.pointsUsed])+'</p>')+
  (cycle.pointsUsed==='reserved'?cyBtn('依頼を取り消して50Pを戻す','cancel',true):'')+'</div></details>'+
- (cycle.replies.length||cycle.posts.length?'<section class="familyBox"><h2>👵 おばあちゃんから</h2>'+cycle.replies.map(x=>'<p>'+esc(x.kind==='read'?'「読んだよ」':x.text)+'<span class="tiny"> ／ '+esc(titles[x.article])+' ／ '+esc(x.date)+'</span></p>').join('')+cycle.posts.filter(x=>x.recipients.includes('child')).map(x=>'<p>'+esc(x.text)+(x.steps!==null?' ／ 手入力 '+x.steps+'歩':'')+'<span class="tiny"> ／ '+esc(x.date)+'</span></p>').join('')+'</section>':'')+
  (cycle.message?'<p role="status" class="familyBox">'+esc(cycle.message)+'</p>':'');
  folds.forEach(x=>{$(x).open=true});
 }
 function parentInsight(id,rec=cycle.records[id]||snapshot(id)){
  const t=rec.turns.at(-1);if(!t)return '<p>まだ記録がありません。</p>';
- return '<div class="parentChild"><div class="by">🎙 本人の発言（報告）</div><p>'+esc(t.text)+'</p></div><div class="parentAi"><strong>✦ 模擬AIの返答</strong><p>'+esc(t.model.say)+'</p>'+reasonUI(t.reason)+'</div>';
+ return sourceHint(rec.source)+'<div class="parentChild"><div class="by">🎙 '+(t.origin==='example'?'話す例（本人の事実は未確認）':'本人の発言（報告）')+'</div><p>'+esc(t.text)+'</p></div><div class="parentAi"><strong>✦ 模擬AIの返答</strong><p>'+esc(t.model.say)+'</p>'+reasonUI(t.reason)+'</div>';
+}
+function parentRewardCard(){
+ return '<section class="familyBox" id="rewardCheck"><h2>🎁 '+(cycle.pointsUsed==='reserved'?'カフェの交換依頼':cycle.pointsUsed==='approved'?'カフェの提供確認':'家族のごほうび')+'</h2><p>確定 '+cyPoints()+'P ／ 使える '+cyFree()+'P</p><p class="tiny">カフェ50Pは架空の事前合意例。交換の承認と実際の提供は別です。</p>'+
+ (cycle.pointsUsed==='reserved'?cyBtn('交換を承認する（提供待ち）','approve')+cyBtn('今回は却下・50Pを戻す','reject',true):cycle.pointsUsed==='approved'?cyBtn('実際に提供したことを確認する','deliver')+cyBtn('未提供で取消・50Pを返す','refund',true):'<p>'+(cycle.pointsUsed==='delivered'?'提供確認済み':'交換の確認待ちはありません。')+'</p>')+'</section>';
 }
 function parentReviewCard(id){
  return '<section class="familyBox"><h2>📰 '+esc(titles[id])+'</h2>'+parentInsight(id)+'<p>相手：おばあちゃん ／ 内容版 '+cycle.versions[id]+'</p><strong>本人が共有したいと選んだ文章</strong><p style="white-space:pre-wrap">'+esc(cycle.text[id])+'</p><label for="edit-'+id+'">修正して返す場合の文章</label><textarea id="edit-'+id+'" data-draft="'+id+'">'+esc(cycle.editDrafts[id]??cycle.text[id])+'</textarea>'+cyBtn('この文章をおばあちゃんに見せる','publish:'+id)+cyBtn('修正した文章を本人に返す','return:'+id,true)+cyBtn('今回は共有を保留する','hold:'+id,true)+'</section>';
@@ -602,34 +688,37 @@ function renderOtherCycle(){
   const waiting=Object.keys(cycle.share).filter(id=>cycle.share[id]==='requested');
   const verify=['research','dinner'].filter(id=>cycle.award[id]==='pending');
   const agreementReady=states.family.done&&states.family.facts.termsText&&cycle.agreement==='pending';
-  const count=waiting.length+verify.length+(agreementReady?1:0)+(cycle.pointsUsed==='reserved'?1:0);
-  h='<div class="eyebrow">保護者｜必要な時だけ確認</div><h1>家族の記録と確認</h1><div class="parentOverview"><strong>今日の確認 '+count+'件</strong><p>共有 '+waiting.length+'件 ／ 活動 '+verify.length+'件。共有・任せ方・ポイントは別々に確認します。</p></div><nav class="parentTabs" aria-label="保護者の用事">'+[['checks','確認する'],['album','アルバム'],['family','家族・特典']].map(([id,label])=>'<button data-parent-tab="'+id+'" aria-pressed="'+(cycle.parentTab===id)+'">'+label+'</button>').join('')+'</nav>';
+  const rewardReady=['reserved','approved'].includes(cycle.pointsUsed),count=waiting.length+verify.length+(agreementReady?1:0)+(rewardReady?1:0);
+  h='<div class="eyebrow">保護者｜必要な時だけ確認</div><h1>家族の記録と確認</h1><div class="parentOverview"><strong>今日の確認 '+count+'件</strong><p>共有 '+waiting.length+'件 ／ 活動 '+verify.length+'件 ／ 任せ方 '+(agreementReady?1:0)+'件 ／ ごほうび '+(rewardReady?1:0)+'件</p><p>共有・活動・交換・提供は、それぞれ別に確認します。</p></div><nav class="parentTabs" aria-label="保護者の用事">'+[['checks','確認する'],['album','アルバム'],['family','家族・特典']].map(([id,label])=>'<button data-parent-tab="'+id+'" aria-pressed="'+(cycle.parentTab===id)+'">'+label+'</button>').join('')+'</nav>';
   if(cycle.parentTab==='checks'){
+   if(rewardReady)h+=parentRewardCard();
    if(agreementReady)h+='<section class="familyBox"><h2>🏠 最初の任せ方の約束</h2>'+parentInsight('family',snapshot('family'))+'<strong>親から聞いた条件（本人の報告）</strong><p>'+esc(states.family.facts.termsText)+'</p><strong>本人が選んだこと</strong><p>'+esc(states.family.facts.firstChoice)+'</p>'+cyBtn('この条件で任せ方を確認する','agree')+'</section>';
    h+='<h2 class="parentSectionTitle">新聞に見せる内容</h2>'+(waiting.length?waiting.map(parentReviewCard).join(''):'<p>共有の確認待ちはありません。</p>')+'<h2 class="parentSectionTitle">活動とポイント</h2>'+(verify.length?verify.map(parentAwardCard).join(''):'<p>活動の確認待ちはありません。本人の実行報告から確認を依頼できます。</p>');
   }else if(cycle.parentTab==='album'){
    h+='<h2>📚 成長アルバム</h2>'+Object.keys(cycle.records).map(id=>'<section class="familyBox"><h2>'+esc(titles[id])+'</h2><p>'+esc(cycle.records[id].date)+' ／ 保存版 '+cycle.versions[id]+'</p>'+parentInsight(id)+'<details><summary>本人の言葉をすべて読む</summary><p style="white-space:pre-wrap">'+esc(cyRecordedText(id))+'</p></details><p>'+cyStatus(id)+'</p></section>').join('');
    if(!Object.keys(cycle.records).length)h+='<p>まだ保存した記録はありません。</p>';
   }else{
-   h+='<section class="familyBox"><h2>🎁 家族のごほうび</h2><p>確定 '+cyPoints()+'P ／ 使える '+cyFree()+'P</p><p>カフェ50Pは家庭の合成例。予約、交換承認、提供を分けます。</p>'+
-    (cycle.pointsUsed==='reserved'?cyBtn('交換を承認する（提供待ち）','approve')+cyBtn('今回は却下・50Pを戻す','reject',true):cycle.pointsUsed==='approved'?cyBtn('実際に提供したことを確認する','deliver')+cyBtn('未提供で取消・50Pを返す','refund',true):'<p>'+ (cycle.pointsUsed==='delivered'?'提供確認済み':'交換の確認待ちはありません。')+'</p>')+'</section>';
+   h+=parentRewardCard();
    h+='<section class="familyBox"><h2>📰 許可済みの記事と新聞号</h2>'+visibleArticles().map(x=>'<p>'+esc(titles[x.id])+' ／ 版 '+x.version+'</p>').join('')+(visibleArticles().length?cyBtn('許可済み記事を新聞号にまとめる（任意）','issue',true):'<p>許可済みの記事はありません。</p>')+'<p>新聞号 '+cycle.issues.length+'号</p></section><section class="familyBox"><h2>👵 おばあちゃんの近況</h2>'+(cycle.posts.length?cycle.posts.filter(x=>x.recipients.includes('parent')).map(x=>'<p>'+esc(x.text)+(x.steps!==null?' ／ 手入力 '+x.steps+'歩':'')+' ／ '+esc(x.date)+'</p>').join(''):'<p>お知らせなし。未投稿から健康状態を推測しません。</p>')+'</section>';
   }
  }else{
   const articles=visibleArticles(),dates=[...new Set(articles.map(x=>x.date))];
   h='<div class="eyebrow">祖父母｜おばあちゃんの体験</div><h1>家族からのおたより</h1><nav class="parentTabs" aria-label="おたよりの見方">'+[['today','おたより'],['archive','これまで'],['status','私の近況']].map(([id,label])=>'<button data-grand-tab="'+id+'" aria-pressed="'+(cycle.grandTab===id)+'">'+label+'</button>').join('')+'</nav>';
   if(cycle.grandTab==='status'){
+   if(!cycle.postDraft){
    h+='<section class="familyBox"><h2>私から「元気だよ」</h2><label for="gpost">家族に伝えたいこと</label><textarea id="gpost">'+esc(cycle.postText)+'</textarea><label for="gsteps">歩数（任意・自分で入力）</label><input id="gsteps" type="number" min="0" step="1" inputmode="numeric" value="'+esc(cycle.postSteps)+'"><p>知らせたい相手を自分で選べます。</p><label><input id="recipient-parent" type="checkbox" '+(cycle.postRecipients.includes('parent')?'checked':'')+'> 保護者（自分の子）</label><label><input id="recipient-child" type="checkbox" '+(cycle.postRecipients.includes('child')?'checked':'')+'> はるちゃん（孫）</label>'+cyBtn('内容を確認する','previewpost')+cyBtn('元気だよの一言を用意する','ready',true)+cyBtn('自分の記録だけに残す','savestatus',true)+'</section>';
-   if(cycle.postDraft)h+='<section class="familyBox"><h2>送る前の確認</h2><p>'+esc(cycle.postDraft.text)+(cycle.postDraft.steps!==null?' ／ 手入力 '+cycle.postDraft.steps+'歩':'')+'</p><p>相手：'+cycle.postDraft.recipients.map(x=>x==='parent'?'保護者（自分の子）':'はるちゃん（孫）').join('、')+'</p>'+cyBtn('この内容を家族に知らせる（デモ）','post')+cyBtn('修正する','editpost',true)+'</section>';
    h+='<section class="familyBox"><h2>自分の近況記録</h2>'+cycle.statusRecords.map(x=>'<p>'+esc(x.text)+(x.steps!==null?' ／ '+x.steps+'歩':'')+' ／ '+esc(x.date)+' ／ '+(x.sent?'共有済み':'自分だけの記録')+'</p>').join('')+'</section>';
+   }else{
+    h+='<section class="familyBox postPreview"><h2 id="postPreviewHeading" tabindex="-1">送る前の確認</h2><p>まだ家族には知らせていません。</p><strong>伝える内容</strong><p style="white-space:pre-wrap">'+esc(cycle.postDraft.text)+'</p>'+(cycle.postDraft.steps!==null?'<p>歩数：手入力 '+cycle.postDraft.steps+'歩</p>':'')+'<strong>知らせる相手</strong><p>'+cycle.postDraft.recipients.map(x=>x==='parent'?'保護者（自分の子）':'はるちゃん（孫）').join('、')+'</p>'+cyBtn('この内容を家族に知らせる（デモ）','post')+cyBtn('修正する','editpost',true)+'</section>';
+   }
   }else{
    if(cycle.grandTab==='archive')h+='<section class="familyBox"><h2>これまでの新聞とアルバム</h2><label for="articleDate">日付で見返す</label><select id="articleDate"><option value="all">すべての日付</option>'+dates.map(d=>'<option '+(cycle.dateFilter===d?'selected':'')+' value="'+esc(d)+'">'+esc(d)+'</option>').join('')+'</select><p>親が許可した同じ出来事だけを読みます。家計・ポイントは表示しません。</p>'+cycle.issues.map((issue,i)=>'<details><summary>新聞 '+(i+1)+'号 ／ '+esc(issue.date)+'</summary>'+issue.articles.filter(x=>cycle.share[x.id]==='published'&&cycle.versions[x.id]===x.version).map(x=>'<h3>'+esc(titles[x.id])+'</h3><p>'+esc(x.text)+'</p>').join('')+'</details>').join('')+'</section>';
    const shown=articles.filter(x=>cycle.grandTab!=='archive'||cycle.dateFilter==='all'||cycle.dateFilter===x.date);
-   h+=shown.length?shown.map(x=>'<article class="familyBox news"><h2>'+esc(titles[x.id])+'</h2><p class="tiny">'+esc(x.date)+' ／ 許可済み版 '+x.version+'</p><p style="white-space:pre-wrap">'+esc(x.text)+'</p>'+(cycle.replies.some(r=>r.kind==='read'&&r.article===x.id&&r.version===x.version)?'<p>「読んだよ」を返しました</p>':cyBtn('読んだよ（任意）','read:'+x.id,true))+'<label for="reply-'+x.id+'">自分の経験や一言（任意）</label><textarea id="reply-'+x.id+'" data-reply="'+x.id+'">'+esc(cycle.replyDrafts[x.id]||'')+'</textarea>'+cyBtn('この一言を家族に返す（デモ）','reply:'+x.id,true)+'</article>').join(''):'<section class="familyBox"><p>まだ読めるおたよりはありません。返信しなくても大丈夫です。自分の近況はいつでも知らせられます。</p></section>';
+   h+=shown.length?shown.map(x=>'<article class="familyBox news"><h2>'+esc(titles[x.id])+'</h2><p class="tiny">'+esc(x.date)+' ／ 許可済み版 '+x.version+'</p><p style="white-space:pre-wrap">'+esc(x.text)+'</p>'+(cycle.replies.some(r=>r.kind==='read'&&r.article===x.id&&r.version===x.version)?'<p>「読んだよ」を返しました</p>':cyBtn('読んだよ（任意）','read:'+x.id,true))+'<label for="replykind-'+x.id+'">一言の種類（任意）</label><select id="replykind-'+x.id+'" data-reply-kind="'+x.id+'">'+[['experience','自分の経験'],['question','質問'],['encouragement','応援']].map(([id,label])=>'<option value="'+id+'" '+((cycle.replyKinds[x.id]||'experience')===id?'selected':'')+'>'+label+'</option>').join('')+'</select><label for="reply-'+x.id+'">自分の経験や一言（任意）</label><textarea id="reply-'+x.id+'" data-reply="'+x.id+'">'+esc(cycle.replyDrafts[x.id]||'')+'</textarea>'+cyBtn('この一言を家族に返す（デモ）','reply:'+x.id,true)+cycle.replies.filter(r=>r.article===x.id&&r.version===x.version&&r.kind!=='read'&&!r.withdrawn).map(r=>'<p>自分が返した一言：'+esc(r.text)+'</p>'+cyBtn('この返信を取り下げる','withdrawreply:'+r.id,true)).join('')+'</article>').join(''):'<section class="familyBox"><p>まだ読めるおたよりはありません。返信しなくても大丈夫です。自分の近況はいつでも知らせられます。</p></section>';
   }
  }
- h+='<p class="tiny">模擬AI・画面内だけの記録です。実際の送信・認証・保存・報酬処理は未実装です。</p>'+(cycle.message?'<p class="familyBox" role="status">'+esc(cycle.message)+'</p>':'');
- f.innerHTML=h;
+ h+='<p class="tiny">模擬AI・画面内だけの記録です。実際の送信・認証・保存・報酬処理は未実装です。</p>';
+ f.innerHTML=(cycle.message?'<p class="familyBox" role="status">'+esc(cycle.message)+'</p>':'')+h;
 }
 function selectCycleRole(role){
  if(!['child','parent','grandparent'].includes(role))return;
@@ -641,10 +730,41 @@ function selectCycleRole(role){
 }
 function cycleAction(cmd){
  const [act,id]=cmd.split(':');cycle.message='';
- const allowed={child:['save','share','resubmit','withdraw','report','request','cancel','start'],parent:['agree','publish','return','hold','award','holdaward','approve','reject','refund','deliver','issue'],grandparent:['read','reply','previewpost','post','editpost','ready','savestatus']};
+ const allowed={child:['save','share','resubmit','withdraw','report','request','cancel','start','actual','notyet','confirmexecution','seed','ownseed','beginseed','cancelseed','resumeseed','laterreply','reopenreply'],parent:['agree','publish','return','hold','award','holdaward','approve','reject','refund','deliver','issue'],grandparent:['read','reply','withdrawreply','previewpost','post','editpost','ready','savestatus']};
  if(!allowed[cycle.role]?.includes(act))return;
  const valid=Object.hasOwn(states,id||'');
  if(['save','share','resubmit','withdraw','report','publish','return','hold','award','holdaward','read','reply'].includes(act)&&!valid)return;
+ if(['actual','notyet','confirmexecution'].includes(act)){
+  if(!valid||id!==scene||!states[id].pendingExecution)return;
+  const p=states[id].pendingExecution;
+  if(act==='actual'){p.form=true;render();$('executionReport')?.focus();return;}
+  if(act==='notyet'){editingScene=null;$('input').value='まだ実際にはしていない';send('decision');return;}
+  if(!p.form)return;
+  const text=$('executionReport')?.value.trim();
+  if(!text||!isExecutionReport(id,states[id],text)){$('status').textContent='実際にしたことだけを確認してください。まだの時は「あとで試す」を選べます。';return;}
+  editingScene=null;$('input').value=text;send('confirmed');return;
+ }
+ if(act==='seed'){
+  const r=activeReply(id);if(!r)return;
+  cycle.seedDraft={source:{replyId:r.id,article:r.article,version:r.version},question:'',method:'家族に聞く'};
+ }
+ if(act==='ownseed')cycle.seedDraft={source:null,question:'',method:'家族に聞く'};
+ if(act==='cancelseed'){if(cycle.seedDraft)cycle.savedSeedDraft=copy(cycle.seedDraft);cycle.seedDraft=null;cycle.message='書きかけの問いを画面内に残しました。あとで続けられます。';}
+ if(act==='resumeseed'&&cycle.savedSeedDraft){cycle.seedDraft=copy(cycle.savedSeedDraft);cycle.savedSeedDraft=null;}
+ if(act==='laterreply'&&activeReply(id)&&!cycle.deferredReplies.includes(id))cycle.deferredReplies.push(id);
+ if(act==='reopenreply')cycle.deferredReplies=cycle.deferredReplies.filter(x=>x!==id);
+ if(act==='beginseed'&&cycle.seedDraft){
+  const d=cycle.seedDraft;
+  if(d.source&&!activeReply(d.source.replyId)){cycle.seedDraft=null;cycle.message='元の返信が取り下げられています。自分の問いから始められます。';}
+  else if(!d.question.trim()){cycle.message='気になったことを一つ書いてね。';}
+  else{
+   const key='followup-'+(++cycle.seedCounter),question=d.question.trim();
+   states[key]=newState();states[key].kind='followup';states[key].phase='result';states[key].source=copy(d.source);states[key].facts={question,chosenAction:d.method};
+   scenes[key]={label:'次の問い',title:question,quest:'自分の問いを確かめる',desc:'家族と相談して、選んだ方法を試そう',emoji:'🌱',question:'実際に確かめたら、分かったことを教えてね。',nudge:'家族の経験は、今の事実とは分けて扱います。',prompts:['まだ試していない']};
+   titles[key]='次の問い：'+question;cycle.save[key]=false;cycle.share[key]='private';cycle.versions[key]=0;cycle.followups.push(key);cycle.seedDraft=null;scene=key;
+   appendTurn(key,states[key],question,'choice');paint();revealLatest();return;
+  }
+ }
  if(act==='start'&&valid){scene=id;paint();$('main').scrollTop=0;return}
  if(act==='save'&&states[id].turns.length){
   const rec=snapshot(id);
@@ -674,7 +794,7 @@ function cycleAction(cmd){
  }
  if(act==='hold'&&cycle.share[id]==='requested'){cycle.share[id]='held';delete cycle.consents[id];cycle.message='今回は共有を保留しました。自分の記録は残ります。'}
  if(act==='withdraw'){cycle.share[id]='private';delete cycle.consents[id];delete cycle.published[id];cycle.message='共有を取り下げました。新聞と過去の号からも読めなくなります。'}
- if(act==='award'&&cycle.award[id]==='pending'&&cycle.reports[id]?.facts.executionText){cycle.award[id]='earned';cycle.message='保護者が活動を確認し、ポイントを一度だけ確定しました。'}
+ if(act==='award'&&cycle.award[id]==='pending'&&cycle.reports[id]?.facts.executionConfirmed&&cycle.reports[id]?.facts.executionText){cycle.award[id]='earned';cycle.message='保護者が活動を確認し、ポイントを一度だけ確定しました。'}
  if(act==='holdaward'&&cycle.award[id]==='pending'){cycle.award[id]='held';cycle.message='活動の確認を保留しました。本人から再依頼できます。'}
  if(act==='request'&&['none','cancelled'].includes(cycle.pointsUsed)&&cyFree()>=50){cycle.pointsUsed='reserved';cycle.message='50Pを予約しました。交換の承認と提供はまだです。'}
  if(['cancel','reject'].includes(act)&&cycle.pointsUsed==='reserved'){cycle.pointsUsed='cancelled';cycle.message='予約を解除して50Pを戻しました。'}
@@ -686,11 +806,15 @@ function cycleAction(cmd){
   if(!cycle.issues.some(x=>x.key===key)){cycle.issues.push({date:today(),key,articles});cycle.message='許可した版だけを新聞号にまとめました。';}
   else cycle.message='同じ記事と版の新聞号は作成済みです。';
  }
- if(act==='read'&&cycle.share[id]==='published'&&!cycle.replies.some(x=>x.kind==='read'&&x.article===id&&x.version===cycle.versions[id])){cycle.replies.push({article:id,version:cycle.versions[id],kind:'read',text:'読んだよ',date:today()});cycle.message='任意の「読んだよ」を返しました（デモ）。'}
+ if(act==='read'&&cycle.share[id]==='published'&&!cycle.replies.some(x=>x.kind==='read'&&x.article===id&&x.version===cycle.versions[id])){cycle.replies.push({id:'reply-'+(cycle.replies.length+1),article:id,version:cycle.versions[id],kind:'read',text:'読んだよ',date:today()});cycle.message='任意の「読んだよ」を返しました（デモ）。'}
  if(act==='reply'&&cycle.share[id]==='published'){
   const text=$('reply-'+id)?.value.trim();
   if(!text)cycle.message='一言を入力してください。返信はしなくても大丈夫です。';
-  else{cycle.replies.push({article:id,version:cycle.versions[id],kind:'experience',text,date:today()});delete cycle.replyDrafts[id];cycle.message='本人の一言を家族へ返しました（デモ）。子どもが次に使うかは自分で選びます。'}
+  else{const kind=cycle.replyKinds[id]||'experience';if(!['experience','question','encouragement'].includes(kind))return;cycle.replies.push({id:'reply-'+(cycle.replies.length+1),article:id,version:cycle.versions[id],kind,text,date:today(),withdrawn:false});delete cycle.replyDrafts[id];cycle.message='本人の一言を家族へ返しました（デモ）。子どもが次に使うかは自分で選びます。'}
+ }
+ if(act==='withdrawreply'){
+  const r=cycle.replies.find(x=>x.id===id&&x.kind!=='read');if(!r)return;
+  r.withdrawn=true;cycle.message='この返信を取り下げました。新しい問いの候補には使われません。';
  }
  if(act==='ready'){cycle.postText='元気だよ';cycle.postSteps='';cycle.postDraft=null;cycle.message='この一言でよければ相手を選んで確認できます。まだ知らせていません。'}
  if(['previewpost','savestatus'].includes(act)){
@@ -698,24 +822,36 @@ function cycleAction(cmd){
   if(!text||steps!==null&&(!Number.isSafeInteger(steps)||steps<0))cycle.message='近況を一言入力してください。歩数は0以上の整数か空欄にできます。';
   else if(act==='savestatus'){cycle.statusRecords.push({text,steps,date:today(),sent:false});cycle.message='自分の記録に残しました。家族へは知らせていません。';}
   else if(!cycle.postRecipients.length)cycle.message='知らせたい相手を一人以上選んでください。';
-  else cycle.postDraft={text,steps,date:today(),recipients:[...cycle.postRecipients]};
+  else{cycle.postEditScroll=$('familyMain').scrollTop;cycle.postDraft={text,steps,date:today(),recipients:[...cycle.postRecipients]};}
  }
  if(act==='editpost'){cycle.postDraft=null;cycle.message='内容を修正してから、もう一度確認できます。'}
  if(act==='post'&&cycle.postDraft){
   if(cycle.postDraft.text!==cycle.postText.trim()||(cycle.postDraft.steps!==null&&cycle.postDraft.steps!==Number(cycle.postSteps)||cycle.postDraft.steps===null&&cycle.postSteps!=='')||JSON.stringify(cycle.postDraft.recipients)!==JSON.stringify(cycle.postRecipients)){cycle.postDraft=null;cycle.message='入力が変わりました。もう一度内容を確認してください。';}
   else{cycle.posts.push(copy(cycle.postDraft));cycle.statusRecords.push({...copy(cycle.postDraft),sent:true});cycle.postDraft=null;cycle.postText='';cycle.postSteps='';cycle.message='本人が確認した近況を家族に知らせました（画面内のみ）。'}
  }
- if(cycle.role==='child'){renderChildCycle();if(['save','share','resubmit','withdraw'].includes(act))$('albumFold').open=true;if(['request','cancel'].includes(act))$('rewardFold').open=true;}else renderOtherCycle();
+ if(cycle.role==='child'){
+  renderChildCycle();if(['save','share','resubmit','withdraw'].includes(act))$('albumFold').open=true;if(['request','cancel'].includes(act))$('rewardFold').open=true;
+  if(['seed','ownseed','resumeseed','laterreply','reopenreply','cancelseed','beginseed'].includes(act)){$('inboxFold').open=true;if(cycle.seedDraft)$('seedHeading')?.focus();}
+ }else{
+  renderOtherCycle();
+  if(act==='previewpost'&&cycle.postDraft){$('familyMain').scrollTop=0;$('postPreviewHeading').focus({preventScroll:true});}
+  if(act==='editpost'){$('familyMain').scrollTop=cycle.postEditScroll;$('familyMain').querySelector('[data-cycle="previewpost"]')?.focus({preventScroll:true});}
+  if(act==='post'){$('familyMain').scrollTop=0;}
+ }
 }
-const priorRender=render;render=function(){priorRender();renderChildCycle();if(cycle.role!=='child')renderOtherCycle()};
+const priorRender=render;render=function(options={}){priorRender(options);renderChildCycle();if(cycle.role!=='child')renderOtherCycle()};
 document.addEventListener('input',e=>{
  const el=e.target;
  if(el.id==='gpost')cycle.postText=el.value;
  if(el.id==='gsteps')cycle.postSteps=el.value;
  if(el.dataset.reply)cycle.replyDrafts[el.dataset.reply]=el.value;
  if(el.dataset.draft)cycle.editDrafts[el.dataset.draft]=el.value;
+ if(el.id==='executionReport'&&states[scene].pendingExecution)states[scene].pendingExecution.inputText=el.value;
+ if(el.id==='seedQuestion'&&cycle.seedDraft)cycle.seedDraft.question=el.value;
 });
 document.addEventListener('change',e=>{if(e.target.id==='articleDate'){cycle.dateFilter=e.target.value;renderOtherCycle()}
+ if(e.target.dataset.replyKind)cycle.replyKinds[e.target.dataset.replyKind]=e.target.value;
+ if(e.target.id==='seedMethod'&&cycle.seedDraft)cycle.seedDraft.method=e.target.value;
  if(e.target.id.startsWith('recipient-')){const r=e.target.id.slice(10);cycle.postRecipients=e.target.checked?[...new Set([...cycle.postRecipients,r])]:cycle.postRecipients.filter(x=>x!==r)}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('menu').hidden=true;$('choose').setAttribute('aria-expanded','false');$('choose').focus()}});
 document.addEventListener('click',e=>{

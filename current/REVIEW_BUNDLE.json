@@ -10,7 +10,7 @@
     "docs/design/role-experience-v0.3.md": "da6517346e2af835d364f99047cd197484755e0eea476c1555a756d34aa900e6",
     "docs/design/extensibility-v0.3.md": "ea260b796ff0a32727c5a389838886a2d9efdbf1508f9cf72bc18ca7fbb4ce4e",
     "docs/design/ai-harness-design-v0.2.md": "3c1f3c6dd6a40f33e05187f7844a410f77e45a36750b56c0362822c6b1c6f1d4",
-    "docs/design/DECISIONS.md": "e5da061f68296ecc969c013a70389ecee21700fcc3c51e3da14347ec1bbcb936",
+    "docs/design/DECISIONS.md": "d4552418a8a964b6d97c3d51d94eb8a8792accd1013ab8220aed625797017132",
     "docs/superpowers/plans/2026-09-23-yattemi-implementation.md": "c2c71b3e84e4d80e991436f1c7db4139c1d1be158f379c8ae663e9854887bf17",
     "docs/design/FEATURES.json": "ed7aa1237c5516a8590eca9237e3e1e4b78c47befd12d5a1848703fa3ff63013",
     "docs/review/index.html": "085c3c3a0f10fd2d0305c35e06f05ff380860ecba4818bc85d527ed390065fc8",
@@ -27,13 +27,16 @@
     "docs/workflow/CODEX_PREFLIGHT.md": "93abc77943d542527d648250c04b0528782396b292db64063766f8b7a5d5933f",
     "current/SKILLS.json": "17c77fea4f27fa9bda5b69d458353e59a1444bc4f2bc2571d32639166f402a34",
     "docs/review/family-ui-handoff-20261008/baseline-upload.html": "84ea7944900e69265f9c3e2c3a4363ebececc75e783febf0fa2229641aa5d8d4",
-    "docs/review/family-ui-handoff-20261008/index.html": "7346554be2374f19cc0013b5b128cd81aba8249079b73d96d03d843ed2079af5",
+    "docs/review/family-ui-handoff-20261008/index.html": "0e35b849b7f680826850b2134158c49c644fb710070069437e8ad58aef94bfba",
     "docs/review/family-ui-handoff-20261008/baseline.json": "3c6c833abae90945652d651eaedf8f2c571c2fdbebfe38784d5b006f8f59f8cf",
-    "docs/review/family-ui-handoff-20261008/README.md": "f3cf9d8e07f6a11cc0432cc64f28daee2dc741cc7310935cc74a30a33c6a896b",
-    "docs/review/family-ui-handoff-20261008/PLAN.md": "25c042958988b84bf5d53fa9cc419ffae82d3d52b0747c18b2a8c2da11e71aa2",
-    "docs/review/family-ui-handoff-20261008/verification.json": "ba37435ec43c53efe06c4405fda18dd67af0525a3aa10112e8ea1ca2f190f444",
-    "docs/review/family-ui-handoff-20261008/USABILITY_REVIEW.md": "f9b27090f97a266b305115377153bc7d4f36bca4da9d547fc066d76a6735ede2",
+    "docs/review/family-ui-handoff-20261008/README.md": "38876665b21d216f8e68a416b8d41bceccbe1df0276e3d16b1eb9e5c5a970436",
+    "docs/review/family-ui-handoff-20261008/PLAN.md": "b82a72ba9fcfee9b2ec4669d151685a2fe60147a725785213ce4c7f5b27144ce",
+    "docs/review/family-ui-handoff-20261008/verification.json": "0a80de4eb717132015cccd9e127b0a04eaafadf997beb26b3c7da27d86ec13b8",
+    "docs/review/family-ui-handoff-20261008/USABILITY_REVIEW.md": "fafd3c26766eba3fc37cc5f2d34d84d6c7d0f81ffea26e445891426fcb298789",
     "docs/review/family-ui-handoff-20261008/evidence/usability-review/observations.json": "4a3073a1e1b6391b26fd90f593e0c7999119f0c7f2dd45f8349c69338892ebf3",
-    "docs/review/family-ui-handoff-20261008/evidence/usability-review/walkthrough.cjs": "6c5afa85bb23559a729c4239052db466b410a30f0e84fa130b8522f5fcb4e3fe"
+    "docs/review/family-ui-handoff-20261008/evidence/usability-review/walkthrough.cjs": "c80a91a1676edbcbfbbff725760a70856e8cf2fc5cdf93ff5f6612d80356f337",
+    "docs/review/family-ui-handoff-20261008/USABILITY_FIXES.md": "d6e1204154e31d6b9987f9ec0e8dff03acdbc7d2fccfd168df9009609cb35c4c",
+    "docs/review/family-ui-handoff-20261008/evidence/usability-review/verification-before-fixes.json": "ba37435ec43c53efe06c4405fda18dd67af0525a3aa10112e8ea1ca2f190f444",
+    "tests/review/family-ui.cjs": "d92c6703009be5f853723e450923a75d9b2a6b16f62ea5a3f5f0ef501e4650cf"
   }
 }

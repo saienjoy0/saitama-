@@ -1,18 +1,18 @@
 {
-  "verified_at_utc": "2026-10-08T00:58:26.284368+00:00",
+  "verified_at_utc": "2026-10-08T02:52:36.377971+00:00",
   "scope": "synthetic review UI only; no real families, model calls or real reward provision",
   "browser": "Chromium 151.0.7922.173 built on Debian GNU/Linux 13 (trixie)",
   "node": "v24.19.0",
   "playwright": "1.62.1",
   "ui_file": "index.html",
-  "ui_sha256": "7346554be2374f19cc0013b5b128cd81aba8249079b73d96d03d843ed2079af5",
+  "ui_sha256": "0e35b849b7f680826850b2134158c49c644fb710070069437e8ad58aef94bfba",
   "baseline_sha256": "84ea7944900e69265f9c3e2c3a4363ebececc75e783febf0fa2229641aa5d8d4",
   "browser_tests": {
     "command": "node --test --test-reporter=tap tests/review/family-ui.cjs",
-    "tests": 20,
-    "passed": 20,
+    "tests": 32,
+    "passed": 32,
     "failed": 0,
-    "log": "evidence/browser.tap"
+    "log": "evidence/usability-fixes/browser.tap"
   },
   "viewports": [
     {
@@ -21,7 +21,8 @@
       "scenarios": [
         "HSC-01",
         "HSC-02",
-        "HSC-03"
+        "HSC-03",
+        "reply-to-followup-private-record-and-explicit-sharing"
       ],
       "result": "passed",
       "mobile_emulation": true,
@@ -33,7 +34,8 @@
       "scenarios": [
         "HSC-01",
         "HSC-02",
-        "HSC-03"
+        "HSC-03",
+        "reply-to-followup-private-record-and-explicit-sharing"
       ],
       "result": "passed",
       "mobile_emulation": true,
@@ -45,7 +47,8 @@
       "scenarios": [
         "HSC-01",
         "HSC-02",
-        "HSC-03"
+        "HSC-03",
+        "reply-to-followup-private-record-and-explicit-sharing"
       ],
       "result": "passed",
       "mobile_emulation": false,
@@ -57,7 +60,8 @@
       "scenarios": [
         "HSC-01",
         "HSC-02",
-        "HSC-03"
+        "HSC-03",
+        "reply-to-followup-private-record-and-explicit-sharing"
       ],
       "result": "passed",
       "mobile_emulation": false,
@@ -78,22 +82,34 @@
     "git_diff_check": "passed"
   },
   "screenshots": {
-    "evidence/child-1440.png": "c5522b1ca3698d11c22f9b45914632d972ae3072bb7b6c74ee51e0dfd627e039",
-    "evidence/child-320.png": "9abfb37434209b574a8276b7af0b23868cc87d0ce4de7649fb77334798cd1a55",
-    "evidence/child-390.png": "28bf5089751134d8aba85d11c636d6d962fa3d17e19700dc8195c2324c2d1bdb",
-    "evidence/child-768.png": "1338aca0a0b79ec54c044ad6e37c99a0190c5eb4722f54d86cb007db4edd6da1",
-    "evidence/child-complete-1440.png": "fa3d10e10bc9daf80759a2ccb2a6a9554874e4dc621701ac5a367f69c9eca551",
-    "evidence/child-complete-320.png": "8902d691e6f99c1e99061ed0bc207f0044b19c3ed2896ba10b9f507c7d171f36",
-    "evidence/child-complete-390.png": "602e7d06bdcd525e8a3ad3a4f31de41c11bbf71d01792de447a7c3894876d059",
-    "evidence/child-complete-768.png": "1bf107119152415b4846f3227e2fcd1655f83deede7e63515d510745122a4df0",
-    "evidence/grandparent-1440.png": "31caebd28bc7aaa28e07133d8bc5d2506c6ee207c538f1e59d864e48e33febdd",
-    "evidence/grandparent-320.png": "91b27356c13403a7069c70ef3ba1cc80c6ff9867710432bd160ae655bfa0de9f",
-    "evidence/grandparent-390.png": "9cf34819b4ff270da264a822b742014106d1ff44cea127e1dcf71c41bcb3f0f1",
-    "evidence/grandparent-768.png": "62656b53da8c26abb4e86c22f7dc3e2149bcc592f0d1e9dc1b219e336448fa21",
-    "evidence/parent-1440.png": "ef816cb86cd5bfb06d68c4c234c4c5c000ce685df79a54d93fc35e25e23f3956",
-    "evidence/parent-320.png": "9fe672356b522438b37fd53ee5e77f4a5abd8cc0b0f011eb4febb506504e7dc6",
-    "evidence/parent-390.png": "ff86428090fc71ec408135cf79f7c8ebea93eba365070a55b5f505a48d1738c1",
-    "evidence/parent-768.png": "086bdaca9b15fe67707b54af01f8104c52a33009ef16c6b4d8544e8d415857f4"
+    "evidence/usability-fixes/album-compact-390.png": "c7f08243fe90518b06c95d2fdd5900d0a3231da2f0a7ecea216ff3433233d858",
+    "evidence/usability-fixes/child-1440.png": "82124fdbcf7985a491d1cb32a5eb3cbce7675f322c800f3a6a78171190ce6c98",
+    "evidence/usability-fixes/child-320.png": "da4f4ea0d64e641ee7e875affe74b0925f26726ce3931c217a3e057fff05e26c",
+    "evidence/usability-fixes/child-390.png": "916d014b80599634001bb27e7c51a25222c11917a4dcd9df2887c241a2398d6f",
+    "evidence/usability-fixes/child-768.png": "308ffec9eee1232e5ac336169ac9887cc56495f444ddfa0c6a3c93ffdcc3b0ac",
+    "evidence/usability-fixes/child-complete-1440.png": "54c95057d4410b5dd12a77a4f5bce5f86321a51b580dd38b24860c63c1812fc3",
+    "evidence/usability-fixes/child-complete-320.png": "f37ddfbfd6dd7a8cf43d04eca414252e73945e866bc1dfccc7096dd12793c2ab",
+    "evidence/usability-fixes/child-complete-390.png": "408377ddcb725430c8f1740c0ce6adba993186ab7ecf95368d521b7dce2eeb06",
+    "evidence/usability-fixes/child-complete-768.png": "62cff15dd47b62e07f000a5603d84ccc24d2b22f9e2e7bf85a385c056429802d",
+    "evidence/usability-fixes/child-first-reply-390.png": "e5d44902b9771ef3484d504e3452f068ee9d8a5a615ebff22ead2c84a3d27ff7",
+    "evidence/usability-fixes/execution-example-390.png": "f4043c7d30b04a42253a75be8fe2e7bc0e7f0ff9b6137e5a5742434f1a8bcf08",
+    "evidence/usability-fixes/followup-1440.png": "8c2ad17918f31d105a58da445b2f9c75151a1df53e7dab0aa8e4ae03222c9ad8",
+    "evidence/usability-fixes/followup-320.png": "1ca7adb829af5cd105ed0a291f30141be320d7f42c7889bd02966537d2114a37",
+    "evidence/usability-fixes/followup-390.png": "298d3dae47dde82fde3abd8a77d5b933f94af51553aa49bd0ffc64a1f386dc98",
+    "evidence/usability-fixes/followup-768.png": "1c1ed6064bedfe0e305778470cb8f3d3582b96375982893b51639e6ffd75ce16",
+    "evidence/usability-fixes/grandparent-1440.png": "9387746e392071a484c92c01bbf86bdcc8b5ae2b9cca380faae30227bae5b4ed",
+    "evidence/usability-fixes/grandparent-320.png": "0339b0f4901a2f87db23d87b814152465cf5f52d200de2b39c87a54bc4b06f28",
+    "evidence/usability-fixes/grandparent-390.png": "e83a2b476f21b300ecd5de608131ae1de1a58d9f50a453c022d307a4b5d833cc",
+    "evidence/usability-fixes/grandparent-768.png": "dd877711d2c34a1911f1b2ff35ab828c80a3702e2c8ad12991cd67a048ad46d2",
+    "evidence/usability-fixes/grandparent-preview-390.png": "a3b1423cb8494cf56d1c859064e13291ca2575dbe187a9562bcdc0c50d08787b",
+    "evidence/usability-fixes/parent-1440.png": "2457ace43928f1144c505c520a3835aa18dcf887790507c68bf2b34dadd768ce",
+    "evidence/usability-fixes/parent-320.png": "799b50b6e5e58f61f5ee7ccf2765760622fec654b664b9af29a03c03d1459c21",
+    "evidence/usability-fixes/parent-390.png": "f0e833ef540bc890a612fd4664fb92919675003e02b7964ff1da93fbc210e237",
+    "evidence/usability-fixes/parent-768.png": "c1b84a0763a2b5f71cfdb45c1881fcbe09cde2f273729cb3c6f8597acff35a5b",
+    "evidence/usability-fixes/reward-inbox-1440.png": "d02d0e68c38c9da0cf9e0d80fcd11436b40c50a0ebc934e01f8a36935d71a176",
+    "evidence/usability-fixes/reward-inbox-320.png": "f63421625ac29f7fdf81ecbd28d11da1d3372a375e87b1e802e1f8c4b40ad5ad",
+    "evidence/usability-fixes/reward-inbox-390.png": "75d67a9961a6077aaaaa77294329f811a1287fd43689d20d37d11f51f98f7939",
+    "evidence/usability-fixes/reward-inbox-768.png": "818595de8d4da2832fe747ff9e4782094e94501920cf63f5e94bfe3454cfd6fe"
   },
   "untested": [
     "real phone keyboards and microphones",
@@ -112,8 +128,25 @@
   ],
   "github": {
     "pull_request": "https://github.com/saienjoy0/saitama-/pull/14",
-    "baseline_readback": "byte-for-byte match, 73479 bytes",
-    "ui_readback": "byte-for-byte match",
+    "baseline_readback": "previous byte-for-byte match; local unchanged",
+    "ui_readback": "readback of the revised HTML will be recorded in the PR after push",
     "auto_merge": false
+  },
+  "previous_verification": "evidence/usability-review/verification-before-fixes.json",
+  "usability_fixes": {
+    "review_ids": [
+      "UIU-01",
+      "UIU-02",
+      "UIU-03",
+      "UIU-04",
+      "UIU-05",
+      "UIU-06",
+      "UIU-07",
+      "UIU-08"
+    ],
+    "artifact": "USABILITY_FIXES.md",
+    "resolved_in_mock": "explicit self-report confirmation, readable conversation and compact album, parent reward inbox, tab selection, separate grandparent preview, voluntary reply-to-followup cycle and source withdrawal, immediate 180ms mock reply reveal",
+    "live_ai_waiting": "unimplemented; synchronous mock remains immediate",
+    "example_reflection": "sample reflections are kept with provenance but excluded from the automatic sharing draft; personal edits may be shared after child selection and parent review"
   }
 }

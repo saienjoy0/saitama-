@@ -1,12 +1,12 @@
 # 3役の使いやすさとAI待機表示のレビュー
 
-2026-10-08。対象はPR #14の改善版 `index.html`。今回の依頼は「生成AIが考えているアニメーション」「使いやすさ」「子ども・保護者・祖父母の一連の流れ」の確認。**一連の操作は成立するが、利用者が迷わず使える状態とはまだ判断できない。** 今回はレビュー結果の追加で、UIは変更していない。
+2026-10-08。対象はPR #14の改善版 `index.html` の修正前（commit `97b015e`）。依頼は「生成AIが考えているアニメーション」「使いやすさ」「子ども・保護者・祖父母の一連の流れ」の確認。**当時の一連の操作は成立したが、利用者が迷わず使える状態とは判断できなかった。** 以下は修正前の指摘として保持する。その後「では修正して」に基づき適用した[修正結果](USABILITY_FIXES.md)は別に記録した。
 
 ## 確認範囲と根拠
 
-- 前回の[動作検証](verification.json)：320/390/768/1440pxの3体験と3役の接続、20件のブラウザー検証。操作と状態の確認であり、利用者の理解の証拠ではない。
+- 修正前の[動作検証](evidence/usability-review/verification-before-fixes.json)：320/390/768/1440pxの3体験と3役の接続、20件のブラウザー検証。操作と状態の確認であり、利用者の理解の証拠ではない。
 - 今回：390×844px、タッチ操作を模擬したChromiumで、通常の動き設定から全3体験を操作。保護者による文章修正→本人の再選択→公開、活動確認、祖父母の任意返信・近況の宛先確認、ごほうびの交換承認・提供確認まで歩いた。最後にOSの動き低減設定を切り替えた。
-- [実測値](evidence/usability-review/observations.json)と8枚の画面写真を保存。調査スクリプトは[walkthrough.cjs](evidence/usability-review/walkthrough.cjs)。`node docs/review/family-ui-handoff-20261008/evidence/usability-review/walkthrough.cjs`で同じ確認を再実行できる（既存Playwright依存とChromiumが必要）。
+- [実測値](evidence/usability-review/observations.json)と8枚の画面写真を保存。調査スクリプトは[walkthrough.cjs](evidence/usability-review/walkthrough.cjs)。再実行には旧commit `97b015e`のHTMLを`YATTEMI_REVIEW_SOURCE`で指定する（既存Playwright依存とChromiumが必要）。最新版を誤ってこの旧手順で検証しないようhash照合を追加した。修正後の検証は`tests/review/family-ui.cjs`。
 - 実Android/iPhoneのキーボード・マイク、実際の子ども・保護者・祖父母による利用、通信待ち・失敗は未検証。生成AI・永続保存・認証・実家庭への送信・実報酬は未実装。
 
 レビュー対象HTMLのSHA-256は `7346554be2374f19cc0013b5b128cd81aba8249079b73d96d03d843ed2079af5`。前回検証と同じHTMLで、添付原本も変更していない。
