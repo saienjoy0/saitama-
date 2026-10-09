@@ -128,5 +128,5 @@ if __name__ == "__main__":
         raise SystemExit(f"FAIL: invalid handoff input: {exc}")
     if failures:
         raise SystemExit("FAIL:\n" + "\n".join(failures))
-    print("PASS: generated navigation, stage, task dependencies, review hashes, 21 features, 2 bundled skills and references, schema envelopes, 24 + 16 synthetic specifications")
+    print("PASS: generated navigation, stage, task dependencies, review hashes, 21 features, bundled skills and references, schema envelopes, 24 + 16 synthetic specifications")
     print("NOT RUN: product tests, model evaluations, family pilot; plugin availability must be checked in target Codex")

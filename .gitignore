@@ -1,0 +1,5 @@
+
+# Development preparation only
+tools/development/node_modules/
+tools/development/.venv/
+.dev-ready/

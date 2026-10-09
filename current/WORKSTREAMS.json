@@ -1,45 +1,95 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-10-02",
+  "updated_on": "2026-10-07",
   "authority_mode": "navigation",
   "project_url": null,
   "goal": "2026-10-16の発表準備に向け、保護者への聞き取りから仮説を見直す。LP・募集・本体設計・発表を並行して管理する。",
-  "focus_order": ["recruitment", "validation", "product", "pitch"],
+  "focus_order": [
+    "recruitment",
+    "validation",
+    "product",
+    "pitch"
+  ],
   "workstreams": [
     {
       "id": "recruitment",
       "name": "募集／LP",
-      "task_ids": ["D59", "D66-LP"],
-      "issues": [{"task_id": "D59", "number": 4}, {"task_id": "D66-LP", "number": 3}],
+      "task_ids": [
+        "D59",
+        "D66-LP"
+      ],
+      "issues": [
+        {
+          "task_id": "D59",
+          "number": 4
+        },
+        {
+          "task_id": "D66-LP",
+          "number": 3
+        }
+      ],
       "next_action": "受付条件と予約導線を確定する。LPはAIの役割を示す合成見本を改善する。LP完成は面談募集の必須条件にしない。",
-      "sources": ["research/recruitment/release-checklist.md", "docs/superpowers/plans/2026-10-01-lp-ai-role-expression.md", "docs/design/recruitment-lp-quality-20261001.md"],
+      "sources": [
+        "research/recruitment/release-checklist.md",
+        "docs/superpowers/plans/2026-10-01-lp-ai-role-expression.md",
+        "docs/design/recruitment-lp-quality-20261001.md"
+      ],
       "source_location": "LP正本は別Siteプロジェクト appgprj_6abd00b774cc8191b48baaedfbb0baf2。recruitment-site/は初期下書き。"
     },
     {
       "id": "validation",
       "name": "顧客検証",
       "task_ids": [],
-      "issues": [{"task_id": "VAL-01", "number": 6}],
+      "issues": [
+        {
+          "task_id": "VAL-01",
+          "number": 6
+        }
+      ],
       "next_action": "受付・同意・予約を満たした最初の5家庭に聞き、質問と仮説を見直す。可能なら10家庭へ。聞き取りとPoCは別の成果。",
-      "sources": ["research/GAKUSTA_10家庭_募集対象_最終確定_20260925.md", "research/GAKUSTA_ProblemInterview_実施用_3問＋条件付1問_20260925.md", "research/GAKUSTA_顧客検証_実施計画と判定表_20260925.md"],
+      "sources": [
+        "research/GAKUSTA_10家庭_募集対象_最終確定_20260925.md",
+        "research/GAKUSTA_ProblemInterview_実施用_3問＋条件付1問_20260925.md",
+        "research/GAKUSTA_顧客検証_実施計画と判定表_20260925.md"
+      ],
       "source_location": "実績はPROJECT_STATEのinterviews_conductedを確認。匿名の要点以外の回答・連絡先は公開GitHubへ保存しない。"
     },
     {
       "id": "product",
       "name": "本体製品",
-      "task_ids": ["D90", "B10"],
-      "issues": [{"task_id": "D90", "number": 5}],
-      "next_action": "準備済みv0.4.1設計・実装計画をレビューする。本体の開始判断は既存の承認手順で記録する。",
-      "sources": ["current/REVIEW_BUNDLE.json", "docs/design/FEATURE_REVIEW.md", "docs/superpowers/plans/2026-09-23-yattemi-implementation.md"],
+      "task_ids": [
+        "D90",
+        "B10"
+      ],
+      "issues": [
+        {
+          "task_id": "D90",
+          "number": 5
+        }
+      ],
+      "next_action": "UI見直しv2の導線と画面図を具体化。初回と通常の入口を分け、S01→S02を一機能ずつ実装・確認する準備がある。",
+      "sources": [
+        "docs/design/ui-review-20261007.md",
+        "docs/workflow/IMPLEMENTATION_READY.md",
+        "docs/superpowers/plans/2026-10-07-s01-family-foundation.md",
+        "current/REVIEW_BUNDLE.json"
+      ],
       "source_location": "PROJECT_STATEの段階とnext_task_idは本体用。管理改修やIssueのcloseで承認を書き換えない。"
     },
     {
       "id": "pitch",
       "name": "発表",
       "task_ids": [],
-      "issues": [{"task_id": "PITCH-01", "number": 7}],
+      "issues": [
+        {
+          "task_id": "PITCH-01",
+          "number": 7
+        }
+      ],
       "next_action": "Draft PR #2のブランチでブラウザ確認と台本実測を行い、発表での扱いを決める。",
-      "sources": ["https://github.com/saienjoy0/saitama-/pull/2"],
+      "sources": [
+        "https://github.com/saienjoy0/saitama-/pull/2"
+      ],
       "source_location": "demo/presentation/はPR #2のブランチにある。開始前に最新PRを再取得する。"
     }
   ]

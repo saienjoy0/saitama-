@@ -1,0 +1,25 @@
+{
+  "name": "Yattemi implementation preparation",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-python.python",
+        "charliermarsh.ruff"
+      ]
+    }
+  },
+  "postCreateCommand": "python3 -m pip install uv==0.12.23 && python3 scripts/setup_dev_environment.py --frozen",
+  "forwardPorts": [
+    5173,
+    6006
+  ],
+  "remoteUser": "vscode"
+}

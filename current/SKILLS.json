@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_date": "2026-09-23",
+  "checked_date": "2026-10-07",
   "note": "Package aliases are session-specific locators, not portable install commands. Resolve the named provider/plugin in another environment. Project skill files remain readable directly.",
   "skills": [
     {
@@ -23,7 +23,7 @@
       "name": "yattemi-role-based-ui-design",
       "source": "project-owned",
       "repo_path": ".agents/skills/yattemi-role-based-ui-design/SKILL.md",
-      "sha256": "437ea8a304bc1a9b16e27d16b963f60196738573be75450d0c76dbc3f5da0970",
+      "sha256": "bfe9a8dbda2f2ecf48959a21ddd64bffd191ba81852416d770f5d04908d9e372",
       "stages": [
         "DESIGN",
         "PLAN",
@@ -35,13 +35,16 @@
       "availability": "complete_body_bundled",
       "required": true,
       "reference_files": {
-        ".agents/skills/yattemi-role-based-ui-design/references/evidence-led-family-design.md": "799288b6d00366d833f93cefe704f680e414100f2637e5c77d8fd92b9e4e65c4"
+        ".agents/skills/yattemi-role-based-ui-design/references/evidence-led-family-design.md": "799288b6d00366d833f93cefe704f680e414100f2637e5c77d8fd92b9e4e65c4",
+        ".agents/skills/yattemi-role-based-ui-design/references/ui-consistency.md": "534c4602853d6be72f302303334d475aa12690888644c2222ce2b175d32907df",
+        ".agents/skills/yattemi-role-based-ui-design/references/motion-and-change-review.md": "7ab57a3a56be41e9285e97cd785eff46b1e964b29e3c42425ee17996fca5cfb9",
+        ".agents/skills/yattemi-role-based-ui-design/references/yattemi-screen-matrix.md": "619b864a50fcc9938cd67636c283d4cf41b1ffa73a699f36ad623c5df859f318"
       }
     },
     {
       "name": "superpowers:brainstorming",
       "source": "installed_plugin_catalog",
-      "package_this_session": "e16/skills/brainstorming",
+      "package_this_session": "e23/skills/brainstorming",
       "stages": [
         "DESIGN"
       ],
@@ -52,7 +55,7 @@
     {
       "name": "superpowers:writing-plans",
       "source": "installed_plugin_catalog",
-      "package_this_session": "e16/skills/writing-plans",
+      "package_this_session": "e23/skills/writing-plans",
       "stages": [
         "DESIGN",
         "PLAN"
@@ -64,7 +67,7 @@
     {
       "name": "superpowers:test-driven-development",
       "source": "installed_plugin_catalog",
-      "package_this_session": "e16/skills/test-driven-development",
+      "package_this_session": "e23/skills/test-driven-development",
       "stages": [
         "BUILD"
       ],
@@ -75,7 +78,7 @@
     {
       "name": "superpowers:systematic-debugging",
       "source": "installed_plugin_catalog",
-      "package_this_session": "e16/skills/systematic-debugging",
+      "package_this_session": "e23/skills/systematic-debugging",
       "stages": [
         "BUILD",
         "VERIFY"
@@ -87,7 +90,7 @@
     {
       "name": "superpowers:verification-before-completion",
       "source": "installed_plugin_catalog",
-      "package_this_session": "e16/skills/verification-before-completion",
+      "package_this_session": "e23/skills/verification-before-completion",
       "stages": [
         "BUILD",
         "VERIFY"
@@ -99,7 +102,7 @@
     {
       "name": "vercel:react-best-practices",
       "source": "installed_plugin_catalog",
-      "package_this_session": "e18/skills/react-best-practices",
+      "package_this_session": "e25/skills/react-best-practices",
       "stages": [
         "BUILD",
         "VERIFY"
@@ -111,7 +114,7 @@
     {
       "name": "vercel:nextjs",
       "source": "installed_plugin_catalog",
-      "package_this_session": "e18/skills/nextjs",
+      "package_this_session": "e25/skills/nextjs",
       "stages": [
         "PLAN",
         "BUILD"
@@ -123,7 +126,7 @@
     {
       "name": "vercel:ai-sdk",
       "source": "installed_plugin_catalog",
-      "package_this_session": "e18/skills/ai-sdk",
+      "package_this_session": "e25/skills/ai-sdk",
       "stages": [
         "PLAN",
         "BUILD"
@@ -148,7 +151,7 @@
     {
       "name": "superpowers:executing-plans",
       "source": "installed_plugin_catalog",
-      "package_this_session": "e16/skills/executing-plans",
+      "package_this_session": "e23/skills/executing-plans",
       "stages": [
         "BUILD",
         "VERIFY"
@@ -167,7 +170,7 @@
     {
       "name": "superpowers:using-git-worktrees",
       "source": "installed_plugin_catalog",
-      "package_this_session": "e16/skills/using-git-worktrees",
+      "package_this_session": "e23/skills/using-git-worktrees",
       "stages": [
         "BUILD"
       ],
@@ -178,7 +181,7 @@
     {
       "name": "superpowers:requesting-code-review",
       "source": "installed_plugin_catalog",
-      "package_this_session": "e16/skills/requesting-code-review",
+      "package_this_session": "e23/skills/requesting-code-review",
       "stages": [
         "VERIFY"
       ],
@@ -189,27 +192,90 @@
     {
       "name": "superpowers:finishing-a-development-branch",
       "source": "installed_plugin_catalog",
-      "package_this_session": "e16/skills/finishing-a-development-branch",
+      "package_this_session": "e23/skills/finishing-a-development-branch",
       "stages": [
         "VERIFY"
       ],
       "trigger": "Preserve reviewed branch; no unauthorized merge or publication",
       "availability": "installed_and_body_present_this_session; recheck_in_target_codex",
       "required_when_triggered": true
+    },
+    {
+      "name": "user-stories",
+      "source": "public-vendored",
+      "repo_path": ".agents/skills/user-stories/SKILL.md",
+      "sha256": "8ce89cd81de5a3df7d504380d18c54cec6c59ccdb7fd18cbcb62b6b6183d0a55",
+      "stages": [
+        "DESIGN",
+        "PLAN",
+        "BUILD"
+      ],
+      "trigger": "Feature organization and implementation backlog",
+      "availability": "complete_body_bundled",
+      "required_when_triggered": true,
+      "upstream": "https://github.com/phuryn/pm-skills",
+      "upstream_commit": "8607e3b077817f89bf4a9b623246219734ac3be0",
+      "license": "MIT",
+      "license_path": ".agents/skills/user-stories/LICENSE",
+      "reference_files": {
+        ".agents/skills/user-stories/LICENSE": "a2c922f9b81b4f40347ddfa79c38eda0f1278b5a6d108bd4099b4da254c774ee"
+      }
+    },
+    {
+      "name": "sprint-plan",
+      "source": "public-vendored",
+      "repo_path": ".agents/skills/sprint-plan/SKILL.md",
+      "sha256": "54ac27165fd7d57fe3f598f1ef66087d03fbf56d9f583adf7608ccaca9ce3382",
+      "stages": [
+        "DESIGN",
+        "PLAN",
+        "BUILD"
+      ],
+      "trigger": "Feature organization and implementation backlog",
+      "availability": "complete_body_bundled",
+      "required_when_triggered": true,
+      "upstream": "https://github.com/phuryn/pm-skills",
+      "upstream_commit": "8607e3b077817f89bf4a9b623246219734ac3be0",
+      "license": "MIT",
+      "license_path": ".agents/skills/sprint-plan/LICENSE",
+      "reference_files": {
+        ".agents/skills/sprint-plan/LICENSE": "a2c922f9b81b4f40347ddfa79c38eda0f1278b5a6d108bd4099b4da254c774ee"
+      }
+    },
+    {
+      "name": "outcome-roadmap",
+      "source": "public-vendored",
+      "repo_path": ".agents/skills/outcome-roadmap/SKILL.md",
+      "sha256": "3d2da8f82f4cbe4c8d06593765e2fbb94913676e9a65663b7da9e53c9a0082c8",
+      "stages": [
+        "DESIGN",
+        "PLAN",
+        "BUILD"
+      ],
+      "trigger": "Feature organization and implementation backlog",
+      "availability": "complete_body_bundled",
+      "required_when_triggered": true,
+      "upstream": "https://github.com/phuryn/pm-skills",
+      "upstream_commit": "8607e3b077817f89bf4a9b623246219734ac3be0",
+      "license": "MIT",
+      "license_path": ".agents/skills/outcome-roadmap/LICENSE",
+      "reference_files": {
+        ".agents/skills/outcome-roadmap/LICENSE": "a2c922f9b81b4f40347ddfa79c38eda0f1278b5a6d108bd4099b4da254c774ee"
+      }
     }
   ],
   "bootstrap_doc": "docs/workflow/CODEX_PREFLIGHT.md",
   "verified_installation_this_session": {
-    "checked_date": "2026-09-23",
+    "checked_date": "2026-10-07",
     "superpowers": {
       "installed": true,
-      "body_version": "6.4.1"
+      "body_version": "6.4.2"
     },
     "vercel": {
       "installed": true,
       "body_version": "0.21.4"
     },
-    "evidence": "Plugin directory returned installed=true; required local SKILL.md bodies and executing-plans helper inspected",
+    "evidence": "Current skill provider returned complete planning, execution, TDD, verification and React skill bodies. Target-host plugin/helper execution is checked at implementation start.",
     "target_codex_installation_test": "not_run; no Codex CLI binary in this environment"
   }
 }

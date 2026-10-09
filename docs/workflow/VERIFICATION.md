@@ -73,3 +73,39 @@ Google／Amazon／UNICEFおよび提供元APIの一次資料を確認した設�
 ## 再開時
 
 文書チェッカーを再実行し、必要プラグインの利用可否をその環境で確認する。スキル2件の本文はリポジトリに同梱。公開前にGitHubの対象ファイルを読み戻して保存内容を確認する。
+
+## 2026-10-07：今日の機能整理と実装計画
+
+code-mode上で保存予定の本文を検査し、28開発単位の一意性・依存順・完成条件、21既存機能の対応、B10〜B70とTask1〜7の対応、資料の相対リンク、タスク依存・状態保持、設計資料とスキル本文・MITライセンスのSHA-256照合を確認した。既存契約・合成評価fixtureは未変更。PM三スキルは取り込み時のquick_validate.pyで確認済み。
+
+ローカル実行サービスが応答しなくなったため、この改訂後のPythonハンドオフ検査・navigation unittestは実行できていない。次の実行環境で `python3 scripts/render_current.py`、`python3 scripts/check_design_handoff.py`、`python3 -m unittest discover -s scripts -p test_project_navigation.py` を実行する。CURRENTは既存render関数と同じ入力・出力規則から導出。製品テスト・モデル評価・実家庭試用は今回行っていない。
+
+## 2026-10-07：実装前の環境・UI整合準備
+
+ローカルshellが応答しないため、設定をブランチへ保存し、GitHub ActionsのDevelopment preparationで文書・UI契約・依存解決・Chromium・DB・frozen再インストールを確認する構成を追加。保存前のcode-mode検査では、既存CURRENTの生成規則を再現、レビューhashとスキル参照を照合、本文5組のコントラスト4.5以上、製品source未作成、承認状態不変を確認。CI実行結果はpendingとして保存し、実際の結果確認後に更新する。Dev Containerの起動、製品画面・API・migration・利用者理解は未検証。
+
+### 環境準備の実行結果：PASS
+
+[CI 37506161907](https://github.com/saienjoy0/saitama-/actions/runs/37506161907)、commit `63df99a983c0e598d6cc7c7c3825ff0db6d5e259`。文書ハンドオフ、CURRENT生成一致、navigation unittest5件、UI契約・本文色5組、Node/Python依存のimportとCLI、Chromium起動と日本語のrole query/click・keyboard・axe、PostgreSQL16接続、lockによる再インストールが通過。CIに出した二つのlockを取得してrepoへ保存し、成功した実行のexport値とSHA-256が一致することも確認した。
+
+準備中にStorybookのmain export確認、検査HTMLのcharset欠落、axeに必要な明示browser contextを修正。日本語文字列とUTF-8をassertし、axeの検査を省略せず最終PASSを確認した。開発道具だけの検査であり、製品UIのa11y・製品build・API・DB migration・実端末・利用者理解は検証していない。ローカルshellは応答せず、Dev Container自体の起動は未実施。
+
+依存例：Node24.21.0／Python3.12.14／uv0.12.23、React19.3.0、TypeScript5.9.3、Vite8.3.3、Vitest4.1.11、Storybook10.6.1、Playwright1.63.0。製品へは必要な依存だけを選び別lockで固定する。
+
+## 2026-10-07：UI見直しv2・画面図・合成見本の実行結果
+
+[CI 37512909078](https://github.com/saienjoy0/saitama-/actions/runs/37512909078)、検査対象commit `f2399916a64654af85d4ceaf6e9c70761ed4a715`、job 112438389783：PASS。既存の文書ハンドオフ、CURRENT生成一致、navigation unittest5件、UI契約・開発道具・DB接続・frozen setupも同じ実行で通過した。
+
+| 対象 | 実際に確認したこと | 結果 |
+|---|---|---|
+| 共有の操作 | 新しい選択に架空の記録を自動追加しない／共有しない保存／保存失敗で入力保持・再試行／親の確認待ちから同じ選択原文を新聞へ渡す | PASS |
+| 確認と変更 | 非共有の予算・金額欄を送らない／本文や相手の変更後は子の選び直しを要求 | PASS |
+| 祖父母・特典 | 成人本人の発信に親の確認を要求しない／送信失敗で入力保持／特典申請を受取済みにせず円残高を変更しない | PASS |
+| 12画面 | 役割・ラベル・対象サイズ・主操作数・キーボード・axe | PASS |
+| 96配置 | 320・360・390・768 CSS px × 文字100・200% × 12画面 | PASS |
+| 共通挙動 | 本人設定またはOSの動き抑制／runtime error・外部通信なし | PASS |
+| 正確な図 | 同じcommitのSVG三点を日本語フォントのあるChromiumでPNGへ描画 | PASS・三点を目視確認 |
+
+初回のラベル照合とレビュー操作のlandmarkに不備を検出し修正。検査を省略せず通過を確認した。図の現在地タブ・日本語改行を修正し、祖父母の送信前は内容・相手・送るボタンを中心に絞った最終版で、上記全検査を再度通過した。PNGのbytes・SHA-256・Git blob SHAと元SVGのSHA-256は[verification.json](../review/ui-20261007/verification.json)に保存。
+
+対象は架空データの設計レビューHTMLと静止図。旧 `docs/review/index.html` のブラウザー検査を今回合格にしたものではない。製品UI/API/DB、実際の保存・共有・金銭授受、ライブAI、実家庭の理解、実端末、教育効果は未検証。DESIGN／D90を維持し、今回の「continue」を製品実装の開始指示へ変換していない。

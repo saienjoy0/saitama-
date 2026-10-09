@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: yattemi_dev
+      POSTGRES_PASSWORD: local_development_only
+      POSTGRES_DB: yattemi_dev
+    ports:
+      - "127.0.0.1:54329:5432"
+    volumes:
+      - yattemi_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yattemi_dev -d yattemi_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  yattemi_dev_data:

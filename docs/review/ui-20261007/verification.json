@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "design_revision": "20261007-v2",
+  "verified_at": "2026-10-06T18:46:10.675Z",
+  "source_commit": "f2399916a64654af85d4ceaf6e9c70761ed4a715",
+  "ci": {
+    "run_id": 37512909078,
+    "job_id": 112438389783,
+    "url": "https://github.com/saienjoy0/saitama-/actions/runs/37512909078",
+    "result": "success"
+  },
+  "scope": "synthetic_design_review_only",
+  "screen_count": 12,
+  "layout_count": 96,
+  "layout_matrix": {
+    "width_css_px": [
+      320,
+      360,
+      390,
+      768
+    ],
+    "text_percent": [
+      100,
+      200
+    ]
+  },
+  "passed_checks": [
+    "new_choice_has_no_invented_record",
+    "private_save_no_publication",
+    "save_failure_retry_pending_parent_publish_same_words",
+    "approved_excerpt_not_private_budget",
+    "changed_review_requires_new_child_selection",
+    "adult_post_no_parent_gate_failed_input_retained",
+    "reward_requested_not_received_yen_unchanged",
+    "12_screens_roles_targets_one_primary_keyboard_axe",
+    "96_layouts_320_360_390_768_text_100_200",
+    "profile_or_os_reduced_motion",
+    "no_runtime_errors_no_external_requests"
+  ],
+  "rendered_assets": [
+    {
+      "path": "docs/review/ui-20261007/sharing.png",
+      "git_blob_sha": "10f32091a7d054f71b89105b76a9bc36ca8c6094",
+      "sha256": "601438167c96698f7ea89675c0bcd6084502b8b35966fe1ea8ed0ce190774319",
+      "bytes": 227430,
+      "width": 1298,
+      "height": 1144,
+      "source_svg": "docs/review/ui-20261007/sharing.svg",
+      "source_svg_sha256": "b34bcf3bab1b03c1b63f8e50a38f9c8bd81606465804692a9c8bfcfe3ed6e977"
+    },
+    {
+      "path": "docs/review/ui-20261007/money.png",
+      "git_blob_sha": "5684c43a3123295510659e1152b5cd68df53f3a6",
+      "sha256": "bd640af54cc92c4f07d1abcdb0a340eb6069ae8d54bead3240bf48fd73f88f3c",
+      "bytes": 267644,
+      "width": 1298,
+      "height": 1273,
+      "source_svg": "docs/review/ui-20261007/money.svg",
+      "source_svg_sha256": "d4cfd8a9b9af52052d7516519b5f35bd64b77442e5f068ae182808c568f89bb8"
+    },
+    {
+      "path": "docs/review/ui-20261007/grandparent.png",
+      "git_blob_sha": "92bec7ddd6fee511078e99dbc6a4501c4a4d4bdb",
+      "sha256": "af24a0d64c5bd3a3c21d8e208c3cc5958b112c8a9340819c37fc05e1eeb57225",
+      "bytes": 175730,
+      "width": 1298,
+      "height": 1010,
+      "source_svg": "docs/review/ui-20261007/grandparent.svg",
+      "source_svg_sha256": "e7b63276ec6ecdff21e974369a4a3c4c3e39b2db12e4e8a02f3d402a44ff17a4"
+    }
+  ],
+  "drawing_review": {
+    "scope": "three_rendered_static_boards",
+    "reviewer": "Codex",
+    "result": "reviewed",
+    "checked": [
+      "exact_selected_words_and_recipient",
+      "active_navigation_matches_screen",
+      "readable_japanese_line_breaks",
+      "grandparent_send_content_recipient_and_optional_steps"
+    ]
+  },
+  "product_implementation": "not_started",
+  "real_users": "not_tested",
+  "physical_devices": "not_tested",
+  "learning_outcomes": "not_measured",
+  "note": "PNGは同じcommitのSVGをChromiumで描画した成果物。操作・アクセシビリティ・96配置の自動検査はHTML合成見本を対象とし、固定幅のPNGをレスポンシブ製品UIとは扱わない。"
+}

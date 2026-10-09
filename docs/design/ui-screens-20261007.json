@@ -1,0 +1,674 @@
+{
+  "version": "20261007-v2",
+  "scope": "synthetic_design_review_only",
+  "date": "2026-10-07",
+  "approach": "one_event_card_role_specific_views",
+  "dataNotice": "架空の家族・記録を使った設計見本です。実際の保存・送信・残高変更は行いません。",
+  "sample": {
+    "child": "みなと",
+    "parent": "ゆり",
+    "grandparent": "たえ",
+    "recordId": "example-record-01",
+    "revision": "example-v1",
+    "original": "肉は少ない方にした。今日は使う分だけでよかったから。全部で860円だった。",
+    "excerpt": "肉は少ない方にした。今日は使う分だけでよかったから。",
+    "budgetYen": 1000,
+    "expenseYen": 860,
+    "people": 3,
+    "grandparentSteps": 5200,
+    "stepSource": "手入力",
+    "money": {
+      "receivedYen": 1000,
+      "spentYen": 500,
+      "balanceYen": 500,
+      "points": 120,
+      "practiceYen": 10000
+    },
+    "interest": {
+      "payer": "ゆり",
+      "period": "2026年11月",
+      "rateKind": "月率",
+      "percent": 5,
+      "targetYen": 500,
+      "capYen": 50,
+      "expectedYen": 25,
+      "status": "未受取"
+    },
+    "reward": {
+      "name": "家族で映画に行く",
+      "points": 100,
+      "condition": "日程は家族で相談",
+      "status": "requested"
+    }
+  },
+  "screens": [
+    {
+      "id": "UI01",
+      "role": "child",
+      "type": "conditions",
+      "title": "今日の夕飯の材料",
+      "refs": {
+        "screens": [
+          "C01"
+        ],
+        "flows": [
+          "WF01"
+        ],
+        "features": [
+          "S01",
+          "S02"
+        ],
+        "motion": [
+          "M01",
+          "M02"
+        ]
+      },
+      "primary": "この条件で始める",
+      "alternative": "今日はしない",
+      "navigation": [
+        "今回のやってみ",
+        "これまで",
+        "お金とごほうび"
+      ],
+      "sections": [
+        {
+          "heading": "今回の条件",
+          "lines": [
+            "3人分・買い足す予算 1,000円",
+            "家にある材料も使えます。"
+          ]
+        },
+        {
+          "heading": "自分で選べること",
+          "lines": [
+            "今買う・来週にする・別の商品やお店を見る"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI02",
+      "role": "child",
+      "type": "choice",
+      "title": "いま、どうする？",
+      "refs": {
+        "screens": [
+          "C02"
+        ],
+        "flows": [
+          "WF02",
+          "WF03"
+        ],
+        "features": [
+          "S03",
+          "S23"
+        ],
+        "motion": [
+          "M01",
+          "M07"
+        ]
+      },
+      "primary": "選んだことを残す",
+      "alternative": "あとで続ける",
+      "navigation": [
+        "今回のやってみ",
+        "これまで",
+        "お金とごほうび"
+      ],
+      "sections": [
+        {
+          "heading": "今回の用事",
+          "lines": [
+            "夕飯の材料・3人分・予算 1,000円"
+          ]
+        },
+        {
+          "heading": "選択肢",
+          "lines": [
+            "今買う",
+            "来週にする",
+            "別の商品やお店を見る"
+          ]
+        },
+        {
+          "heading": "困ったときだけ",
+          "lines": [
+            "計算・比べる点・言葉の助けを開く"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI03",
+      "role": "child",
+      "type": "record",
+      "title": "今日の買い物",
+      "refs": {
+        "screens": [
+          "C03",
+          "C04"
+        ],
+        "flows": [
+          "WF04",
+          "WF05",
+          "WF06"
+        ],
+        "features": [
+          "S04",
+          "S05",
+          "S07",
+          "S24"
+        ],
+        "motion": [
+          "M03"
+        ]
+      },
+      "primary": "この内容で残す",
+      "alternative": "あとで",
+      "navigation": [
+        "今回のやってみ",
+        "これまで",
+        "お金とごほうび"
+      ],
+      "sections": [
+        {
+          "heading": "話したこと",
+          "lines": [
+            "肉は少ない方にした。今日は使う分だけでよかったから。全部で860円だった。"
+          ]
+        },
+        {
+          "heading": "この記録を見る人",
+          "lines": [
+            "自分と、管理する親"
+          ]
+        },
+        {
+          "heading": "家族にも見せたい",
+          "lines": [
+            "最初は選ばれていません。",
+            "選ぶと、見せる文章と相手をここに表示します。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI04",
+      "role": "child",
+      "type": "money",
+      "title": "お金とごほうび",
+      "refs": {
+        "screens": [
+          "C05"
+        ],
+        "flows": [],
+        "features": [
+          "S13",
+          "S14",
+          "S15",
+          "S19",
+          "S20",
+          "S21",
+          "S22"
+        ],
+        "motion": []
+      },
+      "primary": "お金の出入りを残す",
+      "alternative": "今は残さない",
+      "navigation": [
+        "今回のやってみ",
+        "これまで",
+        "お金とごほうび"
+      ],
+      "sections": [
+        {
+          "heading": "いま持っているお金",
+          "lines": [
+            "500円",
+            "受取 1,000円 − 使った 500円"
+          ]
+        },
+        {
+          "heading": "家族ポイント",
+          "lines": [
+            "120 P",
+            "お金とは別に、家族の特典と交換できます。"
+          ]
+        },
+        {
+          "heading": "貯めると増える約束",
+          "lines": [
+            "11月の例：500円 × 月5% = 25円",
+            "親が支払う・上限50円・未受取"
+          ]
+        },
+        {
+          "heading": "金融の練習",
+          "lines": [
+            "10,000 練習円",
+            "銀行・借りる・投資を練習用のお金で試す"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI05",
+      "role": "child",
+      "type": "rewards",
+      "title": "家族のごほうび",
+      "refs": {
+        "screens": [
+          "C05"
+        ],
+        "flows": [],
+        "features": [
+          "S16",
+          "S17"
+        ],
+        "motion": []
+      },
+      "primary": "このごほうびをお願いする",
+      "alternative": "別のごほうびを見る",
+      "navigation": [
+        "今回のやってみ",
+        "これまで",
+        "お金とごほうび"
+      ],
+      "sections": [
+        {
+          "heading": "家族で映画に行く",
+          "lines": [
+            "100 P・日程は家族で相談",
+            "使えるポイント：120 P"
+          ]
+        },
+        {
+          "heading": "ほかにも選べる",
+          "lines": [
+            "追加のお小遣い・プレゼント・お出かけ",
+            "この家族が決めた特典です。"
+          ]
+        },
+        {
+          "heading": "受け取るまで",
+          "lines": [
+            "申請 → 親の確認 → 受取",
+            "承認されたことと、受け取ったことは別です。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI06",
+      "role": "parent",
+      "type": "review",
+      "title": "家族に送る内容の確認",
+      "refs": {
+        "screens": [
+          "P01",
+          "P02"
+        ],
+        "flows": [
+          "WF07"
+        ],
+        "features": [
+          "S08"
+        ],
+        "motion": [
+          "M02",
+          "M06"
+        ]
+      },
+      "primary": "この内容を送る",
+      "alternative": "今回は送らない",
+      "navigation": [
+        "確認",
+        "家族の記録",
+        "設定"
+      ],
+      "sections": [
+        {
+          "heading": "みなとが選んだ文章",
+          "lines": [
+            "肉は少ない方にした。今日は使う分だけでよかったから。"
+          ]
+        },
+        {
+          "heading": "送る相手",
+          "lines": [
+            "たえ（おばあちゃん）"
+          ]
+        },
+        {
+          "heading": "含まれるもの",
+          "lines": [
+            "本人が選んだ文章のみ・写真なし",
+            "予算・詳しい金額欄・ヒント履歴は含みません。"
+          ]
+        },
+        {
+          "heading": "現在の状態",
+          "lines": [
+            "記録：保存済み",
+            "共有：親の確認待ち"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI07",
+      "role": "parent",
+      "type": "proposal",
+      "title": "次のお小遣いの提案",
+      "refs": {
+        "screens": [
+          "P01"
+        ],
+        "flows": [],
+        "features": [
+          "S14",
+          "S18"
+        ],
+        "motion": []
+      },
+      "primary": "この条件を1か月試す",
+      "alternative": "今のままにする",
+      "navigation": [
+        "確認",
+        "家族の記録",
+        "設定"
+      ],
+      "sections": [
+        {
+          "heading": "変えること",
+          "lines": [
+            "週払い 500円 → 月払い 2,000円",
+            "2026年11月1日〜30日だけ試す"
+          ]
+        },
+        {
+          "heading": "見た記録・4週間の例",
+          "lines": [
+            "予算を超えた記録なし・価格比較3回",
+            "貯金目標を達成・本人が月払いを希望"
+          ]
+        },
+        {
+          "heading": "まだ分からないこと",
+          "lines": [
+            "月全体にお金を配分する経験は未確認。",
+            "使う用途は今のまま。12月前に見直します。"
+          ]
+        },
+        {
+          "heading": "受取の予定",
+          "lines": [
+            "11月1日に2,000円を渡す予定。",
+            "受け取ってから、残高に反映します。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI08",
+      "role": "grandparent",
+      "type": "newspaper",
+      "title": "家族の新聞",
+      "refs": {
+        "screens": [
+          "G01",
+          "G02",
+          "G03"
+        ],
+        "flows": [
+          "WF08",
+          "WF10"
+        ],
+        "features": [
+          "S09",
+          "S11",
+          "S12"
+        ],
+        "motion": [
+          "M05"
+        ]
+      },
+      "primary": null,
+      "alternative": "あとで読む",
+      "navigation": [
+        "家族の新聞",
+        "今日を送る",
+        "これまで"
+      ],
+      "sections": [
+        {
+          "heading": "10月7日・みなと",
+          "lines": [
+            "今日の買い物"
+          ]
+        },
+        {
+          "heading": "みなとの言葉",
+          "lines": [
+            "肉は少ない方にした。今日は使う分だけでよかったから。"
+          ]
+        },
+        {
+          "heading": "気が向いたら",
+          "lines": [
+            "読んだよ・自分の経験・質問を返す"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI09",
+      "role": "grandparent",
+      "type": "quickpost",
+      "title": "今日を送る",
+      "refs": {
+        "screens": [
+          "G04"
+        ],
+        "flows": [
+          "WF11",
+          "WF12"
+        ],
+        "features": [
+          "S10"
+        ],
+        "motion": [
+          "M06"
+        ]
+      },
+      "primary": "『元気だよ』を送る",
+      "alternative": "自分の記録にだけ残す",
+      "navigation": [
+        "家族の新聞",
+        "今日を送る",
+        "これまで"
+      ],
+      "sections": [
+        {
+          "heading": "10月7日・たえ",
+          "lines": [
+            "送る言葉：元気だよ"
+          ]
+        },
+        {
+          "heading": "送る相手",
+          "lines": [
+            "ゆり（娘）"
+          ]
+        },
+        {
+          "heading": "ほかに残したいこと",
+          "lines": [
+            "歩数・一言・写真は、付けたい時だけ。",
+            "送る内容と相手は、この場所で確かめられます。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI10",
+      "role": "grandparent",
+      "type": "post",
+      "title": "今日を送る",
+      "refs": {
+        "screens": [
+          "G04"
+        ],
+        "flows": [
+          "WF11",
+          "WF12"
+        ],
+        "features": [
+          "S10",
+          "S25"
+        ],
+        "motion": [
+          "M03",
+          "M06"
+        ]
+      },
+      "primary": "この内容を送る",
+      "alternative": "自分の記録にだけ残す",
+      "navigation": [
+        "家族の新聞",
+        "今日を送る",
+        "これまで"
+      ],
+      "sections": [
+        {
+          "heading": "10月7日・たえ",
+          "lines": [
+            "公園まで歩いてきた。"
+          ]
+        },
+        {
+          "heading": "今日の歩数",
+          "lines": [
+            "5,200歩・手入力"
+          ]
+        },
+        {
+          "heading": "送る相手",
+          "lines": [
+            "ゆり（娘）"
+          ]
+        },
+        {
+          "heading": "送ったあと",
+          "lines": [
+            "共有済みと表示します。",
+            "相手が読んだかどうかとは別です。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI11",
+      "role": "grandparent",
+      "type": "album",
+      "title": "これまで",
+      "refs": {
+        "screens": [
+          "G02",
+          "P03",
+          "C04"
+        ],
+        "flows": [
+          "WF13"
+        ],
+        "features": [
+          "S06",
+          "S26",
+          "S27"
+        ],
+        "motion": [
+          "M05"
+        ]
+      },
+      "primary": null,
+      "alternative": "今日に戻る",
+      "navigation": [
+        "家族の新聞",
+        "今日を送る",
+        "これまで"
+      ],
+      "sections": [
+        {
+          "heading": "2026年10月",
+          "lines": [
+            "10月7日　みなと・今日の買い物",
+            "10月5日　たえ・公園まで歩いてきた"
+          ]
+        },
+        {
+          "heading": "何度でも読み返せる",
+          "lines": [
+            "新聞で読んだ同じ出来事です。",
+            "日付・本人の言葉・家族の言葉を分けて残します。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI12",
+      "role": "grandparent",
+      "type": "empty",
+      "title": "家族の新聞",
+      "refs": {
+        "screens": [
+          "G01",
+          "G02"
+        ],
+        "flows": [
+          "WF10"
+        ],
+        "features": [
+          "S01",
+          "S09",
+          "S28"
+        ],
+        "motion": [
+          "M05"
+        ]
+      },
+      "primary": null,
+      "alternative": "これまでを読む",
+      "navigation": [
+        "家族の新聞",
+        "今日を送る",
+        "これまで"
+      ],
+      "sections": [
+        {
+          "heading": "今日は新しい記事がありません",
+          "lines": [
+            "これまでの出来事は、いつでも読めます。"
+          ]
+        },
+        {
+          "heading": "自分の今日も残せます",
+          "lines": [
+            "「今日を送る」は、いつも同じ場所にあります。",
+            "毎日送る必要はありません。"
+          ]
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    "通常",
+    "保存失敗",
+    "送信失敗",
+    "親の確認待ち",
+    "新着なし",
+    "共有しない",
+    "動きを減らす"
+  ],
+  "implementation": "not_started",
+  "validation": "pending"
+}

@@ -2,7 +2,7 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-01T10:53:10Z",
+  "updated_at": "2026-10-06T18:46:10.675Z",
   "spec_status": "review-ready",
   "implementation_plan_status": "prepared-for-joint-review",
   "implementation_allowed": false,
@@ -14,7 +14,8 @@
     "document_checks",
     "prepare_development_skills",
     "prepare_implementation_plan",
-    "create_nonproduction_review_mockup"
+    "create_nonproduction_review_mockup",
+    "prepare_development_environment"
   ],
   "blocked_now": [
     "product_code",
@@ -35,10 +36,17 @@
     "docs/design/DECISIONS.md",
     "docs/design/personas-cycle-review-v0.4.md",
     "docs/design/ai-action-assistance-v0.4.md",
-    "docs/design/ai-engine-review-v0.4.1.md"
+    "docs/design/ai-engine-review-v0.4.1.md",
+    "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md",
+    "docs/design/やってみクエスト_主要導線と表示情報_20261006.md",
+    "docs/design/やってみクエスト_アルバムと家庭のお金・報酬設計_20261006.md",
+    "docs/design/ui-consistency-20261007.md",
+    "docs/design/ui-system.json",
+    "docs/design/ui-review-20261007.md",
+    "docs/design/ui-screens-20261007.json"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "Review the prepared v0.4.1 bundle. After the user reviews the presented bundle and explicitly says 実装を始めて, record actual statement, bundle hashes and native/sequential execution; complete D90 and start BUILD/B10. Do not recreate the plan or ask what task comes next.",
+  "next_codex_action": "Read UI review v2, exact screen data and the existing feature/S01 plan. This request creates design drawings and a synthetic review, not product implementation. At implementation start, use shared meanings and complete S01 then S02 one feature at a time.",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -60,17 +68,27 @@
     "additional_evaluation_job": "guided_plan"
   },
   "verification": {
-    "document_check": "passed; see docs/workflow/VERIFICATION.md",
-    "review_static_check": "passed: JavaScript syntax and embedded feature parity only",
-    "review_browser_check": "blocked: browser executable unavailable; not passed",
+    "document_check": "passed: document handoff, generated navigation, 5 navigation tests and UI design contract; https://github.com/saienjoy0/saitama-/actions/runs/37512909078",
+    "review_static_check": "passed: legacy docs/review/index.html JavaScript syntax and embedded feature parity only",
+    "review_browser_check": "legacy docs/review/index.html remains unverified in this round; historical browser executable unavailable. New UI review v2 is recorded separately in ui_v2_review_check.",
     "product_tests": "not_run",
     "model_evals": "not_run",
-    "family_pilot": "not_started"
+    "family_pilot": "not_started",
+    "ui_v2_review_check": {
+      "status": "passed",
+      "scope": "synthetic_design_review_only",
+      "source_commit": "f2399916a64654af85d4ceaf6e9c70761ed4a715",
+      "ci_url": "https://github.com/saienjoy0/saitama-/actions/runs/37512909078",
+      "screens": 12,
+      "layouts": 96,
+      "evidence": "docs/review/ui-20261007/verification.json",
+      "real_users": "not_tested"
+    }
   },
   "implementation_plan": "docs/superpowers/plans/2026-09-23-yattemi-implementation.md",
   "review_bundle": "current/REVIEW_BUNDLE.json",
   "proposed_execution": "native/sequential",
-  "design_revision": "0.4.1",
+  "design_revision": "0.5.2",
   "research_review": {
     "revision": "20260925-v5",
     "status": "research_documents_revised",
@@ -293,5 +311,183 @@
       "verify"
     ],
     "status": "recorded_in_core_and_lp_agent_instructions"
+  },
+  "feature_organization": {
+    "revision": "20261007-v5",
+    "scope": "今日決めた本体機能の実装整理",
+    "entry_point": "docs/design/やってみクエスト_機能全体と導線の設計順_20261006.md",
+    "delivery_units": [
+      "S01",
+      "S02",
+      "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S08",
+      "S09",
+      "S10",
+      "S11",
+      "S12",
+      "S13",
+      "S14",
+      "S15",
+      "S16",
+      "S17",
+      "S18",
+      "S19",
+      "S20",
+      "S21",
+      "S22",
+      "S23",
+      "S24",
+      "S25",
+      "S26",
+      "S27",
+      "S28"
+    ],
+    "implementation_groups": [
+      "B10",
+      "B20",
+      "B30",
+      "B40",
+      "B50",
+      "B60",
+      "B70"
+    ],
+    "principle": "One feature at a time: implement, verify, review, revise, then continue.",
+    "source_statement": "かいはつだろつぎは実装なんだから実装するんだから、今日決めたものを整理していくんだよ",
+    "product_implementation": "not_started",
+    "backlog": "current/FEATURE_DELIVERY.json"
+  },
+  "environment_preparation": {
+    "revision": "20261007-v1",
+    "request": "実装ではなく環境整備",
+    "entry_point": "docs/workflow/IMPLEMENTATION_READY.md",
+    "ui_spec": "docs/design/ui-consistency-20261007.md",
+    "ui_contract": "docs/design/ui-system.json",
+    "first_feature_plan": "docs/superpowers/plans/2026-10-07-s01-family-foundation.md",
+    "tooling_dir": "tools/development",
+    "workflow": ".github/workflows/development-preparation.yml",
+    "status": "verified_in_ci",
+    "local_execution": "unavailable: shell tool did not respond",
+    "ci_execution": {
+      "status": "passed",
+      "run_id": 37506161907,
+      "job_id": 112415243805,
+      "commit_sha": "63df99a983c0e598d6cc7c7c3825ff0db6d5e259",
+      "url": "https://github.com/saienjoy0/saitama-/actions/runs/37506161907",
+      "checks": [
+        "document_handoff",
+        "navigation_unittest_5",
+        "ui_contract_and_5_text_contrasts",
+        "node_python_tool_imports",
+        "development_clis",
+        "chromium_japanese_dom_click_keyboard_axe",
+        "postgres16_connection",
+        "frozen_reinstall"
+      ],
+      "scope": "development_environment_only"
+    },
+    "lock_files": {
+      "status": "committed_and_frozen_reinstall_verified",
+      "package_lock_sha256": "5d43f727b76ea00b12fba8cc103b06255c079b8c473dca94384dd168fdcd9ec6",
+      "uv_lock_sha256": "43dcd9aa45b3e6bcd2625b0e4b82481145742994ec44da5efab6cc01462e6818"
+    },
+    "devcontainer": "configuration_created_not_launched",
+    "product_implementation": "not_started",
+    "versions": {
+      "node": "24.21.0",
+      "python": "3.12.14",
+      "uv": "0.12.23",
+      "npm_packages": {
+        "react": "19.3.0",
+        "react-dom": "19.3.0",
+        "typescript": "5.9.3",
+        "vite": "8.3.3",
+        "vitest": "4.1.11",
+        "jsdom": "27.4.0",
+        "@playwright/test": "1.63.0",
+        "storybook": "10.6.1",
+        "@storybook/react-vite": "10.6.1",
+        "@storybook/addon-a11y": "10.6.1"
+      }
+    },
+    "ui_concept": {
+      "generated": true,
+      "usage": "visual_reference_only; source text and shared UI contract govern implementation"
+    }
+  },
+  "ui_review": {
+    "revision": "20261007-v2",
+    "request": "UIの妥当性と図の作り方を吟味して作成",
+    "entry_point": "docs/design/ui-review-20261007.md",
+    "screen_data": "docs/design/ui-screens-20261007.json",
+    "artifact": "docs/review/ui-20261007/index.html",
+    "screen_count": 12,
+    "drawings": [
+      "docs/review/ui-20261007/sharing.svg",
+      "docs/review/ui-20261007/money.svg",
+      "docs/review/ui-20261007/grandparent.svg"
+    ],
+    "status": "synthetic_review_passed_awaiting_user_review",
+    "proposed_test_layouts": 96,
+    "product_implementation": "not_started",
+    "real_user_validation": "not_performed",
+    "ci_execution": {
+      "status": "passed",
+      "source_commit": "f2399916a64654af85d4ceaf6e9c70761ed4a715",
+      "run_id": 37512909078,
+      "job_id": 112438389783,
+      "url": "https://github.com/saienjoy0/saitama-/actions/runs/37512909078",
+      "scope": "synthetic_design_review_only",
+      "checks": [
+        "new_choice_has_no_invented_record",
+        "private_save_no_publication",
+        "save_failure_retry_pending_parent_publish_same_words",
+        "approved_excerpt_not_private_budget",
+        "changed_review_requires_new_child_selection",
+        "adult_post_no_parent_gate_failed_input_retained",
+        "reward_requested_not_received_yen_unchanged",
+        "12_screens_roles_targets_one_primary_keyboard_axe",
+        "96_layouts_320_360_390_768_text_100_200",
+        "profile_or_os_reduced_motion",
+        "no_runtime_errors_no_external_requests"
+      ],
+      "layouts": 96
+    },
+    "verification": "docs/review/ui-20261007/verification.json",
+    "rendered_assets": [
+      {
+        "path": "docs/review/ui-20261007/sharing.png",
+        "git_blob_sha": "10f32091a7d054f71b89105b76a9bc36ca8c6094",
+        "sha256": "601438167c96698f7ea89675c0bcd6084502b8b35966fe1ea8ed0ce190774319",
+        "bytes": 227430,
+        "width": 1298,
+        "height": 1144,
+        "source_svg": "docs/review/ui-20261007/sharing.svg",
+        "source_svg_sha256": "b34bcf3bab1b03c1b63f8e50a38f9c8bd81606465804692a9c8bfcfe3ed6e977"
+      },
+      {
+        "path": "docs/review/ui-20261007/money.png",
+        "git_blob_sha": "5684c43a3123295510659e1152b5cd68df53f3a6",
+        "sha256": "bd640af54cc92c4f07d1abcdb0a340eb6069ae8d54bead3240bf48fd73f88f3c",
+        "bytes": 267644,
+        "width": 1298,
+        "height": 1273,
+        "source_svg": "docs/review/ui-20261007/money.svg",
+        "source_svg_sha256": "d4cfd8a9b9af52052d7516519b5f35bd64b77442e5f068ae182808c568f89bb8"
+      },
+      {
+        "path": "docs/review/ui-20261007/grandparent.png",
+        "git_blob_sha": "92bec7ddd6fee511078e99dbc6a4501c4a4d4bdb",
+        "sha256": "af24a0d64c5bd3a3c21d8e208c3cc5958b112c8a9340819c37fc05e1eeb57225",
+        "bytes": 175730,
+        "width": 1298,
+        "height": 1010,
+        "source_svg": "docs/review/ui-20261007/grandparent.svg",
+        "source_svg_sha256": "e7b63276ec6ecdff21e974369a4a3c4c3e39b2db12e4e8a02f3d402a44ff17a4"
+      }
+    ]
   }
 }

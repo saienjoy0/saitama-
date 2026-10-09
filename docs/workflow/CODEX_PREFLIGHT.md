@@ -1,12 +1,14 @@
-# 次のCodexの着手確認 v0.4.1
+# 次のCodexの着手確認 v0.5.1
+
+2026-10-07の環境・UI準備は[実装の入口](IMPLEMENTATION_READY.md)を優先。対象は機能整理v5、UI共通ルール、S01の具体計画。今回の「実装ではなく環境を整える」の指定を保つ。
 
 2026-09-23確認。今はDESIGN/D90。この手順を読んだだけでBUILDへ進めない。提示一式への実装開始指示後、準備済み計画を実行するための確認表。
 
 ## スキルの導入を迷わないために
 
 1. 対象リポジトリをGit履歴付きで開き、AGENTS→state→HANDOFF→当該taskを読む。作業コピーに`.git`がない場合、ホストの正規のcheckout機能／認証済みcloneを使う。文書コピーを`git init`して既存履歴の代わりにしない。
-2. `.agents/skills/`のプロジェクト2件は取得したrepoに同梱済み。公式仕様ではrepo内の同ディレクトリがローカルCodexの検出対象。`/skills`または`$`で存在を確認し、本文も読む。検出されない環境ではAGENTSが指定するファイルを直接読む。個人版と同名でも混ぜず、当repo版を優先する。
-3. 現環境はSuperpowers 6.4.1／Vercel 0.21.4がインストール済み。移行先でも同じとは仮定しない。Codex AppではPluginsで、CLIでは`/plugins`でSuperpowersを検索し、未導入ならInstall Plugin。Vercelも対象環境のPlugins一覧で確認する。現在のカタログ別名`e16`等やキャッシュ絶対パスを、移行先のインストールコマンドに使わない。
+2. `.agents/skills/`のプロジェクト5件（workflow・役割別UI・PM3種）は取得したrepoに同梱済み。公式仕様ではrepo内の同ディレクトリがローカルCodexの検出対象。`/skills`または`$`で存在を確認し、本文も読む。検出されない環境ではAGENTSが指定するファイルを直接読む。個人版と同名でも混ぜず、当repo版を優先する。
+3. 現環境はSuperpowers 6.4.2／Vercel 0.21.4がインストール済み。移行先でも同じとは仮定しない。Codex AppではPluginsで、CLIでは`/plugins`でSuperpowersを検索し、未導入ならInstall Plugin。Vercelも対象環境のPlugins一覧で確認する。現在のカタログ別名`e16`等やキャッシュ絶対パスを、移行先のインストールコマンドに使わない。
 4. `$skill-installer`は公式に案内されたローカルスキル導入経路。対象環境で存在を確認してから、正式な配布元・必要なパスを指定する。第三者配布元の最新版を無確認で実行せず、導入した版と本文を記録。プラグイン一式に付く相対参照・補助スクリプトが必要なSuperpowersは一式を利用し、SKILL.mdだけを抜き出さない。
 5. 自動導入できないホストや接続操作が必要な場合は、その事実と必要な一操作を報告。これは未導入であり「準備済み」と偽らない。すでに導入済みなら再インストールしない。導入権限の回避はしない。
 
@@ -19,7 +21,7 @@
 | 工程 | 読むスキル・依存 | 作るもの／迷わない判断 |
 |---|---|---|
 | DESIGN修正 | workflow、UI、brainstorming、計画修正ならwriting-plans | active_specsと計画だけ。再レビューのたびに全体を作り直さない |
-| B10〜B50 | workflow、UI、executing-plans、TDD、React作業時react-best-practices | 固定版の三役体験→家族循環→認証保存。ReactスキルのNext.js専用項目をViteへ適用しない |
+| B10〜B50 | workflow、UI、executing-plans、TDD、React作業時react-best-practices | S01の家族・役割・保存→S02条件→S03比較→記録・家族循環。ReactスキルのNext.js専用項目をViteへ適用しない |
 | BUILD準備 | using-git-worktrees（executing-plansの依存） | 既存の隔離checkoutを優先。なければnative worktree、さらに無ければ`.worktrees/`をgitignoreして作る。ユーザーへ場所を毎回尋ねない |
 | B60任意 | 上記＋AI仕様v0.4／v0.4.1、提供元公式API資料 | 候補検索と課題分解の比較。開発用SKILL.mdを製品のsystem promptへ送らない |
 | 完了・B70 | verification-before-completion、requesting-code-review、finishing-a-development-branch | 実行結果で検証し、スキルに従い最後に全体review。native/sequentialはタスクごとの実装委譲をしない方式。最終reviewの委譲は適用される権限・スキル指示に従う |
