@@ -2,9 +2,9 @@
   "project": "yattemi-quest",
   "stage": "DESIGN",
   "stage_version": 4,
-  "updated_at": "2026-10-01T10:53:10Z",
-  "spec_status": "review-ready",
-  "implementation_plan_status": "prepared-for-joint-review",
+  "updated_at": "2026-10-06T10:43:21.944Z",
+  "spec_status": "requirements_draft_scope_pending",
+  "implementation_plan_status": "needs_alignment_with_latest_requirements",
   "implementation_allowed": false,
   "allowed_now": [
     "read_repo",
@@ -38,7 +38,7 @@
     "docs/design/ai-engine-review-v0.4.1.md"
   ],
   "next_task_id": "D90",
-  "next_codex_action": "Review the prepared v0.4.1 bundle. After the user reviews the presented bundle and explicitly says 実装を始めて, record actual statement, bundle hashes and native/sequential execution; complete D90 and start BUILD/B10. Do not recreate the plan or ask what task comes next.",
+  "next_codex_action": "D91：§0.20で祖父母の本人発信・歩数等の活動記録・新聞と過去の出来事の再訪をレビュー。次は今日を知らせる／過去を見返す具体例で入力負担と宛先を一緒に決める。日記は後回し。歩数連携・通知・保持・正式契約・初期範囲・旧計画・実装は未完了。",
   "approval": {
     "design_chat": true,
     "written_spec": false,
@@ -53,14 +53,15 @@
     "plan review and execution method recorded"
   ],
   "ai": {
-    "mode": "fixed_default_optional_curated_candidate_matching_and_parent_drafts",
+    "mode": "requirements_default_quest_proposal_implementation_pending",
     "live_family_data_enabled": false,
     "provider": "openai_responses_candidate_not_configured",
     "first_evaluation_job": "next_action_match",
-    "additional_evaluation_job": "guided_plan"
+    "additional_evaluation_job": "guided_plan",
+    "evaluation_scope_alignment": "AB01-AB07 requirements defined; case sets and thresholds pending N02/N04; existing jobs are v0.4.1"
   },
   "verification": {
-    "document_check": "passed; see docs/workflow/VERIFICATION.md",
+    "document_check": "JavaScript handoff/document checks passed: 622 assertions, 41 review hashes, 61 relative links, generated CURRENT, protected approvals/tasks/other streams and 21-feature parity. Ogenki nine-file code review is not a device/live test; grandparent record/archive examples are design proposals. Native Python not run due to continuing Windows process creation failure. No product/model/family evaluation. Exact commit readback required before branch update.",
     "review_static_check": "passed: JavaScript syntax and embedded feature parity only",
     "review_browser_check": "blocked: browser executable unavailable; not passed",
     "product_tests": "not_run",
@@ -70,7 +71,7 @@
   "implementation_plan": "docs/superpowers/plans/2026-09-23-yattemi-implementation.md",
   "review_bundle": "current/REVIEW_BUNDLE.json",
   "proposed_execution": "native/sequential",
-  "design_revision": "0.4.1",
+  "design_revision": "0.5-draft",
   "research_review": {
     "revision": "20260925-v5",
     "status": "research_documents_revised",
@@ -293,5 +294,892 @@
       "verify"
     ],
     "status": "recorded_in_core_and_lp_agent_instructions"
+  },
+  "product_design_dialogue": {
+    "task_id": "D91",
+    "started_on": "2026-10-05",
+    "status": "consultation_in_progress",
+    "entry_point": "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md",
+    "baseline_revision": "0.4.1",
+    "recommendation": "reuse_existing_design_and_reframe_core_value_first_experience_continuation_purchase",
+    "first_question": "このサービスを使った子どもや家族に、まずどんな変化が起きてほしいか",
+    "founder_outcome_confirmed": true,
+    "product_specs_changed": false,
+    "founder_outcome": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "summary": "身近な仕組みを積極的に知り、家庭で実際に試し、金融についても学びながら、父母・祖父母と自分から話せるようになる。",
+      "source": "direct_user_statement",
+      "desired_changes": [
+        "身近な仕組みへの積極的な理解",
+        "家庭での実践と積極的な参加",
+        "金融の学び",
+        "父母・祖父母との活発な会話",
+        "日常の困っている状態を自分で発見し、解決を試す"
+      ],
+      "interpretation_status": "reflected_back_in_conversation",
+      "unresolved": [
+        "親のフィードバック、家庭・本人の記憶と成長段階の具体設計",
+        "具体的な題材と金融の比重",
+        "継続の頻度とゲーム性",
+        "料金と提供範囲"
+      ]
+    },
+    "next_question": "親の希望と子どもの関心が異なる時、どちらを入口にし、家庭と本人の希望をどう記憶してクエストへ反映するか。",
+    "entry_point_decision": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "chosen_entries": [
+        "own_question",
+        "ai_suggested_quest"
+      ],
+      "default_entry": "AIが外部教材を土台にクエストを提示し、子どもが取り組む",
+      "own_question_interpretation": "本人の疑問ややりたいことも入口として扱うという理解を返した",
+      "material_reference": "research/GAKUSTA_クエスト教材・ネタ元リファレンス_20260925.md",
+      "unresolved": [
+        "不明瞭な発言末尾の意図と自発性の具体的な扱い",
+        "個別教材の正式採用と利用条件"
+      ]
+    },
+    "personalization_direction": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "interest_to_quest": true,
+      "household_and_person_memory_requested": true,
+      "feedback_driven_quest_changes": true,
+      "requested_topic_examples": [
+        "お金系をもっと",
+        "NISA系がよい"
+      ],
+      "decompose_difficult_tasks": true,
+      "growth_sensitive_repeated_quest_criteria": true,
+      "reuse_prior_chat_design_requested": true,
+      "reference_documents": [
+        "事業統合正本・完全統合版_20260821 D-2〜D-7/E-2〜E-7",
+        "AI意思決定教育_方法レビュー_20261004 §2〜4",
+        "AI支援の効果比較_20261004 §2〜5",
+        "継続と契約につながる体験設計_20261005 §2/6/9/10",
+        "docs/design/ai-action-assistance-v0.4.md",
+        "docs/design/ai-engine-review-v0.4.1.md"
+      ],
+      "unresolved": [
+        "任意フィードバックの表示時点・選択肢",
+        "記憶する情報の範囲・訂正・役割ごとの利用",
+        "段階別の達成基準と見直す人・証拠",
+        "初期版に含める個別化の範囲"
+      ],
+      "automatic_grading_or_promotion_authorized": false,
+      "historical_achievement_preservation": "proposed"
+    },
+    "parent_feedback_decision": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "required": false,
+      "formats": [
+        "selection",
+        "free_text"
+      ],
+      "frequency_required": false,
+      "example_choices_status": "proposal",
+      "example_choices": [
+        "このくらいでよい",
+        "難しかった",
+        "簡単だった",
+        "別の題材を増やしたい"
+      ],
+      "unresolved": [
+        "表示するタイミング",
+        "正式な選択肢と複数選択の可否"
+      ]
+    },
+    "research_quest_direction": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "important_alongside_shopping": true,
+      "topic_examples": [
+        "電気代",
+        "水道代",
+        "水道光熱費"
+      ],
+      "desired_understanding": "日常を支える社会の仕組みと、そもそも何の費用なのか",
+      "ai_role": "難しい社会の仕組みを、本人と家庭に合った分かりやすい調査クエストへ分解する",
+      "example_quest_status": "unreviewed_design_proposal",
+      "unresolved": [
+        "面白そうな目的と5〜10分での完遂条件",
+        "出典・教材部品と対象年齢",
+        "調査の段階別達成基準"
+      ]
+    },
+    "quest_experience_decision": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "default_duration_minutes": {
+        "min": 5,
+        "max": 10
+      },
+      "engaging_connected_quest_required": true,
+      "complete_one_quest_per_session": true,
+      "prior_example_feedback": "調べる項目を順に並べた例はつまらなそうと指摘された",
+      "proposed_experience": "一つの面白そうな目的のもとで、気になる状態を自分で発見し、理由・仕組みを調べ、解決の工夫を試して変化を確かめる。基本は5〜10分でその回の範囲を完遂する。",
+      "cross_quest_connections_status": "proposal; exact meaning of all-connected remains open",
+      "unresolved": [
+        "題材ごとの完遂条件",
+        "クエスト間のつながりと見せ方"
+      ]
+    },
+    "discovery_and_resolution_decision": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "discover_and_resolve": true,
+      "discover_problematic_situations": true,
+      "fun_dimensions": "発見と解決を一続きにする",
+      "proposed_loop": [
+        "観察",
+        "困っている状態の発見",
+        "理由・仕組みの調査",
+        "本人の工夫",
+        "実践",
+        "変化の確認"
+      ],
+      "ai_role_proposal": "家庭・本人に合う観察の入口と手がかりを用意し、難しい部分を分解する",
+      "unresolved": [
+        "題材ごとの5〜10分での完遂条件",
+        "その場の変化と後日の成果の扱い",
+        "入力負担と段階別基準"
+      ]
+    },
+    "information_gathering_direction": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "ai_information_gathering_required": true,
+      "information_gathering_can_be_quest": true,
+      "interpretation_status": "high_level_direction_confirmed_by_user; collection scope and mechanisms remain proposals",
+      "proposed_information_sources": [
+        "確認した外部教材・社会の仕組みの資料",
+        "家庭設定",
+        "本人の問い・活動・調査結果",
+        "任意の親・家族の反応"
+      ],
+      "proposed_loop": [
+        "既知・未確認の整理",
+        "学びに必要な情報の選択",
+        "面白い調査クエスト",
+        "本人の確認・実践",
+        "出所を区別した記憶",
+        "次の提案の調整"
+      ],
+      "unresolved": [
+        "初回の情報とクエスト",
+        "記憶する情報の範囲と訂正",
+        "外部情報収集の方法・更新・初期範囲"
+      ],
+      "confirmed_on": "2026-10-06"
+    },
+    "parent_onboarding_decision": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "target_duration_minutes": 5,
+      "duration_qualifier": "approximately; not a strict maximum",
+      "input_fields_status": "proposal",
+      "proposed_fields": [
+        "子どもの学年・親が分かる関心",
+        "家庭のルール・許可できる行動",
+        "親が学んでほしいこと",
+        "必要な範囲の家族の関わり方"
+      ],
+      "proposed_input_format": "selection first, optional supplementary text",
+      "unresolved": [
+        "具体的な必須・任意と画面数",
+        "設定から提案への移行",
+        "親子で始める仮案の所要時間・負担の確認"
+      ]
+    },
+    "first_quest_parent_involvement": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "user_wording": "わからんけど親子でいいんじゃないかな",
+      "status": "tentative_preference",
+      "first_quest_mode": "parent_and_child_together",
+      "recurring_parent_attendance_required": false,
+      "parent_role_proposal": "一緒に調べる・家庭情報や経験を伝える・結果を確かめる",
+      "child_role_proposal": "予想・発見・工夫・選択・実践の主役",
+      "unresolved": [
+        "初回での親の負担と具体的な役割",
+        "慣れた後の関わり方"
+      ]
+    },
+    "first_experience_outline": {
+      "status": "high_level_outline_agreed_by_founder; concrete details remain proposals",
+      "source": "consultation_synthesis",
+      "steps": [
+        "約5分の親設定",
+        "親子で候補を見て子どもが選ぶ",
+        "5〜10分の親子での探究・実践",
+        "本人がその回の目的を完遂",
+        "任意の親の反応・次の問い"
+      ],
+      "durations_measured": false,
+      "candidate_count_finalized": false,
+      "artifact": "docs/workflow/PRODUCT_DESIGN_DIALOGUE.md",
+      "agreed_on": "2026-10-06"
+    },
+    "first_quest_candidate": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "user_wording": "冷蔵庫かな",
+      "status": "provisionally_selected_by_founder",
+      "title": "冷蔵庫に眠る宝を救え！",
+      "proposed_mission": "使う予定がまだ決まっていない食材を見つけ、使い道を考え、家の予定を一つ変える",
+      "proposed_steps": [
+        "気になる食材を選ぶ",
+        "家族に予定を確認する",
+        "本人が工夫を提案する",
+        "親子で食事・買い物の予定を更新する"
+      ],
+      "completion_criterion_status": "provisionally_agreed_by_founder",
+      "completion_criterion_proposal": "一つの食材の使い道を決め、家の予定を一つ更新する",
+      "later_outcomes_separate": [
+        "実際に使ったか",
+        "廃棄や支出が減ったか"
+      ],
+      "education_reviewed": false,
+      "user_observed": false,
+      "unresolved": [
+        "子どもが興味を持つか",
+        "5〜10分の実際の所要時間",
+        "教材部品と記録・支援の具体的なUI",
+        "家の予定を更新する体験の親子の負担"
+      ],
+      "completion_criterion_agreed_on": "2026-10-06",
+      "latest_user_wording": "まあそれでいいぞとりあえず"
+    },
+    "household_rewards_direction": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_statement",
+      "user_wording": "それはそうだね",
+      "household_configurable_rewards_requested": true,
+      "reward_examples": [
+        "ポイント",
+        "お小遣い"
+      ],
+      "implementation_scope_finalized": false,
+      "reuse_baseline": "docs/design/product-design-v0.1.md#8.4",
+      "unresolved": [
+        "親の確認操作・確定・受取の具体的な流れ",
+        "予算の期間・具体的な金額・目安の単位",
+        "どの活動に付けるか",
+        "ポイントとお小遣いの関係",
+        "付与・確認・受取・訂正と初期範囲"
+      ],
+      "automatic_payment_authorized": false,
+      "allocation_decision": {
+        "recorded_on": "2026-10-06",
+        "source": "direct_user_statement",
+        "user_wording": "それでいいよ",
+        "status": "agreed_in_consultation",
+        "parent_sets": [
+          "予算の上限",
+          "報酬の目安"
+        ],
+        "app_role": "家庭の設定した範囲でクエストと報酬を提案する"
+      },
+      "verification_decision": {
+        "recorded_on": "2026-10-06",
+        "source": "direct_user_statement",
+        "user_wording": "ごとがいいねあと",
+        "mode": "parent_checks_each_quest",
+        "status": "agreed_in_consultation",
+        "feedback_required_for_verification": false,
+        "verification_ui_finalized": false
+      }
+    },
+    "pending_user_addition": {
+      "recorded_on": "2026-10-06",
+      "user_wording": "あと",
+      "status": "resolved_user_requested_next_topic",
+      "resolution_source": "本人が「つぎは」と対話の継続を求めた。追加内容は記録しない。"
+    },
+    "family_newspaper_direction": {
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "source": "direct_user_reaffirmation_and_existing_repository_design",
+      "user_wording": "そうだねしんぶんにするってねもっとぎっとはぶのやつよみこんで",
+      "retain_existing_newspaper": true,
+      "reference_commit": "214c264d3043e81815827a8cacf4c33d5d2b80d0",
+      "reference_documents": [
+        "docs/design/product-design-v0.1.md",
+        "docs/design/role-experience-v0.3.md",
+        "docs/design/personas-cycle-review-v0.4.md",
+        "docs/design/FEATURE_REVIEW.md",
+        "docs/design/ai-harness-design-v0.2.md",
+        "docs/design/ai-action-assistance-v0.4.md",
+        "research/GAKUSTA_祖父母を含む家族循環_外部調査と面談接続_20260925.md",
+        "research/GAKUSTA_祖父母循環_DeepResearch_原文_20260925.md",
+        "research/GAKUSTA_既存サービス利用後不満と別居家族共有_補完調査_20260925.md"
+      ],
+      "reuse_features": [
+        "F06",
+        "F07",
+        "F08",
+        "F09",
+        "F10",
+        "F11",
+        "F12",
+        "F17",
+        "F18",
+        "F21"
+      ],
+      "existing_initial_proposal": {
+        "cadence": "weekly",
+        "max_cards": 6,
+        "values_reconfirmed_this_turn": false
+      },
+      "proposed_connection": [
+        "5〜10分で完遂",
+        "本人の発見カード",
+        "本人の共有選択",
+        "親の確認",
+        "家族新聞",
+        "任意の経験・質問",
+        "本人が選ぶ次の探究"
+      ],
+      "newspaper_editing_per_quest_required": false,
+      "grandparent_response_required": false,
+      "product_spec_revision_approved": false,
+      "unresolved": [
+        "頻度設定の具体的な選択肢・既定値と変更方法",
+        "素材数・下書き準備のタイミング",
+        "親の編集負担と定型化",
+        "家族の経験を個別化と教材へ結ぶ具体的な範囲"
+      ],
+      "publication_cadence_decision": {
+        "recorded_on": "2026-10-06",
+        "timezone": "Asia/Seoul",
+        "source": "direct_user_statement",
+        "user_wording": "いいよていうか家庭ごとでいいと思う",
+        "household_configurable": true,
+        "status": "agreed_in_consultation",
+        "weekly_required_for_all_households": false,
+        "option_examples": [
+          "週1回",
+          "隔週",
+          "話題がたまった時"
+        ],
+        "option_examples_status": "proposal; exact options and default not finalized",
+        "automatic_publication_authorized": false
+      }
+    }
+  },
+  "requirements_consolidation": {
+    "date": "2026-10-06",
+    "timezone": "Asia/Seoul",
+    "task_id": "D91",
+    "status": "founder_requirements_consolidated_for_review",
+    "entry_point": "docs/design/product-design-v0.1.md",
+    "requirements": "R01-R15",
+    "open_questions": "N01-N06",
+    "sources": "latest founder statements, consultation record, existing v0.4/v0.4.1 and material references",
+    "product_specs_updated": true,
+    "scope_approved": false,
+    "implementation_plan_aligned": false,
+    "next_action": "D91：教材の学びを家庭で子が考え・工夫し・実行する経験へ変えるエンジンを§0.17で言語化。六責務と学び／裁量権／支援の分離、架空三家庭・多教材、必要な支援と実際の記録から次の学びを提案。次は一つの例で入出力・本人の仕事・成果と観察を一緒に決める。詳細契約・初期範囲・旧計画同期・実装は未完了。",
+    "not_approved": [
+      "difficulty-selection UI proposal",
+      "automatic ability certification",
+      "detailed initial release scope",
+      "detailed AI generation/display and family-review authority contract"
+    ],
+    "verification": "document checks only; no product tests, model evaluations or family observations",
+    "initial_experience_direction": {
+      "status": "agreed_in_consultation",
+      "recorded_on": "2026-10-06",
+      "timezone": "Asia/Riyadh",
+      "user_wording": "あってる",
+      "experience": "Parent initial settings, first family quest to discuss actual decision authority, parent confirms rule, then repeated material quests with child inquiry/choice, family newspaper and optional words feeding inquiry",
+      "detailed_release_scope_approved": false,
+      "implementation_authorized": false
+    },
+    "discovery_skill_preparation": {
+      "status": "bundled_and_draft_applied",
+      "recorded_on": "2026-10-06",
+      "skills": [
+        "define-opportunity-tree",
+        "define-hypothesis",
+        "measure-experiment-design",
+        "discover-interview-synthesis"
+      ],
+      "entry_point": "docs/design/product-design-v0.1.md",
+      "section": "0.10",
+      "hypotheses": "H01-H05",
+      "sample_sizes_and_criteria": "proposals; not approved or executed",
+      "formal_experiment_design": "not_prepared; baseline and conditions pending",
+      "interview_synthesis": "not_run; no real interview records"
+    },
+    "personalization_proposal": {
+      "section": "0.11",
+      "status": "grandparent_experience_default_and_quest_proposal_direction_agreed",
+      "household_information_examples": "synthetic",
+      "ai_scope_alternatives": [
+        "reviewed_material_adjustment",
+        "new_material_research_and_human_review",
+        "immediate_new_material_display"
+      ],
+      "recommended": "new_material_research_and_human_review",
+      "reviewer": "household configurable reviewer with initial default; parent/grandparent candidates",
+      "input_fields_finalized": false,
+      "ai_scope_direction_agreed": true,
+      "user_wording": "いいよただ多すぎるとやるの面倒になるからそこもかんがえもんやな、確認担当は親祖父母じゃないかな",
+      "review_workload_constraint": "avoid excessive input, proposals and repeated review",
+      "review_load_proposals": "reuse reviewed content within valid conditions; review new/significantly changed content; concise summary and details; defer with reviewed fallback",
+      "single_reviewer_approved": false,
+      "reviewer_default_configurable": true,
+      "reviewer_default_value": "parent proposed; not agreed",
+      "review_threshold_meaning": "clarified as degree of family members' educational influence on proposals",
+      "latest_user_wording": "いいよそれでそふぼがこれやってみたらどうっていうくえすともね",
+      "educational_influence": {
+        "meaning": "person-specific degree of incorporating educational wishes into AI quest proposals",
+        "separate_from": [
+          "content_reviewer_assignment",
+          "family_communication_and_sharing_permissions",
+          "completion_and_reward_confirmation"
+        ],
+        "levels_proposed": [
+          "do_not_use",
+          "experience_only",
+          "experience_and_educational_wishes"
+        ],
+        "levels_agreed": false,
+        "default_and_configuration_authority": "grandparent experience-only default agreed; detailed authority and other defaults pending",
+        "numeric_weights": "not specified",
+        "conflict_rule": "do not override parent settings with family wishes; proposal pending",
+        "child_interest_and_choice": "retained",
+        "example_status": "hypothetical; not facts about founder household",
+        "evaluation_status": "design examples prepared; not executed",
+        "grandparent_default": "experience_only",
+        "grandparent_default_direction_agreed": true
+      },
+      "family_quest_proposals": {
+        "direction_agreed": true,
+        "source": "grandparents can suggest 'why not try this?'",
+        "child_selection": "optional candidate",
+        "new_material": "agreed B content review before child display",
+        "influence_setting": "applies to conversion; suggestion format does not bypass settings",
+        "input_and_queue_details": "proposed; not finalized"
+      }
+    },
+    "initial_scope_comparison": {
+      "section": "0.12",
+      "status": "S1_experience_direction_agreed_details_pending",
+      "alternatives": [
+        "S1_family_loop_first",
+        "S2_deeper_personalization",
+        "S3_broader_topics"
+      ],
+      "recommended": "S1_family_loop_first",
+      "scope_approved": false,
+      "capabilities": [
+        "household_quest_selection",
+        "short_practice_and_adapted_next_step",
+        "parent_completion_and_reward",
+        "household_newspaper",
+        "family_suggestions_to_next_quest"
+      ],
+      "agreed_directions_preserved": [
+        "new_material_B_with_review",
+        "grandparent_experience_only_default",
+        "grandparent_quest_suggestions",
+        "child_choice",
+        "parent_initial_bounds",
+        "first_family_authority_quest",
+        "parent_confirmed_actual_decision_scope"
+      ],
+      "effort_estimate": "not calculated",
+      "next": "concretize family rule fields and material-engine input/output/validation using synthetic examples; detailed contracts and plan alignment",
+      "direction_agreed": true,
+      "latest_user_wording": "はいそうだね"
+    },
+    "first_and_repeat_use_example": {
+      "section": "5.3 (first) / 0.13 (later material)",
+      "status": "first_family_discussion_direction_agreed_details_synthetic",
+      "first": "parent initial bounds -> KX00 family discussion of actual child decision authority -> parent confirms rule -> later material quests",
+      "repeat": "adapted choice using prior activity, child's question, parent wish and optional grandparent suggestion",
+      "exception_paths": [
+        "child_hold",
+        "completion_review_wait",
+        "new_material_review_wait",
+        "no_share_or_reply",
+        "influence_setting_change",
+        "current_conditions_changed"
+      ],
+      "parent_involvement_after_first": "pending consultation",
+      "model_evaluation": "not performed",
+      "family_observation": "not performed"
+    },
+    "quest_content_design": {
+      "date": "2026-10-06",
+      "timezone": "UTC",
+      "status": "source_backed_quest_proposals_for_review",
+      "founder_request": "教科書・参考資料、家庭の事情と過程から、具体的に何をクエストにするか詳しくする",
+      "entry_point": "docs/design/product-design-v0.1.md",
+      "material_reference": "research/GAKUSTA_クエスト教材・ネタ元リファレンス_20260925.md",
+      "proposal_ids": [
+        "KX01",
+        "KX02",
+        "KX03"
+      ],
+      "source_coverage": "MEXT consumer-education excerpts, Tokyo Shoseki 2024 public annual plan/FAQ, CAA household food-loss guidance, Tokyo Waterworks primary explanations and school practice report; full textbook and J-FLEC PDF not read",
+      "synthetic_examples": true,
+      "repeat_parent_involvement": "unanswered; content design prioritized",
+      "approval": "No card adoption, whole-spec approval or implementation authorization",
+      "verification": "document checks only; educational efficacy, model evaluation and family observation not performed",
+      "section": "0.14",
+      "difficulty_revision": {
+        "date": "2026-10-06",
+        "timezone": "Asia/Seoul",
+        "interpretation": "Founder questioned overly simple difficulty for grades 5-6",
+        "status": "revised_proposals_for_review",
+        "section": "0.14.1",
+        "reference_version": "v4",
+        "approach": "Simple examples become entry/support; core includes self-identified missing information, multiple conditions and own reason; changing conditions is extension/next use",
+        "not_claimed": [
+          "uniform age standard",
+          "difficulty button approval",
+          "automatic certification",
+          "validated age fit",
+          "card adoption",
+          "implementation authorization"
+        ]
+      },
+      "first_use_position": "KX01-KX03 follow the initial KX00 family discussion; old first-fridge adoption superseded"
+    },
+    "ai_quest_decomposition_design": {
+      "date": "2026-10-06",
+      "status": "synthetic_design_proposal_for_review",
+      "section": "0.15",
+      "founder_request": "AIがどうやって分解してクエストにするのか",
+      "inputs": [
+        "source_scoped_material",
+        "child_interest_and_permitted_parent_wish",
+        "minimal_current_household_conditions",
+        "consented_activity_and_support_record",
+        "permitted_family_suggestion"
+      ],
+      "decomposition": [
+        "learning_goals_and_prerequisites",
+        "one_coherent_quest",
+        "next_episode_from_observed_reason_and_support"
+      ],
+      "example": "KX01 plan update -> KX02 package comparison -> changed quantity and plan revision; optional candidates, not compulsory course",
+      "evaluation_specs": [
+        "QD01",
+        "QD02",
+        "QD03",
+        "QD04",
+        "QD05"
+      ],
+      "old_guided_plan_contract": "step IDs only; broader contract and implementation plan remain unaligned",
+      "model_evaluation": "not_run",
+      "family_observation": "not_run",
+      "approval": "design concretization requested; detailed workflow/card adoption and implementation unapproved",
+      "next_action": "D91：§0.20で祖父母の本人発信・歩数等の活動記録・新聞と過去の出来事の再訪をレビュー。次は今日を知らせる／過去を見返す具体例で入力負担と宛先を一緒に決める。日記は後回し。歩数連携・通知・保持・正式契約・初期範囲・旧計画・実装は未完了。",
+      "competitor_review": {
+        "date": "2026-10-06",
+        "timezone": "Asia/Seoul",
+        "status": "primary_source_comparison_and_recommendation_not_adopted",
+        "services": [
+          "atama+",
+          "Qubena",
+          "Surala",
+          "WonderBox",
+          "Otetsudai StepUP",
+          "Khanmigo",
+          "GoHenry",
+          "Greenlight"
+        ],
+        "source_ids": "C01-C15 in existing AI-engine review",
+        "fresh_updates": [
+          "Khanmigo May/August 2026",
+          "Qubena June 2026"
+        ],
+        "proposal": "reviewed learning goals/prerequisites + household quest adaptation + minimal activity signals for next support",
+        "limitations": "public descriptions; internal algorithms, actual use and household-learning efficacy unverified",
+        "implementation_authorized": false
+      },
+      "kx01_walkthrough": {
+        "date": "2026-10-06",
+        "status": "synthetic_proposal_for_review",
+        "section": "0.15.1",
+        "source": "Material reference v4 H/KX01; product 0.15; AI review official-service comparison",
+        "learning_unit": "Two meal plans and stock -> own investigation -> comparison and reason -> one confirmed plan update",
+        "input_groups": [
+          "reviewed_material_goal_prerequisites_and_source_scope",
+          "child_interest_and_permitted_parent_wish",
+          "minimal_current_household_conditions",
+          "accessible_versioned_sources",
+          "consented_activity_and_permitted_family_suggestions_if_present"
+        ],
+        "source_fixture": "synthetic: stock 3 carrots, original tonight 2 plus Friday 2; feasible alternative tonight 1 plus Friday 2",
+        "information_boundary": "Child-uninvestigated facts differ from unverified household facts; source quantities can be internally checked, no answer/reason in first child proposal",
+        "output_items": "proposal only; source refs, goal/prerequisites, question, child inquiry, one outcome, hints, proposal reason/unknowns and next candidate",
+        "trusted_status": "Application owns identity/consent/versions/review; AI has no plan, reward or publication authority",
+        "reviewed_hints": "Included in content review; new generated explanations cannot bypass B",
+        "next_branches": [
+          "source_access_support",
+          "two_plan_comparison_support",
+          "changed_condition_or_KX02_candidate",
+          "no_record_keep_unknown_or_follow_interest"
+        ],
+        "evaluation_examples": "WK01-WK08: eight draft scenario slices linked to QD01-QD05; not model runs or statistical success rates",
+        "contract_schema_changed": false,
+        "implementation_plan_aligned": false,
+        "model_evaluation": "not_run",
+        "family_observation": "not_run",
+        "implementation_authorized": false
+      },
+      "parent_delegation_setting": {
+        "date": "2026-10-06",
+        "status": "actual_decision_authority_clarified_details_proposed",
+        "user_wording": "最初に親の設定をしっかりする、最初にみんなで話し合うのがくえすとです、裁量権を任せるって意味でさ、そんで教材からのクエスト化するAiennjinnwotukuranaitone",
+        "section": "0.15.2",
+        "requirement": "R05/AB04",
+        "features": [
+          "F01",
+          "F04",
+          "F07",
+          "F12",
+          "F18"
+        ],
+        "configuration_authority": "parent",
+        "setting_fields_proposed": [
+          "domain_and_allowed_decisions",
+          "cap_unit_period_and_available_remainder",
+          "permitted_methods",
+          "consultation_conditions",
+          "parent_confirmed_version_and_validity"
+        ],
+        "initial_quest": "KX00 family discussion in 5.3; parent sets initial bounds and confirms resulting rule",
+        "synthetic_example": "stationery <=300 yen per purchase, within own remaining allowance and permitted methods; amount is not a default",
+        "application_owns_setting_and_version": true,
+        "model_changes_setting": false,
+        "changing_setting": "AI recommendations go to parent; no automatic rights changes",
+        "separate_from": [
+          "hint_quantity",
+          "content_review",
+          "educational_influence",
+          "completion_rewards",
+          "sharing"
+        ],
+        "previous_interpretation": "Prior three assistance levels and PD01-PD04 are history/presentation proposals, not an adopted actual-authority contract",
+        "default": "not_finalized",
+        "schema_changed": false,
+        "implementation_authorized": false
+      },
+      "material_quest_engine_blueprint": {
+        "section": "0.16",
+        "status": "concrete_design_proposal_not_implemented",
+        "stages": [
+          "source_scope",
+          "learning_goal_and_prerequisites",
+          "household_context_and_confirmed_authority",
+          "one_quest_with_inquiry_comparison_and_own_reason",
+          "application_checks_and_B_review",
+          "child_selection_and_action",
+          "observed_record_to_next_candidate"
+        ],
+        "example": "synthetic same-kind pencils: A 2/160 yen vs B 3/210 yen; need2, hypothetical cap300 and sufficient remaining funds; compare unit cost,total,leftover use; own decision or parent proposal according to authority",
+        "evaluation_examples": [
+          "QE01",
+          "QE02",
+          "QE03",
+          "QE04",
+          "QE05",
+          "QE06"
+        ],
+        "model_evaluation": "not_run",
+        "family_observation": "not_run",
+        "schema_changed": false,
+        "api_implemented": false,
+        "implementation_plan_aligned": false,
+        "implementation_authorized": false
+      },
+      "comparable_product_design_review": {
+        "date": "2026-10-06",
+        "timezone": "Asia/Seoul",
+        "status": "primary_source_review_recommendation_not_adopted",
+        "services": [
+          "Greenlight",
+          "GoHenry",
+          "MagicSchool",
+          "Khanmigo",
+          "WonderBox",
+          "Otetsudai StepUP"
+        ],
+        "sources": "P01-P12 in existing AI-engine review",
+        "source_updates": "MagicSchool September10 2026 introduction; original university brief February2026; Khanmigo August27 and May2026",
+        "proposal": [
+          "material_to_reviewed_activity_preparation",
+          "application_applies_parent_confirmed_actual_authority",
+          "observed_need_to_learning_support"
+        ],
+        "limitations": "public specifications and development report; no full internal implementation, product use, market completeness or household-learning efficacy verified",
+        "implementation_authorized": false
+      },
+      "engine_role_definition": {
+        "date": "2026-10-06",
+        "timezone": "Asia/Seoul",
+        "status": "direction_acknowledged_role_details_proposed",
+        "section": "0.17",
+        "definition": "Turn learning from sourced materials into household experiences where the child gains knowledge, investigates, creates options, judges, acts or consults within parent-confirmed authority, reflects on actual results and connects to further learning.",
+        "user_direction": "Entrusting real decision authority, creativity and actual shopping; combine different quest materials and individual family circumstances.",
+        "responsibilities_proposed": [
+          "material_learning_structure",
+          "household_context_and_actual_authority",
+          "quest_with_child_inquiry_and_creativity",
+          "needed_activity_support",
+          "content_and_authority_validation",
+          "observed_experience_to_next_learning"
+        ],
+        "separate_axes": [
+          "learning_goal",
+          "actual_decision_authority",
+          "learning_support"
+        ],
+        "preparation_and_activity_support": "Two jobs; activity records return to next candidate. Not a six-model or six-service implementation decision.",
+        "synthetic_examples": "Same planned-use learning: delegated stationery purchase, parent-consultation proposal, use existing pencils; also KX01 resource/plans, KX03 systems and optional family proposals.",
+        "real_purchase": "May be part of a chosen quest within parent-confirmed conditions; app does not buy. Plan/completion/purchase/later result recorded distinctly. Initial release inclusion unresolved.",
+        "evaluation": "Six responsibility-level design checks linked to existing QE; no new evaluated case set, thresholds for quality/burden before execution pending.",
+        "model_evaluation": "not_run",
+        "family_observation": "not_run",
+        "formal_schema_changed": false,
+        "implementation_plan_aligned": false,
+        "implementation_authorized": false
+      },
+      "shopping_consultation_example": {
+        "date": "2026-10-06",
+        "timezone": "Asia/Seoul",
+        "section": "0.18",
+        "status": "shopping_direction_selected_details_proposed",
+        "user_wording": "買い物のほうがわかりやすいかな、お金渡すだけでなく親と相談とかお金予算何を料理するから買うのか献立、移動手段が必要だからその交渉、思いから手伝ってほしいなど",
+        "confirmed_direction": [
+          "shopping",
+          "parent_consultation",
+          "meal_purpose",
+          "budget",
+          "transport_negotiation",
+          "request_help"
+        ],
+        "synthetic_example": "Purpose to prepare family dinner -> menu and household conditions -> stock and quantities -> budget/options -> travel/carrying -> specific help request -> actual practice/reflection",
+        "uncertain_wording": "思いから; heavy groceries only a Codex example",
+        "child_owns": [
+          "purpose",
+          "inquiry",
+          "options_and_reasons",
+          "request",
+          "revision"
+        ],
+        "separate_authority_domains": [
+          "purchase",
+          "menu_change",
+          "travel",
+          "cooking"
+        ],
+        "funds_boundary": "household shopping funds distinct from own allowance and quest reward",
+        "success_proposal": "Explain needs, hear another person's constraints, revise feasible plan; agreement or budget increase not mandatory",
+        "next_decision": "child proposes menu then discusses with parent, or parent specifies menu",
+        "first_quest": "KX00 unchanged",
+        "formal_schema_changed": false,
+        "implementation_plan_aligned": false,
+        "model_evaluation": "not_run",
+        "family_observation": "not_run",
+        "implementation_authorized": false,
+        "menu_origin_direction": "Founder acknowledged child proposes menu then discusses with parent; exact settings remain proposals"
+      },
+      "voice_recording_design": {
+        "date": "2026-10-06",
+        "timezone": "Asia/Seoul",
+        "section": "0.19",
+        "status": "voice_and_AI_record_assistance_requested_details_proposed",
+        "user_wording": "そうだねそれを簡単に記録できるようにAIがほじょする、何を記録するのかっていうやつとシンプルに音声認識でやるんです。",
+        "voice_first": true,
+        "record_groups_proposed": [
+          "own_plan_decision_and_confirmed_or_unresolved_consultation",
+          "own_reason_and_revision_or_needed_help",
+          "actual_action_result_and_next_question"
+        ],
+        "per_stage_not_all_required": true,
+        "proposal_flow": "short user-started speech -> recognition -> source-based classification/extraction draft -> owner confirms or corrects -> application saves",
+        "original_and_AI_projection_distinct": true,
+        "inference_boundary": "No invented reasons, prices, results, other-person consent or actual authority",
+        "review_boundary": "Self-record correction distinct from B review of new educational advice and parent completion/reward/share review",
+        "fallback_proposed": [
+          "short_text_or_selection",
+          "later_resume"
+        ],
+        "provider_and_retention": "unselected; audio/recognized text/version retention and child-data conditions to verify before live processing",
+        "formal_schema_changed": false,
+        "implementation_plan_aligned": false,
+        "model_evaluation": "not_run",
+        "family_observation": "not_run",
+        "implementation_authorized": false
+      }
+    },
+    "grandparent_record_and_archive_design": {
+      "date": "2026-10-06",
+      "timezone": "Asia/Seoul",
+      "section": "0.20",
+      "status": "founder_direction_reflected_concrete_details_proposed",
+      "user_wording": "其れで次なんだけど、祖父母なんだけど、しっかりれびゅーするってのが必要だね、そんで祖父母は万歩計のように自分の記録を新聞に記すって感じ毎日新聞ともちろん日記もしてもいいよね、まあそれは後でいいか、万歩計のように記録ogenkiのように毎日何歩ある他の記録、とかを自分の子供に知らせる安全の確認じゃなくって生きてますよってことをするってことだね齟齬が大切、あとアルバムのような新聞というかそのできごとをいつでも見てねのように見れることが大切ですね、",
+      "direction": [
+        "self_record_steps_and_other_daily_activities",
+        "self_initiated_update_to_own_adult_children",
+        "family_newspaper_and_event_album_available_for_revisit"
+      ],
+      "purpose": "Life-sharing through own updates, not safety or health detection",
+      "diary": "deferred_by_founder",
+      "ogenki_review": {
+        "repository": "saienjoy0/ogenki-",
+        "commit": "a263b2851447e33bf757b90e749d3222f33f6544",
+        "files_reviewed": 9,
+        "scope": "button/photo/voice/history and steps/background/API code; no device/live behavior/full audit",
+        "steps": "previous-hour sample in background prototype; daily persistent record/newspaper integration not verified"
+      },
+      "proposal": [
+        "optional_self_reported_steps_or_activity_card",
+        "separate_daily_record_self_update_and_household_newsletter_publication",
+        "past_event_and_issue_navigation_under_current_permissions",
+        "adult_owns_private_record_and_recipients",
+        "separate_short_checkin_history_and_memory_album"
+      ],
+      "preserved": [
+        "KX00_family_authority_quest",
+        "B_content_review",
+        "configured_family_reviewers_and_educational_influence",
+        "parent_each_quest_completion_reward",
+        "child_choice_parent_publication"
+      ],
+      "unresolved": [
+        "step_acquisition_and_period",
+        "notification_scope",
+        "retention_and_withdrawal",
+        "concrete_screen_and_input",
+        "initial_release_scope",
+        "formal_contract_and_old_plan"
+      ],
+      "model_evaluation": "not_run",
+      "family_observation": "not_run",
+      "device_test": "not_run",
+      "implementation_authorized": false
+    }
   }
 }
