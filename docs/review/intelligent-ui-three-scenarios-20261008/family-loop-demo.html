@@ -1,0 +1,141 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>やってみクエスト｜家族4人の一周デモ</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;color:#19392e;background:#eaf2ea;--green:#176b5b;--line:#d8e7dc}*{box-sizing:border-box}body{margin:0}button,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}
+.app{max-width:840px;margin:auto;background:#fffefa;height:100dvh;display:flex;flex-direction:column}
+header{flex:none;background:#fff;border-bottom:1px solid var(--line);padding:9px 12px}.brand{font-weight:900;display:flex;align-items:center;gap:8px;font-size:17px}.brand b{background:var(--green);border-radius:11px;color:#fff;width:33px;height:33px;display:grid;place-items:center}.brand small{margin-left:auto;color:#668272;font-size:11px;font-weight:500}
+.roles,.tabs{display:flex;gap:5px;overflow-x:auto;scrollbar-width:thin;padding-top:7px}.roles button,.tabs button{flex:1 0 auto;min-height:44px;padding:8px;border:1px solid var(--line);border-radius:10px;background:#f5faf5;color:#315d48;font-size:13px;font-weight:800;white-space:nowrap}.roles button[aria-pressed=true],.tabs button.selected{background:var(--green);border-color:var(--green);color:#fff}
+main{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:15px 15px 28px}h1{font-size:23px;margin:7px 0 10px;line-height:1.4}h2{font-size:18px;margin:4px 0 12px}p{line-height:1.65;margin:7px 0}.sub{font-size:12px;color:#60806a}.eyebrow{font-size:11px;color:#34795e;font-weight:900}.note{padding:11px;background:#ebf7ed;border-radius:12px;font-size:12px;line-height:1.7;margin:10px 0}.box{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff;margin:12px 0}.box.soft{background:#f4faf5}.bubble{padding:12px 13px;border-radius:15px;border:1px solid #d7e6db;margin:10px 0;font-size:16px;line-height:1.75}.bubble strong{display:block;font-size:12px;margin-bottom:5px;color:#327056}.bubble.child{background:#e7f4e9;margin-left:6%}.bubble.ai{background:#fff;margin-right:6%}
+button.act{border:0;background:var(--green);color:#fff;border-radius:12px;padding:11px 14px;font-size:14px;font-weight:800;min-height:49px}.act.secondary{color:#1c6650;background:#e9f6eb;border:1px solid #cae2cf}.act.tertiary{color:#547362;background:#fff;border:1px solid #ccded1}.act.wide{width:100%}.controls{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.controls .act{flex:1 1 auto}
+details{border:1px solid #dde9e1;padding:8px 11px;border-radius:11px;font-size:12px;margin:9px 0;background:#f7faf7;line-height:1.6}summary{cursor:pointer;min-height:36px;display:flex;align-items:center;font-weight:800;color:#3e725c}.tag{display:inline-block;font-size:11px;background:#ecf6ee;border:1px solid #d4e5d6;border-radius:99px;padding:5px 9px;margin:4px 4px 4px 0}.warn{background:#fff2da;color:#76551d}
+.news{border:1px solid #d8c7ac;background:#fff9ee;padding:15px;margin:12px 0;border-radius:5px}.news h2{text-align:center;font-family:serif;border-top:3px double #b3a081;border-bottom:1px solid #e2d3ba;padding:10px 0;font-size:23px}.news p{font-size:18px;line-height:1.75}
+.edit{width:100%;border:1px solid #c0daca;border-radius:10px;padding:10px;font-size:16px;min-height:75px;resize:vertical}
+footer{flex:none;border-top:1px solid var(--line);background:#fff;padding:7px 10px calc(8px + env(safe-area-inset-bottom))}.footnote{font-size:10px;color:#6b8275;margin-top:5px}
+.grand main p,.grand .box{font-size:20px;line-height:1.65}.grand .act{min-height:56px;font-size:16px}
+@media(max-width:420px){main{padding:12px 11px}.roles button{font-size:12px;padding:7px}.brand{font-size:15px}.brand small{font-size:10px}h1{font-size:21px}.box{padding:12px}}
+</style></head><body><div class="app" id="app"><header><div class="brand"><b>✦</b>やってみクエスト<small>4人の体験・合成デモ</small></div><nav class="roles" id="roleTabs">
+<button data-role="child" aria-pressed="true">👧 はる</button><button data-role="mother" aria-pressed="false">👩 母</button><button data-role="father" aria-pressed="false">👨 父</button><button data-role="grandma" aria-pressed="false">👵 祖母</button></nav></header><main id="main"></main><footer id="footer"></footer></div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+var scenes={
+initial:{name:"① 家族との約束",points:0,title:"何を任せてもらえる？",headline:"はるの新しい挑戦",share:"今度は献立を自分で考えたいと話し、家族と一食から挑戦することを相談しました。",turns:[
+["いつも頼まれた物だけ買っているけれど、献立も決めたい","今までの経験を話してくれたんだね。どこまで任せてもらえるか家族に聞いてみよう。","本人の希望はわかった。でも家族の約束は未確認。","母に希望を伝える"],
+["母は一食ならいいって。人数と予算は当日に相談して、調理は一緒だって","親から聞いた条件を整理しよう。許可が確定したかは親本人の確認が必要だよ。","母の発言は『はるから聞いた』情報。","父にも買い物の道と荷物について聞く"],
+["父はお店と道は家族と相談して決めようと言った","店や道は安全のため家族と決めるんだね。自分で決めることと相談することを分けよう。","父との相談内容は本人による報告。","家の仕事を調べるか考える"],
+["まず家のご飯がどう決まるか調べてみたい","家で誰が在庫を見て、誰が献立を決めるか調べてみよう。","本人が次の小さな挑戦を選択。初回は0P。","この体験を保存し、次を選ぶ"]
+]},
+research:{name:"② 家の仕事を調べる",points:20,title:"料理前に誰が何をしている？",headline:"夕飯の前にも仕事があった",share:"家の仕事を調べ、買い物前に家の材料を伝える方法を父と考えて一度試したと報告しました。",turns:[
+["買い物と料理をすれば夕飯はできると思う","今の考えを残しておこう。料理より前の準備もあるかな？","今の予想と実際の調査を区別する。","母と父に何を準備するか聞く"],
+["母は在庫と献立を考え、父も買い物する。玉ねぎを二重に買ったことがあった","在庫の情報が買う人に伝わっていたか調べてみよう。","重複購入の原因はまだ仮説。誰かを責めない。","買い物前の連絡について聞く"],
+["私が買い物前に在庫を父へ伝えようと思う","いい案かもしれない。でもお父さんが店に入る前に伝えられるかな？","実際の相手の都合と合うか未確認。","父にタイミングを相談する"],
+["父は店に入った後だと遅いって。寄る日を先に知らせてもらうことにした","相手の都合を聞いて案を調整したね。実際に一度試してみよう。","交渉後に本人が変更した案。","材料を確かめ、父の出発前に伝える"],
+["米と玉ねぎを見て、出発前に父へ伝えた","試したことを報告してくれたね。前回の材料が次回もあるとは限らないから、必要ならまた見よう。","本人からの実施報告。親の確認前は20P未確定。","自分のアルバムに記録する"]
+]},
+dinner:{name:"③ おばあちゃんの夕飯",points:40,title:"夕飯の献立から実行まで",headline:"おばあちゃんと食べたカレー",share:"はるはカレーを計画し、価格と父の迎え時間を比べてA店を選び、400gの肉を購入して家族と食べたと報告しました。",turns:[
+["祖母が夕飯に来る。家庭科でカレーを作ったから、また作ってみたい","前に作った経験があるんだね。前回材料があったとしても、今日あるかは確認しよう。","家庭科経験は本人の報告。昔の在庫は今の在庫ではない。","母に人数・予算・帰宅時間を聞く"],
+["母に聞いたら4人分で予算は1000円、16時45分までに帰宅、調理は一緒だって","家族から聞いた条件を整理するね。予算と時間を守る方法を考えよう。","4人・1000円・16:45は今回の合成家庭条件。AIが作った約束ではない。","今の在庫を現物で確認する"],
+["米・玉ねぎ・にんじん・ルーが今も使えると確認した","今日の材料を確認できたんだね。必要な量はレシピと比べてみよう。","前回情報を今日の報告で更新。量はまだ確定していない。","レシピと4人分の材料を確認する"],
+["レシピを見たら肉400g、じゃがいも1袋、トマト2個を買う。祖母はトマトが好きだから","買い物リストができたね。これで初めて同じ量で店の値段を比べられるよ。","レシピと祖母の好みは本人が話した内容に基づく。","チラシで3品を同じ量で調べる"],
+["A店は肉520円、じゃがいも260円、トマト200円。B店は480円、240円、200円","A店は合計980円、B店は920円。60円の差だね。でも帰りの荷物も考えよう。","A=520+260+200、B=480+240+200（合成チラシ）。","どの店にするか、荷物と帰宅条件も考える"],
+["B店は安いけど荷物が心配。父に迎えをお願いしたい","場所と、手伝ってほしい理由を伝えてお父さんへ相談しよう。","父が迎えられるかはまだ未確認。","父に自分で頼む"],
+["父はA店なら16時30分、B店なら17時に寄れるって","B店の17時では16時45分までに帰る約束に合わない。A店16時30分ならどうかな？","父から聞いた時間、事前の約束と価格を比較。","自分で店を選び直して父に再確認する"],
+["A店にする。父に16時30分に迎えを頼んでOKだった","自分の理由でA店を選んだんだね。まだ買ったわけではないから売り場の値段も確認してね。","父の了承は子が聞いた内容。購入は未実行。","A店で買い物をする"],
+["A店で肉400g520円と600g600円のパックを見た","100gあたり400gは130円、600gは100円。600gを買うと他の材料と合計1060円になるね。","600+260+200=1060円。単価と支払総額は別。","必要量と予算に合わせて選ぶ"],
+["今日は400gで足りるしトマトも買いたいから小さい方にした","必要な量と予算、食べたい物を考えたんだね。","本人が理由を話した。600gを悪い選択として採点しない。","実際に払って帰宅し、家族と調理する"],
+["A店で980円を払い、父と帰り母と調理し祖母と食べた","実行したことを教えてくれたね。今の内容は本人の報告として残すよ。","購入・帰宅・調理は本人の申告であり第三者検証済みではない。","今回の判断の理由を短く話す"],
+["B店は安かったけれど父の迎え時間でA店にした。肉は400gで十分だった","価格と時間、必要な量を考えて選んだ理由を、そのまま記録に残そう。","本人の発言にない気持ちや学習効果を新聞に足さない。","自分のアルバムに保存する"]
+]}};
+var S={role:"child",scene:"initial",step:{initial:0,research:0,dinner:0},saved:{initial:false,research:false,dinner:false},share:{initial:"private",research:"private",dinner:"private"},version:{initial:0,research:0,dinner:0},edited:{},agreement:false,award:{research:"none",dinner:"none"},reward:"none",issues:0,posts:[],replies:[],message:""};
+function e(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function B(label,act,style,disabled){return '<button class="act '+(style||"")+'" data-a="'+act+'" '+(disabled||'')+'>'+label+'</button>'}
+function pts(){return (S.award.research==="earned"?20:0)+(S.award.dinner==="earned"?40:0)}
+function avail(){return pts()-(["reserved","approved","delivered"].includes(S.reward)?50:0)}
+function stamp(text){return '<span class="tag">'+e(text)+'</span>'}
+function savedView(id,childActions=true){const d=scenes[id],status={private:"非公開",pending:"母の共有確認待ち",returned:"修正の再確認待ち",published:"祖母へ共有済み",held:"共有を保留"}[S.share[id]];let x='<div class="box"><strong>'+e(d.headline)+'</strong><p class="sub">自分のアルバムに保存済み／祖母への共有：'+e(status)+'</p><p>'+e(d.share)+'</p>';
+ if(childActions&&(S.share[id]==="private"||S.share[id]==="held"))x+=B("祖母にも見せたい","share:"+id,"secondary");
+ if(S.share[id]==="returned")x+='<p class="sub">母から修正文の提案：'+e(S.edited[id])+'</p>'+(childActions?B("変更後の文を確認して再依頼","resubmit:"+id,"secondary"):'');
+ return x+'</div>'}
+function child(){
+ const d=scenes[S.scene],i=S.step[S.scene],last=i>0?d.turns[i-1]:null;
+ let x='<div class="eyebrow">はるちゃん｜やってみる・アルバム</div><h1>自分で考え、家族と相談してやってみる</h1><div class="tabs">'+Object.keys(scenes).map(id=>'<button data-scene="'+id+'" class="'+(id===S.scene?'selected':'')+'">'+e(scenes[id].name)+'</button>').join('')+'</div>';
+ x+='<div class="box soft"><strong>'+e(d.title)+'</strong><p class="sub">合成家庭の連続する体験。AIの理由は根拠と未確認を分けて説明します。</p>'+stamp(i>=d.turns.length?"今回の体験は最後まで見た":"場面 "+(i+1)+"／"+d.turns.length)+'</div>';
+ if(i<d.turns.length){let t=d.turns[i];x+='<div class="box"><div class="eyebrow">次に話す言葉（発表用の合成台本）</div><p>「'+e(t[0])+'」</p>'+B("🎙 このセリフで会話を再現","step:"+S.scene,"wide")+'<p class="sub">子どもが話す・家族に聞く等の行動をしたと仮定する操作です。実音声を認識したものではありません。</p></div>'}
+ else{x+='<div class="box soft"><h2>今回の体験は一周したよ</h2><p>保存した文章と、祖母に見せる文章は別に選べます。</p>'+(S.saved[S.scene]?stamp("私的アルバムに保存済み"):B("自分のアルバムに保存する","save:"+S.scene,"wide"))+'</div>';if(S.saved[S.scene])x+=savedView(S.scene);
+ if(S.scene!=="dinner")x+=B("次の体験を選ぶ","scene:"+(S.scene==="initial"?"research":"dinner"),"secondary wide");
+ }
+ if(last)x+='<div class="bubble child"><strong>🎙 はるちゃんの報告（合成）</strong>'+e(last[0])+'</div><div class="bubble ai"><strong>✦ AIの返答</strong>'+e(last[1])+'<div class="note"><b>この提案の理由</b><p>'+e(last[2])+'</p></div><details><summary>次に現実ですること</summary>'+e(last[3])+'</details></div>';
+ x+='<div class="box"><h2>これまでのアルバム</h2>'+Object.keys(scenes).map(id=>S.saved[id]?savedView(id):"").join('')+(Object.values(S.saved).some(Boolean)?"":'<p class="sub">まだ保存した記事はありません。</p>')+'</div>';
+ if(S.posts.length)x+='<div class="box"><h2>おばあちゃんの近況</h2>'+postList()+'</div>';
+ x+='<div class="box"><h2>お金とごほうび</h2>'+stamp("確定 "+pts()+"P")+stamp("使える "+avail()+"P")+((S.reward==="reserved")?stamp("50P予約中"):"")+'<p class="sub">初回0P・調査20P・夕飯40Pは家庭で事前に合意した合成例。父の確認まで未確定です。新聞への共有は条件ではありません。</p>';
+ if(S.reward==="none"||S.reward==="cancelled")x+='<p>家庭の特典例：カフェへ一緒に行く（50P）</p>'+B("カフェの特典をお願いする","request","secondary",avail()<50?'disabled':'');
+ if(S.reward==="reserved")x+='<p>50Pを予約中。父の交換承認待ち。カフェはまだ未実施。</p>'+B("依頼を取り消す","cancel","tertiary");
+ if(S.reward==="approved")x+='<p>交換承認済み・カフェ提供待ち（まだ行っていません）。</p>';
+ if(S.reward==="delivered")x+='<p>カフェの体験済み（合成）。ポイントは二重に引きません。</p>';
+ if(S.replies.length)x+='<h2>おばあちゃんからの言葉</h2>'+S.replies.map(t=>'<p>'+e(t)+'</p>').join('')+'<p class="sub">次に試すかは、はるちゃんが決めます。</p>';
+ return x+'</div>';
+}
+function mother(){
+ let x='<div class="eyebrow">母｜管理する親（デモの役割設定）</div><h1>共有する内容と相手を確認</h1><div class="note">本番では権限と認証が必要です。父母で役割が固定という意味ではありません。</div>';
+ if(S.step.initial===scenes.initial.turns.length&&!S.agreement)x+='<div class="box"><h2>初回の任せ方の約束</h2><p>「一食から、人数と予算は当日、調理は一緒」を親本人が確認する。</p>'+B("合意を確認（合成）","agree","wide")+'</div>';
+ if(S.agreement)x+='<div class="box soft">親による初回の約束：'+stamp("合成・確認済み")+'</div>';
+ x+='<div class="box"><h2>祖母への共有確認</h2>';const pending=Object.keys(S.share).filter(id=>S.share[id]==="pending");
+ if(!pending.length)x+='<p class="sub">新しい共有依頼はありません。</p>';
+ for(const id of pending){let d=scenes[id];x+='<div class="box"><strong>'+e(d.headline)+'</strong><p class="sub">宛先：祖母／文章版 v'+S.version[id]+'</p><p>'+e(S.edited[id]||d.share)+'</p><details><summary>本人の原文・選択の出所</summary>本人の合成発言とAI補助を区別。未報告の家計・報酬は共有しない。</details><div class="controls">'+B("この内容を祖母へ見せる","publish:"+id)+B("文章を修正して子へ戻す","return:"+id,"secondary")+B("今回は保留","hold:"+id,"tertiary")+'</div></div>'}
+ x+='</div><div class="box"><h2>家庭のアルバム</h2>'+Object.keys(S.saved).map(id=>S.saved[id]?savedView(id,false):"").join('')+'</div>';
+ x+='<div class="box"><h2>日付別新聞と新聞号</h2><p>共有承認済みの記事は号を作らなくても祖母が読めます。</p>'+Object.keys(S.share).filter(id=>S.share[id]==="published").map(id=>'<p>📰 '+e(scenes[id].headline)+'</p>').join('');
+ if(Object.values(S.share).includes("published"))x+=B("許可済みの記事で今月号を発行（任意）","issue","secondary");
+ x+='<p class="sub">新聞号：'+S.issues+'号。既に許可された素材だけを再利用。</p></div>';
+ x+='<div class="box"><h2>祖母本人からの近況</h2>'+postList()+'</div>';return x;
+}
+function postList(){return S.posts.length?S.posts.map(v=>'<div class="note">祖母本人の近況（手入力）：'+e(v)+'</div>').join(''):'<p class="sub">今は近況が届いていません。安全や健康状態を推定しません。</p>'}
+function father(){
+ let x='<div class="eyebrow">父｜活動・報酬の確認担当（合成権限）</div><h1>活動の結果とごほうびを確認</h1><div class="note">子の活動確認と、祖母に新聞を見せる承認は別です。祖母が読まなくても報酬を確認できます。</div>';
+ for(const id of ["research","dinner"]){let p=scenes[id].points,st=S.award[id],label={none:"本人の完了報告待ち",pending:S.saved[id]?"親の確認待ち":"子のアルバム保存待ち",held:"確認を保留中",earned:"一度だけ確定済み"}[st];x+='<div class="box"><h2>'+e(scenes[id].headline)+' '+p+'P</h2><p>状態：'+e(label)+'</p>';if((st==="pending"||st==="held")&&S.saved[id])x+='<div class="controls">'+B("実行を確認して "+p+"P 確定","award:"+id)+B("保留","holdaward:"+id,"tertiary")+'</div>';x+='</div>'}
+ x+='<div class="box"><h2>ポイントの記録</h2>'+stamp("確定"+pts()+"P")+stamp("使える"+avail()+"P")+'<p class="sub">ポイントと実際のお金は別です。</p></div><div class="box"><h2>家族のカフェ50P</h2>';
+ if(S.reward==="reserved")x+='<p>子が50Pを予約しました。内容・日程・費用を家庭で確認します。</p><div class="controls">'+B("交換を承認（提供はまだ）","approve")+B("今回は却下・予約解除","reject","secondary")+'</div>';
+ else if(S.reward==="approved")x+='<p>交換承認済み・まだカフェには行っていません。</p><div class="controls">'+B("実際にカフェへ行った（合成）","deliver")+B("未提供で取消・50P返還","refund","tertiary")+'</div>';
+ else x+='<p class="sub">'+(S.reward==="delivered"?"提供済み。追加の消費はありません。":"子からの交換確認待ちです。")+'</p>';
+ return x+'</div><div class="box"><h2>子の家族アルバム</h2>'+Object.keys(S.saved).filter(id=>S.saved[id]).map(id=>'<div class="box"><strong>'+e(scenes[id].headline)+'</strong><p class="sub">'+e(scenes[id].share)+'</p></div>').join('')+'</div><div class="box"><h2>祖母から家族への近況</h2>'+postList()+'</div>';
+}
+function grandma(){
+ let ids=Object.keys(S.share).filter(id=>S.share[id]==="published"),x='<div class="eyebrow">祖母｜おたより・写真・私の近況</div><h1>家族からのおたより</h1><p>孫から見せてもらった記事を好きな時に読めます。</p><div class="note">見せると決めた内容だけ。家計・ポイント・親の確認情報は祖母へ表示しません。</div>';
+ if(!ids.length)x+='<div class="box"><h2>今日は新しいおたよりはありません</h2><p>前の思い出を見たり、自分から近況を送ったりできます。</p></div>';
+ for(const id of ids)x+='<article class="news"><small>家族の日付別新聞／共有済み記事（合成）</small><h2>'+e(scenes[id].headline)+'</h2><p>'+e(S.edited[id]||scenes[id].share)+'</p><div class="controls">'+B("読んだよ","read:"+id,"secondary")+B("私の経験を伝える","reply:"+id,"tertiary")+'</div></article>';
+ x+='<div class="box"><h2>これまでのおたより</h2><p>読める記事 '+ids.length+'件／新聞号 '+S.issues+'号</p><p class="sub">一つの記事は日付別と号で再利用。投稿のない日は空欄のまま。</p></div>';
+ x+='<div class="box soft"><h2>私から「元気だよ」を送る</h2><p>おたよりの有無に関係なく、自分の近況を届けられます。</p><label class="sub" for="post">今日の一言（歩数は手入力）</label><textarea id="post" class="edit">元気だよ。今日は5,200歩歩いたよ。</textarea><p class="sub">送る相手：母・父／本人からの近況。安全確認ではありません。</p>'+B("この内容を家族へ送る（合成）","post","wide")+'</div>';return x;
+}
+function render(){
+ $("app").className="app"+(S.role==="grandma"?" grand":"");
+ $("main").innerHTML={child:child,mother:mother,father:father,grandma:grandma}[S.role]()+(S.message?'<div class="note" role="status">'+e(S.message)+'</div>':"");
+ $("footer").innerHTML='<div class="footnote">発表用合成デモ：権限切替・保存・送信・ポイント移動はいずれも画面内の再現で、本物の処理ではありません。</div>';
+ for(const b of $("roleTabs").querySelectorAll("[data-role]"))b.setAttribute("aria-pressed",String(b.dataset.role===S.role));
+}
+function handle(a){
+ let parts=a.split(":"),k=parts[0],id=parts[1];S.message="";
+ if(k==="step"&&scenes[id]&&S.step[id]<scenes[id].turns.length){S.step[id]++;if(S.step[id]===scenes[id].turns.length&&scenes[id].points>0)S.award[id]="pending";S.message="この発言と行動をしたと仮定する合成デモです。";render();$("main").scrollTop=0;return}
+ if(k==="save"&&scenes[id]&&S.step[id]===scenes[id].turns.length){S.saved[id]=true;S.message="非公開アルバムへ保存した状態を模擬しました。祖母へは未公開。"}
+ if(k==="share"&&S.saved[id]){S.share[id]="pending";S.version[id]++;S.message="母へ共有を依頼。祖母にはまだ表示されません。"}
+ if(k==="return"&&S.share[id]==="pending"){S.share[id]="returned";S.version[id]++;S.edited[id]="家族と相談して新しいことに挑戦したよ。";S.message="母の変更提案をはるへ返しました。自動共有しません。"}
+ if(k==="resubmit"&&S.share[id]==="returned"){S.share[id]="pending";S.message="はるが変更後の内容を確認し、再度共有依頼しました。"}
+ if(k==="publish"&&S.share[id]==="pending"){S.share[id]="published";S.message="【合成】母が宛先『祖母』と内容版を確認して共有しました。"}
+ if(k==="hold"&&S.share[id]==="pending"){S.share[id]="held";S.message="共有を保留。非公開アルバムには残ります。"}
+ if(k==="agree"&&S.step.initial===scenes.initial.turns.length){S.agreement=true;S.message="【合成】親が初回の約束を確認しました。"}
+ if(k==="award"&&["pending","held"].includes(S.award[id])&&S.saved[id]){S.award[id]="earned";S.message="【合成】親が実行を確認し"+scenes[id].points+"Pを一度だけ確定しました。"}
+ if(k==="holdaward"&&["pending","held"].includes(S.award[id])){S.award[id]="held";S.message="活動を保留。ポイント未確定。"}
+ if(k==="request"&&(S.reward==="none"||S.reward==="cancelled")&&avail()>=50){S.reward="reserved";S.message="50P予約。父の交換承認待ち。カフェは未実施です。"}
+ if(k==="cancel"&&S.reward==="reserved"){S.reward="cancelled";S.message="予約を解除し50Pを戻しました。"}
+ if(k==="reject"&&S.reward==="reserved"){S.reward="cancelled";S.message="父が交換を却下、予約50Pを戻しました。"}
+ if(k==="approve"&&S.reward==="reserved"){S.reward="approved";S.message="50Pの消費を確定。カフェは提供待ちです。"}
+ if(k==="refund"&&S.reward==="approved"){S.reward="cancelled";S.message="提供できなかったため50Pを一度だけ返還。"}
+ if(k==="deliver"&&S.reward==="approved"){S.reward="delivered";S.message="【合成】カフェへ行ったことを確認しました。二重消費なし。"}
+ if(k==="issue"&&Object.values(S.share).includes("published")){S.issues++;S.message="許可済み記事を新聞号に再利用しました。日付別に読むだけなら不要です。"}
+ if(k==="post"){let v=$("post")?.value.trim()||"元気だよ";S.posts.push(v);S.message="【合成】祖母本人が親の家族記録へ送ったことを再現。健康確認ではありません。"}
+ if(k==="read"&&S.share[id]==="published"){S.replies.push("祖母が読んだよと伝えた（合成）");S.message="祖母が任意で『読んだよ』を返しました。"}
+ if(k==="reply"&&S.share[id]==="published"){S.replies.push("祖母『私は余った肉を冷凍していたよ』");S.message="祖母の経験談を受信。次回に採用するかははるが選びます。"}
+ if(k==="scene"&&scenes[id]){S.scene=id;$("main").scrollTop=0;}
+ render();
+}
+$("roleTabs").addEventListener("click",event=>{let b=event.target.closest("[data-role]");if(b){S.role=b.dataset.role;S.message="";render();$("main").scrollTop=0;}});
+document.addEventListener("click",event=>{let b=event.target.closest("[data-a],[data-scene]");if(b)handle(b.dataset.a||"scene:"+b.dataset.scene)});
+render();
+</script></body></html>

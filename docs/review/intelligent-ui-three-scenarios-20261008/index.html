@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'">
+<title>やってみクエスト｜3つの適応型UIデモ</title>
+<style>
+:root{color-scheme:light;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;background:#f0f4f0;color:#172B2A;--green:#176B5B;--soft:#EAF4F0;--paper:#FFFDF7;--muted:#61736d;--line:#dce8e1}
+*{box-sizing:border-box}body{margin:0}button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,textarea:focus-visible{outline:3px solid #176B5B;outline-offset:3px}h1,h2,h3,p{margin-top:0}p{line-height:1.7} .shell{max-width:1050px;padding:30px 20px;margin:auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}.logo{display:flex;align-items:center;gap:10px;font-weight:850;font-size:19px;letter-spacing:-.02em}.mark{background:var(--green);color:white;width:38px;height:38px;display:grid;place-items:center;border-radius:13px}.tag{font-size:11px;font-weight:750;background:var(--soft);color:var(--green);padding:6px 10px;border-radius:99px}.sub{color:var(--muted);font-size:13px;line-height:1.65}.layout{display:grid;grid-template-columns:minmax(245px,310px) minmax(0,1fr);gap:22px;align-items:start}
+.rail{background:white;border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 12px 42px #2243390a}.rail h1{font-size:22px;line-height:1.35;margin-bottom:10px}.rail h2{font-size:13px;margin:25px 0 10px}.scenario{background:#fff;border:1px solid var(--line);border-radius:14px;width:100%;display:flex;align-items:center;text-align:left;padding:13px 12px;gap:12px;margin-bottom:9px;color:inherit}.scenario.active{border-color:var(--green);background:#f0f8f4;box-shadow:inset 3px 0 var(--green)}.num{background:var(--soft);color:var(--green);border-radius:11px;display:grid;place-items:center;width:38px;height:38px;flex-shrink:0;font-weight:800}.scenario strong{display:block;font-size:14px;margin-bottom:2px}.scenario small{color:var(--muted);font-size:12px;line-height:1.5}.reference{margin-top:23px;padding:15px;background:var(--soft);border-radius:14px;font-size:12px;line-height:1.8}
+.phoneWrap{display:flex;justify-content:center;min-width:0}.phone{width:min(100%,430px);min-height:650px;background:var(--paper);border:1px solid #cadaD3;border-radius:32px;box-shadow:0 24px 65px #29493f20;overflow:hidden;display:flex;flex-direction:column}
+.phoneHeader{padding:21px 22px 15px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}.phBrand{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:850}.miniMark{width:30px;height:30px;background:var(--green);color:white;border-radius:10px;display:grid;place-items:center}.person{font-size:12px;color:var(--muted)}.journey{padding:15px 22px 12px}.eyebrow{font-size:11px;letter-spacing:.055em;text-transform:uppercase;font-weight:800;color:var(--green);margin-bottom:7px}.journey .track{height:5px;border-radius:50px;background:#e6eee8;overflow:hidden;margin:10px 0 0}.fill{height:100%;background:var(--green);transition:width .25s}.screen{padding:4px 22px 18px;flex:1}.screen h2{font-size:23px;line-height:1.4;letter-spacing:-.035em;margin:4px 0 12px}.screen .lead{font-size:14px;color:#40584f;line-height:1.8}.ai{border:1px solid #d0e7d9;background:#f0faf4;padding:14px;border-radius:16px;margin:17px 0}.aiLabel{display:flex;gap:7px;align-items:center;font-size:12px;font-weight:850;color:var(--green);margin-bottom:8px}.ai p{font-size:14px;line-height:1.75;margin:0}.module{border:1px solid var(--line);background:white;border-radius:18px;padding:17px;margin:15px 0}.module h3{font-size:14px;margin-bottom:12px}.choice{display:flex;gap:10px;align-items:center;min-height:48px;border:1px solid var(--line);border-radius:12px;width:100%;background:#fff;color:inherit;text-align:left;padding:11px 12px;margin-top:8px;font-size:14px;line-height:1.55}.choice.chosen{border-color:var(--green);background:#edfaf3;box-shadow:inset 0 0 0 1px var(--green)}.circle{flex:0 0 21px;width:21px;height:21px;border:2px solid #a8c4b6;border-radius:50%;display:grid;place-items:center;color:white;font-size:12px}.chosen .circle{border-color:var(--green);background:var(--green)}.dual{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{background:#f5f8f5;padding:13px;border-radius:13px}.metric small{font-size:11px;color:var(--muted)}.metric strong{display:block;font-size:22px;color:#214f42;margin:3px 0}.metric span{font-size:11px;line-height:1.5;display:block}.list{display:grid;gap:9px}.list>div{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.6}.tick{font-size:14px;color:var(--green);font-weight:850}.note{font-size:12px;color:var(--muted);line-height:1.7}.quote{padding:11px 14px;border-left:3px solid #b6d5c4;background:#f6faf6;font-size:13px;border-radius:0 10px 10px 0;line-height:1.7}.voicehead{display:flex;align-items:center;justify-content:space-between;gap:8px}.voicehead h3{margin:0}.demoButton{background:#edf7f0;border:1px solid #b4d8c5;border-radius:11px;padding:9px 12px;font-size:12px;color:var(--green);font-weight:750}.voice textarea{width:100%;min-height:84px;border:1px solid #c9d8cf;border-radius:12px;margin-top:12px;padding:12px;resize:vertical;color:#172B2A;background:#fff;font-size:14px;line-height:1.6}.hintBtn{margin-top:6px;border:0;background:none;color:var(--green);font-weight:750;text-decoration:underline;padding:10px 0;font-size:13px}.hintText{background:#fff7df;border-left:3px solid #d6ad39;padding:11px 13px;font-size:13px;line-height:1.7;border-radius:0 10px 10px 0}
+.actions{margin-top:auto;padding:10px 22px 20px}.primary{display:block;width:100%;min-height:52px;border-radius:14px;background:var(--green);border:1px solid var(--green);font-weight:800;color:white;padding:12px 14px}.secondary{background:white;color:var(--green);border:1px solid #c0d7c9;padding:10px 14px;border-radius:12px;font-size:13px;min-height:44px}.navs{display:flex;gap:8px;margin-top:8px}.navs button{flex:1}.status{min-height:22px;font-size:12px;color:var(--muted);text-align:center;margin:6px 0}.bottom{padding:10px 15px;background:#f4f7f2;font-size:11px;color:#62716c;text-align:center;border-top:1px solid var(--line)}.summary{border:1px solid #c8ded0;background:white;padding:17px;border-radius:18px}.summary h3{font-size:17px;margin:5px 0 12px}.summary dl{margin:0}.summary dt{font-size:12px;color:var(--muted);margin-top:11px}.summary dd{margin:4px 0 0;font-size:14px;line-height:1.7}.mutedFooter{font-size:12px;color:var(--muted);line-height:1.7;padding:8px 0}.chips{display:flex;gap:7px;flex-wrap:wrap}.chips span{font-size:11px;border-radius:999px;padding:5px 9px;background:#ecf5ef;color:#376b53}.smallSpace{height:9px}
+@media(max-width:720px){.shell{padding:15px 10px}.layout{grid-template-columns:1fr;gap:13px}.rail{padding:14px;border-radius:16px}.rail h1{font-size:18px}.rail h2,.rail .reference{display:none}.scenarios{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.scenario{display:block;text-align:center;padding:8px 5px;margin:0}.scenario .num{margin:0 auto 5px;width:30px;height:30px;border-radius:9px}.scenario strong{font-size:12px}.scenario small{display:none}.phone{width:min(100%,430px);min-height:590px;border-radius:24px}.screen{padding-inline:17px}.phoneHeader,.journey,.actions{padding-inline:17px}.top .sub{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* The voice-first surface is a synthetic review interface, not a live AI UI. */
+.voiceDock{margin:1px 21px 15px;padding:14px;border-radius:17px;background:#e9f5ee;border:1px solid #c4dfce}
+.voiceDock .head{display:flex;justify-content:space-between;align-items:center;gap:7px;margin-bottom:7px}.voiceDock strong{font-size:14px}
+.voiceStatus{font-size:12px;color:#336d52;line-height:1.6;min-height:19px}
+.voiceButtons{display:flex;gap:8px;align-items:center;margin-top:10px}
+.voiceButtons button{min-height:42px;flex:1;border-radius:12px;border:1px solid #176B5B;font-size:12px;font-weight:800;background:#fff;color:#176B5B;padding:8px}
+.voiceButtons button.mic{background:#176B5B;color:white}
+.voiceButtons button.recording{background:#bc3c37;border-color:#bc3c37}
+.voiceDock textarea{display:block;width:100%;resize:vertical;min-height:46px;max-height:120px;border:1px solid #b7d4c2;border-radius:10px;padding:9px 10px;margin:10px 0 0;background:white;line-height:1.6;color:#172B2A;font-size:13px}
+.voiceDock .speechSamples{display:flex;gap:6px;overflow-x:auto;margin-top:9px;padding-bottom:4px}
+.voiceDock .speechSamples button{flex-shrink:0;max-width:280px;background:transparent;border:1px solid #b0cfbe;color:#286549;padding:6px 9px;border-radius:11px;font-size:11px}
+.voiceDock .privacy{font-size:10px;line-height:1.5;color:#557163;margin:9px 0 0}
+.voiceResult{border:1px solid #a5d2b4;border-radius:16px;padding:14px;margin:8px 0 16px;background:#eef8f0}
+.voiceResult .aiLabel{font-size:12px}
+.voiceResult h3{font-size:15px;margin-bottom:8px}
+.voiceResult .row{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}
+.voiceResult .row span{border:1px solid #b9d8c6;border-radius:9px;padding:5px 8px;background:white;font-size:12px}
+.voiceResult .heard{font-size:12px;line-height:1.65;color:#335a46;margin:5px 0 9px;border-left:3px solid #6baf89;padding-left:9px}
+.voiceResult p{font-size:13px;line-height:1.75}
+.voiceResult .numbers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:9px 0}
+.voiceResult .numbers>div{padding:10px;background:white;border-radius:10px;border:1px solid #d0e4d5}
+.voiceResult small{display:block;font-size:10px;color:#597068}
+.voiceResult b{display:block;font-size:17px}
+.voiceResult .trail{font-size:11px;color:#4b6455}
+.voiceDock button:focus-visible{outline:3px solid #176B5B;outline-offset:2px}
+@media(max-width:720px){.voiceDock{margin:0 16px 12px}}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="top"><div class="logo"><span class="mark">✦</span>やってみクエスト <span class="tag">Intelligent UI風デモ</span></div><span class="sub">架空データ・通信なし・ブラウザー更新でリセット</span></header>
+  <div class="layout">
+    <aside class="rail">
+      <h1>今日は、何をやってみる？</h1>
+      <p class="sub">3つの場面で、子どもの状況に合わせてカード・比較表・相談・記録が切り替わります。</p>
+      <h2>シナリオを選ぶ</h2>
+      <nav class="scenarios" aria-label="デモシナリオ" id="scenarios"></nav>
+      <div class="reference"><strong>このデモで本当に動くもの</strong><br>選択、ヒント表示、入力例の挿入、前後移動、3つの場面の切り替え。<br><strong>動かないもの</strong><br>AI推論・音声認識・写真投稿・送金・実際の保存／家族への配信。</div>
+    </aside>
+    <div class="phoneWrap"><section class="phone" aria-label="やってみクエストの操作見本">
+      <header class="phoneHeader"><div class="phBrand"><span class="miniMark">✦</span>やってみクエスト</div><span class="person">はる（小学5年生）</span></header>
+      <div class="journey"><div class="eyebrow" id="progressLabel"></div><div class="track" aria-label="進捗"><div class="fill" id="progressFill"></div></div></div>
+      <section id="voiceDock" class="voiceDock" aria-label="音声で相談して画面を変える">
+  <div class="head"><strong>🎙 声で進めてみよう</strong><span class="tag">音声入力は任意</span></div>
+  <div id="voiceStatus" class="voiceStatus" role="status">「話す」を押すと、その言葉をもとに画面が切り替わります。</div>
+  <div class="voiceButtons"><button type="button" id="voiceStart" class="mic">🎤 話す</button><button type="button" id="voiceStop">■ 止める</button></div>
+  <textarea id="voiceText" rows="2" aria-label="話す内容（文字でも入力できます）" placeholder="例：お父さんはB店なら17時に迎えに来るって"></textarea>
+  <div class="voiceButtons"><button type="button" id="voiceApply">この言葉で画面を変える ↗</button></div>
+  <div id="voiceSamples" class="speechSamples" aria-label="試せる言葉"></div>
+  <p class="privacy">マイクは押した時だけ起動。音声認識はブラウザー提供で、音声が外部サービスへ送られる場合があります。デモには架空の話だけを使ってください。アプリ側の外部保存・AI送信はありません。</p>
+</section>
+      <main id="screen" class="screen" aria-live="polite"></main>
+      <div class="actions"><div id="feedback" class="status" role="status"></div><button id="next" class="primary" type="button">次へ進む →</button><div class="navs"><button id="back" class="secondary" type="button">← 前の場面</button><button id="restart" class="secondary" type="button">最初から</button></div></div>
+      <footer class="bottom">合成シナリオ｜表示と記録の演出です。AIには接続していません。</footer>
+    </section></div>
+  </div>
+</div>
+<script>
+'use strict';
+const stories=[
+ {id:'first',no:'01',label:'初回の約束',brief:'HSC-01／親子の取り決め',steps:[
+  {title:'自分でやってみたいことは？',lead:'自分の希望を家族に伝えるところからスタート。',ai:'最初から決まったクエストを押しつけないよ。今日は何をやってみたい？',kind:'choice',options:['夕飯の献立を自分で決めてみたい','まず家の仕事について知りたい','今日は決めずに考える'],hint:'前にやったことと、これから試したいことを分けて考えてもいいよ。',example:'夕飯を決めて買う物を考えたい。今までは頼まれた買い物だけした。',voice:true},
+  {title:'家族の仕事を見える化',lead:'家の仕事をみんなで思い出してみる。',ai:'見える仕事だけじゃなく、「買う前の準備」も仕事かもしれないね。',kind:'list',heading:'家族が教えてくれたこと（例）',items:['母：在庫を確認・献立を考える・料理する','父：仕事帰りの買い物・洗濯する日もある','はる：頼まれた物を買ったことがある'],example:'お母さんは料理の前に冷蔵庫を見ているって言っていた。',voice:true,hint:'誰が何を「いつ」考えているか聞いてみると、見えにくい仕事も見つかるよ。'},
+  {title:'どこまで自分で決める？',lead:'お金、道、火を使うことなどは家族の条件も確かめよう。',ai:'「任せてほしいこと」と「相談して決めること」を分けてみよう。',kind:'agreement',heading:'今回の家庭での約束（例）',items:['本人：献立と買う物を考える','親と相談：人数・予算・店・道','親と一緒：包丁や火を使う調理'],options:['この範囲で挑戦する','もっと簡単なことから始める','親と条件をもう一度相談する'],hint:'親が条件を変えたら、無理に進めず相談し直そう。'},
+  {title:'最初の一歩を決めた',lead:'設定完了より、最初に動けることが大切。',ai:'まず家の食事がどう決まるか調べてから、料理へ進むこともできるね。',kind:'choice',options:['家の仕事とお金を調べる','今週の食材を確かめる','今日はここで終える'],hint:'「やらない」「別の案」も自分の選択だよ。'}
+ ]},
+ {id:'research',no:'02',label:'家のしくみを調べる',brief:'HSC-02／調査と提案',steps:[
+  {title:'夕飯はどうやってできる？',lead:'最初の自分の考えをそのまま残す。',ai:'今の考えを後で比べられるようにしよう。答えを当てる必要はないよ。',kind:'voice',example:'買い物をして料理して、お金を払えば夕飯はできると思う。',hint:'食事ができるまでに、誰が何を準備しているかな？'},
+  {title:'家族に聞いて確かめよう',lead:'アプリの中では分からないことを、家族へ聞きに行こう。',ai:'知りたいことを一つ選ぼう。アプリを閉じて聞いてきても大丈夫。',kind:'choice',options:['夕飯の前にしている仕事を聞く','生活費には何があるか聞く','同じ物を二度買った理由を聞く'],example:'父は店に行くまで在庫が分からないと言っていた。',voice:true,hint:'「今日、夕飯までに何をした？」と聞くと具体的かも。'},
+  {title:'分かった金額と未知の金額',lead:'家計の一部が分かっても、残りをすべて使えるとは限らない。',ai:'確認できた差は21万円。でも通信費や交通費など、まだ聞いていない支出があるかもしれない。',kind:'metrics',heading:'架空の家庭の申告例（月額）',metrics:[['収入','40万円','父30万＋母10万'],['確認した支出','19万円','家賃・食費・光熱費'],['差額','21万円','自由に使える額ではない'],['未確認','？','ほかの支出は家族に確認']],options:['まだ知らない支出を聞く','今わかる範囲をまとめる'],hint:'分かっていない数字をAIが勝手に埋めないことが大事。'},
+  {title:'情報が伝わる仕組みを提案',lead:'重複して買う問題を見つけたら、相手の都合も聞こう。',ai:'「在庫を伝える」だけでなく、いつ伝えれば役立つかな？',kind:'choice',options:['買い物に出る前に在庫を知らせる','買い物後に写真をまとめる','別の方法を家族に提案する'],example:'父が出かける前に在庫を送ることにした。実際に一度やってみた。',voice:true,hint:'提案は実際に一度試してから、うまくいったか確かめよう。'}
+ ]},
+ {id:'dinner',no:'03',label:'夕飯をつくる',brief:'HSC-03／買い物と交渉',steps:[
+  {title:'おばあちゃんが来る日の夕飯',lead:'4人分の夕飯を、買い物と相談から考える。',ai:'昨日の在庫は今日もある？ まず自分の目で確かめよう。',kind:'list',heading:'家族と決めた条件（架空）',items:['4人分／17:30に夕飯','買い足しは1,000円以内','16:45までに帰宅','調理は親と一緒'],example:'米とルー、玉ねぎとにんじんはまだある。カレーにしよう。',voice:true,hint:'古い在庫メモは、その後に使われたかもしれないね。'},
+  {title:'買う物と量を確認',lead:'レシピと家の在庫を見て、買う物を減らせるかな？',ai:'必要量は家のレシピやパッケージでも確認してみよう。',kind:'list',heading:'買い足すもの（合成例）',items:['肉400g','じゃがいも1袋','トマト2個'],options:['この3つの値段を調べる','別の献立を考える'],hint:'AIが食材の必要量を勝手に確定せず、家族と実物を確認する。'},
+  {title:'どのお店で買う？',lead:'値段を比べても、それだけではお店は決まらない。',ai:'A店は980円、B店は920円。B店は60円安いね。ほかに確認したい条件は？',kind:'compare',heading:'今日のチラシの合成例',compare:[['', 'A店', 'B店'],['肉400g','520円','480円'],['じゃがいも','260円','240円'],['トマト2個','200円','200円'],['合計','980円','920円']],options:['まずB店へ行く方法を考える','家族の送迎時間を聞く','A店も候補に残す'],hint:'価格以外に、移動・荷物・家族の都合も比べられるよ。'},
+  {title:'お父さんに迎えを相談',lead:'自分で話し、相手の返事を聞いてくる場面。',ai:'「何をしたいか」「なぜ手伝ってほしいか」「場所と時間」を伝えてみよう。',kind:'voice',example:'父に聞いた。A店なら16:30に迎えに来られるけど、B店だと17:00になる。',hint:'これはAIが家族の代わりに交渉する場面ではないよ。'},
+  {title:'条件が変わった。どう決める？',lead:'家族の返事を受けて、本人が買い物の方法を決め直す。',ai:'B店は60円安いけれど迎えが17:00。A店は980円で、16:30に迎えられる。帰宅の約束は16:45だね。',kind:'metrics',heading:'価格と時間を比べよう',metrics:[['A店','980円','16:30に迎え／帰宅約束に合わせやすい'],['B店','920円','迎え17:00／帰宅約束より遅い']],options:['今日はA店にする理由を伝える','B店を希望して時間を相談し直す','別の買い方を考える'],hint:'どの選択肢も、最終的な合意を確認してから行動しよう。'},
+  {title:'売り場で「お得」を発見',lead:'100gあたりが安い商品を選ぶべき？',ai:'400gは520円（100g130円）、600gは600円（100g100円）。でも大きい方にすると、ほかの材料を含め1,060円になる。',kind:'metrics',heading:'値段だけで決めない',metrics:[['400g','520円','合計980円／予算内'],['600g','600円','合計1,060円／予算超過']],options:['400gを選ぶ','親に予算を相談する','献立やほかの材料を見直す'],hint:'単価の安さと、今日必要な量・総額は別の話だよ。'},
+  {title:'買い物と料理を終えた',lead:'行動と、そう決めた理由を一緒に残そう。',ai:'記事には、本人が話していない気持ちや学びを付け足さないよ。',kind:'voice',example:'A店にした。父が16:30に迎えに来られるし、予算内だった。400gの肉を買って、親と一緒にカレーを作った。',hint:'予定と実際を分けて記録しよう。写真も共有も必須ではない。'}
+ ]}
+];
+const state=Object.fromEntries(stories.map(s=>[s.id,{index:0,chosen:{},notes:{},hint:false}]));
+let current='first';
+const byId=x=>document.getElementById(x);
+const escapeHTML=v=>String(v==null?'':v).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+function step(){return stories.find(s=>s.id===current).steps[state[current].index]}
+function selectStory(id){current=id;state[id].hint=false;render()}
+function drawContent(s,st,k){
+ const choice=(s.options&&s.options.length)?'<section class="module"><h3>自分なら、どうする？</h3>'+s.options.map((t,i)=>'<button type="button" class="choice'+(st.chosen[k]===i?' chosen':'')+'" data-choice="'+i+'" aria-pressed="'+(st.chosen[k]===i)+'"><span class="circle">'+(st.chosen[k]===i?'✓':'')+'</span>'+escapeHTML(t)+'</button>').join('')+'</section>':'';
+ let special='';
+ if(s.kind==='list'||s.kind==='agreement')special='<section class="module"><h3>'+escapeHTML(s.heading)+'</h3><div class="list">'+s.items.map(x=>'<div><span class="tick">✓</span><span>'+escapeHTML(x)+'</span></div>').join('')+'</div></section>';
+ if(s.kind==='metrics')special='<section class="module"><h3>'+escapeHTML(s.heading)+'</h3><div class="dual">'+s.metrics.map(m=>'<div class="metric"><small>'+escapeHTML(m[0])+'</small><strong>'+escapeHTML(m[1])+'</strong><span>'+escapeHTML(m[2])+'</span></div>').join('')+'</div></section>';
+ if(s.kind==='compare')special='<section class="module"><h3>'+escapeHTML(s.heading)+'</h3><div class="list">'+s.compare.map((r,i)=>'<div style="display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:4px;'+(i===0?'font-weight:800;color:var(--green);':'')+'"><span>'+escapeHTML(r[0])+'</span><span>'+escapeHTML(r[1])+'</span><span>'+escapeHTML(r[2])+'</span></div>').join('')+'</div><p class="note" style="margin:10px 0 0">価格は実際の店舗情報ではなく、デモ用の架空例です。</p></section>';
+ const voice=s.voice||s.kind==='voice'?'<section class="module voice"><div class="voicehead"><h3>🗣 話したことを残す</h3><button class="demoButton" data-example="yes" type="button">例文を入れる</button></div><textarea id="spoken" aria-label="子どもの発言や聞いてきたこと" placeholder="ここに話したことを短く入力。実際の録音はしません。">'+escapeHTML(st.notes[k]||'')+'</textarea><p class="note" style="margin:8px 0 0">※音声入力の代わりに文字を入力する演出です。外部送信はありません。</p></section>':'';
+ return special+choice+voice;
+}
+function render(){
+ const sc=stories.find(s=>s.id===current),st=state[current],idx=st.index,k=String(idx),s=sc.steps[idx];
+ byId('scenarios').innerHTML=stories.map(x=>'<button type="button" class="scenario'+(x.id===current?' active':'')+'" data-story="'+x.id+'" aria-current="'+(x.id===current?'step':'false')+'"><span class="num">'+x.no+'</span><span><strong>'+escapeHTML(x.label)+'</strong><small>'+escapeHTML(x.brief)+'</small></span></button>').join('');
+ byId('progressLabel').textContent=sc.brief+'  ・  '+(idx+1)+' / '+sc.steps.length;
+ byId('progressFill').style.width=(100*(idx+1)/sc.steps.length)+'%';
+ let html='<div class="eyebrow">いまの一歩 '+String(idx+1).padStart(2,'0')+'</div><h2>'+escapeHTML(s.title)+'</h2><p class="lead">'+escapeHTML(s.lead)+'</p><section class="ai"><div class="aiLabel"><span>✦</span><span>AIサポートの表示例</span></div><p>'+escapeHTML(s.ai)+'</p></section>';
+ html+=drawContent(s,st,k);
+ if(st.notes[k]&&st.notes[k].trim())html+='<div class="note">✓ この画面内のメモ：「'+escapeHTML(st.notes[k].slice(0,100))+(st.notes[k].length>100?'…':'')+'」</div>';
+ html+='<button class="hintBtn" data-hint="yes" type="button" aria-expanded="'+st.hint+'">💡 '+(st.hint?'ヒントを閉じる':'ヒントがほしい')+'</button>';
+ if(st.hint)html+='<div class="hintText">'+escapeHTML(s.hint)+'</div>';
+ byId('screen').innerHTML=html;
+ byId('next').textContent=idx===sc.steps.length-1?'このシナリオの記録を見る →':'次の場面へ →';
+ byId('back').disabled=idx===0;byId('back').style.opacity=idx===0?'.45':'1';
+ byId('feedback').textContent='自分の選択・記録はこのデモ画面の中だけで保持';
+}
+function showSummary(){
+ const sc=stories.find(s=>s.id===current),st=state[current];
+ let bits=[];
+ sc.steps.forEach((s,i)=>{const k=String(i);if(st.chosen[k]!==undefined)bits.push('<dt>'+escapeHTML(s.title)+'</dt><dd>'+escapeHTML(s.options[st.chosen[k]])+'</dd>');if(st.notes[k]&&st.notes[k].trim())bits.push('<dt>入力したメモ（'+(i+1)+'）</dt><dd>'+escapeHTML(st.notes[k].trim())+'</dd>')});
+ if(bits.length===0)bits=['<dt>まだ記録はありません</dt><dd>選択や文字入力をしてみてください。</dd>'];
+ byId('screen').innerHTML='<div class="eyebrow">体験のまとめ</div><h2>'+escapeHTML(sc.label)+'</h2><p class="lead">選んだことや記録した言葉だけを並べます。AIが勝手に体験談を創作することはありません。</p><section class="summary"><h3>📰 家族新聞のもとになる記録</h3><dl>'+bits.join('')+'</dl></section><p class="mutedFooter">架空の画面内記録です。親の確認・家族への送信・ポイント付与は行っていません。</p>';
+ byId('next').textContent='次のシナリオを見る →';byId('feedback').textContent='デモのまとめ表示です';
+ byId('progressLabel').textContent=sc.brief+'  ・  まとめ';byId('progressFill').style.width='100%';
+ st.summary=true;
+}
+function next(){
+ const sc=stories.find(s=>s.id===current),st=state[current],s=sc.steps[st.index];
+ if(st.summary){const pos=stories.findIndex(x=>x.id===current);selectStory(stories[(pos+1)%stories.length].id);return;}
+ if(s.options&&st.chosen[st.index]===undefined){byId('feedback').textContent='先に選択肢を一つ選んでね（正解はありません）';return;}
+ if(st.index===sc.steps.length-1){showSummary();return;}
+ st.index++;st.hint=false;render();byId('screen').scrollIntoView({behavior:'auto',block:'nearest'});
+}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.story){selectStory(b.dataset.story);return;}
+ if(b.dataset.choice!==undefined){state[current].chosen[String(state[current].index)]=Number(b.dataset.choice);render();return;}
+ if(b.dataset.hint){state[current].hint=!state[current].hint;render();return;}
+ if(b.dataset.example){const st=state[current],s=step();st.notes[String(st.index)]=s.example||'';render();byId('feedback').textContent='架空の例文を入力しました。自分の言葉に直せます。';return;}
+});
+byId('screen').addEventListener('input',e=>{if(e.target.id==='spoken'){const st=state[current];st.notes[String(st.index)]=e.target.value;byId('feedback').textContent='入力中（実際の保存は行いません）'}});
+byId('next').addEventListener('click',next);
+byId('back').addEventListener('click',()=>{const st=state[current];if(st.summary){st.summary=false;render();return;}st.index=Math.max(0,st.index-1);st.hint=false;render()});
+byId('restart').addEventListener('click',()=>{state[current]={index:0,chosen:{},notes:{},hint:false};render()});
+render();
+
+/* Opt-in browser recognition → local intent routing → component-like panels.
+   No LLM, no automatic decisions/permissions, no audio storage. */
+const speechDemo = {
+  first:{last:'',history:[],meta:{},kind:'',examples:['夕飯を自分で決めてみたい','料理は一緒にして、予算は親に相談する','まず家の仕事を調べてみる']},
+  research:{last:'',history:[],meta:{},kind:'',examples:['誰が夕飯の準備をしているの？','家賃10万円と食費7万円、光熱費2万円だった','父は在庫が分からないから、買い物の前に教える']},
+  dinner:{last:'',history:[],meta:{},kind:'',examples:['カレーを作りたい。米とルーは家にある','A店は980円、B店は920円。どっちがいい？','お父さんはB店なら17時、A店なら16時30分に迎えに来るって','400グラム520円と600グラム600円で迷う','A店で買い物して、カレーを作った']}
+};
+let recognition=null,recognitionLive=false,recognitionInitial=false;
+const SpeechCtor=window.SpeechRecognition||window.webkitSpeechRecognition;
+const originalRenderVoice=render;
+function voiceEscape(s){return escapeHTML(s)}
+function captureFacts(raw,scene){
+ const t=raw.replace(/\s+/g,'').replace(/[０-９]/g,c=>String(c.charCodeAt(0)-65296)),m=scene.meta;
+ const a=t.match(/(?:予算|使えるお金|上限)[はがを:：]?([0-9０-９,，]+)円/);
+ if(a)m.budget=a[1].replace(/[０-９]/g,c=>String(c.charCodeAt(0)-65296)).replace(/[,，]/g,'')+'円';
+ if(/カレー/.test(t))m.menu='カレー';
+ if(/(?:米|ごはん)/.test(t))m.rice='米';
+ if(/ルー/.test(t))m.roux='ルー';
+ if(/(?:玉ねぎ|たまねぎ)/.test(t))m.onion='玉ねぎ';
+ if(/にんじん/.test(t))m.carrot='にんじん';
+ if(/(?:父|お父さん|パパ)/.test(t))m.father='父の話を聞いた';
+ const store=t.match(/([ABＡＢ])店(?:で|は|なら|に|が|を)?(?:合計)?([0-9０-９,，]+)円/g)||[];
+ store.forEach(v=>{const hit=v.match(/([ABＡＢ])店(?:で|は|なら|に|が|を)?(?:合計)?([0-9０-９,，]+)円/);if(hit){const key=/[AＡ]/.test(hit[1])?'a':'b';m[key+'Price']=hit[2].replace(/[０-９]/g,c=>String(c.charCodeAt(0)-65296)).replace(/[,，]/g,'')+'円'}});
+ const timePattern=/([ABＡＢ])店(?:では|なら|だと|は|で|に|が)?(\d{1,2})時(\d{1,2})?分?/g;
+ for(const match of t.matchAll(timePattern)){const key=/[AＡ]/.test(match[1])?'a':'b';m[key+'Pickup']=match[2].padStart(2,'0')+':'+(match[3]||'00').padStart(2,'0')}
+ const meatPattern=/(400|600)(?:g|グラム)(?:は|で|なら|が)?(\d{2,5})円/g;
+ for(const match of t.matchAll(meatPattern)){m['meat'+match[1]]=Number(match[2])}
+ return t;
+}
+function routeSpeech(scenario,text){
+ const normalized=captureFacts(text,scenario);
+ let idx=state[current].index,kind='question';
+ if(current==='first'){
+   if(/家事|家の仕事|分担|誰が|料理の前/.test(normalized)){idx=1;kind='family_list'}
+   else if(/親|予算|任せ|約束|できる|決めていい|一緒に|相談/.test(normalized)){idx=2;kind='agreement'}
+   else if(/まず|最初|調べて|やってみる/.test(normalized)){idx=3;kind='next_action'}
+   else {idx=0;kind='goals'}
+ }else if(current==='research'){
+   if(/伝え|提案|改善|重複|二度買|買う前|知らせ/.test(normalized)){idx=3;kind='proposal'}
+   else if(/収入|家賃|生活費|支出|万円|光熱費|いくら残/.test(normalized)){idx=2;kind='budget'}
+   else if(/誰|聞|父|母|仕事|家事|在庫/.test(normalized)){idx=1;kind='interview'}
+   else {idx=0;kind='question'}
+ }else{
+   if(/買った|作った|終わった|帰った|食べた/.test(normalized)){idx=6;kind='reflection'}
+   else if(/600|６００|400|４００|パック|グラム|g|お得|量|単価/.test(normalized)){idx=5;kind='unit_compare'}
+   else if(/迎え|時間|父|お父さん|16時|１７時|17時|Ｂ店なら|B店なら/.test(normalized)){idx=4;kind='time_compare'}
+   else if(/店|スーパー|チラシ|安い|値段|価格|どっち|比較|980|920/.test(normalized)){idx=2;kind='price_compare'}
+   else if(/予算|いくら使える|お金が/.test(normalized)){idx=0;kind='budget_guard'}
+   else if(/在庫|冷蔵庫|材料|米|ルー|足り|買う物/.test(normalized)){idx=1;kind='checklist'}
+   else {idx=0;kind='menu'}
+ }
+ return {idx,kind};
+}
+function adaptVoice(text,source){
+ const raw=text.trim();if(!raw){byId('voiceStatus').textContent='何をしたいか一言入れてください。';return}
+ const scene=speechDemo[current],r=routeSpeech(scene,raw),st=state[current];
+ scene.last=raw;scene.kind=r.kind;scene.history.push({text:raw,source:source,kind:r.kind,at:st.index}); 
+ if(scene.history.length>15)scene.history.shift();
+ st.index=r.idx;st.summary=false;st.hint=/わから|困っ|どうすれば|教えて|難し|迷っ/.test(raw);
+ // These are participant statements, not verified facts or completed actions.
+ const k=String(r.idx);
+ if(st.notes[k]&&st.notes[k].indexOf(raw)<0)st.notes[k]+='\n'+raw; else if(!st.notes[k])st.notes[k]=raw;
+ render();
+ byId('voiceStatus').textContent=(source==='mic'?'聞き取りました：':'入力を受け取りました：')+'「'+raw.slice(0,44)+(raw.length>44?'…':'')+'」';
+ byId('feedback').textContent='あなたの言葉で「'+step().title+'」のUIへ切り替えました';
+}
+function outputForVoice(scene){
+ const s=speechDemo[current];
+ if(!s.last)return '';
+ const m=s.meta,kind=s.kind;
+ const all=s.history.map(z=>z.text);
+ const parts=['<section class="voiceResult" aria-label="話した内容に合わせて変わった表示"><div class="aiLabel">✦ 入力に応じて組み立てたUI（固定ルール）</div>','<p class="heard">聞いた言葉：「'+voiceEscape(s.last)+'」</p>'];
+ const tags=[];
+ if(m.budget)tags.push('予算 '+m.budget);
+ if(m.menu)tags.push('献立 '+m.menu);
+ if(m.rice)tags.push('米は確認の発言あり');
+ if(m.roux)tags.push('ルーは確認の発言あり');
+ if(m.father)tags.push('家族との相談の発言あり');
+ if(tags.length)parts.push('<div class="row">'+tags.map(x=>'<span>'+voiceEscape(x)+'</span>').join('')+'</div>');
+ if(kind==='price_compare'){
+   parts.push('<h3>お店を比べるカード</h3><div class="numbers"><div><small>A店（例）</small><b>'+voiceEscape(m.aPrice||'980円')+'</b><small>近い店</small></div><div><small>B店（例）</small><b>'+voiceEscape(m.bPrice||'920円')+'</b><small>少し遠い店</small></div></div><p>安さだけでは決まらない。帰る時間・運び方・家族の都合は確かめた？</p>');
+ }else if(kind==='time_compare'){
+   parts.push('<h3>家族との相談を反映した比較</h3><div class="numbers"><div><small>A店（例）</small><b>'+voiceEscape(m.aPrice||'980円')+'</b><small>' +voiceEscape(m.aPickup||'16:30')+' 迎え（'+(m.aPickup?'本人の報告':'仮例')+'）</small></div><div><small>B店（例）</small><b>'+voiceEscape(m.bPrice||'920円')+'</b><small>'+voiceEscape(m.bPickup||'17:00')+' 迎え（'+(m.bPickup?'本人の報告':'仮例')+'）</small></div></div><p>どちらを選ぶかは自分で決め、父の返事をもう一度確かめよう。実際の時刻・合意はあなたの報告に基づく。</p>');
+ }else if(kind==='unit_compare'){
+   const small=m.meat400||520,big=m.meat600||600;
+   parts.push('<h3>単価と予算を比べる</h3><div class="numbers"><div><small>肉 400g</small><b>'+small+'円</b><small>100gあたり'+Math.round(small/4)+'円</small></div><div><small>肉 600g</small><b>'+big+'円</b><small>100gあたり'+Math.round(big/6)+'円</small></div></div><p>安い単価でも、今日は何g必要？ほかの材料を含めた合計も見て決めよう。金額は本人の報告があればその値、なければ合成例。</p>');
+ }else if(kind==='budget_guard'){
+   parts.push('<h3>今日使える予算</h3><div class="numbers"><div><small>今回の条件</small><b>'+voiceEscape(m.budget||'1,000円（仮例）')+'</b></div><div><small>人数</small><b>4人分（仮例）</b></div></div><p>献立・必要な材料・買い足す物を家族に確かめよう。変更するときは本人が親に相談する。</p>');
+ }else if(kind==='budget'){
+   parts.push('<h3>わかったお金・まだ知らないお金</h3><div class="numbers"><div><small>収入（架空例）</small><b>40万円</b></div><div><small>確認済み支出（架空例）</small><b>19万円</b></div></div><p>差は21万円。ただしこれが自由に使える金額とは限らない。まだ未確認の出費があるか家族へ質問しよう。</p>');
+ }else if(kind==='interview'||kind==='proposal'){
+   parts.push('<h3>'+(kind==='interview'?'家族に聞きに行くカード':'提案を実際に試すカード')+'</h3><p>'+(kind==='interview'?'「何を」「いつ」「誰が」しているか、家族に聞いてみよう。':'誰に、いつ情報を伝えたら役立つか相談して、一度試そう。')+'</p>');
+ }else if(kind==='agreement'||kind==='family_list'||kind==='goals'||kind==='next_action'){
+   parts.push('<h3>家族との取り決めを考える</h3><p>自分で決めたいこと・親に相談したいこと・一緒にすることを分けよう。決定権はAIが増やせません。</p>');
+ }else if(kind==='checklist'||kind==='menu'){
+   parts.push('<h3>'+(kind==='checklist'?'材料の確認カード':'何を作るかの相談カード')+'</h3><p>家で確かめる → 必要量を決める → 予算を相談する。聞いた情報は後で使えるけれど、まだ確かめていない事実は埋めない。</p>');
+ }else if(kind==='reflection'){
+   parts.push('<h3>出来事の記録カード</h3><p>話した内容を体験の記録に追加しました。何を選んでどうなったかを、実際に行動した部分だけで残します。親の共有確認は別です。</p>');
+ }else parts.push('<h3>今、何を確かめる？</h3><p>気になることを家族に聞き、わかったことを戻って話してね。</p>');
+ parts.push('<p class="trail">今回の声／文字の報告：'+s.history.length+'件。音声の原音はこのデモでは保持しません。</p></section>');
+ return parts.join('');
+}
+function voicePaint(){
+ const scene=speechDemo[current];
+ const samples=byId('voiceSamples');
+ samples.innerHTML=scene.examples.map((x,i)=>'<button type="button" data-speak-example="'+i+'" title="例文から画面を変える">'+voiceEscape(x)+'</button>').join('');
+ if(scene.last&&!state[current].summary){
+   const screen=byId('screen');
+   screen.insertAdjacentHTML('afterbegin',outputForVoice(scene));
+ }
+}
+render=function(){ originalRenderVoice();voicePaint() };
+function micMessage(v){byId('voiceStatus').textContent=v}
+byId('voiceStart').addEventListener('click',()=>{
+ if(!SpeechCtor){micMessage('このブラウザは音声認識に対応していません。下の文字入力を使ってください。');return}
+ if(recognitionLive){micMessage('音声認識中です。終了する場合は「止める」を押してください。');return}
+ if(!recognition){recognition=new SpeechCtor();recognition.lang='ja-JP';recognition.interimResults=false;recognition.continuous=false;recognition.maxAlternatives=1;
+   recognition.onresult=e=>{let raw='';for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)raw+=e.results[i][0].transcript}if(raw){byId('voiceText').value=raw;adaptVoice(raw,'mic')}};
+   recognition.onerror=e=>{micMessage('音声認識できませんでした（'+e.error+'）。マイク許可・通信状態を確認するか、文字入力を使ってください。')};
+   recognition.onend=()=>{recognitionLive=false;byId('voiceStart').classList.remove('recording');byId('voiceStart').textContent='🎤 話す'};
+ }
+ try{recognition.start();recognitionLive=true;byId('voiceStart').classList.add('recording');byId('voiceStart').textContent='● 聞いています';micMessage('録音ではなく音声認識中です。ひとこと話してください。')}catch(e){recognitionLive=false;micMessage('音声認識を開始できませんでした。文字入力を使ってください。')}
+});
+byId('voiceStop').addEventListener('click',()=>{if(recognition&&recognitionLive){recognition.stop();micMessage('聞き取りを止めました。')}else micMessage('現在、聞き取り中ではありません。')});
+byId('voiceApply').addEventListener('click',()=>adaptVoice(byId('voiceText').value,'text'));
+document.addEventListener('click',e=>{const btn=e.target.closest('button[data-speak-example]');if(!btn)return;const val=speechDemo[current].examples[Number(btn.dataset.speakExample)];byId('voiceText').value=val;adaptVoice(val,'example')});
+render();
+
+</script>
+</body></html>
