@@ -1,0 +1,166 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>やってみクエスト｜祖父母のおたより</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;background:#eff5ed;color:#173229;--green:#176b5b;--paper:#fffdf7;--line:#d6e2d8;--sub:#496559}
+*{box-sizing:border-box}body{margin:0}button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}
+#app{height:100dvh;max-width:760px;margin:auto;display:flex;flex-direction:column;background:var(--paper);overflow:hidden}
+.banner{flex:none;text-align:center;background:#f2e8d1;color:#695b42;padding:7px 10px;font-size:12px}
+header{flex:none;display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:white;border-bottom:1px solid var(--line)}
+header strong{font-size:20px}header button{border:1px solid var(--line);background:#fff;border-radius:12px;min-width:58px;min-height:56px;font-size:20px;font-weight:800}
+main{flex:1;min-height:0;overflow-y:auto;padding:16px 16px 30px;overscroll-behavior:contain}
+footer{flex:none;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:8px 9px calc(8px + env(safe-area-inset-bottom));background:white;border-top:1px solid var(--line)}
+footer button{border:1px solid transparent;border-radius:13px;min-height:67px;background:#edf4ed;font-weight:800;color:#285946;font-size:17px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+footer button[aria-current=page]{background:var(--green);color:white}footer small{font-size:24px}
+h1{font-size:28px;line-height:1.4;margin:7px 0 13px}h2{font-size:23px;line-height:1.45;margin:12px 0}p{font-size:20px;line-height:1.7;margin:10px 0}.meta{font-size:16px;color:var(--sub);line-height:1.6}.label{font-weight:850;color:#24634d;font-size:19px}.card{border:1px solid var(--line);background:white;border-radius:18px;padding:15px;margin:12px 0}.soft{background:#edf6ee}.warning{background:#fff5df;border-color:#e9c787}.photo{width:100%;height:224px;object-fit:cover;background:#f7eedb;border-radius:13px}.thumb{width:100%;height:120px;object-fit:cover;border-radius:12px}
+.btn{width:100%;min-height:58px;border:2px solid var(--green);border-radius:14px;background:var(--green);color:white;font-size:19px;font-weight:800;padding:11px;margin:6px 0}.btn.alt{background:#eaf4f0;color:#185c49;border-color:#b8d9c8}.btn.plain{background:white;color:#235c49;border-color:#d9e5db}
+.quote{border-left:5px solid var(--green);background:#eaf4f0;border-radius:0 12px 12px 0;padding:16px;font-size:22px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
+hr{border:0;border-top:1px solid var(--line);margin:24px 0}details{border:1px solid var(--line);padding:14px;border-radius:12px;margin:15px 0}summary{font-size:19px;min-height:40px;cursor:pointer;font-weight:700}
+.choices{display:grid;gap:10px;margin:15px 0}.choice{width:100%;min-height:68px;background:white;border:2px solid var(--line);padding:13px;border-radius:14px;font-size:20px;text-align:left;font-weight:700}.choice[aria-pressed=true]{border-color:var(--green);background:#eaf4f0}.choice small{display:block;font-size:15px;color:var(--sub);font-weight:400}
+.field{width:100%;min-height:135px;background:white;border:2px solid #adcdbb;border-radius:12px;font-size:21px;line-height:1.6;color:#173229;padding:13px;resize:vertical}
+.num{width:min(100%,250px);min-height:60px;border:2px solid #adcdbb;border-radius:12px;font-size:26px;padding:10px}
+.photoGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.photoTile{min-width:0;border:1px solid var(--line);background:white;border-radius:14px;padding:7px;text-align:left}.photoTile span{display:block;font-size:17px;line-height:1.55;font-weight:700;padding:7px 4px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}.two .btn{font-size:17px}.status{border-radius:12px;padding:13px;background:#eaf4f0;font-size:18px;line-height:1.6}.error{background:#fff5df}.steps{font-size:46px;color:var(--green);font-weight:900}.eyebrow{color:#34765c;font-size:16px;font-weight:800}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #f1b645;outline-offset:2px}
+#app.large main p{font-size:24px}#app.large main .quote{font-size:26px}#app.large main h1{font-size:33px}#app.large main h2{font-size:27px}#app.large main .meta{font-size:19px}#app.large main .label{font-size:22px}#app.large main button{font-size:21px}
+@media(max-width:360px){main{padding:12px 11px 26px}.two{grid-template-columns:1fr}h1{font-size:25px}.photo{height:190px}footer button{font-size:15px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style></head><body>
+<div id="app"><div class="banner">合成デモ：送信・保存・歩数連携はこの画面内だけの再現です</div>
+<header><strong>✦ 家族のおたより</strong><button id="large" aria-label="文字サイズを変更">A+</button></header>
+<main id="main" aria-live="polite"></main>
+<footer aria-label="メニュー">
+<button data-tab="news" aria-current="page"><small>📰</small>新聞</button>
+<button data-tab="album"><small>🖼</small>アルバム</button>
+<button data-tab="today"><small>👣</small>今日</button>
+</footer></div>
+<script>
+(()=>{
+"use strict";
+const node=document.getElementById("main"),svg=(mode)=>{
+const food=mode==="food";const t=food?'<ellipse cx="320" cy="215" rx="204" ry="95" fill="#fff"/><path d="M300 145q145-9 217 70q-95 107-240 65z" fill="#a4623c"/><path d="M300 145q-130-10-178 75q50 76 180 66z" fill="#f4eee0"/><g fill="#eeb35b"><circle cx="370" cy="208" r="17"/><circle cx="435" cy="244" r="16"/></g><g fill="#e98450"><circle cx="419" cy="177" r="13"/><circle cx="475" cy="227" r="12"/></g>':'<rect x="77" y="85" width="480" height="250" rx="28" fill="#f4f9ed"/><ellipse cx="212" cy="244" rx="80" ry="55" fill="#c58f58"/><ellipse cx="431" cy="245" rx="75" ry="55" fill="#c58f58"/><path d="M194 188q-22-66 26-65q28 21-17 67z" fill="#64a369"/><path d="M424 181q-25-60 22-64q27 21-8 69z" fill="#64a369"/>';
+return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380"><rect width="640" height="380" fill="'+(food?'#efe1c8':'#d9eadd')+'"/><rect y="300" width="640" height="80" fill="'+(food?'#be8964':'#afd1b0')+'"/>'+t+'</svg>')};
+const SAMPLE=[
+{id:"curry",version:2,published:true,date:"10月8日",author:"はるちゃん",title:"おばあちゃんとカレーを食べたよ",intro:"家族とカレーを作ったよ。",choice:"A店で買い物をすることにしたよ。",reason:"B店の方が安かったけれど、お父さんの迎えの時間を考えてA店にしたよ。",report:"材料を買って、家族とカレーを作ったと報告しました。",detail:"最初はB店に行こうと思いましたが、家族に迎えの時間を聞いてA店に変えました。",photos:[{url:svg("food"),alt:"カレーを描いたサンプルイラスト"}]},
+{id:"investigate",version:1,published:true,date:"10月5日",author:"はるちゃん",title:"買い物前のひと工夫",intro:"家の材料を調べてお父さんに伝えたよ。",choice:"買い物に出る前に材料を伝えることにしたよ。",reason:"お店に入った後だと遅いから。",report:"米と玉ねぎを確かめ、家族に伝えたと報告しました。",detail:"料理の前の仕事について家族から聞きました。",photos:[{url:svg("other"),alt:"家の食材を描いたサンプルイラスト"}]},
+{id:"first",version:1,published:true,date:"10月2日",author:"はるちゃん",title:"自分で献立を考えたい",intro:"何から始めるかを家族と相談したよ。",choice:"まず家のご飯がどう決まるか調べることにしたよ。",reason:"",report:"家族の話を聞くところから始めると報告しました。",detail:"",photos:[]}
+];
+let data=SAMPLE.map(x=>({...x}));
+const S={tab:"news",page:"list",article:"curry",from:"news",photo:0,replyKind:"question",draft:"今度はどんな料理を作ってみたい？",failNext:false,error:false,sending:false,ack:new Set(),events:[],steps:null,inputSteps:"",genki:false,stepError:false,scroll:{news:0,album:0,today:0},large:false};
+const kinds={support:{title:"応援のひとこと",example:"自分で考えて選んだんだね。教えてくれてありがとう。"},question:{title:"聞いてみたいこと",example:"今度はどんな料理を作ってみたい？"},experience:{title:"私の経験・工夫",example:"私はお肉が余ったら小分けにして冷凍していたよ。"}};
+const h=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const btn=(label,act,klass)=>'<button class="btn '+(klass||"")+'" data-action="'+act+'">'+label+'</button>';
+const shown=()=>data.filter(x=>x.published===true);
+const article=()=>shown().find(x=>x.id===S.article);
+const photos=()=>shown().flatMap(a=>(a.photos||[]).map(p=>({...p,article:a})));
+const img=(p,klass)=>'<img class="'+klass+'" src="'+h(p.url)+'" alt="'+h(p.alt||"写真")+'"/>';
+function home(){
+const list=shown();let x='<div class="eyebrow">はるちゃんから</div><h1>家族の新聞</h1>';
+if(!list.length)return x+'<div class="card"><p>今は新しいおたよりがありません。</p>'+btn('今日のわたしへ','tab:today','alt')+'</div>';
+const a=list[0];x+='<div class="card"><p class="meta">新しいおたより・'+h(a.date)+'・'+h(a.author)+'</p>';
+if(a.photos?.length)x+=img(a.photos[0],"photo");
+x+='<h2>'+h(a.title)+'</h2><p>'+h(a.intro)+'</p>'+btn('おたよりを読む →','open:'+a.id)+'</div>';
+for(const old of list.slice(1))x+='<div class="card"><p class="meta">'+h(old.date)+'</p><h2>'+h(old.title)+'</h2>'+btn('この記事を読む','open:'+old.id,'alt')+'</div>';
+return x;
+}
+function detail(){
+const a=article();if(!a)return '<h1>この記事は今は読めません</h1><p>共有が取り消された可能性があります。</p>'+btn('新聞に戻る','tab:news','alt');
+let x=btn('← 新聞に戻る','return','plain')+'<p class="meta">'+h(a.date)+'・'+h(a.author)+'</p><h1>'+h(a.title)+'</h1>';
+if(a.photos?.length)x+=img(a.photos[0],"photo");
+x+='<div class="card soft"><div class="label">はるちゃんが決めたこと</div><p>'+h(a.choice)+'</p></div>';
+if(a.reason)x+='<div class="label">どうしてそう決めたの？</div><div class="quote">「'+h(a.reason)+'」</div><p class="meta">はるちゃんが話した理由</p>';
+if(a.report)x+='<h2>実際にやったこと</h2><p>'+h(a.report)+'</p>';
+if(a.detail)x+='<details><summary>もっと詳しく読む</summary><p>'+h(a.detail)+'</p></details>';
+x+='<hr/><h2>はるちゃんへお返事</h2><p>お返事はなくても大丈夫です。</p>';
+x+=S.ack.has(a.id)?'<div class="status">✓「読んだよ」を送りました（デモ）</div>':btn('♥ 読んだよを送る','read');
+x+=btn('✉ ひとこと返す','reply','alt');
+if(S.error)x+='<div class="status error" role="alert">まだ送れていません。もう一度お試しください。</div>';
+if(S.sending)x+='<div class="status">送信中です（デモ）</div>';
+const list=shown(),i=list.findIndex(z=>z.id===a.id);
+x+='<hr/><div class="two">'+(i>0?btn('← 新しい記事','open:'+list[i-1].id,'plain'):'<div></div>')+(i+1<list.length?btn('前の記事 →','open:'+list[i+1].id,'plain'):'<div></div>')+'</div>';
+return x;
+}
+function reply(){
+if(!article())return detail();
+let x=btn('← おたよりに戻る','back','plain')+'<h1>はるちゃんにお返事</h1><p>伝えたいことを選んでください。</p><div class="choices">';
+for(const [id,k]of Object.entries(kinds))x+='<button class="choice" data-kind="'+id+'" aria-pressed="'+(S.replyKind===id)+'">'+h(k.title)+'<small> '+(id==="support"?"感想を伝える":id==="question"?"もっと聞いてみる":"昔の工夫を伝える")+'</small></button>';
+x+='</div><div class="card"><label for="message" class="label">お返事の文</label><p class="meta">自由に書き直せます。</p><textarea class="field" id="message">'+h(S.draft)+'</textarea></div>';
+x+='<div class="card soft"><div class="label">送る前に確認</div><p>相手：はるちゃん</p><p>種類：'+h(kinds[S.replyKind].title)+'</p><p id="preview">「'+h(S.draft)+'」</p></div>';
+if(S.error)x+='<div class="status error" role="alert">まだ送れていません。文章は残っています。もう一度試せます。</div>';
+if(S.sending)x+='<div class="status">送信中です（デモ）</div>';
+x+=btn(S.error?'もう一度送る':'この内容を送る','send')+btn('今は返さない','back','plain');return x;
+}
+function complete(){return btn('← おたよりに戻る','back','plain')+'<div class="card soft"><div class="steps">✓</div><h1>お返事を送りました</h1><p>はるちゃんへの質問を受け付けた状態を再現しました。</p><p class="meta">実際には送信していません。</p></div><div class="card"><div class="label">送った内容</div><p>「'+h(S.draft)+'」</p><p>送る相手：はるちゃん</p></div>'+btn('新聞に戻る','back');}
+function album(){
+let x='<div class="eyebrow">家族の思い出</div><h1>写真・アルバム</h1><p>家族が見せてくれた写真をいつでも見返せます。</p>',list=photos();
+if(!list.length)return x+'<div class="card"><p>共有された写真はまだありません。</p></div>';
+x+='<div class="photoGrid">';
+list.forEach((p,i)=>x+='<button class="photoTile" data-action="photo:'+i+'">'+img(p,'thumb')+'<span>'+h(p.article.date)+'・'+h(p.article.title)+'</span></button>');
+return x+'</div><p class="meta">このデモでは家族写真の代わりにサンプルイラストを使用しています。</p>';
+}
+function photo(){
+const p=photos()[S.photo];if(!p)return btn('アルバムに戻る','tab:album');
+return btn('← アルバムに戻る','tab:album','plain')+'<h1>'+h(p.article.title)+'</h1>'+img(p,'photo')+'<p class="meta">'+(S.photo+1)+' / '+photos().length+'・'+h(p.article.date)+'</p><div class="two">'+btn('← 前の写真','prev','alt')+btn('次の写真 →','next','alt')+'</div><hr/>'+btn('この記事を読む','open:'+p.article.id,'plain');
+}
+function today(){
+let x='<div class="eyebrow">おばあちゃんから家族へ</div><h1>今日のわたし</h1><div class="card soft"><h2>今日の歩数</h2><div class="steps">'+(S.steps===null?'—':S.steps.toLocaleString())+' <small style="font-size:20px">歩</small></div><p class="meta">'+(S.steps===null?'まだ記録していません':'手入力・このデモ内の記録')+'</p><label class="label" for="steps">歩数を入力</label><p class="meta">歩数計などで確認した数値を入力できます。</p><input class="num" id="steps" type="number" min="0" max="99999" inputmode="numeric" placeholder="例：5200" value="'+h(S.inputSteps)+'"/>'+btn('歩数を記録する','savesteps','alt')+'</div>';
+if(S.stepError)x+='<div class="status error" role="alert">歩数は0〜99,999の整数で入力してください。まだ記録されていません。</div>';
+x+='<div class="card"><h2>今日も元気だよ</h2><p>歩数を記録しなくても家族に近況を送れます。</p><div class="card soft"><p>送る相手：保護者</p><p>送ることば：「今日も元気だよ」</p></div>';
+x+=S.genki?'<div class="status">✓ 今日の「元気だよ」は送信済み（デモ）</div>':btn('♥ 今日も元気だよを送る','genki');
+if(S.error)x+='<div class="status error">まだ送れていません。もう一度お試しください。</div>';
+if(S.sending)x+='<div class="status">送信中です（デモ）</div>';
+x+='<p class="meta">送らなかった日から健康や安全を判定することはありません。</p></div>';
+x+='<details><summary>失敗時の動作を試す（デモ）</summary><p>次の送信を一度だけ失敗させます。</p>'+btn('次の送信を失敗させる','fail','plain')+'</details>';return x;
+}
+function render(scroll=0){
+document.getElementById('app').classList.toggle('large',S.large);
+document.querySelectorAll('footer [data-tab]').forEach(b=>S.tab===b.dataset.tab?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'));
+node.innerHTML=S.page==='detail'?detail():S.page==='reply'?reply():S.page==='complete'?complete():S.page==='photo'?photo():S.tab==='news'?home():S.tab==='album'?album():today();
+node.scrollTop=scroll;
+}
+function toTab(tab){S.tab=tab;S.page='list';S.error=false;render(S.scroll[tab]||0)}
+function open(id){if(!shown().some(a=>a.id===id))return;S.scroll[S.tab]=node.scrollTop;S.article=id;S.page='detail';S.error=false;render()}
+function send(type){
+if(S.sending||type==='read'&&S.ack.has(S.article))return;
+if(type==='reply'&&!S.draft.trim()){S.error=true;render(node.scrollTop);return}
+if(type!=='genki'&&!article())return;
+S.sending=true;S.error=false;render(node.scrollTop);
+const fail=S.failNext;S.failNext=false;
+setTimeout(()=>{
+ S.sending=false;
+ if(fail){S.error=true;render(node.scrollTop);return}
+ const a=article();const e={kind:type,articleId:type==='genki'?null:a?.id,articleVersion:type==='genki'?null:a?.version,recipient:type==='genki'?'parents-demo':'haru-demo',text:type==='read'?'読んだよ':type==='genki'?'今日も元気だよ':S.draft,replyType:type==='reply'?S.replyKind:null,simulation:true};
+ if(type==='read')S.ack.add(S.article);
+ if(type==='reply')S.page='complete';
+ if(type==='genki')S.genki=true;
+ S.events.push(e);document.dispatchEvent(new CustomEvent('yattemi:grandparent-demo-event',{detail:{...e}}));render(node.scrollTop);
+},360);
+}
+document.getElementById("large").addEventListener("click",()=>{S.large=!S.large;document.getElementById("large").textContent=S.large?'A−':'A+';render(node.scrollTop)});
+document.querySelector('footer').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)toTab(b.dataset.tab)});
+node.addEventListener('input',e=>{if(e.target.id==='steps')S.inputSteps=e.target.value;if(e.target.id==='message'){S.draft=e.target.value;const v=document.getElementById('preview');if(v)v.textContent='「'+S.draft+'」'}});
+node.addEventListener('click',e=>{
+const k=e.target.closest('[data-kind]');if(k){S.replyKind=k.dataset.kind;S.draft=kinds[S.replyKind].example;S.error=false;render(node.scrollTop);return}
+const b=e.target.closest('[data-action]');if(!b||b.disabled)return;const [act,arg]=b.dataset.action.split(':');
+if(act==='tab'){toTab(arg);return}if(act==='open'){open(arg);return}
+if(act==='return'){toTab(S.tab==='album'?'album':'news');return}
+if(act==='back'){S.page='detail';S.error=false;render();return}
+if(act==='reply'){S.page='reply';S.replyKind='question';S.draft=kinds.question.example;S.error=false;render();return}
+if(act==='read'){send('read');return}if(act==='send'){send('reply');return}if(act==='genki'){send('genki');return}
+if(act==='savesteps'){const n=Number(S.inputSteps);if(S.inputSteps.trim()!==''&&Number.isInteger(n)&&n>=0&&n<=99999){S.steps=n;S.stepError=false}else S.stepError=true;render(node.scrollTop);return}
+if(act==='fail'){S.failNext=true;render(node.scrollTop);return}
+if(act==='photo'){S.photo=Number(arg);S.page='photo';render();return}
+if(act==='prev'){S.photo=Math.max(0,S.photo-1);render();return}
+if(act==='next'){S.photo=Math.min(photos().length-1,S.photo+1);render();return}
+});
+window.YattemiGrandparentDemo={
+ getEvents:()=>S.events.map(e=>({...e})),
+ getState:()=>({tab:S.tab,page:S.page,steps:S.steps,genki:S.genki,readCount:S.ack.size}),
+ setNextSendFailure:()=>{S.failNext=true},
+ revoke:(id)=>{const a=data.find(x=>x.id===id);if(a){a.published=false;render()}},
+ replacePublished:(items)=>{
+  if(!Array.isArray(items))return false;
+  data=items.filter(x=>x&&x.published===true&&typeof x.id==='string'&&typeof x.title==='string'&&typeof x.author==='string'&&Number.isInteger(x.version)&&x.version>0&&Array.isArray(x.photos));S.page='list';S.tab='news';render();return true;
+ }
+};
+render();
+})();
+</script></body></html>
