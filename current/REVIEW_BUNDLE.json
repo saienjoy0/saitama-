@@ -10,7 +10,7 @@
     "docs/design/role-experience-v0.3.md": "da6517346e2af835d364f99047cd197484755e0eea476c1555a756d34aa900e6",
     "docs/design/extensibility-v0.3.md": "ea260b796ff0a32727c5a389838886a2d9efdbf1508f9cf72bc18ca7fbb4ce4e",
     "docs/design/ai-harness-design-v0.2.md": "3c1f3c6dd6a40f33e05187f7844a410f77e45a36750b56c0362822c6b1c6f1d4",
-    "docs/design/DECISIONS.md": "b2651d6685e37b9ca61ae67e5dca70331f86b0342bd3fd390d18f76747d843fd",
+    "docs/design/DECISIONS.md": "80dd390fff730e948cd1a44e88de1ba2e60384beea9527033a7f704773e1bbba",
     "docs/superpowers/plans/2026-09-23-yattemi-implementation.md": "c2c71b3e84e4d80e991436f1c7db4139c1d1be158f379c8ae663e9854887bf17",
     "docs/design/FEATURES.json": "ed7aa1237c5516a8590eca9237e3e1e4b78c47befd12d5a1848703fa3ff63013",
     "docs/review/index.html": "05a72393af338b3383469ce904b7e3a13f61bbf7b9b43fc99ddbecfb5d24331e",
@@ -25,6 +25,18 @@
     "docs/design/ai-engine-review-v0.4.1.md": "f6d6161b0ab1b913f514c546dfdf737257a2924f06e456d8e84eb9281e6cce81",
     "contracts/guided-plan.schema.json": "eb14a707d6e335d53120245c820c2c7e4bb522573373b215e56c4dda9aba7962",
     "docs/workflow/CODEX_PREFLIGHT.md": "93abc77943d542527d648250c04b0528782396b292db64063766f8b7a5d5933f",
-    "current/SKILLS.json": "17c77fea4f27fa9bda5b69d458353e59a1444bc4f2bc2571d32639166f402a34"
+    "current/SKILLS.json": "17c77fea4f27fa9bda5b69d458353e59a1444bc4f2bc2571d32639166f402a34",
+    "docs/design/representative-household-scenarios-20261007.md": "44d2764bd1c38ecc3cf4790d36d5662f91bdb6ea15c4bedbeebfc158f6d7007d"
+  },
+  "scenario_addendum": {
+    "revision": "20261007-v1",
+    "path": "docs/design/representative-household-scenarios-20261007.md",
+    "status": "design_reference_prepared_not_implementation_approved",
+    "scope": "Action-first onboarding, household investigation, dinner shopping, voice support, grounded process articles and household reward examples",
+    "implementation_plan_alignment_required": true,
+    "contract_gaps_section": "10",
+    "acceptance_ids": "HSC-AC01..16",
+    "product_stage_unchanged": "DESIGN/D90",
+    "verification": "GitHub content/diff/hash/link/arithmetic checks; repository Python checks blocked by local execution startup ACL error; product/audio/model/family checks not run"
   }
 }
