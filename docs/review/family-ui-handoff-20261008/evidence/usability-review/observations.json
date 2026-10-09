@@ -1,0 +1,135 @@
+{
+  "sourceSha256": "7346554be2374f19cc0013b5b128cd81aba8249079b73d96d03d843ed2079af5",
+  "method": "390x844 Chromium touchscreen browser walkthrough; default motion and targeted reduced-motion inspection; no participant observation",
+  "screens": [
+    "child-start",
+    "child-first-reply",
+    "child-album-open",
+    "parent-confirmations",
+    "grandparent-newspaper",
+    "grandparent-preview",
+    "parent-reward-waiting",
+    "child-return-after-family"
+  ],
+  "errors": [],
+  "environment": {
+    "chromium": "151.0.7922.173",
+    "playwright": "1.62.1"
+  },
+  "initial": {
+    "scene": "dinner",
+    "height": 632,
+    "contentHeight": 757,
+    "scrollTop": 0,
+    "words": 251
+  },
+  "ai": {
+    "turns": 1,
+    "busyElements": 0,
+    "animations": 0,
+    "scrollBehavior": "smooth"
+  },
+  "familyDone": {
+    "done": true,
+    "agreement": "pending"
+  },
+  "researchExampleCompletion": {
+    "done": true,
+    "activityReady": true,
+    "executionText": "出発前に親と米と玉ねぎとルーを確認して父に伝えた",
+    "origins": [
+      "example",
+      "example",
+      "example",
+      "example",
+      "example",
+      "example"
+    ]
+  },
+  "childSavedMetrics": {
+    "height": 632,
+    "contentHeight": 2409,
+    "scrollTop": 975,
+    "words": 826
+  },
+  "parentPendingMetrics": {
+    "height": 705,
+    "contentHeight": 2143,
+    "scrollTop": 0,
+    "words": 625
+  },
+  "tabStyles": [
+    {
+      "name": "確認する",
+      "pressed": "true",
+      "selected": null,
+      "background": "rgb(245, 250, 246)",
+      "color": "rgb(42, 100, 80)"
+    },
+    {
+      "name": "アルバム",
+      "pressed": "false",
+      "selected": null,
+      "background": "rgb(245, 250, 246)",
+      "color": "rgb(42, 100, 80)"
+    },
+    {
+      "name": "家族・特典",
+      "pressed": "false",
+      "selected": null,
+      "background": "rgb(245, 250, 246)",
+      "color": "rgb(42, 100, 80)"
+    }
+  ],
+  "grandPreview": {
+    "top": 1181.0625,
+    "bottom": 1237.0625,
+    "viewportBottom": 844,
+    "visible": false,
+    "focused": "BODY"
+  },
+  "returnToChild": {
+    "height": 632,
+    "contentHeight": 3639,
+    "scrollTop": 2835,
+    "words": 1681,
+    "familyMessage": "📚 これまでのアルバム 2件\n家の仕事を調べた日\n\n2026-10-08 ／ 保存版 2\n\n祖父母に公開済み\n\n本人の言葉：買い物に行くこと\n本人の言葉：家族に聞いた。在庫を調べて献立を考えてから買い物をしていた\n本人の言葉：収入は40万円、家賃10万円、食費7万円、光熱費2万円だと聞いた\n本人の言葉：父は店に行くまで在庫が分からないから、買い物前に知らせたい\n本人の言葉：父に相談した。店に入った後では遅いので出発前に知らせる約束をした\n本人の言葉：出発前に親と米と玉ねぎとルーを確認して父に伝えた\n\n共有する文章：出発前に材料を確認して父に伝えた、と本人から聞きました。\n\n共有を取り下げる\nおばあちゃんと夕飯を考えた日\n\n2026-10-08 ／ 保存版 1\n\n祖父母に公開済み\n\n本人の言葉：カレーを作りたい\n本人の言葉：家族に聞いた。4人分で予算は1000円。調理は親と一緒にする\n本人の言葉：米、玉ねぎ、にんじん、ルーは4人分使えるだけあった\n本人の言葉：ルーの箱と家族に確認した。肉400gとじゃがいも1袋が足りない。トマト2個も出したい\n本人の言葉：A店は肉520円、じゃがいも260円、トマト200円。B店は肉480円、じゃがいも240円、トマト200円\n本人の言葉：B店が60円安いから、B店に行きたい\n本人の言葉：荷物が重そうだから父に迎えを頼みたい。どう言えばいい？\n本人の言葉：父に聞いた。A店なら16時30分、B店なら17時。16時45分までに帰る約束\n本人の言葉：A店にする。予算内で早く帰れるから。父もA店なら迎えられると言ってくれた\n本人の言葉：A店で肉400gが520円、600gが600円だった。どちらがお得？\n本人の言葉：400gを選ぶ。今日は400gで足りるし、トマトも買いたい\n本人の言葉：A店で400gの肉とじゃがいもとトマトを980円で買った。父と帰り、親とカレーを作った\n本人の言葉：B店は安かったけど、父の迎えに合うA店を選んだ。次は2日分なら大きい肉も考えたい\n\n共有する文章：はるちゃんの実行報告：A店で400gの肉とじゃがいもとトマトを980円で買った。父と帰り、親とカレーを作った\n本人が考えたこと：B店は安かったけど、父の迎えに合うA店を選んだ。次は2日分なら大きい肉も考えたい\n\n共有を取り下げる\n🎁 お金とごほうび　使える 60P\n👵 おばあちゃんから\n\n「読んだよ」 ／ おばあちゃんと夕飯を考えた日 ／ 2026-10-08\n\n余った材料は、次の日の料理に使っていました。 ／ おばあちゃんと夕飯を考えた日 ／ 2026-10-08\n\n元気だよ。散歩を楽しんだよ。 ／ 2026-10-08"
+  },
+  "parentRewardPending": {
+    "overview": "今日の確認 1件\n\n共有 0件 ／ 活動 0件。共有・任せ方・ポイントは別々に確認します。",
+    "approvalButtonsOnChecks": 0
+  },
+  "final": {
+    "familyDone": true,
+    "researchDone": true,
+    "dinnerDone": true,
+    "agreement": "confirmed",
+    "published": 2,
+    "replies": 2,
+    "posts": 1,
+    "points": 60,
+    "availablePoints": 10,
+    "reward": "delivered"
+  },
+  "reducedMotion": {
+    "scrollBehavior": "auto",
+    "animations": 0
+  },
+  "touchControls": [
+    {
+      "text": "何を根拠にしたの？",
+      "height": 34
+    }
+  ],
+  "reviewedAtUTC": "2026-10-08T02:09:27.422343+00:00",
+  "screenshotSha256": {
+    "child-first-reply.png": "9e57f55f2e641118784a8a067686521f1a9a193472a60cc3754c76aded73864f",
+    "child-return-after-family.png": "a3d409f58c708cf47b8aaff12e11ba65f237b165fb6038c4c0a6d73a4fac88d2",
+    "parent-reward-waiting.png": "1d276614cf8f9d30179c258074e8f75e46dcafe965289b3a359612968d14f598",
+    "parent-confirmations.png": "b695ac4bf693a8169ccfb2cc1aecbdf93dbd159d593a04ef8fed264d0c9b559c",
+    "child-album-open.png": "774df5a8533268474f94aaf815fbba638636f443bd86d4d133cc58d52b9aa1eb",
+    "grandparent-newspaper.png": "de39e9c2f8124ec2f851b57a1b80ac9a1c52c2a9c23dbe98edba69235421f1f9",
+    "grandparent-preview.png": "4fb952200afeed1592f7d6835419acd6423ef4adef0c56c189fcd936c92129ee",
+    "child-start.png": "7a7868a722dbd1ce030e2199a92d19c934cc71ea50e8ddc12f93c222883556bb"
+  }
+}

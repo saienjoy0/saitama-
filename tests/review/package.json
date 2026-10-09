@@ -1,0 +1,6 @@
+{
+  "name": "yattemi-family-ui-review-tests",
+  "private": true,
+  "scripts": {"test": "node --test family-ui.cjs"},
+  "devDependencies": {"playwright": "1.62.1"}
+}
