@@ -95,7 +95,7 @@ R/O/F/Bは面談後の判定軸。R1/R2/R3/R4の既存募集比率は固定。
 次の見出しを使い、日本語で簡潔に出す：
 VERIFIED / HYPOTHESES / FAILURE_MODES / COMPETITOR_ALTERNATIVES /
 PAYMENT_AND_RETENTION / REAL_WORLD_TEST / STOP_OR_CONTINUE
-""".format(**icp, **offer, alternatives=", ".join(icp["alternatives"]), evidence=evidence)
+""".format_map({**icp, **offer, "alternatives": ", ".join(icp["alternatives"]), "evidence": evidence})
 
 def prepare(repo_root, out=None):
     cfg = load_config()
