@@ -1,0 +1,27 @@
+name: Market validation harness — offline guardrail
+on:
+  pull_request:
+    paths:
+      - "research/market-validation/**"
+      - ".agents/skills/yattemi-market-validation/**"
+      - ".github/workflows/market-validation-offline.yml"
+  workflow_dispatch:
+jobs:
+  offline-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run all 16-cell / evidence / restart gate tests
+        run: python3 -m unittest discover -s research/market-validation -p test_harness.py -v
+      - name: Compile runner
+        run: python3 -m py_compile research/market-validation/harness.py
+      - name: Validate config and current research status
+        run: |
+          python3 -m json.tool research/market-validation/config.json > /dev/null
+          python3 -m json.tool research/market-validation/state.json > /dev/null
+          python3 research/market-validation/harness.py status
