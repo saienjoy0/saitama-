@@ -3,14 +3,19 @@
 **実行担当：ChatGPT Work自身**。DeepSeekモデルもOpenAI/DeepSeek APIも使わない。元のDeepSeek Harnessはgoal / round / handoff / stopの設計の参考に限る。
 
 ### 開始ファイル
-**48ラウンド実行の入口は `research/market-validation/WORK48_START.md`。** `WORK_START.md`は全体総括・意思決定レポート用。 リポジトリ `saienjoy0/saitama-`、PR #23、ブランチ `research/deepseek-market-harness-20261010`。
+**公開深掘り・競合価格調査の入口は `research/market-validation/WORK48_PUBLIC_RESEARCH_START.md`。** `WORK48_START.md`は48ラウンド制御器の説明。`state.json`の顧客実測待ちは48公開調査の停止条件ではない。 `WORK_START.md`は全体総括・意思決定レポート用。 リポジトリ `saienjoy0/saitama-`、PR #23、ブランチ `research/deepseek-market-harness-20261010`。
 
 ### 2026-10-10 Work総括 round-001の実施結果（以下の開始前記録より優先）
 - ユーザーがこのWorkタスクに直接指定したPhase A〜Eの16セル総括を実施。公開出典監査、旧48パスの全IDの処置、3報告書、`rounds/round-001/RESULT.json`を作成した。
 - 第一の検証候補はP1×S1、条件付き代替はP2×S2。S3は買い物計画の入口、祖父母ギフトは親子の自発的2回目後に保留。販売成立の順位ではない。
 - `harness.py verify`は通過、`state.json`は`BLOCKED_REAL_CUSTOMERS`、総括1回。16セル全て未検証、面談・子の実行・2回目・支払は全て0。外部モデルAPI・実送信・広告・課金・製品開発を実行していない。
 - 作業中に追加された別の48ラウンド制御は保持したが、今回`work48.py next/verify`を実行していない。`work48_state.json`は0/48のまま。この総括や旧48パスを48ラウンド完了に換算しない。
-- 次は`reports/experiment-plan.md`のT1〜T5。募集・実送信は人の承認待ち。追加総括は新しい検証可能な証拠又は人が確認した行動観測が入った時だけ。GitHub保存の成否は対象PRのコミット反映で別途確認する。
+- 顧客実験は`reports/experiment-plan.md`のT1〜T5で、募集・実送信は人の承認待ち。同時に公開情報48テーマを実施可能。追加の16セル総括は新しい検証可能な証拠又は人が確認した行動観測が入った時だけ。GitHub保存の成否は対象PRのコミット反映で別途確認する。
+
+### 公開資料の深掘り研究への引継ぎ（2026-10-10追加）
+- まず`WORK48_PUBLIC_RESEARCH_START.md`を読む。48固有テーマをGitHubへroundごとに記録する。現時点0/48。価格や競合の追加調査と、実顧客でしか答えられない購入率は分ける。
+- Work48用結果は`evidence_scope=DESK_ONLY`、`research_log`、`confidence_rationale`、`prior_work_delta`を必須とする。各出典URLを実際に開き、根拠の強さを点検する。
+- 6連続BLOCKEDは警告であり停止ではない。別テーマに移る。48件が埋まっても顧客検証0なら販売は未実証。
 
 ### 開始前の現状（履歴。現在の結果・状態は上記と成果物を優先）
 - この会話内で48パスの机上演習を実施・記録。しかし**新しい48人のユーザー調査ではなく、元資料の厳密な引用監査も未完**。
