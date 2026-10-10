@@ -43,3 +43,6 @@ Write only round results/state and related market-validation research files; edi
 - Interim presentation on 2026-10-16: show only what was actually completed by that date; if the Work run starts later, treat that date as past, not an upcoming deadline.
 
 **There is no automatic Work scheduler here**; the user starts the Work task. Do not promise background completion from this file alone.
+
+## Integrated research skills and simulation
+Load `.agents/skills/yattemi-research-harness/SKILL.md`, then run `python3 research/market-validation/skill_router.py audit` and `route --round N`. This verifies 12 pinned MIT skill copies, loads the right task-specific method, and prevents reporting uninstalled skills as used. Cross-stage strategy should reference `.agents/product-marketing.md` but its customer and paid demand statements are not measured. For conditional economics only, use `simulate.py`; the provided rates are explicitly HYPOTHETICAL and not derived from families. Never claim the simulator predicts sales. The research-only harness remains separate from customer interviews or payments.

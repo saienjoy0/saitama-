@@ -71,3 +71,12 @@ mainだけでなく製品PR #10〜#21を確認する。家族の裁量権、AI�
 
 ## 制限
 本体PROJECT_STATE=DESIGN/D90は変更しない。商品の実装・送金・課金・顧客連絡・広告掲載・個人情報公開・PRマージは人の承認なしに実施しない。子どもと親の未公開会話を祖父母に送信しない。祖父母の参加は必須ではない。外部Marketing Skillsは検証済みcommitの**任意の参考資料**でありモデル実行には不要。
+
+## 2026-10-10追加：専門スキルを実際に組み込み、仮想採算シミュレーターに接続
+
+- 12個のマーケティング・市場研究スキル（SKILL.md と参照資料計56ファイル）を、公開上流の固定コミットから `.agents/skills/` へ直接同梱。MIT原文は `THIRD_PARTY_LICENSES/marketingskills-LICENSE`。`skill_registry.json` に全57ファイルのSHA-1を保存。
+- `.agents/skills/yattemi-research-harness/SKILL.md` はWork起動時の専用オーケストレータ。`skill_router.py route --round N` が調査フェーズ別に使うスキルを決定。`audit` は全ファイルを元Git blobハッシュと照合する。
+- `simulate.py` は仮想条件を代入する価格/獲得/2回目/支払/継続/原価モデル。`simulation/assumptions.example.json` は**全数値が合成の例**。実顧客の需要推計や利用証拠ではない。
+- GitHub CIでスキル整合/ルーター/シミュレーターのテストを行う。48公開テーマは引き続き0/48、顧客実測は0。スキルの導入と需要の立証は別物。
+
+最初に `python3 research/market-validation/skill_router.py audit`、次に `python3 research/market-validation/skill_router.py route --round 1` を実行する。Workの詳しい開始手順は `WORK48_PUBLIC_RESEARCH_START.md`。

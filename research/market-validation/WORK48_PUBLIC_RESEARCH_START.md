@@ -23,13 +23,14 @@
 ## 3. 最初の読み込みと実行順
 
 1. `WORK_DESIGN_REVIEW_20261010.md`、`AGENTS.md`、`WORK_HANDOFF.md`、`reports/work-decision-memo.md`、`reports/evidence-audit.md`、`reports/experiment-plan.md` を読み、既存の出典、反証、競合、未確認点を再利用する。
-2. `WORK48_START.md`、`work48_plan.json`、`work48_state.json`、`work48.py` を読む。開始時に `python3 research/market-validation/work48.py status`、`next`、可能なら`doctor`を実行。**現在の初期位置は0/48。** 旧48パスとWork総括round-001を、新48ラウンドとしてカウントしない。
-3. 計画にある48の固有テーマを順番に調査する。重点はラウンド1〜6（根拠）、7〜12（親のジョブと既存根拠の限界）、13〜18（競合・無料代替）、19〜24（訴求・募集チャネル）、25〜36（初回と継続の先行研究/未検証）、37〜42（**実際の競合価格と原価・有料モデル**）、43〜48（統合判断）。
+2. `.agents/skills/yattemi-research-harness/SKILL.md`、`.agents/product-marketing.md`、`skill_registry.json`、`WORK48_START.md`、`work48_plan.json`、`work48_state.json`、`work48.py` を読む。開始時に `python3 research/market-validation/work48.py status`、`next`、可能なら`doctor`を実行。**現在の初期位置は0/48。** 旧48パスとWork総括round-001を、新48ラウンドとしてカウントしない。
+3. 最初に `python3 research/market-validation/skill_router.py audit` で12スキルと原典の完全性を検証する。各ラウンドを開始したら `python3 research/market-validation/skill_router.py route --round N` を実行し、返されたSKILL.mdと該当referencesを**実際に読む**。Skillは調査手順、Harnessは状態・根拠検査であり、スキルを置くだけでモデルが自動実行するものではない。計画にある48の固有テーマを順番に調査する。重点はラウンド1〜6（根拠）、7〜12（親のジョブと既存根拠の限界）、13〜18（競合・無料代替）、19〜24（訴求・募集チャネル）、25〜36（初回と継続の先行研究/未検証）、37〜42（**実際の競合価格と原価・有料モデル**）、43〜48（統合判断）。
 4. 各テーマで、**(a) これまで何が分かっているか → (b) 公開一次資料・反証資料を探し原典を開く → (c) 国内適用条件と代替を比較 → (d) 従来判断を更新/維持/撤回する理由 → (e) 顧客観察でしか決着しない問い**を書く。「新しい表現」を「新しい証拠」と扱わない。
 5. **新資料が見つからなくても各テーマに対する探索履歴と未確認理由を保存**し、他の独立テーマへ進む。6件連続でBLOCKEDになれば警告するが、別テーマの調査まで停止しない。48件すべて根拠があったふりをしない。時間・ツール上限等で実行不可なら進捗を保存し中断する。
 6. `work48/results/round-NNN.json` に正しい `round/stage/title` と結果を記録する。`work48.py verify`は**現在の次の1件だけ**をチェック・進めるので、ファイル作成→verify→GitHub commit/readback の順を守る。4件ごとを目安に確実に保存。48件を一度のWorkタスクで完了できる保証はない。別Workでは最後のGitHub状態から再開。
 7. 出典にアクセスできなかったら `BLOCKED_NO_SOURCE`、実ユーザーの効果にしか答えられなければ `BLOCKED_NEEDS_CUSTOMER`。`REVIEWED`は**その公開研究テーマの出典付き机上審査ができた**意味だけ（販売成立の証明ではない）。
-8. 最終的に既存`reports/work-decision-memo.md`を無条件に上書きしない。新しい原典が判断を変えた時のみ、差分と出典を伴う追加判断報告 `reports/public-deep-research-update.md` を作る。最優先で10月16日の発表に使える真偽表と、面談時に確かめる最大3つの仮説を提示する。
+8. 価格・ファネル・継続の採算仮説を比較するときは `python3 research/market-validation/simulate.py` を使い、`simulation/assumptions.example.json` の数字は**仮定（HYPOTHETICAL）**として扱う。出力はSYNTHETIC_SCENARIOであり購入の根拠ではない。未確認数字は現実実験へ戻す。
+9. 最終的に既存`reports/work-decision-memo.md`を無条件に上書きしない。新しい原典が判断を変えた時のみ、差分と出典を伴う追加判断報告 `reports/public-deep-research-update.md` を作る。最優先で10月16日の発表に使える真偽表と、面談時に確かめる最大3つの仮説を提示する。
 
 ## 4. 各ラウンド結果の厳格な記録
 

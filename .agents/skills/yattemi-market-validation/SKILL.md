@@ -26,3 +26,6 @@ description: ChatGPT Workが自分のモデルで4訴求×4候補家庭を反復
 Workの第一ラウンド成果物は`reports/evidence-audit.md`、`reports/work-decision-memo.md`、`reports/experiment-plan.md`、`rounds/round-001/RESULT.json`の4件。RESULTのsource_idsをsourcesの確認可能な出典IDに結びつけ、`harness.py verify`（機械的）＋原典読み合わせ（人間・Work）を通す。単に16行を埋めるだけで完了としない。
 
 作業ができるのはユーザーが開始したWorkタスク内。スキルだけでWorkは自動起動・バックグラウンド実行されない。
+
+## 新しい48テーマの公開市場調査（2026-10-10）
+このスキルは**従来の16セル販売仮説総括**に限定。48の独立した公開資料調査を行う場合は `.agents/skills/yattemi-research-harness/SKILL.md` へ切り替え、`skill_router.py`で実際に導入済みの12スキルを必要に応じて読み込む。従来の `NEEDS_REAL_CUSTOMERS` 停止は販売実績の主張のみを止め、公開資料調査を妨げない。`simulate.py`の数値は架空の条件分岐であり購買の実証ではない。
