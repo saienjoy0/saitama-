@@ -1,0 +1,140 @@
+{
+  "schema": "yattemi-initial-customer-conditional-economics-v1",
+  "source_type": "SYNTHETIC_SCENARIO",
+  "not_a_forecast": true,
+  "observed_customer_count_for_current_offer": 0,
+  "date": "2026-10-10",
+  "candidate_use": "A/B/Cに共通。候補別の架空の購入率・更新率・原価を割り当てず、需要順位へ使用しない",
+  "not_accepted_by_legacy_simulate_py": true,
+  "parameters": {
+    "price_jpy": {
+      "single_values": [
+        980,
+        1980,
+        2980
+      ],
+      "subscription_values": [
+        550,
+        980,
+        1480
+      ],
+      "source": "手動の価格ストレス条件。当社の実成約・採用価格ではない。550円はE03競合掲示の参照でもある"
+    },
+    "support_minutes_per_paid_period": {
+      "values": [
+        0,
+        10,
+        30,
+        60
+      ],
+      "source": "手動仮定。観測なし。0分は無人対応のストレス条件で実現主張ではない"
+    },
+    "technology_and_other_variable_jpy": {
+      "values": [
+        100,
+        300,
+        600
+      ],
+      "source": "手動仮定。API/保存/通信/その他合計。外部APIを呼んでいない。見積や実測ではない"
+    },
+    "labor_jpy_per_hour": {
+      "value": 1500,
+      "source": "運営人件費の評価用手動仮定。契約単価ではない。営業工数はCACに別計上"
+    },
+    "cac_per_payer_jpy": {
+      "values": [
+        0,
+        500,
+        1500
+      ],
+      "source": "手動仮定。無料紹介でも調整工数を含め要測定。実経路のCACではない"
+    },
+    "refund_fraction": {
+      "values": [
+        0,
+        0.05,
+        0.1
+      ],
+      "source": "手動仮定。実返品率ではない。各期間の売上に控除し返金客分の原価は減らさない"
+    },
+    "indirect_tax_reserve_fraction": {
+      "values": [
+        0,
+        0.1
+      ],
+      "source": "税込価格から税相当を取り置く計算条件。課税区分等の法務税務判断・実税額ではない"
+    },
+    "card_fee_fraction": {
+      "value": 0.036,
+      "source": "E12 Stripe日本標準オンラインカードの掲示。採用・契約前"
+    },
+    "billing_additional_fee_fraction": {
+      "value": 0.007,
+      "source": "E12 Stripe Billing従量の掲示。利用する場合のみ追加、採用前"
+    },
+    "renewal_probability": {
+      "values": [
+        0,
+        0.5,
+        0.8
+      ],
+      "source": "手動の継続ストレス条件。同じ確率が各期間に続く仮定。購入/更新予測ではない"
+    },
+    "horizon_periods": {
+      "subscription_value": 4,
+      "single_value": 1,
+      "source": "28日単位の4期間のみを計算。無限LTVに外挿しない"
+    },
+    "fixed_project_cost_jpy": {
+      "values": [
+        20000,
+        50000
+      ],
+      "source": "小規模検証の固定費ストレス仮定。既存開発費全額・将来総投資額ではない"
+    },
+    "qualified_offer_cohort": {
+      "offers": 100,
+      "payer_counts": [
+        0,
+        5,
+        10,
+        20
+      ],
+      "total_acquisition_jpy": 5000,
+      "source": "共通の仮想母数と実支払人数条件。人数を実測・購入率予測と呼ばない"
+    },
+    "post_free_trial_cohort": {
+      "qualified_offers": 100,
+      "free_trials": 20,
+      "payer_counts": [
+        0,
+        5,
+        10,
+        20
+      ],
+      "free_trial_cost_values": [
+        100,
+        300
+      ],
+      "total_acquisition_jpy": 5000,
+      "source": "共通仮定。入金人数は試用人数を超えない。各段階の母数を区別"
+    }
+  },
+  "formulas": {
+    "retained_revenue_per_paid_period": "P*(1-q)/(1+t)",
+    "payment_fee_per_paid_period": "P*f (返金前の全成功課金額を分母とする計算仮定)",
+    "variable_cost_per_paid_period": "P*f + X + wage*minutes/60",
+    "contribution_per_paid_period": "P*(1-q)/(1+t) - variable_cost",
+    "paid_period_factor": "single:1; subscription:sum(r**i for i in range(H))",
+    "net_after_assumed_unit_cac": "B*(contribution*paid_period_factor-CAC)-F",
+    "breakeven_payers_unit_cac": "ceil(F/(contribution*paid_period_factor-CAC)), denominator>0; otherwise null",
+    "net_after_total_acquisition": "B*contribution*paid_period_factor - total_acquisition - trials*trial_cost - F",
+    "breakeven_payers_total_acquisition": "ceil((total_acquisition+trials*trial_cost+F)/(contribution*paid_period_factor)), denominator>0; feasibility also requires threshold<=qualified offers or trials"
+  },
+  "limitations": [
+    "決済選択・税・返金時手数料・費用計上は契約/運営前の条件。返金者の変動費も発生する保守的仮定",
+    "単発前払と試用後購入を分け、無料試用の2回目を前払購入の条件にしない",
+    "変動費は期間一定。初期支援と更新期の差、紹介料、解約対応、追加固定費、資金繰りは未観測",
+    "利益は仮定範囲の営業貢献（法人税等控除前）。CAC方式と獲得総額方式を同時控除しない"
+  ]
+}

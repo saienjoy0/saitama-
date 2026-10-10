@@ -1,0 +1,29 @@
+{
+  "name": "DeepSeek Harness",
+  "source": "https://github.com/deepseek-ai/deepseek-harness.git",
+  "license": "MIT",
+  "tag": "dsh-v0.2.0-rc.2",
+  "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+  "verified_on": "2026-10-10",
+  "use": "architecture_reference_only",
+  "model": "ChatGPT Work",
+  "does_not_execute_deepseek_harness": true,
+  "no_deepseek_api": true,
+  "no_openai_api": true,
+  "adopted_patterns": [
+    "durable goal",
+    "bounded iterative rounds",
+    "shared workspace",
+    "structured handoff",
+    "stop conditions",
+    "research vs critique separation"
+  ],
+  "not_adopted": [
+    "DSH CLI model runtime",
+    "DeepSeek model",
+    "DSH Ralph subprocesses",
+    "DSH Goal plugin",
+    "third-party inference API"
+  ],
+  "note": "The official source may optionally be checked out for inspection. This Work-native process does not run the original DSH runtime."
+}
