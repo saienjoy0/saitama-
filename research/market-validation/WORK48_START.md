@@ -1,23 +1,25 @@
 # ChatGPT Work｜48の独立した検証ラウンドを進める（API不要）
 
+> **最新の公開市場・競合・価格の深掘り起点は [WORK48_PUBLIC_RESEARCH_START.md](WORK48_PUBLIC_RESEARCH_START.md)。** このファイルは制御器の操作補足。旧16セル総括`state.json`の顧客実測待ちは、別管理の公開調査`work48_state.json`を止めない。
+
 **実行担当：このWorkモードで動いているChatGPT自身。DeepSeek/OpenAI API・DSH CLIの利用は禁止。**
 対象: `saienjoy0/saitama-` / PR #23 / branch `research/deepseek-market-harness-20261010`。
 
 ## 最重要の制約
 - **48ラウンド分の「作業・検証・再開」の設計**であり、Workが48回連続で動くことを保証するわけではない。
 - 以前の `reports/48_passes_20261010.md` は16家庭×訴求セル×3視点の机上レビューであり、ここで定義する48ラウンドの実行済み結果ではない。
-- **48ラウンドを埋めることが目的ではない。** 各ラウンドで原典/実装状態/事業判断を点検し、証拠がない場合はBLOCKEDを記録して次の独立したテーマに進む。6件連続でBLOCKEDなら停止する。
+- **48ラウンドを埋めることが目的ではない。** 各ラウンドで原典/実装状態/事業判断を点検し、証拠がない場合はBLOCKEDを記録して次の独立したテーマに進む。6件連続でBLOCKEDなら**根拠枯渇の警告を出すが、まだ調べていない別テーマは続ける**（48テーマの有限上限は維持）。
 - 実顧客面談・課金・子の2回目は現時点ではゼロ。これらを実行済みと報告しない。
 
 ## 起動手順
 1. `research/market-validation/WORK_DESIGN_REVIEW_20261010.md`, `WORK_START.md`, `AGENTS.md`, `config.json`, `work48_plan.json`, `work48_state.json`, `reports/48_passes_20261010.md` を読む。
 2. 可能なら `python3 research/market-validation/work48.py doctor` と `status` で現在地を確認する。
 3. `python3 research/market-validation/work48.py next` で**次の1ラウンドだけ**を取得。実行状態と各資料を踏まえ、ChatGPT自身が Researcher → Critic → Strategist → Auditor で調査・反論・改善・監査する。
-4. `work48/results/round-NNN.json` を作成する。JSON必須：round, stage, title, status, model="ChatGPT Work", is_real_customer_experiment=false, finding, contrary_view, decision_update, next_real_world_test, remaining_uncertainty, sources, evidence_status, new_customer_evidence=false。
-5. 出典の有る結果はREVIEWED、確証がない結果はBLOCKED_NO_SOURCE/ BLOCKED_NEEDS_CUSTOMER。**実顧客証拠のない有料成約率・継続率は出さない。** 事実の裏付けにはURL/ファイル/PRと、どの主張が支持されるかを書く。
+4. `work48/results/round-NNN.json` を作成する。JSON必須：round, stage, title, status, model="ChatGPT Work", is_real_customer_experiment=false, finding, contrary_view, decision_update, next_real_world_test, remaining_uncertainty, sources, evidence_status, new_customer_evidence=false, evidence_scope="DESK_ONLY", confidence_rationale, prior_work_delta, research_log。research_logはquestion/action/outcomeの実検索/確認記録を含める。
+5. 出典の有る結果はREVIEWED、確証がない結果はBLOCKED_NO_SOURCE/ BLOCKED_NEEDS_CUSTOMER。**実顧客証拠のない有料成約率・継続率は出さない。** REVIEWEDは公開資料の監査済を意味し、本人の購入・継続を検証した意味ではない。 事実の裏付けにはURL/ファイル/PRと、どの主張が支持されるかを書く。
 6. `python3 research/market-validation/work48.py verify` で1ラウンドの成果物とstateを検証し、GitHubにコミットする。**実際にコミットできたことを確認してから次へ。**
 7. 上記を**4ラウンドごとにGitHubコミット・進捗確認しながら**、同じWorkタスクが継続可能な限り次の4ラウンドへ進める。48ラウンドの完了や証拠不足による停止まで続けることを目指すが、**利用上限・時間・ツール制約で中断しうる**。中断時は最後にコミットされたstateと次の作業番号を報告する。別のWorkタスクでは同じstateを読み、最初から再作成せず次から再開する。
-8. 6ラウンド連続で確認可能な根拠が見つからなければ自律ループ停止。**48を達成したふりをしない。** 48件終了でもREVIEWED数とBLOCKED数を分ける。
+8. 6ラウンド連続で確認可能な根拠が見つからなければ警告し、検索語・確認元・行き詰まりを残す。同じ主張の言い換えはせず、独立した次のテーマに進む。**48を達成したふりをしない。** 48件終了でもREVIEWED数とBLOCKED数を分ける。
 9. 48ラウンドまで進み、必要な出典・反証・実験案が揃った場合は`WORK_START.md`の3報告と16セル比較の意思決定メモを作成（すでに完成したものは再作成しない）。**途中で進めるべき実験が明白なら48に達する前でも止めてよい**。
 
 ## 業務上の禁止事項
