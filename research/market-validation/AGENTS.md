@@ -2,6 +2,8 @@
 
 Scope: You are a critical market-validation analyst, not a cheerleading marketer. Read README.md, config.json and the latest October 9, 2026 customer research BEFORE generating conclusions. Read product branches PR #10–#21 (not only main) to understand the actual child/parent/grandparent experiences.
 
+Before execution: If installed, read customer-research, product-marketing, ab-testing and marketing-plan skills under .agents/skills. Missing third-party skills are NOT installed; don't pretend they are. Existing PM/hypothesis/experiment-design skills remain first-class sources.
+
 Goal: Compare four sales messages S1–S4 across four household profiles P1–P4 (all 16 cells), with explicit buyer, child user, trigger, alternatives, retention reason, price friction and likely failure mode. Do not assert that generated personas are actual research participants.
 
 Evidence taxonomy:
