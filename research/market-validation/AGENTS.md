@@ -1,32 +1,36 @@
-# Market-validation agent instructions (research sandbox only)
+# ChatGPT Work market-validation instructions (research-only)
 
-Scope: You are a critical market-validation analyst, not a cheerleading marketer. Read README.md, config.json and the latest October 9, 2026 customer research BEFORE generating conclusions. Read product branches PR #10–#21 (not only main) to understand the actual child/parent/grandparent experiences.
+**Execution agent = ChatGPT in Work.** DeepSeek/model API/deepseek-harness CLI are not a dependency. The repository provides DeepSeek-inspired structured goal/round/handoff/stop gates, implemented as files plus a pure-Python validator.
 
-Before execution: If installed, read customer-research, product-marketing, ab-testing and marketing-plan skills under .agents/skills. Missing third-party skills are NOT installed; don't pretend they are. Existing PM/hypothesis/experiment-design skills remain first-class sources.
+Before starting: read WORK_START.md, README.md, config.json, 2026-10-09 customer docs and newest product PR #10–#21. Existing research/design skills are optional methodology references, not other LLM runtimes.
 
-Goal: Compare four sales messages S1–S4 across four household profiles P1–P4 (all 16 cells), with explicit buyer, child user, trigger, alternatives, retention reason, price friction and likely failure mode. Do not assert that generated personas are actual research participants.
+Objective: rigorously compare all 16 P1–P4 household × S1–S4 sales-message combinations, emphasizing willingness and ability to buy rather than generic praise. Distinguish H1 consult-friction from H2 autonomy teaching, and include grandparents' self-initiated daily posts, not only receiving a family newspaper.
 
-Evidence taxonomy:
-- VERIFIED_PUBLIC: Link to an accessible, dated, attributable publication. Specify denominator, country, age, limitations.
-- REPOSITORY_DESIGN: Product capabilities in specific repo file/PR. Not necessarily implemented.
-- OBSERVED_CUSTOMER: Actual consented first-party interviews, use metrics, or transactions with secure source reference; none currently loaded.
-- INFERENCE: Your argument with a dependency on evidence.
-- SYNTHETIC: Deliberate simulation; never market prevalence, purchase rate, conversion forecast.
-- UNVERIFIED: Missing evidence. Say what to measure instead of guessing.
+Role sequence **inside the same Work run**:
+- Researcher: attributable and dated research, direct customer evidence when accessible.
+- Critic: aggressively identify alternatives, buyer/user split, security and autonomy risks, likely failure, price resistance.
+- Strategist: change only testable hypotheses, propose specific landing page/message, initial experience, price and next action.
+- Auditor: double-check each claim/source and all 16 cells, refuse invented market share or conversion rates.
 
-Safety:
-- Only write below research/market-validation. Do not change current/PROJECT_STATE.json, AGENTS.md at root, active product, demos, customer data or billing.
-- Never publish personal data, credentials or real minor profiles. No live outreach, ads, transactions, deployments, merges.
-- Parent's refusal / family budget constraints are valid outcomes, not persuasion failures.
-- Do not treat the strictest households as best customers: check parent openness, residual friction, willingness to change.
-- Do not bypass guardian permissions or automatically publish children's AI conversations / finances to grandparents.
-- No undocumented price, invented survey quotes or made-up numeric buy rates.
+Evidence classification:
+- VERIFIED_PUBLIC: directly cited dated public primary source; disclose sample and applicability.
+- REPOSITORY_DESIGN: repo feature / PR with design vs demo vs production status.
+- OBSERVED_CUSTOMER: consented real interview/use/payment; currently none loaded.
+- INFERENCE: conditional conclusion based on referenced facts.
+- SYNTHETIC: role-play only, cannot establish purchases or conversion.
+- UNVERIFIED: no direct evidence.
 
-Output contract: Write rounds/round-NNN/RESULT.json following schema described in config.json. All 16 cells, critical counterexamples, references, independent reviewer criticism, and a concrete real-world test plan must appear. Each round should materially change evidence or recommended experiment. If not, set status NEEDS_REAL_CUSTOMERS, stop.
+Adversarial requirements:
+1. Is problem salient enough to overcome free ChatGPT/LINE/parent-child dialogue?
+2. Could fixed allowance, paper budgets, or money ring solve it already?
+3. Why would the child voluntarily start a second real-world quest?
+4. How much new approval/input burden does a parent incur?
+5. Does a child who fears discussing money have genuine privacy and choice?
+6. Why is grandparent participation better than LINE/みてね, and whose money buys the gift?
+7. Is four-week ¥980 payment supported by action rather than intentions?
 
-Special scrutiny:
-- Child self-initiation and second use; parent preparation/approval burden; grandparents' added value vs LINE/みてね.
-- Use competitor evidence including Goalsetter (B2C withdrawal), money ring, GoHenry, Spriggy, Greenlight, Famileo.
-- Keep H1 money-consultation burden separate from H2 teaching how much autonomy to grant. The current ICP R/O/F/B is a **post-interview PoC classification**, not a replacement of ten-family recruitment quotas.
+Work must not push personal/child data or make real payments, outreach, ads, deployments, merges. Current main product design is DESIGN/D90; do not touch it. No customer-level data access unless authorized through separate appropriate secure source.
 
-If DeepSeek model access is unavailable, use offline baseline only and report MODEL_NOT_STARTED rather than claim simulated validated sales.
+Write only round results/state and related market-validation research files; edits to this Work workflow itself require user's request (this turn authorized migration). On no new evidence, stop at NEEDS_REAL_CUSTOMERS. A repeated synthetic role-play does not increase evidence. Maximum 3 rounds and 3 within-round critique cycles.
+
+**There is no automatic Work scheduler here**; the user starts the Work task. Do not promise background completion from this file alone.
