@@ -1,0 +1,33 @@
+name: Vendored deep research harness — upstream regression
+on:
+  pull_request:
+    paths:
+      - "research/market-validation/third_party/codex-deep-research-harness/**"
+      - "research/market-validation/UPSTREAM_CODEX_HARNESS_IMPORT.md"
+      - ".github/workflows/market-validation-vendored-harness.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  upstream-regression:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: research/market-validation/third_party/codex-deep-research-harness
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: research/market-validation/third_party/codex-deep-research-harness/package-lock.json
+      - name: Install pinned validator dependencies without lifecycle scripts
+        run: npm ci --ignore-scripts
+      - name: Validate JavaScript syntax
+        run: npm run validate:syntax
+      - name: Execute original upstream regression tests
+        run: npm test
+      - name: Report runtime scope
+        run: echo "Tests validate original vendored Codex harness; no ChatGPT Work E2E or simulated buyers executed."
