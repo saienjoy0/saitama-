@@ -37,7 +37,8 @@ P4: 別居祖父母が関与可能で、親が家族共有を希望する家庭�
 ## 開始方法（Work/ローカルで実行）
 1. リポジトリをclone。PRのブランチをcheckoutし、Node.js 22以上、Python 3.10以上を確認。
 2. DeepSeek Harnessの公開コードを確認。研究用ソースをローカルに取得するには bash research/market-validation/checkout-upstream.sh を実行し、固定のリリースSHAを検査する。MIT License / noticeを保持。
-3. DeepSeek APIキーは環境変数DEEPSEEK_API_KEYかDSHの資格情報設定へ。**キーをgitに入れない**。子ども・実家庭の個人データは投入しない。
+3. 外部Marketing Skills（customer-research / product-marketing / ab-testing / marketing-plan）のフルディレクトリを導入する場合は bash research/market-validation/install-marketing-skills.sh を実行し、commit固定版・MIT・referencesを検査。現在はスクリプトのみ配置し、導入の実行は未確認。
+4. DeepSeek APIキーは環境変数DEEPSEEK_API_KEYかDSHの資格情報設定へ。**キーをgitに入れない**。子ども・実家庭の個人データは投入しない。
 4. まず python3 research/market-validation/harness.py doctor と python3 research/market-validation/harness.py status。
 5. python3 research/market-validation/harness.py prepare で第1ラウンドの依頼書を生成。
 6. モデル起動の準備ができた場合に限り python3 research/market-validation/harness.py run 。プロセスが完了したら verify で成果物を検査。
