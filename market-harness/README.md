@@ -24,7 +24,7 @@
 - https://deepseek-harness.github.io/deepseek-harness/en/guide/schedule
 
 ### ローカル／Workでの準備
-Node.jsをインストールし、公式の `dsh` を**信頼できる公開バージョンに固定してから**導入。初回の検証環境だけなら `npx @deepseek-ai/dsh web` でUIが開くが、CIや自律バッチには `dsh --profile headless "..."` を使う。資格情報はユーザー管理の `$DSH_HOME`／環境変数、**GitHubへ絶対に置かない**。プレビュー版APIは変更され得るので、起動前に `dsh --help` と安全通知を確認する。
+Node.jsをインストールし、[`upstream.lock.json`](./upstream.lock.json) の公式リリース **`@deepseek-ai/dsh@0.2.1-alpha.2`**／上流コミット **`d743267388641bc76f17c45ce8b4c231aed1d32c`** を起点にする（2026-10-10確認、実際のインストール・起動はWork環境で検証）。`npm install -g @deepseek-ai/dsh@0.2.1-alpha.2` 後、`dsh --help` でCLIを確認。初回のUI試用は `dsh web`、自律バッチは `dsh --profile headless "..."` を使用する。資格情報はユーザー管理の `$DSH_HOME`／環境変数、**GitHubへ絶対に置かない**。プレビュー版APIは変更され得るので安全通知と権限を確認する。
 
 本検証に公式の `/goal` / `/loop` を無条件連続実行させない。ループは `runner.py` の外部状態台帳と回数上限で制御し、必要な時だけDSHヘッドレスを1セルずつ使う。個別AI応答は**仮説・反論であって、実顧客の声や購買実績ではない**。
 
