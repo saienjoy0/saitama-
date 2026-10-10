@@ -167,6 +167,8 @@ def next_round():
     out = {
         "round": n, "of": 48, "stage": r["stage"], "title": r["title"],
         "research_goal": r["goal"], "most_important_failure": r["failure_mode"],
+        "requires_real_customers_for_final_claim": r.get("requires_live_customer", False),
+        "research_scope": "PUBLIC_DESK_ONLY; do not claim buyer behavior",
         "save_as": str(location.relative_to(ROOT)) if location.is_relative_to(ROOT) else str(location),
         "previous_checkpoint": f"round-{n-1:03d}.json" if n > 1 else "48_passes_20261010.md baseline",
         "required_fields": [
