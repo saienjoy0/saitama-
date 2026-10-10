@@ -1,0 +1,6 @@
+# Generated runs may contain model outputs; audit before explicit sharing.
+runs/.local/
+__pycache__/
+*.pyc
+.env
+.env.*
