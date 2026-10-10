@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "created": "2026-10-10",
+  "phase": "PREPARED",
+  "last_verified_round": 0,
+  "prepared_round": 1,
+  "model_runs": 0,
+  "customer_observations": 0,
+  "paid_transactions": 0,
+  "reason": "第0ラウンドの16条件ベースラインを作成。第1ラウンドのモデル検証依頼を準備。APIキー未接続につきMODEL_NOT_STARTED。"
+}
