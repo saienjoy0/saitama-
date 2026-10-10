@@ -1,18 +1,15 @@
-# Round 001｜ChatGPT Workの自分自身による販売検証（API不要）
+# 第1ラウンド｜ChatGPT Work実行依頼
 
-最初に `research/market-validation/WORK_START.md` を読み、そのタスクを **Work内のChatGPT自身** が実施する。DeepSeek API/DSH CLIを使わない。
+これは**Work上のChatGPTが自分で遂行する調査**であり、DeepSeek CLI/APIに処理を任せない。
 
-実行範囲: 販売訴求S1「任せる範囲」/S2「お金の相談」/S3「週末の夕飯」/S4「祖父母ギフト」を、候補家庭P1「裁量権」/P2「お金の相談摩擦」/P3「体験準備」/P4「祖父母参加」すべてに当てる16条件。
+1. `research/market-validation/WORK_START.md` と `WORK_DESIGN_REVIEW_20261010.md` に従う。
+2. 既存 `reports/48_passes_20261010.md` を**仮説・反論チェックリスト**として使う。48回の実証とは見なさず、既存順位も守らない。
+3. 2026-10-09の顧客正本R/O/F/B、既存10家庭R1〜R4、最新PR #10〜21の製品機能/設計の状態を確認。
+4. 4つの訴求 S1裁量、S2相談、S3夕飯/生活実践、S4祖父母ギフトを全4家庭仮説に当て、16セルの顧客・非顧客判断を再評価。P4は祖父母関与軸であり独立市場ではない。
+5. 必ず一次資料をソースの時点・国・母数・対象で監査し、競合（無料口頭会話/LINE/ChatGPT/みてね/金融アプリ）を比較。AI回答は購入率ではない。
+6. 親と子、祖父母の具体的な操作・現実の行動・共有許可の境界、初回→2回目→4週¥980仮価格→更新/解約を具体的に分析。
+7. Researcher→Critic→Strategist→Auditor の順に1回以上、改善を加える。
+8. `reports/evidence-audit.md`, `reports/work-decision-memo.md`, `reports/experiment-plan.md`, `rounds/round-001/RESULT.json` をGitHub PR #23ブランチへ保存。機械的validate + 人手で読める出典と検討経路の監査を通す。
+9. 初回は新証拠が増えなくても上記成果物までは完成。**証拠不足のため二回目は止めてもよい**。実課金・実家族の使用・面談が存在しなければ正直に未観察と記録する。
 
-調査 → 想定顧客の反論を合成仮説として抽出 → ChatGPT自身が敵対的にレビュー → 改善 → ソースと事実の監査。
-
-GitHubの2026-10-09顧客資料を優先し、mainだけでなく製品PR #10〜21を調べる。
-R/O/F/Bは面談後分類。R1〜R4の10家庭募集条件は維持。共働き/投資経験/富裕層を無根拠に必須条件にしない。
-
-必要: 親の購入動機、子どもの自発的二回目、現実の行動、親の新たな承認負担、祖父母の自分の近況投稿、既存無料代替、4週間980円の仮価格、辞める理由と反証条件。
-世帯や購入率の推定をでっち上げない。親が相談しない家庭への無理な説得はしない。
-
-出力: `research/market-validation/rounds/round-001/RESULT.json` （config.jsonの結果契約：16セル）
-追加レポート: `research/market-validation/reports/round-001.md`
-その後 `python3 research/market-validation/harness.py verify` （利用可能な環境の場合）。
-新しい実在する証拠がないならNEEDS_REAL_CUSTOMERSで停止。Workでの結果保存ができなければそれを明示。
+本体の製品コード、親子の個人データ、外部への送信、広告、決済、公開、マージはしない。
