@@ -20,4 +20,9 @@ description: ChatGPT Workが自分のモデルで4訴求×4候補家庭を反復
 9. 架空の利用者発言・確率・成果を実際の成約率と扱わない。
 10. 調査ブランチ以外の本番変更、個人データ、広告、支払い、顧客連絡はしない。
 
+## Work 2026-10-10版の品質ゲート
+まず`research/market-validation/WORK_DESIGN_REVIEW_20261010.md`を確認する。既存48パスは仮説台帳であって実験結果ではない。P1〜P3は課題による重複層、P4は祖父母の参加/支払属性という別の軸。比較後は**根拠付きの第一候補＋その判定が覆る条件＋10家庭での具体的観察＋4週間¥980（仮価格）への実際の支払行動の必要性**まで書く。
+
+Workの第一ラウンド成果物は`reports/evidence-audit.md`、`reports/work-decision-memo.md`、`reports/experiment-plan.md`、`rounds/round-001/RESULT.json`の4件。RESULTのsource_idsをsourcesの確認可能な出典IDに結びつけ、`harness.py verify`（機械的）＋原典読み合わせ（人間・Work）を通す。単に16行を埋めるだけで完了としない。
+
 作業ができるのはユーザーが開始したWorkタスク内。スキルだけでWorkは自動起動・バックグラウンド実行されない。
