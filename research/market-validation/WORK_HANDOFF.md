@@ -6,6 +6,7 @@
 - branch: `research/deepseek-market-harness-20261010`
 - **実作業の開始文は WORK_START.md**
 - `reports/first-pass-20261010.md` は最初の机上検討済み。
+- `reports/48_passes_20261010.md` と `rounds/48_desk_passes_20261010.json` は**この会話で実施した48分析パス**。Work実行や実顧客面談ではない。重複作成せず、実際の裏付けが増える点から始める。
 - `rounds/round-001/REQUEST.md` は実際の調査を開始する依頼書。
 - `RESULT.json` は現時点では未生成、ChatGPT Workによる第1ラウンドの調査結果はまだ未検証。
 - 実顧客データ、料金決済、子どもの自発的再使用は未観察。
