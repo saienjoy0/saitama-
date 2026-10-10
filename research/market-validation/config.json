@@ -28,7 +28,8 @@
     "desk_pass_definition": "16 distinct P×S cells × 3 phases: discover, falsify, revise (not 48 new primary datasets)",
     "max_roles_in_sequence": 4,
     "require_human_readable_evidence_audit": true,
-    "require_real_customer_proof_for_selling_claims": true
+    "require_real_customer_proof_for_selling_claims": true,
+    "max_rounds_description": "Legacy 16-cell synthesis rounds only. The 48 distinct ChatGPT Work review rounds are managed separately by work48.py and work48_plan.json."
   },
   "household_profiles": [
     {
@@ -155,5 +156,15 @@
     "NEEDS_REAL_CUSTOMERS": "Desk outputs finished, key business claim still needs observed user/payment behavior",
     "BLOCKED": "Research access/evidence cannot resolve core uncertainty",
     "COMPLETE": "Only when observed customer/action evidence justifies claimed business result"
+  },
+  "work48": {
+    "plan_file": "work48_plan.json",
+    "state_file": "work48_state.json",
+    "work_entry": "WORK48_START.md",
+    "checkpoint_tool": "work48.py",
+    "round_count": 48,
+    "recommended_batch_size": 4,
+    "requires_work_to_be_started_by_user": true,
+    "can_run_work_model_from_python": false
   }
 }
