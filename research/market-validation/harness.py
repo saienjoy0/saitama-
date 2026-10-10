@@ -86,6 +86,7 @@ def build_prompt(round_number):
 - research/market-validation/AGENTS.md, README.md, config.json
 - research/market-validation/reports/first-pass-20261010.md
 - research/GAKUSTA_初期ターゲット_家庭ルールと対話可能性_行動ベース定義_20261009.md
+- R/O/F/Bは面談後の候補ICP分類であり、R1〜R4の10家庭募集枠を置換しない。
 - research/GAKUSTA_H1相談負担_vs_H2金融判断の任せ方_顧客仮説実証調査_20261009.md
 - research/GAKUSTA_顧客層_残存ギャップ_祖父母参加効果_20261009.md
 - research/GAKUSTA_10家庭_募集対象_最終確定_20260925.md
