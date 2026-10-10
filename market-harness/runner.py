@@ -163,7 +163,9 @@ def execute(run, cfg, cell_count, rounds):
                         capture_output=True, text=True,
                         timeout=limits["per_call_seconds"], check=False,
                         env={k: v for k, v in os.environ.items()
-                             if k not in ("GITHUB_TOKEN", "GH_TOKEN")})
+                             if k in ("PATH", "HOME", "LANG", "LC_ALL", "TMPDIR",
+                                      "DSH_HOME", "DEEPSEEK_API_KEY", "DEEPSEEK_BASE_URL",
+                                      "HTTPS_PROXY", "HTTP_PROXY", "NO_PROXY")})
                     output = result.stdout[-18000:]
                     err = result.stderr[-2000:]
                     status = "UNVERIFIED_MODEL_OUTPUT" if result.returncode == 0 else "ERROR"
