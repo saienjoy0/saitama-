@@ -17,13 +17,17 @@ jobs:
         with:
           python-version: "3.11"
       - name: Run all 16-cell / evidence / restart gate tests
-        run: python3 -m unittest discover -s research/market-validation -p test_harness.py -v
+        run: python3 -m unittest discover -s research/market-validation -p 'test_*.py' -v
       - name: Compile runner
-        run: python3 -m py_compile research/market-validation/harness.py
+        run: python3 -m py_compile research/market-validation/harness.py research/market-validation/work48.py
       - name: Validate pinned upstream/bootstrap shell syntax
         run: bash -n research/market-validation/checkout-upstream.sh research/market-validation/install-marketing-skills.sh
       - name: Validate config and current research status
         run: |
           python3 -m json.tool research/market-validation/config.json > /dev/null
           python3 -m json.tool research/market-validation/state.json > /dev/null
+          python3 -m json.tool research/market-validation/work48_plan.json > /dev/null
+          python3 -m json.tool research/market-validation/work48_state.json > /dev/null
           python3 research/market-validation/harness.py status
+          python3 research/market-validation/work48.py doctor
+          python3 research/market-validation/work48.py status
