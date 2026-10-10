@@ -1,16 +1,49 @@
-# Work開始指示｜やってみクエスト 4×4販売検証（API不要）
+# ChatGPT Work 開始指示（改訂版 2026-10-10）
 
-**このWorkタスクをあなた自身（ChatGPT Work内のモデル）で最後まで実行してください。** DeepSeekはモデルとして使用しません。DeepSeek HarnessそのもののCLI/APIも起動せず、`research/market-validation/HARNESS_PORT.md`に記載のワークフロー原理のみを使います。OpenAI API、DeepSeek API、APIキーは不要です。
+## 最初の1行
+**このGitHub PR #23にある販売仮説をChatGPT Work自身で証拠監査し、顧客・競合・販売導線・実測の優先順位を判断して成果物をPRに保存する。** 外部LLM/API/DeepSeekモデルは使わない。
 
-対象GitHub: `saienjoy0/saitama-` のPR #23 / branch `research/deepseek-market-harness-20261010`。
-既存の最新製品PR #10〜#21を含め、`research/market-validation/README.md`、`AGENTS.md`、`config.json`、`state.json`、`rounds/round-001/REQUEST.md`、2026-10-09の顧客正本と10家庭募集正本v2を確認。
+対象: `saienjoy0/saitama-` / ブランチ `research/deepseek-market-harness-20261010` / PR: https://github.com/saienjoy0/saitama-/pull/23
 
-**注意：このチャットで48パスの既存分析が完了済み。** 最初に `research/market-validation/reports/48_passes_20261010.md` と `rounds/48_desk_passes_20261010.json` を読み、同じ48件を最初から再作成しない。前提の弱い箇所を新資料・実際の顧客行動で検証する。
+## 現在地を先に読み込む
+1. `research/market-validation/WORK_DESIGN_REVIEW_20261010.md` (**まず読む：現行設計の致命的な弱点**)
+2. `research/market-validation/README.md`, `AGENTS.md`, `config.json`, `state.json`, `WORK_HANDOFF.md`
+3. `reports/48_passes_20261010.md` と `rounds/48_desk_passes_20261010.json` (**実顧客検証ではない。新しい48本の文章を書かない**)
+4. 2026-10-09顧客の正本：`research/GAKUSTA_初期ターゲット_家庭ルールと対話可能性_行動ベース定義_20261009.md`、`research/GAKUSTA_H1相談負担_vs_H2金融判断の任せ方_顧客仮説実証調査_20261009.md`、`research/GAKUSTA_顧客層_残存ギャップ_祖父母参加効果_20261009.md`、`research/GAKUSTA_10家庭_募集対象_最終確定_20260925.md`
+5. 最新の製品設計・合成デモPR #10〜#21、とくに #12 #14 #17 #18 #21。実装・デモ・構想の境界を確認。
 
-**成果物**: 4つの詳細な初期顧客像、4つの販売訴求の16条件比較、競合と既存代替、購入/非購入のトリガー、親・子・祖父母の操作負担、4週間980円の仮価格、初回無料体験→有料→次月継続→離脱の具体場面、失敗条件、実顧客検証の優先順位。証拠の出所と日付を必ず明記。
+## ゴール：48の再生成ではなく「販売判断を前進させる」
+4つの訴求S1:任せ方、S2:子どもの言いづらい希望と金銭相談、S3:夕飯/買い物実践、S4:祖父母ギフトを、P1〜P4全16セルで判定。ただしP1〜P3は**重なりうる課題の型**、P4は**祖父母参加の属性・ギフト購入チャネル**であり、互いに独立した4市場ではない。
 
-**方法**: 自分で1)一次資料調査 2)架空顧客の反論シミュレーション（必ずSYNTHETICと表記） 3)厳しい反証 4)提案修正 5)根拠監査を実行。最初から結論ありきにしない。最大3ラウンド、1ラウンド最大3レビュー。新証拠がないならループしない。必要なら行動ベースの10家庭検証計画で停止。
+### Phase A: 根拠監査（必ず実施）
+48パスの重要な主張と過去の競合・価格・市場・失敗談のソースを、公開一次資料で再確認する。資料が未確認・古い・国や対象年齢が異なる場合は格下げ・修正する。ソースのURL、発表日、調査対象、確認日、証明できること／できないことを書く。新証拠がなくても、**初回は証拠監査を終えてから**止まる。
 
-**レポジトリ更新**: 第1ラウンドの `research/market-validation/rounds/round-001/RESULT.json` と分かりやすい `reports/round-001.md` を作成し、 `python3 research/market-validation/harness.py verify` を実行して状態を記録。コード実行が不可能なら同じスキーマを手動確認し、その限界を書く。ラウンド継続条件に達した場合のみ次へ進む。PR #23に記録しmainへ自動マージしない。
+### Phase B: 顧客仮説と反証
+R/O/F/B（面談後の横串分類）と、R1〜R4（10家庭募集正本）を混同しない。親が子の意見を聞かない家庭を安易に顧客にしない。各セルで、直近の困りごと、誰が料金を払うか、無料の代替、子どもが言い出せないリスク、親の承認負担、祖父母参加による追加負担を比較。原理・想像上の顧客回答はSYNTHETICと明記。
 
-本番アプリの実装、外部への顧客連絡、子どもの機微データの公開、広告出稿、課金、自動マージは禁止。**私がモデルなので外部DeepSeekの実行環境やAPIキーの設定を求めず、現在利用できるWorkの手段で実行してください。**
+### Phase C: 販売場面を具体化
+有力候補ごとに、**認知→LP→無料体験→子の実行→親の気づき→子が自分で2回目→4週間¥980（仮）申込→解約/更新**を描き、各段階で離脱する理由を書く。¥980は実証されていない価格仮説。表現だけでなく「実際に親がする操作、子がする行動」を明示。Web上の競合より不利な場合はハッキリ退ける。
+
+### Phase D: 第三者視点で反証→修正→監査
+ChatGPT Work内で Researcher→Critic→Strategist→Auditor を順番に実施する。独立のAIエージェント4体が調査したと偽らない。**反論が成立すれば販促案を取り消す**。最大3レビューサイクル、資料が増えない単なる言い換えを繰り返さない。
+
+### Phase E: 最終成果物をGitHub PRに書く
+必須:
+- `research/market-validation/reports/work-decision-memo.md`: 冒頭に**第一候補・代替候補・撤退候補と根拠の質**、行動が伴う販売導線、次に使う30万円や開発の優先判断。
+- `research/market-validation/reports/evidence-audit.md`: 主張→ソース→確認日→限界→反論。過去48パスのうち採用/却下/未確認を明記。
+- `research/market-validation/reports/experiment-plan.md`: 10月16日の発表までに実施できる準備と、その後1〜4週間の2回目利用・課金観察を分離。面談募集・実送信は人の承認待ち。
+- `research/market-validation/rounds/round-001/RESULT.json`: `config.json`の16セル結果スキーマを満たす。根拠がなくても16セルは**未検証で明示**して記録。
+- `research/market-validation/state.json`: 実行状態を真実に合わせて保存。結果を作っただけで実購買実証済みとは書かない。
+
+`python3 research/market-validation/harness.py verify`で検証。さらに人間が確認できる出典監査と達成基準でレビュー。PR #23にコミット、mainにはマージしない。書き込み権限がなければ成果物をチャット内に出し、GitHub保存済みと偽らない。
+
+### 停止
+最初の1ラウンドは、**Phase A〜Eの成果物を完成させた後にのみ**停止可能。2回目以降は**新しく検証可能な証拠が加わったときのみ**。重要な結論が実顧客行動なしに判定できなければ`NEEDS_REAL_CUSTOMERS`で止め、どの実験なら覆るか提示する。単なる「調査しました／最適はS2」では完成しない。
+
+## 禁止事項
+- DeepSeek/ChatGPT API、無断の外部連絡・広告・決済・公開・製品開発・PRマージ。
+- 子ども/親/祖父母の機微情報のGitHubや外部AIへの投入、同意なき家族への自動共有。
+- 調査の対象・数字・一次資料・顧客のコメント・売上を生成して実績と称する。
+- 48パスを48回の実証として再利用する。
+
+**Workタスク内で自分自身のモデルでやり切る。足りないデータがあれば前提を下げて、決裁に必要な最小検証を提示する。**
