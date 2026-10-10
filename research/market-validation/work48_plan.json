@@ -490,5 +490,8 @@
       "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
       "requires_live_customer": false
     }
-  ]
+  ],
+  "evidence_lane": "PUBLIC_DESK_ONLY",
+  "live_customer_field_meaning": "If true, customer outcomes are NOT provable in this desk round; review public analogues or mark customer claim blocked.",
+  "early_stop_policy": "After six consecutive blocked topics warn, continue unrelated topics. Hard stop at 48 or Work tool/time limit. Never invent evidence."
 }
