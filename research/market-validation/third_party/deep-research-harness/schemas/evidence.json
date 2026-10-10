@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DimensionEvidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "task_id", "round", "dimension_id", "status", "sources", "claims", "contradictions", "open_questions"],
+  "properties": {
+    "version": { "type": "string", "const": "1.0" },
+    "task_id": { "type": "string", "minLength": 1 },
+    "round": { "type": "integer", "minimum": 1 },
+    "dimension_id": { "type": "string", "pattern": "^dim_[0-9]{3}$" },
+    "status": { "type": "string", "enum": ["complete", "partial"] },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/claim" }
+    },
+    "contradictions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/contradiction" }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 5 }
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "url", "title", "publisher", "author", "published_at", "accessed_at", "source_type", "credibility_reason"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^dim_[0-9]{3}-src-[0-9]{3}$" },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^[Hh][Tt][Tt][Pp][Ss]?://"
+        },
+        "title": { "type": "string", "minLength": 3 },
+        "publisher": { "type": "string", "minLength": 2 },
+        "author": { "type": ["string", "null"] },
+        "published_at": { "type": ["string", "null"] },
+        "accessed_at": { "type": "string", "format": "date-time" },
+        "source_type": { "type": "string", "enum": ["primary", "official", "research", "news", "industry", "other"] },
+        "credibility_reason": { "type": "string", "minLength": 20 }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "subquestion", "statement", "source_ids", "support", "locator", "confidence", "limitations"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^dim_[0-9]{3}-claim-[0-9]{3}$" },
+        "subquestion": { "type": "string", "minLength": 5 },
+        "statement": { "type": "string", "minLength": 10 },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^dim_[0-9]{3}-src-[0-9]{3}$" }
+        },
+        "support": { "type": "string", "minLength": 10 },
+        "locator": { "type": "string", "minLength": 3 },
+        "confidence": { "type": "string", "enum": ["high", "medium", "low"] },
+        "limitations": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 5 }
+        }
+      }
+    },
+    "contradiction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim", "source_ids", "assessment"],
+      "properties": {
+        "claim": { "type": "string", "minLength": 10 },
+        "source_ids": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^dim_[0-9]{3}-src-[0-9]{3}$" }
+        },
+        "assessment": { "type": "string", "minLength": 10 }
+      }
+    }
+  }
+}
