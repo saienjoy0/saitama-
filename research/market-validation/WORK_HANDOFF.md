@@ -11,7 +11,8 @@
 ## Workへの具体的依頼
 1. このブランチとPRをcheckoutし、research/market-validation/README.md と AGENTS.md を読む。
 2. Python標準ライブラリのみのオフラインテストとdoctor/statusを実行して、まず環境を検証する。
-3. DeepSeek公式のタグ dsh-v0.2.0-rc.2 とMIT/注意事項を確認し、利用規約・credential・workspace-writeの範囲をチェック。APIキーが未設定なら人間に設定を求め、キーを記録しない。
+3. research/market-validation/{checkout-upstream.sh,install-marketing-skills.sh} と両lockを確認し、MIT原本・固定commitの上流ソースとマーケティング4スキルを取り込む。既存同名スキルは上書きしない。
+4. DeepSeek公式のタグ dsh-v0.2.0-rc.2 とMIT/注意事項を確認し、利用規約・credential・workspace-writeの範囲をチェック。APIキーが未設定なら人間に設定を求め、キーを記録しない。
 4. research/market-validation/harness.py の run を実行し、初回実行の出力 RESULT.json があることを検証する。失敗時はモデル呼出し成功と偽らず原因を記録。
 5. 最大3ラウンドで Researcher→Critic→Designer を反復し、各回について16セル・引用根拠・対抗仮説・実家庭テストを保存。証拠が更新されなければ停止。
 6. 実顧客検証の欠落が分かったら、10家庭R1-R4の募集正本を変更せず、面談・無料体験・有料提示で何を測るべきかを優先順で報告。
