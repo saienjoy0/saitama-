@@ -164,6 +164,7 @@ def prepare():
 
 
 def verify_result(payload, n):
+    """Check structure, provenance links and semantic stop gates (not truth of sources)."""
     c = config()
     errors = []
     if not isinstance(payload, dict):
@@ -175,6 +176,31 @@ def verify_result(payload, n):
         errors.append("round mismatch")
     if payload.get("status") not in c["statuses"]:
         errors.append("invalid status")
+    if not isinstance(payload.get("recommendation"), str) or len(payload["recommendation"].strip()) < 30:
+        errors.append("recommendation must explain a concrete business decision")
+    if not isinstance(payload.get("stop_reason"), str) or not payload["stop_reason"].strip():
+        errors.append("stop_reason required")
+
+    sources = payload.get("sources")
+    source_ids = set()
+    if not isinstance(sources, list):
+        sources = []
+        errors.append("sources must be list")
+    for i, record in enumerate(sources):
+        if not isinstance(record, dict):
+            errors.append(f"sources[{i}] must be object")
+            continue
+        for key in c["source_required_fields"]:
+            if not isinstance(record.get(key), str) or not record[key].strip():
+                errors.append(f"sources[{i}] missing {key}")
+        if record.get("source_status") not in c["source_statuses"]:
+            errors.append(f"sources[{i}] invalid source_status")
+        id_value = record.get("id")
+        if id_value in source_ids:
+            errors.append(f"duplicate source id: {id_value}")
+        elif isinstance(id_value, str) and id_value:
+            source_ids.add(id_value)
+
     cells = payload.get("cells")
     if not isinstance(cells, list):
         cells = []
@@ -182,25 +208,58 @@ def verify_result(payload, n):
     found = []
     for i, cell in enumerate(cells):
         if not isinstance(cell, dict):
-            errors.append(f"cells[{i}] invalid")
+            errors.append(f"cells[{i}] must be object")
             continue
         for key in c["cell_required_fields"]:
-            if cell.get(key) in ("", None):
+            if key not in cell or cell[key] is None or cell[key] == "":
                 errors.append(f"cells[{i}] missing {key}")
         if cell.get("evidence_level") not in c["evidence_levels"]:
             errors.append(f"cells[{i}] invalid evidence_level")
+        refs = cell.get("source_ids")
+        if not isinstance(refs, list):
+            errors.append(f"cells[{i}] source_ids must be list")
+        else:
+            for ref in refs:
+                if ref not in source_ids:
+                    errors.append(f"cells[{i}] unknown source id {ref}")
+            if cell.get("evidence_level") in ("VERIFIED_PUBLIC", "REPOSITORY_DESIGN") and not refs:
+                errors.append(f"cells[{i}] verified claim without source")
         found.append((cell.get("profile_id"), cell.get("message_id")))
     if len(cells) != 16 or set(found) != expected_pairs(c) or len(set(found)) != 16:
         errors.append("cells must contain 16 unique P×S pairs")
-    for key in ("evidence_delta", "sources", "critical_objections", "real_customer_tests"):
+
+    for key in ("evidence_delta", "critical_objections", "real_customer_tests"):
         if key in payload and not isinstance(payload[key], list):
             errors.append(f"{key} must be list")
-    if payload.get("status") in ("RESEARCHED", "COMPLETE") and not payload.get("evidence_delta"):
-        errors.append("RESEARCHED/COMPLETE requires evidence_delta")
-    if payload.get("status") == "COMPLETE" and payload.get("evidence_class") != "OBSERVED_CUSTOMER":
-        errors.append("COMPLETE cannot mean real-world sales proven without OBSERVED_CUSTOMER")
+    if not isinstance(payload.get("critical_objections"), list) or len(payload["critical_objections"]) < 3:
+        errors.append("at least 3 business-critical objections required")
+    if not isinstance(payload.get("real_customer_tests"), list) or len(payload["real_customer_tests"]) < 3:
+        errors.append("at least 3 measurable real-customer tests required")
+
+    additions = payload.get("evidence_delta")
+    if isinstance(additions, list):
+        for i, record in enumerate(additions):
+            if not isinstance(record, dict) or not isinstance(record.get("source_id"), str) or not isinstance(record.get("new_fact"), str):
+                errors.append(f"evidence_delta[{i}] must include source_id and new_fact")
+            elif record["source_id"] not in source_ids:
+                errors.append(f"evidence_delta[{i}] references missing source")
+    if payload.get("status") == "RESEARCHED" and not additions:
+        errors.append("RESEARCHED requires verified new evidence")
+    if payload.get("status") == "COMPLETE":
+        if not additions or payload.get("evidence_class") != "OBSERVED_CUSTOMER":
+            errors.append("COMPLETE requires new real observed evidence")
     if payload.get("observed_paid_conversions", 0) and payload.get("evidence_class") != "OBSERVED_CUSTOMER":
-        errors.append("paid conversions need OBSERVED_CUSTOMER evidence")
+        errors.append("paid conversions require OBSERVED_CUSTOMER provenance")
+    return errors
+
+
+def check_reports():
+    """Do not call a round complete if no human-readable decision documents exist."""
+    errors = []
+    for rel in config()["required_reports"]:
+        report = ROOT / rel
+        if not report.is_file() or len(report.read_text(encoding="utf-8").strip()) < 300:
+            errors.append(f"missing/empty decision report: {rel}")
     return errors
 
 
@@ -217,15 +276,17 @@ def verify():
     try:
         result = load(dest)
         errors = verify_result(result, n)
+        errors += check_reports()
     except (ValueError, KeyError, TypeError) as exc:
         print(f"Validation failed: {exc}")
         return 2
     if errors:
-        print("INVALID:\n- " + "\n- ".join(errors))
+        print("INVALID:\\n- " + "\\n- ".join(errors))
         return 2
     s["last_verified_round"] = n
     s["prepared_round"] = None
-    s["model_runs"] = s.get("model_runs", 0) + 1
+    s["work_rounds_verified"] = s.get("work_rounds_verified", 0) + 1
+    # 'model_runs' is a legacy counter and is not advanced by structural verification.
     if result["status"] in ("BLOCKED", "NEEDS_REAL_CUSTOMERS") or not result.get("evidence_delta"):
         s["phase"] = "BLOCKED_REAL_CUSTOMERS"
     elif n >= config()["guardrails"]["max_rounds"]:
@@ -235,6 +296,7 @@ def verify():
     s["reason"] = result.get("stop_reason", "")
     save(STATE, s)
     print(f"Verified Work output round-{n:03d}; phase={s['phase']}")
+    print("WARNING: structural validation does NOT verify source truth or payment evidence.")
     return 0
 
 
