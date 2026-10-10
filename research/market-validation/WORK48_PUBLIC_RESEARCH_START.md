@@ -1,7 +1,7 @@
 # ChatGPT Work 起動指示｜顧客ゼロでも進める独立48テーマの深掘り市場調査
 
 対象：`saienjoy0/saitama-` / PR #23 / `research/deepseek-market-harness-20261010`。
-**これは新しいWorkタスク用の起動書。ChatGPT Work自身が公開情報を調査する。** 外部LLM API、DeepSeek API/CLI、OpenAI APIは使わない。Pythonの`work48.py`は状態・構造確認専用で、Workの推論やブラウザを自動起動しない。
+**これを唯一の起動入口とする。詳細な出典・反証・差分・保存の品質チェックは [`WORK_DEEP_RESEARCH_START_20261010.md`](WORK_DEEP_RESEARCH_START_20261010.md) を必ず併読する。ChatGPT Work自身が公開情報を調査する。** 外部LLM API、DeepSeek API/CLI、OpenAI APIは使わない。Pythonの`work48.py`は状態・構造確認専用で、Workの推論やブラウザを自動起動しない。
 
 ## 1. まず答えるべき経営判断
 
