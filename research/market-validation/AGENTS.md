@@ -2,7 +2,7 @@
 
 **Execution agent = ChatGPT in Work.** DeepSeek/model API/deepseek-harness CLI are not a dependency. The repository provides DeepSeek-inspired structured goal/round/handoff/stop gates, implemented as files plus a pure-Python validator.
 
-Before starting: read WORK_START.md, README.md, config.json, 2026-10-09 customer docs and newest product PR #10–#21. Existing research/design skills are optional methodology references, not other LLM runtimes.
+Before starting a 48-round task: read WORK48_START.md and work48_plan.json. For final synthesis read WORK_START.md, README.md, config.json, 2026-10-09 customer docs and newest product PR #10–#21. Existing research/design skills are optional methodology references, not other LLM runtimes.
 
 Objective: rigorously compare all 16 P1–P4 household × S1–S4 sales-message combinations, emphasizing willingness and ability to buy rather than generic praise. Distinguish H1 consult-friction from H2 autonomy teaching, and include grandparents' self-initiated daily posts, not only receiving a family newspaper.
 
@@ -31,7 +31,7 @@ Adversarial requirements:
 
 Work must not push personal/child data or make real payments, outreach, ads, deployments, merges. Current main product design is DESIGN/D90; do not touch it. No customer-level data access unless authorized through separate appropriate secure source.
 
-Write only round results/state and related market-validation research files; edits to this Work workflow itself require user's request (this turn authorized migration). On no new evidence, stop at NEEDS_REAL_CUSTOMERS. A repeated synthetic role-play does not increase evidence. Maximum 3 rounds and 3 within-round critique cycles.
+Write only round results/state and related market-validation research files; edits to this Work workflow itself require user's request (this turn authorized migration). On no new evidence, stop at NEEDS_REAL_CUSTOMERS. A repeated synthetic role-play does not increase evidence. Legacy 16-cell synthesis is max 3 rounds. Separate work48.py has 48 distinct tasks and per-round checkpoints; never claim 48 actual Work runs before files are saved and verified.
 
 ## Acceptance criteria (updated after 48-pass review)
 - READ `WORK_DESIGN_REVIEW_20261010.md` before research; the previous P2>S2 ranking must be challenged, not confirmed.
