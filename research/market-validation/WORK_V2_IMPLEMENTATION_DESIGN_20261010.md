@@ -11,7 +11,7 @@ Workによる公開調査は顧客行動の実測にはならない。Workが自
 
 ### 結論
 - 現在のwork48.py、work48_plan.json、12スキル、simulate.py、GitHub Actionsを土台に採用。
-- 先にWork→GitHub→CI→別Work再開の1ラウンド実機E2E。失敗する場合は自動化拡張を中止し、接続方式を修正。
+- 先にWork→GitHubの読み書き能力を確認し、RESULT単一正本とコミット済みRESULT検査をCIに追加。その後にWork→GitHub→CI→別Work再開の1ラウンド実機E2Eを行う。失敗する場合は自動化拡張を中止し、接続方式を修正。
 - WorkにPython実行が必ずあると仮定しない。WorkはGitHubコネクタ／対応するCloud Browserで入出力、PythonとテストはGitHub ActionsまたはCodex側で実行可能とする。
 - CIのPASSは構造と算術のPASSであって、出典の内容的真偽のPASSではない。
 - 48件を「必達回数」にせず、監査済みバックログへ変更。手順を変えるのは実機E2E成功後。
@@ -47,7 +47,19 @@ GitHub Actionsはモデル推論せず機械テストだけを行う。
 
 ## 3. 実装順序：P0 → P1 → P2
 
-### P0-A 接続受入／まず現行コードのまま1件実機実行（最優先）
+### P0-A 接続受入／現在の書込能力を小さく確認（最優先）
+
+1. WorkでGitHub接続が実際に使えるか、PR #23の対象branchを指定してreadできるか確認。
+2. Workがbranchへ1ファイル作成→再取得する権限を持つか、テスト専用の非機微なprobeファイルで確認。プローブは後で削除可能。WorkにPython/ターミナルが無くてもよい。
+3. GitHubへの書込不可ならここで停止し、ユーザーの接続/権限設定またはCodexでのGitHub書込に切り替える。公開調査を48件作成しても保存できない状態で先へ進まない。
+
+### P0-B 最小の状態管理・CIゲートを先に修正
+
+- 最初の実調査前に、GitHubにコミットされたRESULTだけを正本にして次のラウンドを算定する処理を実装する。既存のwork48_state.jsonは初期値・互換用であり、次番号を決定する単独の正本にはしない。
+- コミット済みRESULTの状態をGitHub Actionsが非破壊で検証する専用テストを追加する。現状のoffline workflowはtest_work48.pyの合成fixtureをテストするだけで、**新たにコミットされたround-NNN.jsonの正当性を検査しない**。この欠落を修正してから実E2Eを行う。
+- CIの結果をWorkが参照できること、保存結果とbranch SHAを再取得できることを確認。
+
+### P0-C 実際に1件の公開原典調査を実行
 
 1. WorkモードでWORK48_PUBLIC_RESEARCH_START.mdとWORK_DEEP_RESEARCH_START_20261010.mdを指定する。
 2. WorkがGitHubにread access、PR #23のhead SHA、work48_state.json、work48_plan.jsonとresultの保存先を確認。
@@ -60,7 +72,7 @@ GitHub Actionsはモデル推論せず機械テストだけを行う。
 受入基準: 実際に外部資料を閲覧したround-001のGitHub保存、CI通過、結果再取得、別Workでround-002認識、履歴で追跡可能、の5点。
 注意: 現行のwork48_state.jsonを手で002に書き換えただけでは合格ではない。
 
-### P0-B 保存・再開を一意にする（E2E後の最小コード改修）
+### P0-D 保存・再開を一意にする（実機E2E後の強化）
 
 現状の「結果ファイル」と「ローカルで書き換えるstate.json」が別々の正本になる設計をやめる。
 - GitHubの確定済みcheckpointが唯一の進捗正本。work48_state.jsonは表示用の派生キャッシュと定義する。
@@ -72,7 +84,7 @@ GitHub Actionsはモデル推論せず機械テストだけを行う。
 
 受入テスト: 同時書込、途中失敗、保存後読戻し、再実行、重複番号、古いhead、結果欠損、構造不正、GitHub接続不可からの復旧。決定論的に同じ次テーマへ復元できること。
 
-### P0-C 証拠検証の3層化
+### P0-E 証拠検証の3層化
 
 現在のvalidate_result()は文字列長・sources欄の存在に偏る。これを以下に分離する。
 
@@ -216,13 +228,14 @@ Gate E / 採算:
 
 ## 9. 開発・運用の順番（重要）
 
-Step 1 / Work実機1ラウンドE2E（失敗箇所を先に特定）。
-Step 2 / Gate B・Gate Cのcheckpointとsource auditを実装、CIを拡張。
-Step 3 / Workを2回目の別タスクから再開、保存衝突・根拠不足の異常系をテスト。
-Step 4 / 既存48テーマを保持したまま、優先度選択・decision ledgerを実装。
-Step 5 / simulate.pyを購入時点別に拡張、商材別比較・感度分析を行う。
-Step 6 / 4ラウンド程度実際に運転して、証拠の増分・意思決定品質とコストを評価。
-Step 7 / 公開資料で決着しない3つ以下の仮説を抽出して、実家庭の同意済み観察へ接続。
+Step 1 / WorkのGitHub接続についてread/writeの最小probe。ツール実行可否を推測で済ませない。
+Step 2 / 結果ファイルから次ラウンドを導く最小checkpointと、実際に保存されたRESULTを検査するCIを先に実装。
+Step 3 / Work実機1ラウンドE2E→別タスクから再開。失敗箇所を特定し、保存衝突・根拠不足の異常系をテスト。
+Step 4 / Gate B・Gate Cを強化し、source auditと構造・内容を区分。
+Step 5 / 既存48テーマを保持したまま、優先度選択・decision ledgerを実装。
+Step 6 / simulate.pyを購入時点別に拡張、商材別比較・感度分析を行う。
+Step 7 / 4ラウンド程度実際に運転して、証拠の増分・意思決定品質とコストを評価。
+Step 8 / 公開資料で決着しない3つ以下の仮説を抽出して、実家庭の同意済み観察へ接続.
 
 上位Gateが通らないうちは、48件分の結果自動生成や大規模なスキル追加をしない。
 
