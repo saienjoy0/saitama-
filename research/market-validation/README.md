@@ -7,6 +7,8 @@
 
 元のDeepSeek Harnessの「Goal（不変の目的）、状態保存、Round、批判・改善ループ、bounded handoff、停止条件」を**設計として移植**。DeepSeek公式DSH CLIのコードをそのままChatGPT Workに接続することはできない。DSHを起動するコードは削除し、純Pythonの非LLM検証スクリプトを残した。公式アーキテクチャの参照・SHAはUPSTREAM.lock.jsonに保持。
 
+**WorkはGTM（実際の到達可能な募集経路）と、¥980/4週間の収益・費用の未確認前提も検証する。** 販路や価格の数値がなくても「売れる」と断定しない。
+
 **開始するなら `WORK_START.md` をChatGPT Workに読み込ませる。** APIキー・DeepSeek契約・Node・npm不要。Workのブラウザ/コネクタと、GitHubへの書き込み機能を使う。Pythonは16セルの機械的検査にだけ使う。
 
 ## 対象
