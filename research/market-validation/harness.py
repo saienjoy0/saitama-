@@ -104,6 +104,7 @@ research/market-validation/AGENTS.md。両方を必ず読む。
 - research/GAKUSTA_H1相談負担_vs_H2金融判断の任せ方_顧客仮説実証調査_20261009.md
 - research/GAKUSTA_顧客層_残存ギャップ_祖父母参加効果_20261009.md
 - research/GAKUSTA_10家庭_募集対象_最終確定_20260925.md
+- R/O/F/Bは面談後の仮説分類。10家庭のR1〜R4募集条件には手を触れない。
 - PR #10〜21 の最新製品仕様の該当部分（mainだけを信頼しない）。
 {"- 前回の検証済み結果: "+previous if n > 1 else "- 第0ラウンドはdesk baseline。モデル検証や実課金ではない。"}
 
