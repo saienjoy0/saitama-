@@ -16,7 +16,7 @@
 4. `work48/results/round-NNN.json` を作成する。JSON必須：round, stage, title, status, model="ChatGPT Work", is_real_customer_experiment=false, finding, contrary_view, decision_update, next_real_world_test, remaining_uncertainty, sources, evidence_status, new_customer_evidence=false。
 5. 出典の有る結果はREVIEWED、確証がない結果はBLOCKED_NO_SOURCE/ BLOCKED_NEEDS_CUSTOMER。**実顧客証拠のない有料成約率・継続率は出さない。** 事実の裏付けにはURL/ファイル/PRと、どの主張が支持されるかを書く。
 6. `python3 research/market-validation/work48.py verify` で1ラウンドの成果物とstateを検証し、GitHubにコミットする。**実際にコミットできたことを確認してから次へ。**
-7. 上記をWorkタスクが使える範囲で最大4ラウンドの小バッチとして進める。利用上限・ツール・時間で中断したら、最後のstateと次回の作業位置を報告し、安全に終了する。別のWorkタスクはstateを読み、最初から再作成せず次から開始する。
+7. 上記を**4ラウンドごとにGitHubコミット・進捗確認しながら**、同じWorkタスクが継続可能な限り次の4ラウンドへ進める。48ラウンドの完了や証拠不足による停止まで続けることを目指すが、**利用上限・時間・ツール制約で中断しうる**。中断時は最後にコミットされたstateと次の作業番号を報告する。別のWorkタスクでは同じstateを読み、最初から再作成せず次から再開する。
 8. 6ラウンド連続で確認可能な根拠が見つからなければ自律ループ停止。**48を達成したふりをしない。** 48件終了でもREVIEWED数とBLOCKED数を分ける。
 9. 48ラウンドまで進み、必要な出典・反証・実験案が揃った場合は`WORK_START.md`の3報告と16セル比較の意思決定メモを作成（すでに完成したものは再作成しない）。**途中で進めるべき実験が明白なら48に達する前でも止めてよい**。
 
