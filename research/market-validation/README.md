@@ -2,6 +2,12 @@
 
 更新 2026-10-10｜研究のみ。本番実装・実際の販売は未開始。
 
+## 最新の初期販売対象判断（2026-10-10）
+
+今回のユーザー指定に基づく統合成果は [経営判断](reports/initial-customer-selection-20261010.md)。暫定第一は「裁量拡大が目前で、代替を試しても任せ方が決まらない家庭」、第二は反復する例外支出相談、第三は教材・講座後の家庭実践停止。第一は単発から検証し、月額は反復価値と更新入金で別判定する。料金・更新・CACの仮値で需要順位を作っていない。
+
+[出典監査](reports/initial-customer-evidence-20261010.md)／[採算](reports/initial-customer-economics-20261010.md)／[実家庭検証](reports/initial-customer-validation-20261010.md)／[Codex修正指示](INITIAL_CUSTOMER_CODEX_HANDOFF_20261010.md)／[保存・検査記録](reports/initial-customer-selection-run-20261010.md)。10家庭募集正本は保持。今回も実家庭・当社支払は未観測、work48の進捗0/48は変えていない。以下の従来手順は履歴・ハーネス操作の説明であり、最新の顧客順位は上記を読む。
+
 ## 実行担当はChatGPT Workのモデル
 **DeepSeekのモデルは使わず、DeepSeek APIもOpenAI APIも使わない。** ChatGPTのWorkモード内のモデルが実際にリサーチ、比較、反証、改善を行う。外部CLIがChatGPTのモデルを勝手に呼び出すわけではない。Workを選んでタスクを開始する必要がある。
 
