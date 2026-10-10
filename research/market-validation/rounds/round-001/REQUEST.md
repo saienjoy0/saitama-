@@ -1,21 +1,18 @@
-# Round 001｜DeepSeek Harnessによる初回市場検証の実行依頼（準備済み・モデル未実行）
+# Round 001｜ChatGPT Workの自分自身による販売検証（API不要）
 
-目的: 4つの販売メッセージS1〜S4を、4つの家庭像P1〜P4すべてに交差させて、16条件の顧客導線と重大な反論を調査する。
+最初に `research/market-validation/WORK_START.md` を読み、そのタスクを **Work内のChatGPT自身** が実施する。DeepSeek API/DSH CLIを使わない。
 
-モデルへの必読ファイル:
-1. research/market-validation/AGENTS.md, README.md, config.json
-2. research/market-validation/reports/first-pass-20261010.md
-3. 10月9日更新の親子顧客正本R/O/F/B、H1/H2比較、祖父母効果研究
-4. 10家庭募集正本R1-R4（募集を変更しない）
-5. PR #10〜#21の製品/親向け気づきレポート/子供/祖父母/デモ設計
+実行範囲: 販売訴求S1「任せる範囲」/S2「お金の相談」/S3「週末の夕飯」/S4「祖父母ギフト」を、候補家庭P1「裁量権」/P2「お金の相談摩擦」/P3「体験準備」/P4「祖父母参加」すべてに当てる16条件。
 
-Researcher: 外部一次資料の確認可能な事実と、各セルの「なぜ今買うか」を整理する。
-Critic: 親の手間増、二回目継続、LINE・ChatGPT・みてね・money ringなどの代替、祖父母の権限衝突、無課金の可能性を必ず批判する。
-Designer: 保護者の訴求→体験→有料4週間980円の仮説提示→継続・離脱の実顧客検証手順を提案する。
+調査 → 想定顧客の反論を合成仮説として抽出 → ChatGPT自身が敵対的にレビュー → 改善 → ソースと事実の監査。
 
-必須16セル: P1×S1/S2/S3/S4、P2×S1/S2/S3/S4、P3×S1/S2/S3/S4、P4×S1/S2/S3/S4。
-result_json_path: research/market-validation/rounds/round-001/RESULT.json
+GitHubの2026-10-09顧客資料を優先し、mainだけでなく製品PR #10〜21を調べる。
+R/O/F/Bは面談後分類。R1〜R4の10家庭募集条件は維持。共働き/投資経験/富裕層を無根拠に必須条件にしない。
 
-出力にはconfig.jsonの結果必須キーと各セル必須キーを満たすJSONを**実際に書き込む**。
-実測データが増えなければstatus=NEEDS_REAL_CUSTOMERS。架空の購入率・継続率を捏造しない。
-結果がなければ実行成功と報告しない。書き込み先は本ラウンドのみ。本番製品と顧客に触らない。
+必要: 親の購入動機、子どもの自発的二回目、現実の行動、親の新たな承認負担、祖父母の自分の近況投稿、既存無料代替、4週間980円の仮価格、辞める理由と反証条件。
+世帯や購入率の推定をでっち上げない。親が相談しない家庭への無理な説得はしない。
+
+出力: `research/market-validation/rounds/round-001/RESULT.json` （config.jsonの結果契約：16セル）
+追加レポート: `research/market-validation/reports/round-001.md`
+その後 `python3 research/market-validation/harness.py verify` （利用可能な環境の場合）。
+新しい実在する証拠がないならNEEDS_REAL_CUSTOMERSで停止。Workでの結果保存ができなければそれを明示。
