@@ -37,6 +37,12 @@ def fixture_round(number, status="REVIEWED"):
                   "claim":"Repository contains the Oct 9 provisional ICP"}] if status == "REVIEWED" else [],
         evidence_status="REPOSITORY_DESIGN" if status == "REVIEWED" else "UNVERIFIED",
         new_customer_evidence=False,
+        evidence_scope="DESK_ONLY",
+        confidence_rationale="Desk research is not evidence of real buying behavior.",
+        prior_work_delta="Rechecked the distinct topic; old 48 passes are not new customer tests.",
+        research_log=[{"question":"What source supports this desk finding?",
+                       "action":"Consulted the specified repository reference or documented no source",
+                       "outcome":"A design source only, not observed buying or retention"}],
     )
 
 
@@ -68,6 +74,12 @@ class Work48Tests(unittest.TestCase):
         x["model"] = "ChatGPT Work"
         x["sources"] = []
         self.assertTrue(w.validate_result(x, 1))
+        x = fixture_round(1)
+        x.pop("research_log")
+        self.assertTrue(w.validate_result(x, 1))
+        x = fixture_round(1)
+        x["evidence_scope"] = "OBSERVED_CUSTOMER"
+        self.assertTrue(w.validate_result(x, 1))
 
     def test_48_rounds_can_advance_with_synthetic_local_files(self):
         with tempfile.TemporaryDirectory() as d:
@@ -98,7 +110,7 @@ class Work48Tests(unittest.TestCase):
                     self.assertEqual(w.advance(),2)
                 self.assertEqual(w.state()["next_round"],1)
 
-    def test_six_unverified_rounds_stop_model_spin(self):
+    def test_six_blocked_rounds_warn_but_do_not_block_distinct_public_topics(self):
         with tempfile.TemporaryDirectory() as d:
             p=pathlib.Path(d)
             with patch.object(w,"STATE_FILE",p/"state.json"),patch.object(w,"RESULTS",p/"results"):
@@ -108,11 +120,17 @@ class Work48Tests(unittest.TestCase):
                     with redirect_stdout(StringIO()):
                         self.assertEqual(w.advance(),0)
                 s=w.state()
-                self.assertTrue(s["halted"])
+                self.assertFalse(s["halted"])
+                self.assertTrue(s["research_exhaustion_warning"])
                 self.assertEqual(s["blocked"],[1,2,3,4,5,6])
                 self.assertEqual(s["next_round"],7)
                 with redirect_stdout(StringIO()):
-                    self.assertEqual(w.next_round(),3)
+                    self.assertEqual(w.next_round(),0)
+                w.atomic_write(w.RESULTS/"round-007.json", fixture_round(7))
+                with redirect_stdout(StringIO()):
+                    self.assertEqual(w.advance(),0)
+                self.assertFalse(w.state()["research_exhaustion_warning"])
+                self.assertEqual(w.state()["reviewed"],[7])
 
 if __name__=="__main__":
     unittest.main()
