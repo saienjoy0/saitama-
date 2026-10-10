@@ -33,4 +33,13 @@ Work must not push personal/child data or make real payments, outreach, ads, dep
 
 Write only round results/state and related market-validation research files; edits to this Work workflow itself require user's request (this turn authorized migration). On no new evidence, stop at NEEDS_REAL_CUSTOMERS. A repeated synthetic role-play does not increase evidence. Maximum 3 rounds and 3 within-round critique cycles.
 
+## Acceptance criteria (updated after 48-pass review)
+- READ `WORK_DESIGN_REVIEW_20261010.md` before research; the previous P2>S2 ranking must be challenged, not confirmed.
+- Treat P1/P2/P3 as overlapping needs, and P4 as a participation/gift-payer dimension, not mutually exclusive market segments.
+- First round must finish audit + recommendation + dated, measurable field-experiment plan even without new public findings.
+- Four mandatory saved artifacts: `reports/evidence-audit.md`, `reports/work-decision-memo.md`, `reports/experiment-plan.md`, `rounds/round-001/RESULT.json`.
+- `harness.py verify` checks referenced sources exist, all 16 unique P×S cells, 3+ credible objections, 3+ field tests, and decision reports. It cannot establish the truth of claims: **manually verify** each central claim in primary sources.
+- Preserve child's safety/permission; protect family-level and underage sensitive data in any uploaded evidence.
+- Interim presentation on 2026-10-16: show only what was actually completed by that date; if the Work run starts later, treat that date as past, not an upcoming deadline.
+
 **There is no automatic Work scheduler here**; the user starts the Work task. Do not promise background completion from this file alone.
