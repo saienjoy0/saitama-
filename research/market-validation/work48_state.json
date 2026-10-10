@@ -9,5 +9,6 @@
   "consecutive_blocked": 0,
   "real_customer_interviews": 0,
   "observed_purchases": 0,
-  "note": "48-round controller initialized. Work has NOT run these 48 rounds. Previous 48 desk analysis passes are not these rounds."
+  "note": "Independent 48-topic PUBLIC DESK research not started (0/48). Legacy NEEDS_REAL_CUSTOMERS blocks commercial proof, not desk investigation. No external model/API invocations.",
+  "research_exhaustion_warning": false
 }
