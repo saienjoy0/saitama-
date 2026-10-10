@@ -24,7 +24,9 @@
     "no_model_api": true,
     "no_provider_credentials": true,
     "require_evidence_delta_for_next_round": true,
-    "no_background_processing_claims": true
+    "no_background_processing_claims": true,
+    "max_desk_review_passes": 48,
+    "desk_pass_definition": "16 distinct P×S cells × 3 phases: discover, falsify, revise (not 48 new primary datasets)"
   },
   "household_profiles": [
     {
