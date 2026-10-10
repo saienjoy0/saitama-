@@ -12,4 +12,7 @@
 8. `reports/evidence-audit.md`, `reports/work-decision-memo.md`, `reports/experiment-plan.md`, `rounds/round-001/RESULT.json` をGitHub PR #23ブランチへ保存。機械的validate + 人手で読める出典と検討経路の監査を通す。
 9. 初回は新証拠が増えなくても上記成果物までは完成。**証拠不足のため二回目は止めてもよい**。実課金・実家族の使用・面談が存在しなければ正直に未観察と記録する。
 
+### スキーマv1.1の注意
+各`cells`に`source_ids`（ソースに紐づくID配列、根拠がなければ[]）、`counterfactual`、`next_test`を必須。各`sources`に`id,title,url,claim,checked_on,limitations,source_status`を必須。`evidence_delta`の要素は`source_id,new_fact`を持つ辞書のみ。3点のレポートを保存してから`verify`。数を埋めただけの合格を目的にしない。
+
 本体の製品コード、親子の個人データ、外部への送信、広告、決済、公開、マージはしない。
