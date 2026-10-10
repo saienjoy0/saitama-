@@ -1,6 +1,6 @@
 # ChatGPT Work｜48件の独立した公開・競合深掘り調査（入口）
 
-**最初に[WORK_DEEP_RESEARCH_START_20261010.md](WORK_DEEP_RESEARCH_START_20261010.md)を読み、そこに記載された出典監査・反証・保存条件を優先する。**
+**正本入口：[WORK48_PUBLIC_RESEARCH_START.md](WORK48_PUBLIC_RESEARCH_START.md)。より厳格な出典監査・反証・保存のチェックリストは[WORK_DEEP_RESEARCH_START_20261010.md](WORK_DEEP_RESEARCH_START_20261010.md)。両者を読んで実行する。**
 
 対象: `saienjoy0/saitama-` PR #23 / `research/deepseek-market-harness-20261010`。DeepSeek/OpenAI等の外部モデルAPIは使わず、**ChatGPT Work自身**がインターネット上の資料を検索、原典を開いて検証し、判定を更新する。
 
@@ -10,7 +10,7 @@
 - 今回の48独立テーマ = `work48_plan.json` + `work48.py` + `work48_state.json`。初期進捗0/48。原典調査と反証の確認・保存を行う。
 
 ## Workでの最短の実行手順
-1. 深掘り版入口と`WORK_DESIGN_REVIEW_20261010.md`, `AGENTS.md`, `WORK_HANDOFF.md`, `work48_plan.json`, `work48_state.json`, `reports/evidence-audit.md`、製品PR #10〜#21、2026-10-09の顧客正本を読む。以前の48パスを再生成しない。
+1. 公開調査の正本入口と詳細チェックリスト、`WORK_DESIGN_REVIEW_20261010.md`, `AGENTS.md`, `WORK_HANDOFF.md`, `work48_plan.json`, `work48_state.json`, `reports/evidence-audit.md`、製品PR #10〜#21、2026-10-09の顧客正本を読む。以前の48パスを再生成しない。
 2. `python3 research/market-validation/work48.py doctor`、`status`、`next`で未完了の1件を取得する。GitHubのブランチheadを再確認する。
 3. Work内のChatGPT自身が**実際に公開の一次資料を検索・閲覧し**、Researcher→Critic→Strategist→Auditorを順に実施。役割は同一モデル内の異なる検査視点であり、独立モデルや顧客実験ではない。
 4. `work48/results/round-NNN.json`へ根拠、異論、調査ログ、旧証拠との差、取り消す条件、次の実測を保存。`status=REVIEWED`は原典確認済みの具体的事実または厳密な設計判定がある場合のみ。架空の市場数値・利用結果・購入結果は不可。
