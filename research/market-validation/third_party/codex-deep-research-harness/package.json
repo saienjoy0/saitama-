@@ -1,0 +1,19 @@
+{
+  "name": "deep-research-harness",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Codex-only deep research harness skill",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "test:contracts": "node --test tests/skill-contract.test.js tests/schema-validation.test.js tests/compatibility-validation.test.js",
+    "validate:syntax": "node --check skills/deep-research-harness/scripts/validate.js"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1"
+  }
+}
