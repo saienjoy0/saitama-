@@ -21,6 +21,7 @@ PLAN_FILE = ROOT / "work48_plan.json"
 STATE_FILE = ROOT / "work48_state.json"
 RESULTS = ROOT / "work48" / "results"
 ALLOWED = {"REVIEWED", "BLOCKED_NEEDS_CUSTOMER", "BLOCKED_NO_SOURCE"}
+# This controller tracks PUBLIC/DESK RESEARCH only; the customer experiment is separate.
 
 
 def read(path, default=None):
@@ -58,6 +59,7 @@ def initial_state():
         "halted": False,
         "halt_reason": "",
         "consecutive_blocked": 0,
+        "research_exhaustion_warning": False,
         "real_customer_interviews": 0,
         "observed_purchases": 0,
         "note": "No ChatGPT Work execution has occurred. 48 earlier desk passes were NOT 48 Work rounds."
@@ -92,10 +94,19 @@ def validate_result(data, number):
         problems.append("model must be 'ChatGPT Work'; no simulated model execution")
     if data.get("is_real_customer_experiment") is not False:
         problems.append("desk research result must explicitly set is_real_customer_experiment=false")
-    for key in ("finding", "contrary_view", "decision_update", "next_real_world_test", "remaining_uncertainty"):
+    for key in ("finding", "contrary_view", "decision_update", "next_real_world_test", "remaining_uncertainty", "confidence_rationale", "prior_work_delta"):
         value = data.get(key)
         if not isinstance(value, str) or len(value.strip()) < 12:
             problems.append(f"{key} needs a substantive non-empty answer")
+    if data.get("evidence_scope") != "DESK_ONLY":
+        problems.append("Work48 is desk/public research only. Record actual customer outcomes in a separate private evidence workflow.")
+    logs = data.get("research_log")
+    if not isinstance(logs, list) or len(logs) < 1:
+        problems.append("research_log must contain at least one verifiable attempt or source check")
+    else:
+        for i, log in enumerate(logs):
+            if not isinstance(log, dict) or not all(isinstance(log.get(k), str) and len(log[k].strip()) >= 8 for k in ("question", "action", "outcome")):
+                problems.append(f"research_log {i}: question/action/outcome required")
     sources = data.get("sources")
     if not isinstance(sources, list):
         problems.append("sources must be a list")
@@ -129,6 +140,8 @@ def show_status():
         "blocked": len(s["blocked"]),
         "attempted": len(s["reviewed"]) + len(s["blocked"]),
         "halted": s["halted"],
+        "research_exhaustion_warning": s.get("research_exhaustion_warning", False),
+        "customer_validation": "NOT_OBSERVED (separate from desk reviews)",
         "halt_reason": s["halt_reason"],
         "work_engine": "ChatGPT Work invoked by user; not this Python process",
         "model_api_calls": 0,
@@ -160,9 +173,10 @@ def next_round():
             "round", "stage", "title", "status", "model",
             "is_real_customer_experiment", "finding", "contrary_view",
             "decision_update", "next_real_world_test", "remaining_uncertainty",
-            "sources", "evidence_status", "new_customer_evidence"
+            "sources", "evidence_status", "new_customer_evidence",
+            "research_log", "evidence_scope", "confidence_rationale", "prior_work_delta"
         ],
-        "stop_policy": "Mark missing evidence BLOCKED; never invent sources or customer purchases."
+        "stop_policy": "A missing source blocks THIS topic, not unrelated public research. After six blocked topics issue a warning, not an early global halt. Never invent purchases."
     }
     print(json.dumps(out, indent=2, ensure_ascii=False))
     return 0
@@ -197,14 +211,15 @@ def advance():
         s["blocked"].append(n)
         s["consecutive_blocked"] += 1
     s["next_round"] = n + 1
-    if s["consecutive_blocked"] >= 6:
-        s["halted"] = True
-        s["halt_reason"] = "Six successive research foci produced no verifiable evidence. Need new real-world evidence; don't spin."
+    # Do not terminate different, researchable topics merely because six prior
+    # topics needed customers or had no obtainable source. A warning is visible,
+    # but every distinct planned topic can still be investigated. Finite 48 max.
+    s["research_exhaustion_warning"] = s["consecutive_blocked"] >= 6
     if n == 48:
         s["halted"] = True
         s["halt_reason"] = "48 task checkpoints reached; NOT proof of 48 successful market validations."
     atomic_write(STATE_FILE, s)
-    print(f"CHECKPOINT {n}/48: {payload['status']}. Next={s['next_round']}; halted={s['halted']}")
+    print(f"CHECKPOINT {n}/48: {payload['status']}. Next={s['next_round']}; halted={s['halted']}; no_evidence_warning={s['research_exhaustion_warning']}")
     return 0
 
 
@@ -225,7 +240,8 @@ def main():
         r = plan()
         print(json.dumps({"planned_distinct_rounds":len(r["rounds"]),"no_model_api":True,
                           "save_restarts":True,"Work_actually_invoked":False,
-                          "not_a_ChatGPT_Work_background_scheduler":True},ensure_ascii=False,indent=2))
+                          "not_a_ChatGPT_Work_background_scheduler":True,
+                          "desk_research_does_not_depend_on_legacy_customer_gate":True},ensure_ascii=False,indent=2))
         return 0
     return 2
 
