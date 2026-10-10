@@ -95,6 +95,27 @@ class WorkHarnessTests(unittest.TestCase):
                 with redirect_stdout(io.StringIO()):
                     self.assertEqual(h.verify(), 2)  # Work has not written RESULT yet.
 
+    def test_completed_48_passes_are_unique_and_evidence_bounded(self):
+        report = h.load(ROOT / "rounds" / "48_desk_passes_20261010.json")
+        self.assertEqual(report["completed_review_passes"], 48)
+        self.assertEqual(len(report["passes"]), 48)
+        self.assertEqual(report["work_runs"], 0)
+        self.assertEqual(report["human_interviews"], 0)
+        self.assertEqual(report["observed_purchases"], 0)
+        self.assertEqual(report["outcome"], "NEEDS_REAL_CUSTOMERS")
+        unique = {(p["profile_id"], p["message_id"], p["phase"]) for p in report["passes"]}
+        self.assertEqual(len(unique), 48)
+        expected = {(p, s, phase)
+                    for p, s in h.expected_pairs()
+                    for phase in ("discover", "falsify", "revise")}
+        self.assertEqual(unique, expected)
+        self.assertEqual(sorted(p["id"] for p in report["passes"]), list(range(1, 49)))
+        for entry in report["passes"]:
+            self.assertTrue(entry["claim"])
+            self.assertTrue(entry["opposing_explanation"])
+            self.assertTrue(entry["outcome"])
+            self.assertTrue(entry["evidence_refs"])
+
     def test_api_runner_commands_absent(self):
         source = (ROOT / "harness.py").read_text(encoding="utf-8")
         self.assertNotIn("subprocess.run", source)
