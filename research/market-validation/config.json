@@ -2,23 +2,29 @@
   "schema_version": "1.0",
   "created_on": "2026-10-10",
   "harness": {
-    "name": "DeepSeek Harness (official)",
-    "source": "https://github.com/deepseek-ai/deepseek-harness",
-    "distribution": "@deepseek-ai/dsh",
-    "version": "0.2.0-rc.2",
-    "license": "MIT",
-    "developer_preview": true,
-    "mode": "headless",
-    "source_copy": "official package pinned; do not fork upstream core"
+    "name": "ChatGPT Work native market-validation workflow",
+    "execution_surface": "ChatGPT Work",
+    "model": "ChatGPT (the Work session model)",
+    "model_api_required": false,
+    "deepseek_model_used": false,
+    "deepseek_harness_runtime_executed": false,
+    "inspiration": "DeepSeek Harness goal/round/handoff/stop-gate patterns; adapted to Work tools and repository state, not a literal DSH runtime",
+    "source_reference": "https://github.com/deepseek-ai/deepseek-harness",
+    "execution_trigger": "Start a ChatGPT Work task pointing to WORK_START.md",
+    "autonomous_scope": "within a user-started Work task, bounded by evidence gate, rounds, and user confirmations"
   },
   "guardrails": {
     "max_rounds": 3,
-    "max_model_call_minutes": 15,
     "max_agents": 3,
     "no_paid_actions": true,
     "no_external_contact": true,
     "no_customer_data": true,
-    "require_human_for_publication": true
+    "require_human_for_publication": true,
+    "max_work_iterations_per_round": 3,
+    "no_model_api": true,
+    "no_provider_credentials": true,
+    "require_evidence_delta_for_next_round": true,
+    "no_background_processing_claims": true
   },
   "household_profiles": [
     {
