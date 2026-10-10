@@ -1,281 +1,257 @@
 #!/usr/bin/env python3
-"""Bounded DeepSeek Harness sales-research orchestrator; no customer data or product writes.
+"""File-based research guardrails for ChatGPT Work, with no external model API.
 
-Stdlib only. The actual language-model agent is the official pinned DeepSeek Harness CLI.
-Synthetic exercises are NOT conversion estimates.
+The ChatGPT model inside a user-started Work task performs the actual research,
+adversarial review, revision and writes RESULT.json. This CLI only checkpoints,
+prepares inputs and verifies evidence and 16-cell completeness. It never runs
+DeepSeek, calls OpenAI API, or schedules work.
 """
 from __future__ import annotations
 
 import argparse
-import datetime as dt
 import json
-import os
 import pathlib
-import shutil
-import subprocess
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent
 CFG = ROOT / "config.json"
 STATE = ROOT / "state.json"
 ROUNDS = ROOT / "rounds"
-DSH = "@deepseek-ai/dsh@0.2.0-rc.2"
+
 
 def load(path: pathlib.Path, default=None):
     if not path.exists():
         return default
     return json.loads(path.read_text(encoding="utf-8"))
 
+
 def save(path: pathlib.Path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    temp = path.with_suffix(path.suffix + ".tmp")
-    temp.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    temp.replace(path)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    tmp.replace(path)
+
 
 def config():
-    cfg = load(CFG)
-    if not cfg:
-        raise RuntimeError("config.json がありません")
-    return cfg
+    c = load(CFG)
+    if c is None:
+        raise RuntimeError("missing config.json")
+    return c
+
 
 def default_state():
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "created": "2026-10-10",
-        "phase": "BOOTSTRAPPED",
+        "execution": "chatgpt_work",
+        "phase": "HANDOFF_READY",
         "last_verified_round": 0,
-        "prepared_round": None,
+        "prepared_round": 1,
         "model_runs": 0,
         "customer_observations": 0,
         "paid_transactions": 0,
-        "reason": "First desk-research baseline only. Live model not started."
+        "reason": "Work has not yet generated a verified round. Desk baseline available."
     }
+
 
 def state():
     return load(STATE, default_state())
 
-def doctor():
-    c = config()
-    checks = {
-        "python_ok": sys.version_info >= (3, 10),
-        "node_installed": bool(shutil.which("node")),
-        "npx_installed": bool(shutil.which("npx")),
-        "deepseek_key_in_environment": bool(os.environ.get("DEEPSEEK_API_KEY")),
-        "expected_official_dsh_version": c["harness"]["version"],
-        "upstream_source_copied": False,
-        "upstream_source_policy": "pinned official npm dependency, not source-vendored",
-        "repo_status": state()["phase"],
-        "live_product_allowed": False
-    }
-    print(json.dumps(checks, ensure_ascii=False, indent=2))
-    return 0 if checks["python_ok"] else 2
 
 def expected_pairs(cfg=None):
     cfg = cfg or config()
-    return {(p["id"], s["id"]) for p in cfg["household_profiles"] for s in cfg["sales_messages"]}
+    return {
+        (p["id"], s["id"])
+        for p in cfg["household_profiles"]
+        for s in cfg["sales_messages"]
+    }
 
-def build_prompt(round_number):
+
+def doctor():
     c = config()
-    required = ", ".join(c["result_required_fields"])
-    pairs = ", ".join(f"{p}×{s}" for p, s in sorted(expected_pairs(c)))
-    output = f"research/market-validation/rounds/round-{round_number:03d}/RESULT.json"
-    prev = f"research/market-validation/rounds/round-{round_number-1:03d}/RESULT.json"
-    return f"""# 第{round_number}ラウンド：やってみクエスト市場検証（DSH headless）
+    output = {
+        "python_ok": sys.version_info >= (3, 10),
+        "execution_surface": c["harness"]["execution_surface"],
+        "model": c["harness"]["model"],
+        "no_api_credentials_needed": True,
+        "no_external_model_runtime": True,
+        "deepseek_patterns_only": True,
+        "profile_count": len(c["household_profiles"]),
+        "message_count": len(c["sales_messages"]),
+        "pair_count": len(expected_pairs(c)),
+        "repo_phase": state()["phase"],
+        "live_product_allowed": False,
+    }
+    print(json.dumps(output, ensure_ascii=False, indent=2))
+    return 0 if output["python_ok"] and output["pair_count"] == 16 else 2
 
-必読:
-- research/market-validation/AGENTS.md, README.md, config.json
-- research/market-validation/reports/first-pass-20261010.md
+
+def build_prompt(n):
+    c = config()
+    pairs = ", ".join(f"{p}×{s}" for p, s in sorted(expected_pairs(c)))
+    dest = f"research/market-validation/rounds/round-{n:03d}/RESULT.json"
+    previous = f"research/market-validation/rounds/round-{n-1:03d}/RESULT.json"
+    return f"""# ChatGPT Work 実行タスク — 第{n}ラウンド
+
+あなた自身（ChatGPT Work内のモデル）が実行担当。DeepSeek/外部API/DSH CLIを起動しない。
+作業はこのWorkタスク内で、研究→懐疑的レビュー→改訂→検証の順に自律的に進める。
+現在のアクティブ依頼は research/market-validation/WORK_START.md と
+research/market-validation/AGENTS.md。両方を必ず読む。
+
+必読（先にGitHubで確認）:
+- research/market-validation/config.json, README.md, reports/first-pass-20261010.md
 - research/GAKUSTA_初期ターゲット_家庭ルールと対話可能性_行動ベース定義_20261009.md
-- R/O/F/Bは面談後の候補ICP分類であり、R1〜R4の10家庭募集枠を置換しない。
 - research/GAKUSTA_H1相談負担_vs_H2金融判断の任せ方_顧客仮説実証調査_20261009.md
 - research/GAKUSTA_顧客層_残存ギャップ_祖父母参加効果_20261009.md
 - research/GAKUSTA_10家庭_募集対象_最終確定_20260925.md
-- 本体設計 PR #10–#21 のうち現在有効な記録。実装/デモ/未実装を厳密に区別。
-{"- 前回結果: " + prev if round_number > 1 else "- 前回: desk baselineのみ。AI実行記録なし。"}
+- PR #10〜21 の最新製品仕様の該当部分（mainだけを信頼しない）。
+{"- 前回の検証済み結果: "+previous if n > 1 else "- 第0ラウンドはdesk baseline。モデル検証や実課金ではない。"}
 
-目標: 親4家庭像×売り方4案の全16条件を検証し、致命的な前提・直接代替・実測実験を出す。
-全16条件: {pairs}
+目的: P1〜P4候補家庭×S1〜S4訴求の16条件で、実在する課題/現在の代替/
+購入・非購入の理由/2回目利用/保護者の負担/祖父母の追加価値を比較する。
+必須ペア: {pairs}
 
-3つの役割を順番に使い、可能なら公式DeepSeek Harnessのsubagent/ralphを最大3名・
-現在ラウンド内最大3レビューで使用する:
-(A) Researcher: 現行証拠を調べ、原典URLと確認日、対象、発言の出所を付ける。
-(B) Critic: 全16セルで口頭相談/無料ChatGPT/LINE/みてね/money ring/無料教材に負ける理由、
-    親の確認負担、子どもの再使用、祖父母の権限衝突を厳しく批判する。
-(C) Strategist: 認知→初回体験→有料契約→4週間継続→解約を最小実験にする。
-次ラウンドに渡すのは更新された検証可能な証拠と停止理由だけ。前と同じ資料なら停止。
+各条件の回答は実行済みの契約率ではなく、ラベル付きの仮説として記す。
+全条件共通で4週間980円（旧製品設計の仮価格）と無料代替を比較する。
+実際の購入者の年齢・収入・投資経験・家庭状況をデータ無しで決めつけない。
 
-合成ペルソナは「SYNTHETIC」と明記し、人間実測の代用にしない。
-本人の親への金銭相談前の遠慮や家計余裕を勝手に推測しない。
-アンケートの賛同・架空の購買率を購入実績と扱わない。
-このラウンドで顧客実測データが追加されなければstatusはNEEDS_REAL_CUSTOMERS。
+同一Workタスク内で役割を順次切り替える:
+1. Researcher: 最新の実在する資料（原典/日付/地域/母数）を確認。
+2. Critic: 顧客像そのものに反論し、無料のLINE/ChatGPT/親子会話/
+   みてね/money ringなどで十分なケースを探す。
+3. Strategist: 改善策、反証基準、親子・祖父母への現実的な検証設計を作る。
+4. Auditor: 根拠と実測の混同がないかを確認し、必要なら修正。
+無限ループ禁止。最低1回批判を行い、同一ラウンド最大3反復。
 
-必須出力:
-指定の {output} に有効なJSONを**保存**する。読んだだけで完了を主張しない。
-トップレベル必須: {required}.
-round={round_number}, cellsは重複なし16件。
-各cell: profile_id, message_id, buyer, trigger, closest_substitute,
-likely_objection, retention_test, evidence_level (configの列挙値)。
-sources配列は原典URL、資料・時期・事実と限界を含める。
-evidence_deltaは新たに確認した証拠の配列（無ければ空）。
-critical_objections, recommendation, real_customer_testsも必須。
-stop_reasonを書き、事実とシミュレーションを分離。
+ラウンド成果物: {dest}
+json top-level: {", ".join(c["result_required_fields"])}
+各cell必須: {", ".join(c["cell_required_fields"])}
+sources/evidence_deltaは情報源への追跡可能な参照を含む配列。
+次のラウンドに回すには**新しい検証可能な証拠**が必要。
+新証拠がない/実顧客を見ないと判定不能ならstatus=NEEDS_REAL_CUSTOMERSで停止。
+Workで結果をGitHubに書き込んだら、可能なら
+python3 research/market-validation/harness.py verify を実行。
+実行環境がない場合は結果をこのスキーマに照らして検査して状態を報告する。
 
-書き込み可能範囲: research/market-validation/rounds/round-{round_number:03d}/ のみ。
-それ以外のファイルの改変、外部顧客への連絡、本番公開、広告費、決済は禁止。
+禁止: DeepSeek API/DSH CLIを必要条件にすること、架空の成約率/架空口コミ、
+実家庭・未成年の個人情報のrepo投入、外部顧客連絡、広告課金、配信、
+本番改変、自動PRマージ、承諾なしの公開。
 """
+
 
 def prepare():
     s, c = state(), config()
-    if s["phase"] == "BLOCKED_REAL_CUSTOMERS":
-        print("停止: 新しい実顧客の証拠が入るまで自律ループを回さない")
+    if s["phase"] in ("BLOCKED_REAL_CUSTOMERS", "LIMIT_REACHED"):
+        print("停止: 実顧客証拠・実測が必要か、ラウンド上限に達しました")
         return 3
-    if s["prepared_round"] and not (ROUNDS / f"round-{s['prepared_round']:03d}" / "RESULT.json").exists():
-        n = s["prepared_round"]
-    else:
-        n = s["last_verified_round"] + 1
+    n = s.get("prepared_round") or s["last_verified_round"] + 1
     if n > c["guardrails"]["max_rounds"]:
-        print("停止: ラウンド上限")
+        print("停止: max_roundsを超過")
         return 3
     d = ROUNDS / f"round-{n:03d}"
     d.mkdir(parents=True, exist_ok=True)
+    if (d / "RESULT.json").exists():
+        print("既存結果あり: 先にverifyしてください（成果物は上書きしません）")
+        return 3
     (d / "REQUEST.md").write_text(build_prompt(n), encoding="utf-8")
-    s["phase"], s["prepared_round"] = "PREPARED", n
+    s["phase"] = "HANDOFF_READY"
+    s["prepared_round"] = n
+    s["execution"] = "chatgpt_work"
     save(STATE, s)
-    print(f"準備済み: {d.relative_to(ROOT)}/REQUEST.md")
+    print(f"Work用タスク準備完了: rounds/round-{n:03d}/REQUEST.md")
     return 0
 
-def verify_result(payload, round_number):
+
+def verify_result(payload, n):
     c = config()
-    errs = []
-    for k in c["result_required_fields"]:
-        if k not in payload:
-            errs.append(f"top-level missing: {k}")
-    if payload.get("round") != round_number:
-        errs.append("round does not match")
+    errors = []
+    if not isinstance(payload, dict):
+        return ["RESULT.json must contain a JSON object"]
+    for key in c["result_required_fields"]:
+        if key not in payload:
+            errors.append("top-level missing: " + key)
+    if payload.get("round") != n:
+        errors.append("round mismatch")
     if payload.get("status") not in c["statuses"]:
-        errs.append("invalid status")
+        errors.append("invalid status")
     cells = payload.get("cells")
     if not isinstance(cells, list):
         cells = []
-        errs.append("cells must be a list")
+        errors.append("cells must be list")
     found = []
     for i, cell in enumerate(cells):
         if not isinstance(cell, dict):
-            errs.append(f"cells[{i}] not an object")
+            errors.append(f"cells[{i}] invalid")
             continue
-        for k in c["cell_required_fields"]:
-            if k not in cell or cell[k] in (None, ""):
-                errs.append(f"cells[{i}] missing {k}")
-        found.append((cell.get("profile_id"), cell.get("message_id")))
+        for key in c["cell_required_fields"]:
+            if cell.get(key) in ("", None):
+                errors.append(f"cells[{i}] missing {key}")
         if cell.get("evidence_level") not in c["evidence_levels"]:
-            errs.append(f"cells[{i}] evidence_level invalid")
-    expected = expected_pairs(c)
-    if len(cells) != 16 or len(set(found)) != 16 or set(found) != expected:
-        errs.append("cells must match all and only the 16 P×S pairs")
-    for k in ("sources", "evidence_delta", "critical_objections", "real_customer_tests"):
-        if k in payload and not isinstance(payload[k], list):
-            errs.append(f"{k} must be a list")
-    if "status" in payload and payload["status"] == "COMPLETE" and not payload.get("evidence_delta"):
-        errs.append("COMPLETE requires evidence_delta; empty evidence is a blocker")
-    # Data from synthetic personas must not masquerade as observed transactions.
+            errors.append(f"cells[{i}] invalid evidence_level")
+        found.append((cell.get("profile_id"), cell.get("message_id")))
+    if len(cells) != 16 or set(found) != expected_pairs(c) or len(set(found)) != 16:
+        errors.append("cells must contain 16 unique P×S pairs")
+    for key in ("evidence_delta", "sources", "critical_objections", "real_customer_tests"):
+        if key in payload and not isinstance(payload[key], list):
+            errors.append(f"{key} must be list")
+    if payload.get("status") in ("RESEARCHED", "COMPLETE") and not payload.get("evidence_delta"):
+        errors.append("RESEARCHED/COMPLETE requires evidence_delta")
+    if payload.get("status") == "COMPLETE" and payload.get("evidence_class") != "OBSERVED_CUSTOMER":
+        errors.append("COMPLETE cannot mean real-world sales proven without OBSERVED_CUSTOMER")
     if payload.get("observed_paid_conversions", 0) and payload.get("evidence_class") != "OBSERVED_CUSTOMER":
-        errs.append("numeric paid outcomes require OBSERVED_CUSTOMER evidence class")
-    return errs
+        errors.append("paid conversions need OBSERVED_CUSTOMER evidence")
+    return errors
+
 
 def verify():
     s = state()
     n = s.get("prepared_round")
     if not n:
-        print("prepareを先に実行")
+        print("No prepared round; run prepare")
         return 2
-    output = ROUNDS / f"round-{n:03d}" / "RESULT.json"
-    if not output.exists():
-        print(f"RESULT.json 未生成: {output.relative_to(ROOT)}")
+    dest = ROUNDS / f"round-{n:03d}" / "RESULT.json"
+    if not dest.exists():
+        print(f"No completed Work output yet: {dest}")
         return 2
     try:
-        payload = load(output)
-        errors = verify_result(payload, n)
-    except (ValueError, TypeError, KeyError) as exc:
-        print(f"検証失敗: {exc}")
+        result = load(dest)
+        errors = verify_result(result, n)
+    except (ValueError, KeyError, TypeError) as exc:
+        print(f"Validation failed: {exc}")
         return 2
     if errors:
-        print("検証失敗:\n- " + "\n- ".join(errors))
+        print("INVALID:\n- " + "\n- ".join(errors))
         return 2
     s["last_verified_round"] = n
     s["prepared_round"] = None
-    if not payload.get("evidence_delta") or payload["status"] in ("NEEDS_REAL_CUSTOMERS", "BLOCKED"):
+    s["model_runs"] = s.get("model_runs", 0) + 1
+    if result["status"] in ("BLOCKED", "NEEDS_REAL_CUSTOMERS") or not result.get("evidence_delta"):
         s["phase"] = "BLOCKED_REAL_CUSTOMERS"
-        s["reason"] = payload.get("stop_reason", "New customer or external evidence required")
     elif n >= config()["guardrails"]["max_rounds"]:
-        s["phase"], s["reason"] = "LIMIT_REACHED", "Max rounds reached"
+        s["phase"] = "LIMIT_REACHED"
     else:
-        s["phase"], s["reason"] = "VERIFIED", payload.get("stop_reason", "")
+        s["phase"] = "VERIFIED"
+    s["reason"] = result.get("stop_reason", "")
     save(STATE, s)
-    print(f"検証PASS: round-{n:03d}; phase={s['phase']}")
+    print(f"Verified Work output round-{n:03d}; phase={s['phase']}")
     return 0
 
-def run():
-    s = state()
-    if s["phase"] != "PREPARED" or not s.get("prepared_round"):
-        print("まずprepareを実行")
-        return 2
-    if not os.environ.get("DEEPSEEK_API_KEY"):
-        print("MODEL_NOT_STARTED: DEEPSEEK_API_KEYが未設定。Workでモデル資格情報を設定するか、DSH公式Web UIを使用してください。")
-        return 4
-    if not shutil.which("npx"):
-        print("MODEL_NOT_STARTED: npx未導入")
-        return 4
-    n = s["prepared_round"]
-    d = ROUNDS / f"round-{n:03d}"
-    prompt = (d / "REQUEST.md").read_text(encoding="utf-8")
-    print(f"公式DeepSeek Harness固定版を起動: {DSH} / round-{n:03d}")
-    try:
-        cp = subprocess.run(
-            ["npx", "--yes", DSH, "--profile", "headless", prompt],
-            cwd=ROOT.parent.parent,
-            text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-            timeout=config()["guardrails"]["max_model_call_minutes"] * 60,
-            check=False
-        )
-    except subprocess.TimeoutExpired:
-        print("モデル実行の上限時間で停止（再実行前に成果物を確認）")
-        return 5
-    # No secrets or raw prompts in committed logs. Local logs should not be committed.
-    if cp.returncode:
-        print(f"DSH終了コード: {cp.returncode}; stdout/stderrはセッション内で確認。コミットしない。")
-        return cp.returncode
-    s = state()
-    s["model_runs"] += 1
-    save(STATE, s)
-    return verify()
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["doctor", "status", "prepare", "run", "verify", "loop"])
+    parser.add_argument("command", choices=("doctor", "status", "prepare", "verify"))
     args = parser.parse_args()
     if args.command == "doctor":
         return doctor()
     if args.command == "status":
-        print(json.dumps(state(), ensure_ascii=False, indent=2))
+        print(json.dumps(state(), indent=2, ensure_ascii=False))
         return 0
     if args.command == "prepare":
         return prepare()
-    if args.command == "run":
-        return run()
     if args.command == "verify":
         return verify()
-    if args.command == "loop":
-        # Stop on first missing evidence gate rather than continually manufacturing "progress".
-        for _ in range(config()["guardrails"]["max_rounds"]):
-            if state()["phase"] != "PREPARED" and prepare():
-                return 0
-            result = run()
-            if result:
-                return result
-            if state()["phase"] in ("BLOCKED_REAL_CUSTOMERS", "LIMIT_REACHED"):
-                return 0
-        return 0
     return 2
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
