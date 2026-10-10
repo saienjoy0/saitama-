@@ -2,6 +2,8 @@
 
 **仮想シナリオに基づく条件付き算術モデルです。実際の購買確率を予測するものではありません。**
 
+2026-10-10追加：[9カード](../reports/sim-test-cards-20261010.md)／[合成入力](sim-case-fixtures-20261010.json)／[固定デモ部品検査](sim-function-results-20261010.json)／[採算の再検算](sim-economics-results-20261010.json)。再現スクリプトと対象SHAは [Codex受入条件](../SIMULATION_CODEX_ACCEPTANCE_20261010.md)に記載。部品検査は画面・実AI・家庭検証ではない。旧v1は単発も2回目後購入に限定し、前払や初回後を扱わない。独立の採算付録はv1スキーマへ入力しない。
+
 実行（リポジトリrootから）：
 
     python3 research/market-validation/simulate.py --input research/market-validation/simulation/assumptions.example.json --output research/market-validation/simulation/example_result.json
