@@ -38,6 +38,10 @@
 
 ## GitHub保存・次回入口
 
-開始時headは `c271694916971637e25c3c0131f2fc27b07d37ed`。最小read/write/readbackのprobeは `924dd0f24f64b6ae579dd12a4ca90fa652160418` で成功。成果一式はexpected head照合・非forceの一コミットで研究refへ保存する。最終コミット指定再取得・内容一致とCIの観測は、完了後にこの欄へ追記する。
+開始時headは `c271694916971637e25c3c0131f2fc27b07d37ed`。最小read/write/readbackのprobeは `924dd0f24f64b6ae579dd12a4ca90fa652160418` で成功。
+
+**成果保存・再取得は完了。** 成果一式10ファイルを [commit f714e90e7a4c7a5fcdb9037fbcd9d7b0d289abae](https://github.com/saienjoy0/saitama-/commit/f714e90e7a4c7a5fcdb9037fbcd9d7b0d289abae) にまとめ、expected headを照合した非force更新で研究refへ反映。同コミット指定で10ファイルすべて再取得し、ローカルの保存内容と完全一致を確認。変更はmarket-validation内の報告・入力・結果・入口のみ。ローカルcheckoutも同コミットと一致しcleanを確認した。
+
+同コミットの [Market validation offline guardrail #92](https://github.com/saienjoy0/saitama-/actions/runs/38025366858) と [Vendored upstream regression #3](https://github.com/saienjoy0/saitama-/actions/runs/38025366859) は、ともにcompleted/successを取得した。この完了記録はその観測後の追記。CIは既存構造・回帰の検査であり、新計算付録の式は別のローカルDecimal検査、原典の内容はWorkの本文監査。V2新RESULT専用CIや顧客需要の検証が済んだと読まない。
 
 次回は経営判断→出典→検証接続→採算→Codex指示。最優先は同意済み実家庭の残存・無料代替差・自己資金支払と原価。既存stateは変更していないため、統合成果はこの記録とGitHubコミット履歴から再開する。V2の新RESULT専用CI・可変順序・別Work再開E2Eは未実装／未受入。48回完了を宣言しない。
