@@ -3,7 +3,7 @@
 **実行担当：ChatGPT Work自身**。DeepSeekモデルもOpenAI/DeepSeek APIも使わない。元のDeepSeek Harnessはgoal / round / handoff / stopの設計の参考に限る。
 
 ### 開始ファイル
-**`research/market-validation/WORK_START.md`を入口とする。** リポジトリ `saienjoy0/saitama-`、PR #23、ブランチ `research/deepseek-market-harness-20261010`。
+**48ラウンド実行の入口は `research/market-validation/WORK48_START.md`。** `WORK_START.md`は全体総括・意思決定レポート用。 リポジトリ `saienjoy0/saitama-`、PR #23、ブランチ `research/deepseek-market-harness-20261010`。
 
 ### 現状
 - この会話内で48パスの机上演習を実施・記録。しかし**新しい48人のユーザー調査ではなく、元資料の厳密な引用監査も未完**。
