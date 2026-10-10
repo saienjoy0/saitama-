@@ -1,0 +1,494 @@
+{
+  "schema": "work48-plan-1",
+  "created": "2026-10-10",
+  "meaning": "48 distinct focus rounds, each with research→criticism→revision→audited checkpoint; not 48 model API calls or 48 customer experiments",
+  "execution": "ChatGPT Work itself",
+  "api_needed": false,
+  "independent_model_sessions_guaranteed": false,
+  "max_rounds": 48,
+  "checkpoint_each_round": true,
+  "batch_size_recommended": 4,
+  "mandatory_truth": "Do not claim a round completed unless its outcome file exists and passes structural verification. A blocked/no-new-evidence round is recorded as blocked, not validated sales.",
+  "rounds": [
+    {
+      "round": 1,
+      "stage": "SOURCE_AUDIT",
+      "title": "前回48パスの出典・主張対応",
+      "goal": "URL・日付・対象の不整合を見つけ訂正",
+      "failure_mode": "根拠が無い主張の降格",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 2,
+      "stage": "SOURCE_AUDIT",
+      "title": "最新の日本の親の金融教育課題",
+      "goal": "実際の回答設問と調査法を確認",
+      "failure_mode": "意欲と有料支払の混同",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 3,
+      "stage": "SOURCE_AUDIT",
+      "title": "子の遠慮・相談に関する先行研究",
+      "goal": "未成年本人と親の回答差を調べる",
+      "failure_mode": "他年代や海外からの外挿",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 4,
+      "stage": "SOURCE_AUDIT",
+      "title": "事業撤退例の一次事実",
+      "goal": "Goalsetter/EarlyBird/Copperの終了要因を区別",
+      "failure_mode": "撤退と買収と依存障害の混同",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 5,
+      "stage": "SOURCE_AUDIT",
+      "title": "国内類似アプリの現状",
+      "goal": "money ring/manimo等の提供価値・料金・対象",
+      "failure_mode": "機能差別化の誇張",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 6,
+      "stage": "SOURCE_AUDIT",
+      "title": "一次資料の証拠強度監査",
+      "goal": "採用/保留/棄却を決める",
+      "failure_mode": "出典なしの市場数値",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 7,
+      "stage": "CUSTOMER_JOBS",
+      "title": "P1裁量権で困る直近出来事",
+      "goal": "親の条件決定が止まった実際の場面",
+      "failure_mode": "教育理念だけの課題",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 8,
+      "stage": "CUSTOMER_JOBS",
+      "title": "P2相談摩擦の直近出来事",
+      "goal": "子の希望と親のNO/保留の経路",
+      "failure_mode": "親が相談を負担と思わない",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 9,
+      "stage": "CUSTOMER_JOBS",
+      "title": "P3親の体験準備の負担",
+      "goal": "子の現実行動に必要な親の作業",
+      "failure_mode": "むしろ親の手間が増す",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 10,
+      "stage": "CUSTOMER_JOBS",
+      "title": "P4祖父母は購入者か修飾属性か",
+      "goal": "保護者許可・孫の意思と祖父母の参加",
+      "failure_mode": "P4を独立市場と誤認",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 11,
+      "stage": "CUSTOMER_JOBS",
+      "title": "R/O/F/Bの観察可能な判定",
+      "goal": "自己申告でなく直近行動で分類",
+      "failure_mode": "面談の後付け選別",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 12,
+      "stage": "CUSTOMER_JOBS",
+      "title": "募集枠R1〜R4の対照と公平性",
+      "goal": "既存10家庭比較枠の保持",
+      "failure_mode": "有望層だけ集める選択バイアス",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 13,
+      "stage": "FREE_SUBSTITUTES",
+      "title": "口頭相談と紙の申請書",
+      "goal": "最小コストの親子相談との比較",
+      "failure_mode": "アプリの入力負荷",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 14,
+      "stage": "FREE_SUBSTITUTES",
+      "title": "定額小遣いと現金管理",
+      "goal": "運用ルールだけで解ける条件",
+      "failure_mode": "問題が既存手段で解決済み",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 15,
+      "stage": "FREE_SUBSTITUTES",
+      "title": "汎用ChatGPTとの直接比較",
+      "goal": "同じ現実課題への必要な支援差",
+      "failure_mode": "専用アプリが不要",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 16,
+      "stage": "FREE_SUBSTITUTES",
+      "title": "money ring/Greenlight/GoHenry/Spriggy",
+      "goal": "料金・決済・教育・親管理の現行差",
+      "failure_mode": "機能・地域・価格を取り違え",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 17,
+      "stage": "FREE_SUBSTITUTES",
+      "title": "無料金融教材・体験学習",
+      "goal": "J-FLEC/学校/生活の無料の方法",
+      "failure_mode": "教育効果そのものは既存",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 18,
+      "stage": "FREE_SUBSTITUTES",
+      "title": "LINE/みてね/家族会議",
+      "goal": "祖父母の近況共有の無料代替",
+      "failure_mode": "写真共有だけでは課金されない",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 19,
+      "stage": "MESSAGING_CHANNELS",
+      "title": "S1裁量権の見出し検証",
+      "goal": "どこまで任せるかという親の今の問題",
+      "failure_mode": "ルールがあるだけで困っていない",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 20,
+      "stage": "MESSAGING_CHANNELS",
+      "title": "S2言えない希望の見出し検証",
+      "goal": "買って！を言えない子との整合性",
+      "failure_mode": "親を悪者にするコピー",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 21,
+      "stage": "MESSAGING_CHANNELS",
+      "title": "S3週末体験の見出し検証",
+      "goal": "夕飯の買い物計画を初回にする可否",
+      "failure_mode": "単発レジャー顧客だけが来る",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 22,
+      "stage": "MESSAGING_CHANNELS",
+      "title": "S4祖父母ギフトの見出し検証",
+      "goal": "贈答者/使用者/保護者のズレ",
+      "failure_mode": "親子が利用しないギフト",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 23,
+      "stage": "MESSAGING_CHANNELS",
+      "title": "埼玉の実在する募集経路",
+      "goal": "紹介/保護者団体/イベントと接触許可",
+      "failure_mode": "架空の募集先や違反配信",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 24,
+      "stage": "MESSAGING_CHANNELS",
+      "title": "LPから体験申込の意思決定",
+      "goal": "広告期待値と実際のデモの一致",
+      "failure_mode": "期待だけ高める誇張表現",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 25,
+      "stage": "FIRST_USE",
+      "title": "親子初期権限合意",
+      "goal": "何円/目的/期間/承認の境界",
+      "failure_mode": "初期設定だけで面倒",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 26,
+      "stage": "FIRST_USE",
+      "title": "子どもの自発開始",
+      "goal": "親主導と子本人の希望を分ける",
+      "failure_mode": "親が促さないと開始しない",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 27,
+      "stage": "FIRST_USE",
+      "title": "AIヒントが行動を支えるか",
+      "goal": "検索/比較/相談/実行の各段階",
+      "failure_mode": "AIが答えを先に言ってしまう",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 28,
+      "stage": "FIRST_USE",
+      "title": "音声記録と新聞の記事生成",
+      "goal": "本人確認・写真/発言の出典追跡",
+      "failure_mode": "架空の発言・実現してない機能",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 29,
+      "stage": "FIRST_USE",
+      "title": "親の気づきレポート",
+      "goal": "親が実際に学ぶ新情報の有無",
+      "failure_mode": "レポートが単なる作文",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 30,
+      "stage": "FIRST_USE",
+      "title": "子のプライバシーと安全境界",
+      "goal": "共有の同意・親のNO・祖父母への非公開",
+      "failure_mode": "アプリが監視を強化する",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 31,
+      "stage": "RETENTION",
+      "title": "子の自発的な2回目",
+      "goal": "同一家庭で別の日に再開できるか",
+      "failure_mode": "一度きりで満足",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": true
+    },
+    {
+      "round": 32,
+      "stage": "RETENTION",
+      "title": "親が次も任せる行動",
+      "goal": "承認だけでなく次の裁量を設定するか",
+      "failure_mode": "次の任せ方に転移しない",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": true
+    },
+    {
+      "round": 33,
+      "stage": "RETENTION",
+      "title": "家庭内ポイントの報酬依存",
+      "goal": "ポイントなしでも実行するか",
+      "failure_mode": "ポイントだけが目的",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": true
+    },
+    {
+      "round": 34,
+      "stage": "RETENTION",
+      "title": "家族新聞とアルバム",
+      "goal": "思い出の長期価値と作業負担",
+      "failure_mode": "みてねだけで十分",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": true
+    },
+    {
+      "round": 35,
+      "stage": "RETENTION",
+      "title": "祖父母からの能動的な返信",
+      "goal": "孫の記事への反応と自分の近況共有",
+      "failure_mode": "祖父母に入力負担",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": true
+    },
+    {
+      "round": 36,
+      "stage": "RETENTION",
+      "title": "四週間後の継続理由",
+      "goal": "次月の新しい生活課題の発生",
+      "failure_mode": "単発教材とみなされる",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": true
+    },
+    {
+      "round": 37,
+      "stage": "MONEY_AND_RISK",
+      "title": "4週間¥980の支払意思と実行動",
+      "goal": "支払者と子どもへの支出を分離",
+      "failure_mode": "はいと言うだけで決済なし",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": true
+    },
+    {
+      "round": 38,
+      "stage": "MONEY_AND_RISK",
+      "title": "別の価格・無料代替とのトレードオフ",
+      "goal": "料金候補/継続条件/反証",
+      "failure_mode": "コストに見合わない",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 39,
+      "stage": "MONEY_AND_RISK",
+      "title": "AI・保管・支援の変動費",
+      "goal": "一家庭の負担と限界利益の感度分析",
+      "failure_mode": "粗利赤字",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 40,
+      "stage": "MONEY_AND_RISK",
+      "title": "顧客獲得費と経路別効率",
+      "goal": "CACは未知として閾値計算",
+      "failure_mode": "広告費がLTVを超える",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 41,
+      "stage": "MONEY_AND_RISK",
+      "title": "祖父母ギフトの季節性",
+      "goal": "年始・誕生日と月次継続を分離",
+      "failure_mode": "ギフトだけで使われない",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 42,
+      "stage": "MONEY_AND_RISK",
+      "title": "B2B等の代替収益モデル",
+      "goal": "学校/金融機関への価値と販売難易度",
+      "failure_mode": "家庭課金に拘泥する",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 43,
+      "stage": "DECISION_AND_HANDOFF",
+      "title": "16セル暫定比較の監査",
+      "goal": "過去順位を見直し逆転条件を明記",
+      "failure_mode": "弱い根拠で第一候補固定",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 44,
+      "stage": "DECISION_AND_HANDOFF",
+      "title": "販売シナリオを2案に絞る",
+      "goal": "事実が支える最小仮説の選択",
+      "failure_mode": "検討だけして決めない",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 45,
+      "stage": "DECISION_AND_HANDOFF",
+      "title": "初回体験の最低機能を決める",
+      "goal": "現行DEMOと本番機能を区別",
+      "failure_mode": "未実装を売ってしまう",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 46,
+      "stage": "DECISION_AND_HANDOFF",
+      "title": "10家庭の面談・測定計画を確定",
+      "goal": "R1〜R4と子/親/祖父母の別測定",
+      "failure_mode": "アンケート賛同だけで判断",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 47,
+      "stage": "DECISION_AND_HANDOFF",
+      "title": "撤退/継続/ピボットの判定表",
+      "goal": "測定可能な失敗条件と次の行動",
+      "failure_mode": "条件を後から都合よく変更",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    },
+    {
+      "round": 48,
+      "stage": "DECISION_AND_HANDOFF",
+      "title": "経営判断メモとWork引継ぎ",
+      "goal": "売る相手・価格・販路・体験・証拠・残論点の統合",
+      "failure_mode": "48回埋めることを目的化",
+      "required_evidence": "URL/PR/file reference + scope + date or UNVERIFIED",
+      "required_output": "new finding, adversarial objection, revised decision, next observable test, evidence grade",
+      "requires_live_customer": false
+    }
+  ]
+}
