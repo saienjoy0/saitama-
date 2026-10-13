@@ -1,0 +1,204 @@
+{
+  "schema_version": "2026-10-10-v1",
+  "question": "Which actual Japanese grade-5/6 families buy, use twice, and renew Yattemi Quest; from which channel and why?",
+  "locale": "ja-JP",
+  "region_hypothesis": "埼玉県（検証・販売地域の仮説。属性で排除しない）",
+  "validation_price": {
+    "amount_jpy": 980,
+    "period": "4 weeks",
+    "status": "hypothesis_from_product_design_not_an_actual_price"
+  },
+  "recruitment": {
+    "canonical": "research/GAKUSTA_10家庭_募集対象_最終確定_20260925.md",
+    "groups": {
+      "R1": 4,
+      "R2": 2,
+      "R3": 2,
+      "R4": 2
+    },
+    "first_five": {
+      "R1": 3,
+      "R2": 1,
+      "R3": 1
+    },
+    "note": "募集比率は本ハーネスで変更不可。R/O/F/B は事後分類"
+  },
+  "icps": [
+    {
+      "id": "P1",
+      "name": "家庭ルール＋対話可能＋直近の未解決金銭相談",
+      "who": "小5〜6の保護者。R/O/F/Bが具体的な直近行動で認められる候補（実際の面談後に判定）",
+      "trigger": "友人との外出費用、予算外の買い物・課金で説明と条件の往復が発生",
+      "pain": "親の確認・説明の負担と子の遠慮",
+      "alternatives": [
+        "口頭で話す",
+        "LINE",
+        "固定小遣い",
+        "条件付き都度払い",
+        "汎用AI"
+      ],
+      "counterexample": "ルールは厳しいがすでに相談が円滑で不満がない"
+    },
+    {
+      "id": "P2",
+      "name": "金融判断を任せたいが家庭での教え方・段階設計が止まる",
+      "who": "子に判断力をつけたい小5〜6の保護者。共働き/投資経験/年収は固定条件にしない",
+      "trigger": "教材は見たが実生活で何を任せればよいかわからない",
+      "pain": "教材の一般論から個別家庭の実行へ移せない",
+      "alternatives": [
+        "無料J-FLEC等教材",
+        "学校の学び",
+        "書籍",
+        "money ring",
+        "お小遣い帳",
+        "汎用AI"
+      ],
+      "counterexample": "無料教材と親子会話で十分"
+    },
+    {
+      "id": "P3",
+      "name": "家の買い物・料理・家事を子どもに任せたい",
+      "who": "小学5〜6の親。具体的な週末・家庭行事があり、親の準備負担を減らしたい",
+      "trigger": "子が料理や買い物のリーダーをやりたいと言った",
+      "pain": "企画・段取り・見守りと安全条件の調整",
+      "alternatives": [
+        "YouTubeレシピ",
+        "家庭科",
+        "体験教室",
+        "親が段取り",
+        "汎用AI"
+      ],
+      "counterexample": "1回は楽しくても翌週は使わない"
+    },
+    {
+      "id": "P4",
+      "name": "別居祖父母とのつながりがある親子・祖父母",
+      "who": "親が利用を認める小5〜6家庭＋任意参加の祖父母。祖父母参加は他のICPの必須条件ではない",
+      "trigger": "誕生日・お年玉・子の成長報告・祖父母自身の近況共有",
+      "pain": "孫の判断過程が見えず、互いの生活を知らせる接点が限定的かもしれない（要確認）",
+      "alternatives": [
+        "LINE",
+        "みてね",
+        "電話",
+        "お年玉の現金",
+        "Famileo"
+      ],
+      "counterexample": "無料の家族共有で十分、親の権限と衝突"
+    }
+  ],
+  "offers": [
+    {
+      "id": "O1",
+      "headline": "子どもに、どこまで任せる？",
+      "hook": "金額・用途・相談条件を親子で決めて挑戦する",
+      "payer": "保護者",
+      "first_experience": "小額の自分で決められる買い物",
+      "renewal": "次に任せる対象・期間・上限を親が確認して広げる"
+    },
+    {
+      "id": "O2",
+      "headline": "『買って！』の前に、自分で考える習慣を。",
+      "hook": "予算外の希望を本人が調べて、家族の条件と相談する",
+      "payer": "保護者",
+      "first_experience": "友達との外出など実際の予算・移動・条件を調べる",
+      "renewal": "別の相談でも親子の往復が減ったと実測できる"
+    },
+    {
+      "id": "O3",
+      "headline": "今週末、夕飯のリーダーを子どもに。",
+      "hook": "献立・在庫・価格・送迎を調べて家庭でやってみる",
+      "payer": "保護者",
+      "first_experience": "家族の夕飯づくり（親が安全と予算を決める）",
+      "renewal": "2回目の別の日常体験でも親の準備負担が小さい"
+    },
+    {
+      "id": "O4",
+      "headline": "お年玉と一緒に、自分で考える経験を贈る。",
+      "hook": "親の許可のもと祖父母が利用権ギフト、孫の成長と祖父母の近況を任意共有",
+      "payer": "祖父母（仮説。親の継続決済と分ける）",
+      "first_experience": "親子同意の後のギフト利用、共有は子の選択と親確認",
+      "renewal": "親が利用価値を認め自費継続、または祖父母が自費再購入"
+    }
+  ],
+  "metrics": [
+    "first_real_child_action",
+    "unprompted_second_action",
+    "parent_total_minutes",
+    "parent_perceived_value_compared_with_alternative",
+    "family_permission_safety",
+    "actual_paid_signup",
+    "4week_renewal",
+    "grandparent_incremental_value"
+  ],
+  "explicit_non_goals": [
+    "published conversion projections from AI personas",
+    "pretend interview answers",
+    "automated publication or messages",
+    "product BUILD authorization",
+    "children's private data",
+    "automatic credit-card or bank integration"
+  ],
+  "sources": [
+    {
+      "path": "research/GAKUSTA_初期ターゲット_家庭ルールと対話可能性_行動ベース定義_20261009.md",
+      "status": "repo_primary",
+      "purpose": "R/O/F/B and comparison"
+    },
+    {
+      "path": "research/GAKUSTA_H1相談負担_vs_H2金融判断の任せ方_顧客仮説実証調査_20261009.md",
+      "status": "repo_primary",
+      "purpose": "H1 vs H2 evidence and alternatives"
+    },
+    {
+      "path": "research/GAKUSTA_顧客層_残存ギャップ_祖父母参加効果_20261009.md",
+      "status": "repo_primary",
+      "purpose": "grandparent and residual gaps"
+    },
+    {
+      "path": "research/GAKUSTA_10家庭_募集対象_最終確定_20260925.md",
+      "status": "repo_primary",
+      "purpose": "fixed R1-R4 comparison frame"
+    },
+    {
+      "path": "current/PROJECT_STATE.json",
+      "status": "repo_primary",
+      "purpose": "DESIGN restrictions"
+    },
+    {
+      "url": "https://github.com/saienjoy0/saitama-/pull/10",
+      "status": "unmerged_spec",
+      "purpose": "v0.5 AI and family autonomy"
+    },
+    {
+      "url": "https://github.com/saienjoy0/saitama-/pull/11",
+      "status": "unmerged_spec",
+      "purpose": "28 feature development units"
+    },
+    {
+      "url": "https://github.com/saienjoy0/saitama-/pull/12",
+      "status": "unmerged_spec",
+      "purpose": "three lived-action stories"
+    },
+    {
+      "url": "https://github.com/saienjoy0/saitama-/pull/14",
+      "status": "unmerged_demo",
+      "purpose": "end-to-end synthetic family UI"
+    },
+    {
+      "url": "https://github.com/saienjoy0/saitama-/pull/21",
+      "status": "unmerged_demo",
+      "purpose": "parent private insights vs family newspaper"
+    },
+    {
+      "url": "https://github.com/deepseek-ai/deepseek-harness",
+      "status": "upstream",
+      "purpose": "official MIT plugin-based agent runtime"
+    }
+  ],
+  "limits": {
+    "max_cells_per_execute": 16,
+    "max_agent_calls": 16,
+    "max_rounds": 3,
+    "per_call_seconds": 180
+  }
+}

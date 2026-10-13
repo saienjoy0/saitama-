@@ -1,0 +1,30 @@
+name: Market harness static checks
+on:
+  pull_request:
+    paths:
+      - 'market-harness/**'
+      - '.agents/skills/yattemi-market-validation-harness/**'
+      - '.github/workflows/market-harness-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile Python runner and tests
+        run: python3 -m compileall -q market-harness
+      - name: Test without external API or child data
+        run: python3 -m unittest discover -s market-harness/tests -v
+      - name: Begin bounded offline evidence audit (16 cells)
+        run: python3 market-harness/runner.py prepare --repo .
+      - name: Verify all 16 templates were created
+        shell: bash
+        run: |
+          test "$(find market-harness/runs/.local -path '*/prompts/P*-O*.md' -type f | wc -l)" -eq 16
+          echo 'OFFLINE_PREPARE_OK: model not launched, no external credentials'

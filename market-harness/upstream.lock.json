@@ -1,0 +1,14 @@
+{
+  "upstream": "https://github.com/deepseek-ai/deepseek-harness",
+  "upstream_commit": "d743267388641bc76f17c45ce8b4c231aed1d32c",
+  "upstream_release": "0.2.1-alpha.2",
+  "npm_package": "@deepseek-ai/dsh",
+  "npm_version": "0.2.1-alpha.2",
+  "license": "MIT",
+  "verified_on": "2026-10-10",
+  "integration": "external official CLI, installed separately; no vendored files in this PR",
+  "install_hint": "npm install -g @deepseek-ai/dsh@0.2.1-alpha.2",
+  "source_hint": "git clone https://github.com/deepseek-ai/deepseek-harness.git && cd deepseek-harness && git checkout d743267388641bc76f17c45ce8b4c231aed1d32c",
+  "upstream_stability": "developer preview; check npm publication and API compatibility before installing",
+  "security": "no credentials or unreviewed plugins committed to this repo"
+}
