@@ -1,0 +1,258 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ResearchSpec",
+  "description": "Planner output specification for the deep research harness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "topic",
+    "dimensions",
+    "audience",
+    "depth",
+    "outputFormat",
+    "successCriteria",
+    "artifactPlan"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "2.0"
+    },
+    "topic": {
+      "type": "string",
+      "minLength": 5,
+      "description": "The refined research topic"
+    },
+    "dimensions": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 8,
+      "items": {
+        "$ref": "#/$defs/dimension"
+      }
+    },
+    "audience": {
+      "$ref": "#/$defs/audience"
+    },
+    "depth": {
+      "type": "string",
+      "enum": ["sprint", "full"],
+      "description": "sprint = quick validation; full = comprehensive"
+    },
+    "outputFormat": {
+      "$ref": "#/$defs/outputFormat"
+    },
+    "successCriteria": {
+      "$ref": "#/$defs/successCriteria"
+    },
+    "artifactPlan": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": {
+        "$ref": "#/$defs/artifact"
+      }
+    },
+    "constraints": {
+      "$ref": "#/$defs/constraints"
+    }
+  },
+  "$defs": {
+    "dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "question",
+        "priority",
+        "subquestions",
+        "search_keywords"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^dim_[0-9]{3}$"
+        },
+        "question": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Specific research question for this dimension"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["must-have", "should-have", "nice-to-have"]
+        },
+        "subquestions": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "type": "string",
+            "minLength": 5
+          },
+          "description": "2-4 sub-questions to ensure depth"
+        },
+        "search_keywords": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 6,
+          "items": {
+            "type": "string",
+            "minLength": 3
+          },
+          "description": "3-6 search queries for Scout to use on this dimension"
+        }
+      }
+    },
+    "audience": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "context"],
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["beginner", "intermediate", "expert"]
+        },
+        "context": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Who reads this and why"
+        }
+      }
+    },
+    "outputFormat": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sections", "maxWords", "citationStyle"],
+      "properties": {
+        "sections": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "type": "string",
+            "minLength": 3
+          }
+        },
+        "maxWords": {
+          "type": "integer",
+          "minimum": 500,
+          "maximum": 20000
+        },
+        "citationStyle": {
+          "type": "string",
+          "enum": ["inline"]
+        }
+      }
+    },
+    "successCriteria": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "passThreshold",
+        "mustAddressPriorities",
+        "citationCoverage",
+        "artifactCompleteness",
+        "preserveWhatsGoodOnRevision"
+      ],
+      "properties": {
+        "passThreshold": {
+          "type": "number",
+          "minimum": 1.0,
+          "maximum": 5.0
+        },
+        "mustAddressPriorities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": ["must-have", "should-have", "nice-to-have"]
+          }
+        },
+        "citationCoverage": {
+          "type": "string",
+          "enum": [
+            "all-non-common-knowledge-claims",
+            "all-material-claims",
+            "high-risk-claims"
+          ]
+        },
+        "artifactCompleteness": {
+          "type": "string",
+          "enum": [
+            "all-required-artifacts",
+            "all-required-artifacts-substantive"
+          ]
+        },
+        "preserveWhatsGoodOnRevision": {
+          "type": "boolean"
+        }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "purpose", "placement", "sourceDimensions"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^artifact_[0-9]{2}$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "evidence_table",
+            "comparison_matrix",
+            "tradeoff_matrix",
+            "risk_matrix",
+            "timeline",
+            "decision_checklist"
+          ]
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 10
+        },
+        "placement": {
+          "type": "string",
+          "enum": ["executive_summary", "dimension_section", "appendix"]
+        },
+        "sourceDimensions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^dim_[0-9]{3}$"
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "excludeSources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "requireSources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "language": {
+          "type": "string",
+          "minLength": 2,
+          "default": "en"
+        }
+      }
+    }
+  }
+}

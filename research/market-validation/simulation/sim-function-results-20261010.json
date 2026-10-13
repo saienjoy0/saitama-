@@ -1,0 +1,286 @@
+{
+  "date": "2026-10-10",
+  "source_type": "SYNTHETIC_DESIGN_TEST",
+  "not_a_forecast": true,
+  "observed_households": 0,
+  "observed_payments": 0,
+  "source_repository": "saienjoy0/saitama-",
+  "source_pr": 14,
+  "source_commit": "2a850fc3ab71b987a17655d517397993e830419e",
+  "source_path": "docs/review/family-ui-handoff-20261008/index.html",
+  "source_sha256": "0e35b849b7f680826850b2134158c49c644fb710070069437e8ad58aef94bfba",
+  "extracted_source_sha256": "577f598deba854680dbbf6a94b98610d68e0df2d80d69b5c25ee47c67d1cd964",
+  "runtime": "v24.19.0",
+  "probes": [
+    {
+      "case_id": "A-N",
+      "execution_type": "EXECUTED_FUNCTION_TEST",
+      "state": {
+        "phase": "jobs",
+        "facts": {
+          "wish": "週末に文具を自分で買いたい。予算500円で400円と500円の二つを比べたい"
+        },
+        "factSources": {},
+        "turns": [],
+        "done": false,
+        "pendingExecution": null
+      },
+      "result": {
+        "say": "自分でやってみたいことを受け取ったよ。今は家族がどう分担しているか聞いてみよう。",
+        "title": "今の家の仕事を聞こう",
+        "card": "<div class=\"tile\"><strong>本人の希望</strong>週末に文具を自分で買いたい。予算500円で400円と500円の二つを比べたい</div><div class=\"actionbox\"><b>🏃 アプリの外でやってみよう</b><div>家族に、夕飯前の仕事を誰がしているか聞く</div></div>",
+        "next": [
+          "母が在庫を確認して、父が買い物をしていると聞いた",
+          "まだ家族に聞いていない"
+        ],
+        "phase": "jobs",
+        "extra": ""
+      },
+      "expected_behavior": "文具の同じ目的・価格・必要性を整理し、本人が調べて選べる。夕飯や家事へ置換しない。紙で十分なら終了",
+      "expectation_assessment": "MANUAL_COMPARE_WITH_CARD",
+      "scope": "simpleOther only; initial state is synthetic. send/appendTurn/DOM/permissions/whole flow not executed."
+    },
+    {
+      "case_id": "A-R",
+      "execution_type": "EXECUTED_FUNCTION_TEST",
+      "state": {
+        "phase": "choice",
+        "facts": {
+          "termsText": "親に相談した。予算上限500円。800円の商品は今回は買わないと言われた"
+        },
+        "factSources": {},
+        "turns": [],
+        "done": false,
+        "pendingExecution": null
+      },
+      "result": {
+        "say": "これははるちゃんが聞いた条件だよ。保護者の確認はまだ。自分もこの条件でよいか確かめて、最初の挑戦を選んでね。",
+        "title": "本人が条件と最初の一歩を選ぶ",
+        "card": "<div class=\"tile\"><strong>親から聞いた条件（未確認）</strong>親に相談した。予算上限500円。800円の商品は今回は買わないと言われた</div><div class=\"actionbox\"><b>🏃 アプリの外でやってみよう</b><div>条件で困ることがないか話し、最初の挑戦を選ぶ</div></div>",
+        "next": [
+          "この約束でいい。まず家の仕事を調べてみたい",
+          "別の挑戦を考えたい"
+        ],
+        "phase": "choice",
+        "extra": ""
+      },
+      "expected_behavior": "明示NOと300円不足を保つ。説得の再試行を促さず、今回は終了又は本人が希望した場合のみ予算内別案/次機会を残す。親未承認のまま実行・報酬・共有しない",
+      "expectation_assessment": "MANUAL_COMPARE_WITH_CARD",
+      "scope": "simpleOther only; initial state is synthetic. send/appendTurn/DOM/permissions/whole flow not executed."
+    },
+    {
+      "case_id": "A-Z",
+      "execution_type": "EXECUTED_FUNCTION_TEST",
+      "state": {
+        "phase": "jobs",
+        "facts": {
+          "wish": "今月ほしいものはない。今日はやらない"
+        },
+        "factSources": {},
+        "turns": [],
+        "done": false,
+        "pendingExecution": null
+      },
+      "result": {
+        "say": "自分でやってみたいことを受け取ったよ。今は家族がどう分担しているか聞いてみよう。",
+        "title": "今の家の仕事を聞こう",
+        "card": "<div class=\"tile\"><strong>本人の希望</strong>今月ほしいものはない。今日はやらない</div><div class=\"actionbox\"><b>🏃 アプリの外でやってみよう</b><div>家族に、夕飯前の仕事を誰がしているか聞く</div></div>",
+        "next": [
+          "母が在庫を確認して、父が買い物をしていると聞いた",
+          "まだ家族に聞いていない"
+        ],
+        "phase": "jobs",
+        "extra": ""
+      },
+      "expected_behavior": "何も始めず終了/保留できる。家事や宿題を代わりに作らない。次イベント未定を更新理由にしない",
+      "expectation_assessment": "MANUAL_COMPARE_WITH_CARD",
+      "scope": "simpleOther only; initial state is synthetic. send/appendTurn/DOM/permissions/whole flow not executed."
+    },
+    {
+      "case_id": "B-N",
+      "execution_type": "EXECUTED_FUNCTION_TEST",
+      "state": {
+        "phase": "jobs",
+        "facts": {
+          "wish": "1500円の趣味の本を買いたい。自分のお金は1000円。親は追加500円を相談してよいと言った。いつ買うかの確認が二往復している"
+        },
+        "factSources": {},
+        "turns": [],
+        "done": false,
+        "pendingExecution": null
+      },
+      "result": {
+        "say": "自分でやってみたいことを受け取ったよ。今は家族がどう分担しているか聞いてみよう。",
+        "title": "今の家の仕事を聞こう",
+        "card": "<div class=\"tile\"><strong>本人の希望</strong>1500円の趣味の本を買いたい。自分のお金は1000円。親は追加500円を相談してよいと言った。いつ買うかの確認が二往復している</div><div class=\"actionbox\"><b>🏃 アプリの外でやってみよう</b><div>家族に、夕飯前の仕事を誰がしているか聞く</div></div>",
+        "next": [
+          "母が在庫を確認して、父が買い物をしていると聞いた",
+          "まだ家族に聞いていない"
+        ],
+        "phase": "jobs",
+        "extra": ""
+      },
+      "expected_behavior": "既知の不足500円と未決の日時を分け、合意条件を一度で確認できる形へ。追加許可は親自身が確認。自分で買える別案も残す",
+      "expectation_assessment": "MANUAL_COMPARE_WITH_CARD",
+      "scope": "simpleOther only; initial state is synthetic. send/appendTurn/DOM/permissions/whole flow not executed."
+    },
+    {
+      "case_id": "B-R",
+      "execution_type": "EXECUTED_FUNCTION_TEST",
+      "state": {
+        "phase": "choice",
+        "facts": {
+          "termsText": "親に相談した。今月の家計に余裕はなく追加のお金は出せない。予算1000円で1500円の本は買わない"
+        },
+        "factSources": {},
+        "turns": [],
+        "done": false,
+        "pendingExecution": null
+      },
+      "result": {
+        "say": "これははるちゃんが聞いた条件だよ。保護者の確認はまだ。自分もこの条件でよいか確かめて、最初の挑戦を選んでね。",
+        "title": "本人が条件と最初の一歩を選ぶ",
+        "card": "<div class=\"tile\"><strong>親から聞いた条件（未確認）</strong>親に相談した。今月の家計に余裕はなく追加のお金は出せない。予算1000円で1500円の本は買わない</div><div class=\"actionbox\"><b>🏃 アプリの外でやってみよう</b><div>条件で困ることがないか話し、最初の挑戦を選ぶ</div></div>",
+        "next": [
+          "この約束でいい。まず家の仕事を調べてみたい",
+          "別の挑戦を考えたい"
+        ],
+        "phase": "choice",
+        "extra": ""
+      },
+      "expected_behavior": "買えない条件を維持して停止。説得・借入・家事と追加小遣いの交換を提案しない。家計明細を要求しない",
+      "expectation_assessment": "MANUAL_COMPARE_WITH_CARD",
+      "scope": "simpleOther only; initial state is synthetic. send/appendTurn/DOM/permissions/whole flow not executed."
+    },
+    {
+      "case_id": "B-Z",
+      "execution_type": "EXECUTED_FUNCTION_TEST",
+      "state": {
+        "phase": "jobs",
+        "facts": {
+          "wish": "定額1000円とLINE一往復で相談は済んでいる。今の方法で十分なのでアプリは不要"
+        },
+        "factSources": {},
+        "turns": [],
+        "done": false,
+        "pendingExecution": null
+      },
+      "result": {
+        "say": "自分でやってみたいことを受け取ったよ。今は家族がどう分担しているか聞いてみよう。",
+        "title": "今の家の仕事を聞こう",
+        "card": "<div class=\"tile\"><strong>本人の希望</strong>定額1000円とLINE一往復で相談は済んでいる。今の方法で十分なのでアプリは不要</div><div class=\"actionbox\"><b>🏃 アプリの外でやってみよう</b><div>家族に、夕飯前の仕事を誰がしているか聞く</div></div>",
+        "next": [
+          "母が在庫を確認して、父が買い物をしていると聞いた",
+          "まだ家族に聞いていない"
+        ],
+        "phase": "jobs",
+        "extra": ""
+      },
+      "expected_behavior": "適合しないと扱い終了。重複記録・移行・追加課題を求めない",
+      "expectation_assessment": "MANUAL_COMPARE_WITH_CARD",
+      "scope": "simpleOther only; initial state is synthetic. send/appendTurn/DOM/permissions/whole flow not executed."
+    },
+    {
+      "case_id": "C-N",
+      "execution_type": "EXECUTED_FUNCTION_TEST",
+      "state": {
+        "phase": "jobs",
+        "facts": {
+          "wish": "授業で比較を習った。夕飯の買い物を自分でやりたい。4人分の買い足しはA店980円、B店920円。予算1000円で親と一緒に買って作る"
+        },
+        "factSources": {},
+        "turns": [],
+        "done": false,
+        "pendingExecution": null
+      },
+      "result": {
+        "say": "自分でやってみたいことを受け取ったよ。今は家族がどう分担しているか聞いてみよう。",
+        "title": "今の家の仕事を聞こう",
+        "card": "<div class=\"tile\"><strong>本人の希望</strong>授業で比較を習った。夕飯の買い物を自分でやりたい。4人分の買い足しはA店980円、B店920円。予算1000円で親と一緒に買って作る</div><div class=\"actionbox\"><b>🏃 アプリの外でやってみよう</b><div>家族に、夕飯前の仕事を誰がしているか聞く</div></div>",
+        "next": [
+          "母が在庫を確認して、父が買い物をしていると聞いた",
+          "まだ家族に聞いていない"
+        ],
+        "phase": "jobs",
+        "extra": ""
+      },
+      "expected_behavior": "当日の在庫・必要量は未確認として本人が確認し、同条件の差60円を比較。親と条件を確認し実際の一件へ。学習画面の完了を現実行動にしない",
+      "expectation_assessment": "MANUAL_COMPARE_WITH_CARD",
+      "scope": "simpleOther only; initial state is synthetic. send/appendTurn/DOM/permissions/whole flow not executed."
+    },
+    {
+      "case_id": "C-R",
+      "execution_type": "EXECUTED_FUNCTION_TEST",
+      "state": {
+        "phase": "jobs",
+        "facts": {
+          "wish": "親は講座の後に買い物をしてほしいと言うけれど、自分は興味がない。今日はやらない"
+        },
+        "factSources": {},
+        "turns": [],
+        "done": false,
+        "pendingExecution": null
+      },
+      "result": {
+        "say": "自分でやってみたいことを受け取ったよ。今は家族がどう分担しているか聞いてみよう。",
+        "title": "今の家の仕事を聞こう",
+        "card": "<div class=\"tile\"><strong>本人の希望</strong>親は講座の後に買い物をしてほしいと言うけれど、自分は興味がない。今日はやらない</div><div class=\"actionbox\"><b>🏃 アプリの外でやってみよう</b><div>家族に、夕飯前の仕事を誰がしているか聞く</div></div>",
+        "next": [
+          "母が在庫を確認して、父が買い物をしていると聞いた",
+          "まだ家族に聞いていない"
+        ],
+        "phase": "jobs",
+        "extra": ""
+      },
+      "expected_behavior": "子本人の不参加を受け止め終了。親の学習目標を子の希望として保存しない。催促やポイントで参加を作らない",
+      "expectation_assessment": "MANUAL_COMPARE_WITH_CARD",
+      "scope": "simpleOther only; initial state is synthetic. send/appendTurn/DOM/permissions/whole flow not executed."
+    },
+    {
+      "case_id": "C-Z",
+      "execution_type": "EXECUTED_FUNCTION_TEST",
+      "state": {
+        "phase": "jobs",
+        "facts": {
+          "wish": "教材と紙で比較して買い物と振り返りまでできている。追加のアプリは不要"
+        },
+        "factSources": {},
+        "turns": [],
+        "done": false,
+        "pendingExecution": null
+      },
+      "result": {
+        "say": "自分でやってみたいことを受け取ったよ。今は家族がどう分担しているか聞いてみよう。",
+        "title": "今の家の仕事を聞こう",
+        "card": "<div class=\"tile\"><strong>本人の希望</strong>教材と紙で比較して買い物と振り返りまでできている。追加のアプリは不要</div><div class=\"actionbox\"><b>🏃 アプリの外でやってみよう</b><div>家族に、夕飯前の仕事を誰がしているか聞く</div></div>",
+        "next": [
+          "母が在庫を確認して、父が買い物をしていると聞いた",
+          "まだ家族に聞いていない"
+        ],
+        "phase": "jobs",
+        "extra": ""
+      },
+      "expected_behavior": "追加価値なしとして終了。既存行動を当社サービスの成果や有料継続需要に付け替えない",
+      "expectation_assessment": "MANUAL_COMPARE_WITH_CARD",
+      "scope": "simpleOther only; initial state is synthetic. send/appendTurn/DOM/permissions/whole flow not executed."
+    }
+  ],
+  "browser": {
+    "status": "BLOCKED_ENVIRONMENT",
+    "executed_ui_tests": 0,
+    "reason": "Playwright chromium.launch failed: executable missing at /root/.cache/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell"
+  },
+  "paper": {
+    "status": "SPEC_WALKTHROUGH",
+    "executed_household_tests": 0
+  },
+  "general_ai": {
+    "status": "NOT_EXECUTED",
+    "provider_api_calls": 0
+  },
+  "competitors": {
+    "status": "SPEC_WALKTHROUGH",
+    "executed_app_tests": 0
+  },
+  "warning": "No child response, completion time, preference, repeat use or purchase is inferred from these functions."
+}

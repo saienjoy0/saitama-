@@ -1,0 +1,162 @@
+"""API-free structural checks for the Work-native marketing research harness."""
+import importlib.util
+import io
+import pathlib
+import tempfile
+import unittest
+from contextlib import redirect_stdout
+from unittest.mock import patch
+
+ROOT = pathlib.Path(__file__).resolve().parent
+SPEC = importlib.util.spec_from_file_location("market_validation_harness", ROOT / "harness.py")
+h = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(h)
+
+
+def cells():
+    return [
+        {
+            "profile_id": p["id"], "message_id": s["id"],
+            "buyer": "親か祖父母（要証明）",
+            "trigger": "直近の家庭での未解決の出来事",
+            "closest_substitute": "口頭相談",
+            "likely_objection": "無料の方法で十分では？",
+            "retention_test": "子の自発的な2回目",
+            "evidence_level": "SYNTHETIC",
+            "source_ids": [],
+            "counterfactual": "親子で紙・口頭で十分なら購入しない",
+            "next_test": "直近の家庭行動を本人に聞き、同じ課題を比較試用",
+        }
+        for p in h.config()["household_profiles"]
+        for s in h.config()["sales_messages"]
+    ]
+
+
+def payload():
+    return {
+        "round": 1, "status": "NEEDS_REAL_CUSTOMERS",
+        "evidence_delta": [], "sources": [],
+        "cells": cells(),
+        "critical_objections": [
+            "親が本当に支払う理由がない",
+            "子どもが2回目にアプリを開かない",
+            "親の承認の手間が口頭より増える",
+        ],
+        "recommendation": "S2の具体的な直近相談を最優先で観察し、S1/S3を対照として比較する。",
+        "real_customer_tests": [
+            "直近90日の相談例と使った代替手段を確認",
+            "同一課題で口頭メモとデモを比較",
+            "親の実際の有料契約行動を確認",
+        ],
+        "stop_reason": "No observed purchase behavior",
+    }
+
+
+class WorkHarnessTests(unittest.TestCase):
+    def test_no_api_or_deepseek_model_dependency(self):
+        config = h.config()
+        self.assertEqual(config["harness"]["execution_surface"], "ChatGPT Work")
+        self.assertFalse(config["harness"]["model_api_required"])
+        self.assertFalse(config["harness"]["deepseek_model_used"])
+        self.assertFalse(config["harness"]["deepseek_harness_runtime_executed"])
+        with redirect_stdout(io.StringIO()) as out:
+            self.assertEqual(h.doctor(), 0)
+        self.assertTrue(h.config()["guardrails"]["no_model_api"])
+        self.assertNotIn("DEEPSEEK_API_KEY", out.getvalue())
+        self.assertNotIn("npx", out.getvalue())
+
+    def test_exactly_16_cells(self):
+        self.assertEqual(len(h.expected_pairs()), 16)
+        self.assertIn(("P2", "S2"), h.expected_pairs())
+        self.assertIn(("P4", "S4"), h.expected_pairs())
+
+    def test_valid_needs_real_customers(self):
+        self.assertEqual(h.verify_result(payload(), 1), [])
+
+    def test_missing_or_duplicate_cell_fails(self):
+        body = payload()
+        body["cells"][1] = body["cells"][0]
+        self.assertTrue(h.verify_result(body, 1))
+
+    def test_unobserved_completed_sales_fails(self):
+        body = payload()
+        body["status"] = "COMPLETE"
+        body["evidence_delta"] = [{"source_id": "fake", "new_fact": "unverified synthetic persona"}]
+        self.assertTrue(h.verify_result(body, 1))
+
+    def test_observed_sales_not_invented(self):
+        body = payload()
+        body["observed_paid_conversions"] = 5
+        self.assertTrue(h.verify_result(body, 1))
+
+    def test_work_prompt_is_explicit(self):
+        prompt = h.build_prompt(1)
+        for text in ("ChatGPT Work", "16条件", "R/O/F/B", "P4×S4", "RESULT.json"):
+            self.assertIn(text, prompt)
+        self.assertNotIn("DEEPSEEK_API_KEY", prompt)
+        self.assertNotIn("npx", prompt)
+
+    def test_work_prepares_without_model_call(self):
+        with tempfile.TemporaryDirectory() as d:
+            folder = pathlib.Path(d)
+            with patch.object(h, "STATE", folder / "state.json"), patch.object(h, "ROUNDS", folder / "rounds"):
+                h.save(h.STATE, h.default_state())
+                with redirect_stdout(io.StringIO()):
+                    self.assertEqual(h.prepare(), 0)
+                self.assertTrue((h.ROUNDS / "round-001" / "REQUEST.md").exists())
+                self.assertEqual(h.state()["phase"], "HANDOFF_READY")
+                with redirect_stdout(io.StringIO()):
+                    self.assertEqual(h.verify(), 2)  # Work has not written RESULT yet.
+
+    def test_completed_48_passes_are_unique_and_evidence_bounded(self):
+        report = h.load(ROOT / "rounds" / "48_desk_passes_20261010.json")
+        self.assertEqual(report["completed_review_passes"], 48)
+        self.assertEqual(len(report["passes"]), 48)
+        self.assertEqual(report["work_runs"], 0)
+        self.assertEqual(report["human_interviews"], 0)
+        self.assertEqual(report["observed_purchases"], 0)
+        self.assertEqual(report["outcome"], "NEEDS_REAL_CUSTOMERS")
+        unique = {(p["profile_id"], p["message_id"], p["phase"]) for p in report["passes"]}
+        self.assertEqual(len(unique), 48)
+        expected = {(p, s, phase)
+                    for p, s in h.expected_pairs()
+                    for phase in ("discover", "falsify", "revise")}
+        self.assertEqual(unique, expected)
+        self.assertEqual(sorted(p["id"] for p in report["passes"]), list(range(1, 49)))
+        for entry in report["passes"]:
+            self.assertTrue(entry["claim"])
+            self.assertTrue(entry["opposing_explanation"])
+            self.assertTrue(entry["outcome"])
+            self.assertTrue(entry["evidence_refs"])
+
+    def test_source_reference_must_exist_and_source_structure_accurate(self):
+        body = payload()
+        body["cells"][0]["evidence_level"] = "VERIFIED_PUBLIC"
+        body["cells"][0]["source_ids"] = ["unregistered"]
+        self.assertTrue(h.verify_result(body, 1))
+        body["sources"] = [{"id": "unregistered", "title": "Example", "url": "https://example.org",
+                            "claim": "Source is only illustrative", "checked_on": "2026-10-10",
+                            "limitations": "Not a market representative study",
+                            "source_status": "WORK_VERIFIED_PRIMARY"}]
+        self.assertEqual(h.verify_result(body, 1), [])
+
+    def test_no_source_evidence_delta_invalid(self):
+        body = payload()
+        body["status"] = "RESEARCHED"
+        body["evidence_delta"] = [{"source_id": "nonexistent", "new_fact": "Claim"}]
+        self.assertTrue(h.verify_result(body, 1))
+
+    def test_decision_reports_required_by_work_verify(self):
+        with tempfile.TemporaryDirectory() as d:
+            with patch.object(h, "ROOT", pathlib.Path(d)):
+                self.assertEqual(len(h.check_reports()), 3)
+
+    def test_api_runner_commands_absent(self):
+        source = (ROOT / "harness.py").read_text(encoding="utf-8")
+        self.assertNotIn("subprocess.run", source)
+        self.assertNotIn("DEEPSEEK_API_KEY", source)
+        self.assertIn('("doctor", "status", "prepare", "verify")', source)
+
+
+if __name__ == "__main__":
+    unittest.main()

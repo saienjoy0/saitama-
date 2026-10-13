@@ -1,0 +1,27 @@
+{
+  "id": "codex-research-harness-v1",
+  "prompt": "For a small engineering team building long-running Codex workflows, compare a skill-orchestrated isolated-agent harness with a single-agent workflow. Use current official OpenAI documentation and Anthropic's harness-design article, identify when an independent evaluator is worth its cost, and produce a recommendation with an evidence table and risk matrix.",
+  "baseline": {
+    "instructions": "Run in a fresh Codex task without invoking deep-research-harness. Allow normal web tools and ask for one final report."
+  },
+  "harness": {
+    "instructions": "Run the identical prompt in a fresh Codex task with deep-research-harness explicitly invoked.",
+    "interrupt_after": "all round-1 Scout artifacts validate and before Writer starts",
+    "resume_instruction": "Resume the recorded task_id and finish the research run."
+  },
+  "acceptance": {
+    "run_validation_exit": 0,
+    "unknown_citation_count": 0,
+    "duplicate_role_after_resume_count": 0,
+    "minimum_citation_audit_coverage": 0.2,
+    "required_terminal_status": "completed",
+    "minimum_harness_human_score_gain": 0.5
+  },
+  "human_score_weights": {
+    "source_accuracy": 0.3,
+    "analytical_depth": 0.25,
+    "completeness": 0.2,
+    "actionability": 0.15,
+    "clarity": 0.1
+  }
+}

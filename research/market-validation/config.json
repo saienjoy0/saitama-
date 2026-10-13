@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.1",
+  "created_on": "2026-10-10",
+  "harness": {
+    "name": "ChatGPT Work native market-validation workflow",
+    "execution_surface": "ChatGPT Work",
+    "model": "ChatGPT (the Work session model)",
+    "model_api_required": false,
+    "deepseek_model_used": false,
+    "deepseek_harness_runtime_executed": false,
+    "inspiration": "DeepSeek Harness goal/round/handoff/stop-gate patterns; adapted to Work tools and repository state, not a literal DSH runtime",
+    "source_reference": "https://github.com/deepseek-ai/deepseek-harness",
+    "execution_trigger": "Start a ChatGPT Work task pointing to WORK_START.md",
+    "autonomous_scope": "within a user-started Work task, bounded by evidence gate, rounds, and user confirmations"
+  },
+  "guardrails": {
+    "max_rounds": 3,
+    "no_paid_actions": true,
+    "no_external_contact": true,
+    "no_customer_data": true,
+    "require_human_for_publication": true,
+    "max_work_iterations_per_round": 3,
+    "no_model_api": true,
+    "no_provider_credentials": true,
+    "require_evidence_delta_for_next_round": true,
+    "no_background_processing_claims": true,
+    "max_desk_review_passes": 48,
+    "desk_pass_definition": "16 distinct P×S cells × 3 phases: discover, falsify, revise (not 48 new primary datasets)",
+    "max_roles_in_sequence": 4,
+    "require_human_readable_evidence_audit": true,
+    "require_real_customer_proof_for_selling_claims": true,
+    "max_rounds_description": "Legacy 16-cell synthesis rounds only. The 48 distinct ChatGPT Work review rounds are managed separately by work48.py and work48_plan.json."
+  },
+  "household_profiles": [
+    {
+      "id": "P1",
+      "name": "任せ方に迷う親",
+      "definition": "小5〜6。親は裁量を渡したいが具体的な対象・条件・金額に迷う。親自身の未解決課題を確認する。"
+    },
+    {
+      "id": "P2",
+      "name": "相談摩擦のある親子",
+      "definition": "R/O/F/Bは面談後に判定。直近1〜3か月の買い物/お小遣い相談、本人の遠慮、親の改善意欲を別々に確認する。"
+    },
+    {
+      "id": "P3",
+      "name": "体験の準備負担がある親",
+      "definition": "家の仕事・買い物・料理を子に任せたいが、親の時間/準備が制約。実際の代替手段を確認する。"
+    },
+    {
+      "id": "P4",
+      "name": "別居祖父母参加可能な家庭",
+      "definition": "親の利用意向と本人の共有意向を前提に、祖父母が受動閲覧と能動近況投稿で価値を得るかを検証。祖父母課金は別仮説。"
+    }
+  ],
+  "sales_messages": [
+    {
+      "id": "S1",
+      "name": "任せる範囲",
+      "headline": "子どもに、どこまで任せる？",
+      "buyer": "親"
+    },
+    {
+      "id": "S2",
+      "name": "金銭相談",
+      "headline": "『買って！』の前に、自分で考える",
+      "buyer": "親"
+    },
+    {
+      "id": "S3",
+      "name": "週末夕飯",
+      "headline": "今週末、夕飯を子どもに任せてみませんか？",
+      "buyer": "親"
+    },
+    {
+      "id": "S4",
+      "name": "祖父母ギフト",
+      "headline": "お年玉に『自分で考える経験』を添える",
+      "buyer": "祖父母（親の利用許可が条件）"
+    }
+  ],
+  "result_required_fields": [
+    "round",
+    "status",
+    "evidence_delta",
+    "sources",
+    "cells",
+    "critical_objections",
+    "recommendation",
+    "real_customer_tests",
+    "stop_reason"
+  ],
+  "cell_required_fields": [
+    "profile_id",
+    "message_id",
+    "buyer",
+    "trigger",
+    "closest_substitute",
+    "likely_objection",
+    "retention_test",
+    "evidence_level",
+    "source_ids",
+    "counterfactual",
+    "next_test"
+  ],
+  "statuses": [
+    "RESEARCHED",
+    "NEEDS_REAL_CUSTOMERS",
+    "BLOCKED",
+    "COMPLETE"
+  ],
+  "evidence_levels": [
+    "VERIFIED_PUBLIC",
+    "REPOSITORY_DESIGN",
+    "OBSERVED_CUSTOMER",
+    "INFERENCE",
+    "SYNTHETIC",
+    "UNVERIFIED"
+  ],
+  "repo_anchor_paths": [
+    "research/GAKUSTA_初期ターゲット_家庭ルールと対話可能性_行動ベース定義_20261009.md",
+    "research/GAKUSTA_H1相談負担_vs_H2金融判断の任せ方_顧客仮説実証調査_20261009.md",
+    "research/GAKUSTA_顧客層_残存ギャップ_祖父母参加効果_20261009.md",
+    "research/GAKUSTA_10家庭_募集対象_最終確定_20260925.md"
+  ],
+  "test_price_jpy_per_four_weeks": 980,
+  "segment_model": {
+    "P1_P2_P3": "overlapping jobs to be done; do not sum as separate market sizes",
+    "P4": "grandparent participation / gift-payer modifier, not an independent mutually exclusive segment",
+    "cross_product": "analysis grid only, not a 16-market TAM model"
+  },
+  "source_required_fields": [
+    "id",
+    "title",
+    "url",
+    "claim",
+    "checked_on",
+    "limitations",
+    "source_status"
+  ],
+  "source_statuses": [
+    "WORK_VERIFIED_PRIMARY",
+    "WORK_VERIFIED_SECONDARY",
+    "REPOSITORY_REFERENCE",
+    "INHERITED_NOT_RECHECKED",
+    "UNVERIFIED"
+  ],
+  "required_reports": [
+    "reports/work-decision-memo.md",
+    "reports/evidence-audit.md",
+    "reports/experiment-plan.md"
+  ],
+  "first_run_rule": "Complete source audit and decision outputs once even if new externally verifiable data are unavailable; subsequent iterations need new evidence or observed user data.",
+  "status_meanings": {
+    "RESEARCHED": "Desk research outputs validated; no real sales claims",
+    "NEEDS_REAL_CUSTOMERS": "Desk outputs finished, key business claim still needs observed user/payment behavior",
+    "BLOCKED": "Research access/evidence cannot resolve core uncertainty",
+    "COMPLETE": "Only when observed customer/action evidence justifies claimed business result"
+  },
+  "work48": {
+    "plan_file": "work48_plan.json",
+    "state_file": "work48_state.json",
+    "work_entry": "WORK48_START.md",
+    "checkpoint_tool": "work48.py",
+    "round_count": 48,
+    "recommended_batch_size": 4,
+    "requires_work_to_be_started_by_user": true,
+    "can_run_work_model_from_python": false
+  }
+}

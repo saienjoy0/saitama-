@@ -1,0 +1,350 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvaluationResult",
+  "description": "Evaluator output for a single research draft round",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "draft_id",
+    "iteration",
+    "timestamp",
+    "overall_score",
+    "pass",
+    "pass_threshold",
+    "criteria",
+    "gates",
+    "calibration",
+    "defects",
+    "weak_dimensions",
+    "citation_audit",
+    "verdict",
+    "summary"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "2.0"
+    },
+    "draft_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "iteration": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "overall_score": {
+      "type": "number",
+      "minimum": 1.0,
+      "maximum": 5.0,
+      "description": "Weighted average after any score cap is applied"
+    },
+    "pass": {
+      "type": "boolean"
+    },
+    "pass_threshold": {
+      "type": "number",
+      "minimum": 1.0,
+      "maximum": 5.0
+    },
+    "criteria": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_quality",
+        "analytical_depth",
+        "structural_coherence",
+        "completeness",
+        "actionability",
+        "original_insight",
+        "clarity"
+      ],
+      "properties": {
+        "source_quality": {
+          "$ref": "#/$defs/criterion"
+        },
+        "analytical_depth": {
+          "$ref": "#/$defs/criterion"
+        },
+        "structural_coherence": {
+          "$ref": "#/$defs/criterion"
+        },
+        "completeness": {
+          "$ref": "#/$defs/criterion"
+        },
+        "actionability": {
+          "$ref": "#/$defs/criterion"
+        },
+        "original_insight": {
+          "$ref": "#/$defs/criterion"
+        },
+        "clarity": {
+          "$ref": "#/$defs/criterion"
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_validity",
+        "dimension_coverage",
+        "citation_coverage",
+        "artifact_completeness",
+        "feedback_compliance"
+      ],
+      "properties": {
+        "schema_validity": {
+          "$ref": "#/$defs/gate"
+        },
+        "dimension_coverage": {
+          "$ref": "#/$defs/gate"
+        },
+        "citation_coverage": {
+          "$ref": "#/$defs/gate"
+        },
+        "artifact_completeness": {
+          "$ref": "#/$defs/gate"
+        },
+        "feedback_compliance": {
+          "$ref": "#/$defs/gate"
+        }
+      }
+    },
+    "calibration": {
+      "$ref": "#/$defs/calibration"
+    },
+    "defects": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/$defs/defect"
+      }
+    },
+    "weak_dimensions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^dim_[0-9]{3}$"
+      }
+    },
+    "citation_audit": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_id", "claim_location", "status", "notes"],
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "pattern": "^dim_[0-9]{3}-src-[0-9]{3}$"
+          },
+          "claim_location": {
+            "type": "string",
+            "minLength": 3
+          },
+          "status": {
+            "type": "string",
+            "enum": ["supported", "partial", "unsupported", "unreachable"]
+          },
+          "notes": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    },
+    "verdict": {
+      "type": "string",
+      "enum": ["PASS", "REVISE", "REJECT"]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10
+    }
+  },
+  "$defs": {
+    "criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["score", "weight", "weighted", "reasoning"],
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "weight": {
+          "type": "number"
+        },
+        "weighted": {
+          "type": "number",
+          "description": "score multiplied by weight"
+        },
+        "reasoning": {
+          "type": "string",
+          "minLength": 10
+        }
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "evidence"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["pass", "fail", "not_applicable"]
+        },
+        "evidence": {
+          "type": "string",
+          "minLength": 5
+        }
+      }
+    },
+    "calibration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_average",
+        "defect_count",
+        "weakest_criterion",
+        "weakest_score",
+        "score_spread",
+        "criteria_at_or_below_2",
+        "high_score_defenses",
+        "score_cap_applied",
+        "score_cap_value",
+        "score_cap_reason"
+      ],
+      "properties": {
+        "raw_average": {
+          "type": "number",
+          "minimum": 1.0,
+          "maximum": 5.0
+        },
+        "defect_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "weakest_criterion": {
+          "type": "string",
+          "enum": [
+            "source_quality",
+            "analytical_depth",
+            "structural_coherence",
+            "completeness",
+            "actionability",
+            "original_insight",
+            "clarity"
+          ]
+        },
+        "weakest_score": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "score_spread": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "criteria_at_or_below_2": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        "high_score_defenses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["criterion", "defense"],
+            "properties": {
+              "criterion": {
+                "type": "string",
+                "enum": [
+                  "source_quality",
+                  "analytical_depth",
+                  "structural_coherence",
+                  "completeness",
+                  "actionability",
+                  "original_insight",
+                  "clarity"
+                ]
+              },
+              "defense": {
+                "type": "string",
+                "minLength": 10
+              }
+            }
+          }
+        },
+        "score_cap_applied": {
+          "type": "boolean"
+        },
+        "score_cap_value": {
+          "type": ["number", "null"],
+          "minimum": 1.0,
+          "maximum": 5.0
+        },
+        "score_cap_reason": {
+          "type": "string",
+          "minLength": 5
+        }
+      }
+    },
+    "defect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "severity",
+        "criterion",
+        "draft_section",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["high", "medium", "low"]
+        },
+        "criterion": {
+          "type": "string",
+          "enum": [
+            "schema_validity",
+            "dimension_coverage",
+            "citation_coverage",
+            "artifact_completeness",
+            "feedback_compliance",
+            "source_quality",
+            "analytical_depth",
+            "structural_coherence",
+            "completeness",
+            "actionability",
+            "original_insight",
+            "clarity"
+          ]
+        },
+        "draft_section": {
+          "type": "string",
+          "minLength": 3
+        },
+        "description": {
+          "type": "string",
+          "minLength": 10
+        }
+      }
+    }
+  }
+}
